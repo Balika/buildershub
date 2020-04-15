@@ -1,0 +1,36 @@
+<section class="sec-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>{{isOwnProfile ? "Your Work Experience" : requestedProfile.firstname ~ " Work Experience"}} 
+                    {% if isOwnProfile %}
+                         <a class="btn btn-tiny border border-cyan xround-1 pull-right" href="{{path('account_settings', {'tab':'personal-details', 'sub':'experience'})}}"><span class="fa fa-plus"> Add Experience</span></a>
+
+                        {% endif %}
+                </h4>              
+                <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+                     {% if workExperience|length > 0 %}
+                    <ul class="list-2 bg-light">
+                        {% for experience in workExperience %}
+                            <li style="width: 100%">
+                                <div class="imgbox-small left"><img src="{{asset('images/design/cat-toolbox.png')}}" class="img-responsive"/> </div>
+                                <div class="text-box-right">
+                                    <h5 class="nopadding title"><a href="#">{{experience.jobTitle}}</a></h5>
+                                    <p class="padding-top-1"> 
+                                        <span class="text-gray"><a href="#">{{experience.placeOfWork}}</a></span>
+                                        <span class="text-success pull-right">{{experience.startDate|date('M') ~ ' ' ~ experience.startDate|date('Y')}} - {{experience.isPresent ? "Present" : experience.endDate|date('M') ~' '~experience.endDate|date('Y')}}</span>
+                                    </p>
+                                </div>
+                            </li>
+                        {% endfor %}                        
+                    </ul>
+                     {% else %}
+                        <div class="alert alert-info">
+                            <strong>No Work Experience Shared!</strong>  {{requestedProfile.firstname}} has no yet shared any work experience on <a href="#">BuildersHub</a>                           
+                        </div>
+                    {% endif  %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,78 @@
+<div class="form-group">
+    <label>Property Name</label>
+    {{form_widget(form.name, { 'attr': {class: 'form-control',  placeholder: ' Enter Product Name', } })}}
+</div>
+<div class="form-group">
+    <label>Slug</label>
+    {{form_widget(form.slug, { 'attr': {class: 'form-control',  placeholder: ' ', } })}}
+    <p class="help-block">The “slug” is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers and hyphens</p>
+</div>
+<div class="form-group">
+    <label>Proprty Type</label>
+    {{form_widget(form.buildingType, { 'attr': {class: 'form-control',   } })}}
+    <p class="help-block">The general category this property fall under</p>
+</div>
+<div class="form-group col-md-6">
+    <label>Region Located</label>
+    {{form_widget(form.region, { 'attr': {class: 'form-control',   } })}}
+    
+</div>
+<div class="form-group col-md-6">
+    <label>Town Located</label>
+    {{form_widget(form.town, { 'attr': {class: 'form-control',   } })}}
+    
+</div>
+<div class="form-group">
+    <label>Specific Area Located</label>
+    {{form_widget(form.subLocation, { 'attr': {class: 'form-control',   } })}}
+    
+</div>
+<div class="form-group">
+    <label>Description</label>
+    {{ form_widget(form.description,{ 'attr': {class: 'form-control',  placeholder: ' ', rows:5} }) }}
+</div>    
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h4 class="box-title">Property Details</h4>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div><!-- /.box-tools -->
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="form-group col-md-6">
+            <label>No. of Bedrooms </label>
+            {{form_widget(form.bedrooms, { 'attr': {class: 'form-control',   } })}}           
+        </div>
+        <div class="form-group col-md-6">
+            <label>No. of Bathrooms</label>
+            {{form_widget(form.bathrooms, { 'attr': {class: 'form-control',   } })}}          
+        </div>
+        <div class="form-group col-md-6">
+            <label>Parkings Spaces</label>
+            {{form_widget(form.parkingLots, { 'attr': {class: 'form-control',   } })}}
+            <p class="help-block">How many cars can be parked at the same time</p>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Neighbouhood Type</label>
+            {{form_widget(form.neighbourhood, { 'attr': {class: 'form-control',   } })}}
+            <p class="help-block">A description the area this facility is located </p>
+        </div>
+        <div class="form-group col-md-8">
+            <label>Total Area</label>
+            {{form_widget(form.area, { 'attr': {class: 'form-control',   } })}}
+        </div>
+        <div class="form-group col-md-4">
+            <label>Units</label>           
+            {{form_widget(form.unit, { 'attr': {class: 'form-control',   } })}}           
+        </div>
+        <div class="form-group ">            
+            {{form_widget(form.isAvailable, { 'attr': {class: 'flat-red',   } })}}
+            <label>Is Property Available?</label>
+        </div>
+        <div class="form-group">  
+            <label>Units Available</label>
+            {{form_widget(form.availableUnits, { 'attr': {class: 'form-control',   } })}}
+        </div>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+

@@ -1,0 +1,32 @@
+#Vich Uploader
+vich_uploader:
+    db_driver: orm
+    storage: gaufrette
+
+    mappings:
+        uploaded_photo:
+            uri_prefix: ~
+            upload_destination: filesystem_aws_s3_images
+            namer:             
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'fileName'} 
+            delete_on_remove: true
+            delete_on_update: true
+                
+        uploaded_photo_2:
+            uri_prefix:   ~
+            upload_destination: filesystem_aws_s3_images
+            namer:             
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'cover'} 
+            delete_on_remove: true
+            delete_on_update: true
+                   
+        uploaded_document:
+            uri_prefix:        ~
+            upload_destination: filesystem_aws_s3_documents
+            namer:             
+                service: Vich\UploaderBundle\Naming\PropertyNamer
+                options: { property: 'documentName'} 
+            
+       

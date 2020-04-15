@@ -1,0 +1,102 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="active"> Orders Placed</li>
+   {% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-1"></div>       
+        <div class="col-md-12">
+            <div class="box box-default box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Latest Orders</h3>
+                    <div class="box-tools pull-right">
+                        <ul style="list-style: none">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle btn btn-success btn-sm" data-toggle="dropdown" href="#" style="color:white">
+                                    <strong> Actions</strong> <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" style="list-style: none">                                    
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Mark as Pending</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Mark as Delivered</a></li>                                   
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Mark Cancelled</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div id="orders">   
+                        <div class="row" style="font-weight: bolder" id="header">
+                            <div class="col-md-3">Order Number</div>
+                            <div class="col-md-1">
+                                Order Date
+                            </div>
+                            <div class="col-md-1">
+                                No. of Items
+                            </div>
+                            <div class="col-md-2">Customer</div>
+                            <div class="col-md-2">Sub Total (GH¢)</div>
+                            <div class="col-md-1">Tax (GH¢)</div>
+                            <div class="col-md-1">Total</div>                           
+                        </div>
+                        <hr/>
+                        {% for order in orders %}                                    
+                            <div class="row" id="order" style="background:{{loop.index is not divisible by(2)? '#ddd'}}; padding: 10px 5px 15px 5px">
+                                <div class="col-md-3" id="showItems"><a href="{{order.id}}" ><i class="fa fa-plus"></i></a>  <a href="#">{{order.orderId}}</a></div>
+                                <div class="col-md-1">
+                                    {{order.createdAt|date('m/d/Y')}}
+                                </div>
+                                <div class="col-md-1">
+                                    <span>{{order.quantity}}</span>
+                                </div>
+                                <div class="col-md-2"><span class="label label-success">{{order.customer.firstname ~ ' ' ~order.customer.lastname ~ ' ( '~order.customer.contactNo ~' )'}}</span></div>
+                                <div class="col-md-2"><span>{{order.subTotal|number_format(2, '.',',')}}</span></div>
+                                <div class="col-md-1"><span>{{order.tax|number_format(2, '.',',')}}</span></div>
+                                <div class="col-md-1"><span class="label label-primary">GH¢{{order.total|number_format(2, '.',',')}}</span></div>                                
+                            </div>                              
+                            <div class="row" style="display: none" id="orderItemsRow{{order.id}}">
+                                <div class="col-md-12">                                            
+                                    {% include 'store/admin/includes/order.items.table.html.twig' %}                                           
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <!--<a href="javascript::;" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>-->
+                    <div class="pagination pagination-sm no-margin pull-right">                        
+                             
+                    </div>
+                </div><!-- /.box-footer -->
+            </div><!-- /.box -->
+        </div>
+        <div class="col-md-1"></div>        
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <!-- DataTables -->
+
+    <script>
+        $(function () {
+            $('#orders').delegate('div#showItems a', 'click', function (e) {
+                e.preventDefault();
+                var id = $(this).attr('href');
+                $('#orderItemsRow' + id).toggle('slow');
+                var text = $(this).html();
+                if (text === '<i class="fa fa-plus"></i>') {
+                    $('div#order').find('a:first').html('<i class="fa fa-plus"></i>');
+                    $(this).html('<i class="fa fa-minus"></i>');
+                } else {
+                    $(this).html('<i class="fa fa-plus"></i>');
+                }
+                $('#orderItemsRow' + id).siblings('div:not(#order, #header)').hide();
+            });
+        });
+
+    </script>
+{% endblock javascripts %}

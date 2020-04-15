@@ -1,0 +1,25 @@
+# KnpGaufretteBundle Configuration
+knp_gaufrette:
+    stream_wrapper:
+        protocol: gaufrette
+        filesystems:
+            image_fs: filesystem_aws_s3_images
+    adapters:
+        # Local adapter
+        adapter_aws_s3_images:
+            local:
+                directory: '%kernel.root_dir%/../public/uploads/images'
+                create:     true
+        adapter_aws_s3_documents:
+            local:
+                directory: '%kernel.root_dir%/../public/uploads/documents'
+                create:     true
+
+    filesystems:
+        filesystem_aws_s3_images:
+            adapter: adapter_aws_s3_images
+        filesystem_aws_s3_documents:
+            adapter: adapter_aws_s3_documents
+    
+        
+    

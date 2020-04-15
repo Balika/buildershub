@@ -1,0 +1,38 @@
+<li style="width: 33%"> <a href="#">Building Materials & Supplies</a> <span class="arrow"></span>
+    <ul>
+        {% for category in materialCategories|slice(0, 7) %}
+            <li> <a href="{{path('category_view',{'slug':category.slug})}}" target="_blank" title="{{category}}"><i class="fa fa-angle-right"></i>&nbsp; {{category|length > 20 ? category|slice(0,20)~'...': category}}</a> </li>
+            {% endfor %}
+    </ul>
+    <p align="right">
+        <a rel="nofollow" href="{{path('store_index')}}" class="animated-button thar-one font-weight-7 lspace-6" target="_blank"> Visit Store</a>
+    </p>
+</li>
+<li  style="width: 33%"> <a href="#">Construction Equipment & Parts </a> <span class="arrow"></span>
+    <ul>
+        {% for category in equipmentCategories %}
+            <li> <a href="{{path('category_view',{'slug':category.slug})}}" target="_blank" title="{{category}}"><i class="fa fa-angle-right"></i>&nbsp; {{category|length > 20 ? category|slice(0,20)~'...': category}}</a> </li>
+                {% for subCat in category.subCategories|slice(0, 2) %}
+                <li> <a href="{{path('category_view',{'slug':subCat.slug})}}" target="_blank" title="{{subCat}}"><i class="fa fa-angle-right"></i>&nbsp; {{subCat|length > 20 ? subCat|slice(0,20)~'...': subCat}}</a> </li>
+                {% endfor %}
+            {% endfor %}
+    </ul>
+    <p align="right">
+        <a rel="nofollow" href="{{path('register_store')}}" class="animated-button thar-one font-weight-7 lspace-6" target="_blank"> List your Store</a>
+    </p>
+</li>     
+<li  style="width: 33%"> <a href="{{path('estates_index')}}" target="_blank">Estate & Properties</a> <span class="arrow"></span>
+    <ul>
+        <li> <a href="{{path('list_estates', {"page":"for-rent"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Houses for Rents</a> </li>
+        <li> <a href="{{path('list_estates', {"page":"for-sale"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Estates for Sale</a> </li>
+        <li> <a href="{{path('list_estates', {"page":"commercial-properties"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Commercial Properties</a> </li>
+        <li> <a href="{{path('list_estates', {"page":"gated-communities"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Gated Communities</a> </li>
+        <li> <a href="{{path('list_estates', {"page":"suites-and-villas"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Suites & Villas</a> </li>
+        <li> <a href="{{path('list_estates', {"page":"commercial-properties"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Commercial Properties</a> </li>
+        <li> <a href="{{path('list_estates', {"page":"gated-communities"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Gated Communities</a> </li>          
+    </ul>
+    <p align="right">
+        <a rel="nofollow" href="{{path('register_store', {'type':'property'})}}" class="animated-button thar-one font-weight-7 lspace-6" target="_blank"> Advertise Properties</a>
+    </p>
+</li>    
+

@@ -1,0 +1,127 @@
+<div class="frm-row">
+    <div class="section col-md-12">
+        <label class="label">Project Name</label>
+        <label class="field prepend-icon">
+            {{form_widget(form.projectName, {'attr': {placeholder:"Enter project name", class:'gui-input' } } )}}   
+            <span class="field-icon"><i class="fa fa-list"></i></span>
+        </label>
+    </div>
+    <div class="section col-md-12">
+        <label class="label">Diary entry name</label>
+        <label class="field prepend-icon">
+            {{form_widget(form.entryName, {'attr': {class:"gui-input", placeholder:"Type diary summary..." } } )}}
+            <span class="field-icon"><i class="fa fa-file-o"></i></span>
+        </label>
+    </div><!-- end section -->
+    <div class="section col-md-12">
+        <label class="label">Project Activity</label>
+        <label class="field prepend-icon">
+            {{form_widget(form.activity, {'attr': {placeholder:"Enter activities for the day", class:'gui-textarea' } } )}}   
+            <span class="field-icon"><i class="fa fa-pencil"></i></span>
+            <span class="input-hint"> <strong>Hint:</strong> Give a brief description of the project</span>   
+        </label>
+    </div>
+    <div class="section col-md-6">
+        <label class="label">Location</label>
+        <label class="field prepend-icon">
+            {{form_widget(form.location, {'attr': {placeholder:"Enter project location", class:'gui-input' } } )}}   
+            <span class="field-icon"><i class="fa fa-list"></i></span>
+        </label>
+    </div>
+    <div class="section col-md-6">
+        <label class="label">Coordinates</label>
+        <label class="select-box-2 prepend-icon">
+            {{form_widget(form.latLong, {'attr': {placeholder:"Select site coordinates", class:'gui-input' } } )}}   
+            <span class="field-icon"><i class="fa fa-list"></i></span>
+        </label>
+    </div>
+</div>
+<div class="frm-row">
+    <div class="section colm colm12">
+        <label class="label">Shift Name</label>
+        <label class="field prepend-icon">
+            {{form_widget(form.shiftName, {'attr': {placeholder:"Enter shift name: eg. Afternoon Shift", class:'gui-input' } } )}}   
+            <span class="field-icon"><i class="fa fa-list"></i></span>
+        </label>
+    </div>
+
+    <div class="section colm colm6">
+        <label class="label">Shift Start</label>
+        <label for="timepicker1" class="field prepend-icon">
+            {{form_widget(form.shiftStart, {'attr': {placeholder:"Enter shift start", class:'gui-input' } } )}}   
+            <span class="field-icon"><i class="fa fa-clock-o"></i></span>  
+        </label>
+    </div><!-- end section -->
+    <div class="section colm colm6">
+        <label class="label"> Shift End</label>
+        <label for="timepicker2" class="field prepend-icon">
+            {{form_widget(form.shiftEnd, {'attr': {placeholder:"Select shift end", class:'gui-input', } } )}}   
+            <span class="field-icon"><i class="fa fa-clock-o"></i></span>  
+        </label>
+    </div><!-- end section -->
+</div><!-- end .frm-row section -->
+<div class="frm-row">
+
+    <div class="section col-md-12">
+        <label class="label">Site Conditions</label>
+        <label class="field prepend-icon">
+            {{form_widget(form.siteConditions, {'attr': {placeholder:"Enter site conditions", class:'gui-input' } } )}}   
+            <span class="field-icon"><i class="fa fa-list"></i></span>
+        </label>
+    </div>
+    <div class="section col-md-6">
+        <label class="label">Weather</label>
+        <label class="field prepend-icon">
+            {{form_widget(form.weather, {'attr': {placeholder:"Enter weather details", class:'gui-input' } } )}}   
+            <span class="field-icon"><i class="fa fa-list"></i></span>
+        </label>
+    </div>
+    <div class="section col-md-6">
+        <label class="label">Rainfall (mm)</label>
+        <label class="select-box-2 prepend-icon">
+            {{form_widget(form.rainfall, {'attr': {placeholder:"Enter rainfall data", class:'gui-input'  } } )}}   
+            <span class="field-icon"><i class="fa fa-list"></i></span>
+        </label>
+    </div>
+    <div class="section col-md-12">
+        <label class="label">Safeguards</label>
+        <label class="field prepend-icon">
+            {{form_widget(form.safeGuards, {'attr': {placeholder:"Enter safety, environmental or other safeguards issues", class:'gui-textarea' } } )}}   
+            <span class="field-icon"><i class="fa fa-list"></i></span>
+            <span class="input-hint"> <strong>Hint:</strong> Give a brief description of the project</span>   
+        </label>
+    </div>
+    <div class="section col-md-12">
+         <label class="label">Display Photo</label>
+        <label class="field prepend-icon file">
+            <span class="button"> Upload Photo </span>
+            {{form_widget(form.photo, {'attr':{class:'gui-file', 'readonly':true, placeholder:'no file selected', onChange:"document.getElementById('photo').value = this.value;"} })}}               
+            <input type="text" class="gui-input" id="photo" placeholder="no file selected" readonly>
+            <span class="field-icon"><i class="fa fa-upload"></i></span>
+        </label>      
+    </div>
+    <div class="section col-md-6">
+         <label class="label">More Pictures <small>( You can upload multiples photos here)</small></label>
+        <label class="field prepend-icon file">
+            <span class="button"> More Pictures </span>
+            {{form_widget(form.gallery, {'attr':{class:'gui-file',  'readonly':true, placeholder:'no file selected', onChange:"document.getElementById('gallery').value = this.value;"} })}}               
+            <input type="text" class="gui-input" id="gallery" placeholder="no file selected" readonly>
+            <span class="field-icon"><i class="fa fa-upload"></i></span>
+        </label>
+    </div>
+    <div class="section col-md-6">
+        <label class="label">Short Video <small>( Should not exceed 50MB)</small></label>        
+        <label class="field prepend-icon file">
+            <span class="button btn-primary"> Upload Video </span>
+            {{form_widget(form.video, {'attr':{class:'gui-file',  'readonly':true, placeholder:'no file selected', onChange:"document.getElementById('video').value = this.value;"} })}}               
+            <input type="text" class="gui-input" id="video" placeholder="no file selected" readonly>
+             <span class="field-icon"><i class="fa fa-vimeo"></i></span>
+        </label>
+        
+    </div>   
+</div>
+{{ form_row(form._token) }}              
+<div class="form-footer text-right">                          
+    <button class="btn btn-primary btn-small" type="submit" >Save Entry</button>
+</div>
+{{ form_end(form, {'render_rest': false}) }} 

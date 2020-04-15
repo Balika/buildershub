@@ -1,0 +1,31 @@
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+    <div class="col-md-12">
+        <div id="postFormHolder" style="display:none">
+            <div>
+                {% include 'firms/profile/includes/post.form.html.twig' %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <h4>
+                    {{firm}} Posts
+                    <small style="display:block; font-size: 0.5em">Create and share stories with your profile viewers. Give people a reason to do business with you</small>
+                </h4>
+            </div>
+            <div class="col-md-4">
+                <div id="post-grid-container">
+                    <div class="cbp-item">     
+                        <a  class="btn btn-small btn-success xround-1 cbp-singlePage" href="#postFormHolder" ><span class="fa fa-pencil"> Write New Post</span></a>                                
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <div class="col-divider-margin-1"></div>
+        <div class="divider-line solid light"></div>  
+        <div class="col-divider-margin-1"></div>  
+        <div class="row">
+            {% include 'firms/profile/includes/post.list.html.twig' %}
+         </div>
+    </div>
+</div>
+

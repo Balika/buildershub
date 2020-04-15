@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="{{asset('js/smart-forms/smart-forms.css')}}">
+<div class="smart-wrap">
+    <div class="smart-forms smart-container transparent wrap-0">
+        {{form_start(form, {method:'POST', action:path('hubernize_promote_rental_ad', {'id':rentalAd.id}), 'attr':{id:'rental-ad-promo-form', autocomplete:'off'} })}}
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            <h4 class="modal-title" id="myModalLabel"> <span style="color: green"><strong> You are promoting {{rentalAd}}</strong></span> </h4>
+        </div>             
+        <div class="modal-body">
+            <div class="section">
+                <label>Promo Amount <small>(Amount in GHc you wish to spend - <span class="text-danger"> the higher the amount, the more visibility the ad gets</span>)</small></label>
+                <label class="field prepend-icon">
+                    {{form_widget(form.promoAmount, {'attr':{class:'gui-input', placeholder:'Promo Spending'} })}}
+                    <span class="field-icon"><i class="fa fa-pencil"></i></span> 
+                </label>
+            </div><!-- end section -->                     
+            <div class="section colm colm6">
+                <label class="label">Promo Start</label>
+                <label for="timepicker1" class="field prepend-icon">
+                    {{form_widget(form.promoStartDate, {'attr': {placeholder:"Enter promo start date", class:'gui-input' } } )}}   
+                    <span class="field-icon"><i class="fa fa-clock-o"></i></span>  
+                </label>
+            </div><!-- end section -->
+            <div class="section colm colm6">
+                <label class="label"> Promo End</label>
+                <label for="timepicker2" class="field prepend-icon">
+                    {{form_widget(form.promoEndDate, {'attr': {placeholder:"Enter promo end date", class:'gui-input', } } )}}   
+                    <span class="field-icon"><i class="fa fa-clock-o"></i></span>  
+                </label>
+            </div><!-- end section -->
+        </div>
+        <div class="form-footer">
+            <a href="#" class="button btn-default pull-left" data-dismiss="modal">Cancel</a>
+            <button type="submit" class="button btn-success pull-right">Apply Promo</button>
+        </div><!-- end .form-footer section -->
+        {{form_widget(form._token)}}
+        {{form_end(form, {'render_rest':false})}}
+    </div>
+</div>
+<script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-custom.min.js')}}"></script>
+<script>
+    $("#rental_ad_promo_promoStartDate").datepicker({
+        defaultDate: "today",
+        changeMonth: false,
+        numberOfMonths: 1,
+        dateFormat: "yy-mm-dd",
+        prevText: '<i class="fa fa-chevron-left"></i>',
+        nextText: '<i class="fa fa-chevron-right"></i>',
+        onClose: function (selectedDate) {
+            $("#rental_ad_promo_promoEndDate").datepicker("option", "minDate", selectedDate);
+        }
+    });
+    $("#rental_ad_promo_promoEndDate").datepicker({
+        defaultDate: "today",
+        changeMonth: false,
+        numberOfMonths: 1,
+        dateFormat: "yy-mm-dd",
+        prevText: '<i class="fa fa-chevron-left"></i>',
+        nextText: '<i class="fa fa-chevron-right"></i>',
+        onClose: function (selectedDate) {
+            $("#rental_ad_promo_promoStartDate").datepicker("option", "maxDate", selectedDate);
+        }
+    });
+</script>
+

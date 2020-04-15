@@ -1,0 +1,39 @@
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+<div class="col-md-12">
+    <h5><i class="fa fa-clock-o"></i><strong> <span  class="text-success">{{firm}}</span> History & Vision</strong></h5>
+    <div class="title_small_line"></div>
+    <div class="accordion_holder">
+        <div class="accordion_example1"> 
+            <!-- Section 1 -->
+            <div class="accordion_in acc_active">
+                <div class="acc_head"><strong>Brief History</strong></div>
+                <div class="acc_content">
+                    <p> 
+                        {{firm.history}} 
+                    </p>  
+                    <br/>
+                    <ul class="iconlist">
+                        <!--<li><i class="fa fa-long-arrow-right"></i> &nbsp; Some key points </li>-->                        
+                    </ul>
+                </div>
+            </div>
+            <!-- Section 2 -->
+            <div class="accordion_in acc_active">
+                <div class="acc_head"><strong>Vision Statment</strong></div>
+                <div class="acc_content"> {{firm.vision}} </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="accordion_in acc_active">
+                <div class="acc_head"><strong>Mission Statement</strong></div>
+                <div class="acc_content">{{firm.mission}}  </div>
+            </div>
+            <br/>
+            <br/>
+            <a class="btn btn-orange-2 dark btn-round" href="#">Read more</a>
+        </div>
+    </div>
+    <!-- Accordion end --> 
+</div>
+</div>
+

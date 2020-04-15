@@ -1,0 +1,39 @@
+<div class="form-group">
+    <label>Email Address / Phone No <i class="text-danger">*</i></label>
+    {{form_widget(form.username, {'attr':{class:'form-control', placeholder:"Enter email or phone number"} })}}
+</div>
+<div class="form-group">
+    <label for="username">First Name <i class="text-danger">*</i></label>
+    {{form_widget(form.firstname, {'attr':{class:'form-control', placeholder:"Enter firstsname"} })}}
+</div>
+<div class="form-group">
+    <label for="username">Last Name <i class="text-danger">*</i></label>
+    {{form_widget(form.lastname, {'attr':{class:'form-control', placeholder:"Enter lastname"} })}}
+</div>
+<div class="form-group">
+    <label for="password">Password <i class="text-danger">*</i></label>
+    {{form_widget(form.password.first, {'attr':{class:'form-control', placeholder:"Password"} })}}               
+</div>
+<div class="form-group">
+    <label for="confirm-password">Confirm password <i class="text-danger">*</i></label>
+    {{form_widget(form.password.second, {'attr':{class:'form-control', placeholder:"Confirm Password"} })}}
+</div>
+<!--<div class="form-group">
+    <label>Company Name <small><i class="text-danger">You can add one later</i></small></label>
+    {#form_widget(form.companyName, {'attr':{class:'form-control', placeholder:"Enter company/store name"} })#}
+</div>-->
+
+<div class="form-group">                   
+    {{form_widget(form.agreeTerms)}}
+    <label>I agree to BuildersHub <a href="#">Terms & Conditions</a> </label>
+</div>
+<div class="form-group">
+    <div class="row">                       
+        <div class="col-md-6">
+            <a href="{{path('security_login_form')}}" class="btn btn-default pull-left">Back to Login</a> 
+        </div>
+        <div class="col-md-6">
+            <input type="submit" name="register-submit"  class="btn btn-success pull-right" value="Register Now">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,392 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"  href="{{asset('js/smart-forms/smart-addons.css')}}">
+{% endblock %}
+{% block  content %}
+    {% include "security/in.page.login.html.twig" %}    
+    <section class="sec-padding section-light hide">
+        <div class="container-fluid">
+            <div class="row">             
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1 animate-in" data-anim-type="fade-in-up" data-anim-delay="300">
+                        <div class="text-box padding-2 text-center"> <span class="icon-browser icon-plain-small text-secondary margin-bottom-1"></span>
+                            <h5 class="font-weight-6 margin-bottom-1">Create <br />
+                                Beautiful Sites</h5>
+                            <p>We need sure generate the internet to repeat predefine the centuries internet.</p>
+                        </div>
+                    </div>
+                </div>
+                <!--end item-->
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1 animate-in" data-anim-type="fade-in-left" data-anim-delay="300">
+                        <div class="text-box padding-2 text-center"> <span class="icon-camera icon-plain-small text-secondary margin-bottom-1"></span>
+                            <h5 class="font-weight-6 margin-bottom-1">Portfolio <br />
+                                for Your Works</h5>
+                            <p>We need sure generate the internet to repeat predefine the centuries internet.</p>
+                        </div>
+                    </div>
+                </div>
+                <!--end item-->
+
+                <div class="col-md-4 col-sm-6 col-xs-12">
+                    <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1 animate-in" data-anim-type="fade-in-up" data-anim-delay="300">
+                        <div class="text-box padding-2 text-center"> <span class="icon-browser icon-plain-small text-secondary margin-bottom-1"></span>
+                            <h5 class="font-weight-6 margin-bottom-1">Create <br />
+                                Beautiful Sites</h5>
+                            <p>We need sure generate the internet to repeat predefine the centuries internet.</p>
+                        </div>
+                    </div>
+                </div>
+                <!--end item
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1 animate-in" data-anim-type="fade-in-right" data-anim-delay="300">
+                        <div class="text-box padding-2 text-center"> <span class="icon-global icon-plain-small text-secondary margin-bottom-1"></span>
+                            <h5 class="font-weight-6 margin-bottom-1">Share Your <br />
+                                Passion to World</h5>
+                            <p>We need sure generate the internet to repeat predefine the centuries internet.</p>
+                        </div>
+                    </div>
+                </div>
+                <!--end item--> 
+            </div>
+        </div>
+    </section>
+    <!-- end section -->
+    <div class="clearfix"></div>
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+                        <h4 class="text-gyellow">
+                            <a class="btn btn-tiny btn-primary round"  href="{{previousPage}}"><span class="fa fa-chevron-left"> Back</span></a>
+                            <strong>Post a project</strong>
+                        </h4>
+                        <p>
+                            Attract the best <strong><a  href="#">Professionals</a></strong> and <a href="#"><strong>Artisans</strong></a> to help execute your <strong>new projects</strong> or <strong>repair/renovate a broken 
+                                property</strong>. Add project details and <a href="#">BuildersHub</a> will help you get the experts!
+                        </p>
+                        <a href="#" data-smart-modal="#login-dialog" class="smartforms-modal-trigger hide" id="inpage-login-dialog-btn"> Login</a>
+                        {% if not isSuccess %}
+                            <div class="smart-wrap">
+                                <div class="smart-forms smart-container transparent wrap-full">
+                                    <div class="form-body smart-steps steps-progress steps-theme-primary">
+                                        {% if project != null and project.id > 0 %}
+                                            {{ form_start(form, {'method': 'post', 'action': path('add_project',{'id': project.id }), 'attr': {'class': 'projectForm', 'id':"project-form"} }) }}
+                                        {% else %}
+                                            {{ form_start(form, {'method': 'post', 'action': path('add_project'), 'attr': {'class': 'projectForm', 'id':"project-form"} }) }}
+                                        {% endif %}
+                                        <h2>Project Details</h2>
+                                        <fieldset>
+                                            {% include 'projects/includes/project.info.fields.html.twig' %}
+                                        </fieldset>
+
+                                        <h2>Expertise Required</h2>
+                                        <fieldset>
+                                            <div class="section">
+                                                <p class="small-text fine-grey">Technical people required for your project </p>
+                                            </div>
+                                            {% include 'projects/includes/expertise.required.html.twig' %}                                      
+                                        </fieldset>                            
+                                        <h2>Your Details</h2>
+                                        <fieldset id="user-details">                                       
+                                            {% if user is  null %}
+                                                <div class="frm-row">
+                                                    <div class="section">
+                                                        <div class="notification alert-info">
+                                                            <p>Already have an account on BuildersHub? <a class="btn btn-tiny btn-success round pull-right"  href="#" id="inpage-login-dialog-trigger"> Login to your account</a>
+                                                            </p>  
+                                                        </div>
+                                                    </div><!-- end section -->
+                                                </div>
+                                                {% include 'projects/includes/user.details.fields.html.twig' %}
+                                            {% else %}
+                                                <div class="frm-row">
+                                                    <div class="section">
+                                                        <div class="notification alert-info">
+                                                            <p>You have logged in as <b>{{user.fullName}}.</b> If you are not {{user.firstname}}, please <a href="{{path('security_logout')}}">Logout</a> and and login with your account.
+                                                            </p>  
+                                                        </div>
+                                                    </div><!-- end section -->
+                                                </div>
+                                            {% endif %}
+                                        </fieldset>
+                                        <h2>Summary</h2>
+                                        <fieldset>
+                                            <div class="section">
+                                                <div class="notification alert-info">
+                                                    <p>Plese cross check your information before submitting this projects</p>
+                                                </div>
+                                            </div><!-- end section -->
+                                            {% include 'projects/includes/project.summary.html.twig' %}
+                                            <div class="section">
+                                                <div class="section">
+                                                    <div class="option-group field">
+                                                        <label class="option">                                      
+                                                            {{ form_widget(form.user.agreeTerms, {'attr':{value:'General Terms'} })  }}                                                        
+                                                            <span class="checkbox"></span> 
+                                                            Please <a href="#" class="smart-link"> read and agree </a> to our terms &amps; conditions              
+                                                        </label>
+                                                    </div>
+                                                </div><!-- end section -->                                 
+                                            </div><!-- end section -->
+                                            <div class="result"></div>
+                                        </fieldset>
+                                        {{ form_row(form._token) }} 
+                                        {{ form_end(form, {'render_rest': false}) }}                                                                                  
+                                    </div><!-- end .form-body section -->
+                                </div><!-- end .smart-forms section -->
+                            </div><!-- end .smart-wrap section -->
+                        {% else %}
+                            <div class="section">
+                                <div class="alert alert-success">
+                                    <p>You have successfully added your project to BuildersHub, you will be contacted by the right technical people to negotiate and get your project started</p>
+                                </div>
+                            </div><!-- end section -->
+                        {% endif  %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block pageScripts %}
+    {{parent()}}
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.steps.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-custom.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-slider-pips.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-touch-punch.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.formShowHide.min.js')}}"></script>   
+    <script type="text/javascript" src="{{asset('js/smart-forms/smartforms-modal.min.js')}}"></script>
+    <script type="text/javascript">
+        var startRow = "<div class='frm-row'>";
+        var startCol = "<div class='section colm colm6'>";
+        var endCol = "</div>";
+        var endRow = "</div>";
+        $(function () {
+            $("#project-form").steps({
+                bodyTag: "fieldset",
+                headerTag: "h2",
+                bodyTag: "fieldset",
+                transitionEffect: "slideLeft",
+                titleTemplate: "<span class='number'>#index#</span> #title#",
+                labels: {
+                    finish: "Submit Project",
+                    next: "Continue",
+                    previous: "Go Back",
+                    loading: "Loading..."
+                },
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    if (currentIndex > newIndex) {
+                        return true;
+                    }
+                    var form = $(this);
+                    if (currentIndex === 2) {
+                        previewProjectEntries();
+                    }
+                    return form.valid();
+                },
+                onStepChanged: function (event, currentIndex, priorIndex) {
+                },
+                onFinishing: function (event, currentIndex) {
+                    var form = $(this);
+                    form.validate().settings.ignore = ":disabled";
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex) {
+                    var form = $(this);
+                    form.submit();
+                }
+            }).validate({
+                errorClass: "state-error",
+                validClass: "state-success",
+                errorElement: "em",
+                onkeyup: false,
+                onclick: false,
+                rules: {
+                    project_user_password_first: {
+                        required: true,
+                        minlength: 6
+                    },
+                    project_user_password_second: {
+                        required: true,
+                        minlength: 6
+                    },
+                    firstname: {
+                        required: true
+                    },
+                    project_user_email: {
+                        required: true,
+                        email: true
+                    },
+                    project_contactNo: {
+                        required: true,
+                        number: true
+                    },
+                    lastname: {
+                        required: true
+                    },
+                    project_title: {
+                        required: true
+                    },
+                    contact_person: {
+                        required: true
+                    },
+                    generalTerms: {
+                        required: true
+                    }
+                },
+                messages: {
+                    firstname: {
+                        required: "Please enter firstname"
+                    },
+                    lastname: {
+                        required: "Please enter lastname"
+                    },
+                    project_user_email: {
+                        required: 'Please enter email',
+                        email: 'Enter a valid email address'
+                    },
+                    project_contactNo: {
+                        required: 'Please enter telephone',
+                        number: 'Please enter numbers only'
+                    },
+                    project_title: {
+                        required: "Please enter the project title"
+                    },
+                    contact_person: {
+                        required: 'Please enter contact person'
+                    },
+                    generalTerms: {
+                        required: 'Please agree to our terms'
+                    }
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).closest('.field').addClass(errorClass).removeClass(validClass);
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).closest('.field').removeClass(errorClass).addClass(validClass);
+                },
+                errorPlacement: function (error, element) {
+                    if (element.is(":radio") || element.is(":checkbox")) {
+                        element.closest('.option-group').after(error);
+                    } else {
+                        error.insertAfter(element.parent());
+                    }
+                }
+            });
+
+            /* Project datepicker range
+             ----------------------------------------------- */
+            $("#project_expectedStartDate").datepicker({
+                defaultDate: "today",
+                changeMonth: false,
+                numberOfMonths: 1,
+                dateFormat: "yy-mm-dd",
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onClose: function (selectedDate) {
+                    $("#project_expectedEndDate").datepicker("option", "minDate", selectedDate);
+                }
+            });
+            $("#project_expectedEndDate").datepicker({
+                defaultDate: "+1w",
+                changeMonth: false,
+                numberOfMonths: 1,
+                dateFormat: "yy-mm-dd",
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onClose: function (selectedDate) {
+                    $("#project_expectedStartDate").datepicker("option", "maxDate", selectedDate);
+                }
+            });
+
+            /* The budget slider 
+             ------------------------------------------------------ */
+            $("#budget_slider").slider({
+                range: "min",
+                animate: true,
+                value: 1000,
+                min: 500,
+                max: 30000,
+                step: 1500,
+                slide: function (event, ui) {
+                    $("#project_budget").val("GH₵" + ui.value);
+                }
+            });
+            $("#project_budget").val("GH₵" + $("#budget_slider").slider("value"));
+            $("#budget_slider").slider("pips", {rest: "label", prefix: "₵", suffix: ""});
+            $("#budget_slider").slider("float", {prefix: "GH₵", suffix: "", pips: true});
+
+            /* Show hide payment options
+             ------------------------------------------------------- */
+            $('.smartfm-ctrl').formShowHide();
+        });
+        function previewProjectEntries() {
+            $('#project-summary').html('');
+            $('#project-summary').append(startRow)
+                    .append(startCol).append(addEntry('Project Type', $("#project_projectType").val())).append(endCol)
+                    .append(startCol).append(addEntry('Project Title', $("#project_title").val())).append(endCol)
+                    .append(endRow);
+            $('#project-summary').append(startRow)
+                    .append(startCol).append(addEntry('Project Start Date', $("#project_expectedStartDate").val())).append(endCol)
+                    .append(startCol).append(addEntry('Project End Date', $("#project_expectedEndDate").val())).append(endCol)
+                    .append(endRow);
+            $('#project-summary').append(startRow)
+                    .append(startCol).append(addEntry('Region', $("#project_region").val())).append(endCol)
+                    .append(startCol).append(addEntry('Town', $("#project_town").val())).append(endCol)
+                    .append(startCol).append(addEntry('Sub Location', $("#project_subLocation").val())).append(endCol)
+                    .append(endRow);
+            $('#project-summary').append(startRow)
+                    .append(startCol).append(addEntry('Project Budget', $("#project_budget").val())).append(endCol)
+                    .append(endRow);
+            $('#project-summary').append(startRow)
+                    .append(startCol).append(addEntry('Project Details', $("#project_summary").val())).append(endCol)
+                    .append(endRow);
+
+            $('#project-summary').append(addSeparator('Expertise Required'));
+            $('#project-summary').append(startRow)
+                    .append(startCol).append(addEntry('Request Details', $("#project_requestDetails").val())).append(endCol)
+                    .append(startCol).append(addEntry('Selected Artisans', selectedArtisansNames.toString())).append(endCol)
+                    .append(startCol).append(addEntry('Selected Professionals', selectedProfessionalsNames.toString())).append(endCol)
+                    .append(endRow);
+
+            $('#project-summary').append(addSeparator('Personal Details'));
+            $('#project-summary').append(startRow)
+                    .append(startCol).append(addEntry('First Name', $("#project_user_firstname").val())).append(endCol)
+                    .append(startCol).append(addEntry('Last Name', $("#project_user_lastname").val())).append(endCol)
+                    .append(endRow);
+            $('#project-summary').append(startRow)
+                    .append(startCol).append(addEntry('Phone Number', $("#project_user_contactNo").val())).append(endCol)
+                    .append(startCol).append(addEntry('Email', $("#project_user_email").val())).append(endCol)
+                    .append(startCol).append(addEntry('User Type', $("#userType").val())).append(endCol)
+                    .append(endRow);
+
+        }
+        function addEntry(label, value) {
+            return "<label>" + label + ": <b>" + value + "</b></label>";
+        }
+        function addSeparator(title) {
+            return "<br/><br/><div class='spacer-b15'><div class='tagline'><span>" + title + "</span></div></div>";
+        }
+
+    </script>     
+
+
+    <!--[if lte IE 9]>
+        <script type="text/javascript" src="js/jquery.placeholder.min.js"></script>
+    <![endif]-->    
+
+    <!--[if lte IE 8]>
+        <link type="text/css" rel="stylesheet" href="css/smart-forms-ie8.css">
+    <![endif]-->
+
+{% endblock %}
+
+

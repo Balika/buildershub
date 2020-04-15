@@ -1,0 +1,12 @@
+<div id="firmAssociationDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">        
+        <div class="modal-content" style="padding: 15px">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h3 class="modal-title" id="myModalLabel"> <span style="color: green"><strong>Add Association Details</strong></span></h3>
+            </div>  
+           {{ form_start(form, {'method': 'post', action:path('save_company_association', {'slug':company.slug }), 'attr': {'class': 'awardContent', 'id':'awardForm'} }) }}
+            {% include "account/profile-sub/includes/association.form.html.twig" %}
+        </div>
+    </div>
+</div>

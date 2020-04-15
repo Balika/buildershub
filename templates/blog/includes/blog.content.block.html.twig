@@ -1,0 +1,79 @@
+{% block latestPostsSidebar %}
+    <div class="owl-carousel nav-style2" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":2},"768":{"items":1}}'>
+        {% for post in latestPosts %}
+            <div class="blog-item">
+                <div class="post-thumb">
+                    <a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}"><img src="{{asset(post.featureImage|imagine_filter('hub_thumbnail'))}}" alt="post"></a>
+                </div>
+                <div class="post-item-info">
+                    <div class="fashion-date">                
+                        {% for category in post.postCategories %}<a href='#'>{{post.postCategories|length > 1 ? category.name~', ': category.name}}</a>{% endfor %}  - {{post.createdAt|date('d')}} {{post.createdAt|date('F')}} {{post.createdAt|date('Y')}}
+                    </div>
+                    <h3 class="post-name"><a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}" title="{{post.title}}">{{post.title|slice(0, 80) ~"..."}}</a></h3>
+                    <div class="post-metas">
+                        <span class="author">Post by: <span>{{post.user.fullName}}</span></span>
+                        <span class="comment"><i class="fa fa-comment" aria-hidden="true"></i>{{post.commentCount}} Comments</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block postsIndexBlock %}
+    <div class="block-bestseller-product bestseller-opt-5">
+        <div class="title-of-section style2"><span class="onnew">BuildersHub Blog Posts</span></div>
+        <div class="owl-carousel nav-style2 equal-container" data-nav="true" data-autoplay="true" data-dots="false" data-loop="true" data-margin="20" data-responsive='{"0":{"items":1},"480":{"items":2},"1000":{"items":2}}'>                           
+            {% for post in latestPosts %}
+                {{loop.first ? "<div class='owl-one-row'>" }}
+                <div class="product-item style2">
+                    <div class="product-inner equal-elem">
+                        <div class="product-thumb style1">
+                            <div class="thumb-inner">
+                                <a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}"><img src="{{asset(post.featureImage|imagine_filter('hub_thumbnail'))}}" alt="b1" style="width: 150px; height: 140px; border-radius: 3px;"></a>
+                            </div>
+                        </div>
+                        <div class="product-innfo">
+                            <div class="product-name"><a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}">{{post.title}}</a></div>
+                            <span class="price">
+                                <span class="onsale">{{post.createdAt|date('d')}} <span>{{post.createdAt|date('M')}},</span> {{post.createdAt|date('Y')}}</span>
+                            </span>
+                            <br/>
+                            <div class="star-rating">
+                            </div>
+                            <a href="#" class="btn-add-to-cart"><i class="fa fa-envelope"></i> View Post</a>
+                        </div>
+                    </div>
+                </div>
+                {{loop.index is divisible by(2) and not  loop.last  ? "</div><div class='owl-one-row'>" : loop.last ? "</div>" }}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% block indexArticlesBlock %}
+    <div class="owl-carousel nav-style2" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":2},"992":{"items":3}}'>
+        {% for post in latestPosts %}
+            {{loop.first ? "<div class='row'>" }}
+            <div class="blog-item">
+                <div class="post-thumb">
+                    <a href="{{path('single_post', {'slug':post.slug, 'type':'article'})}}"><img src="{{asset(post.featureImage|imagine_filter('hub_thumbnail'))}}" alt="blog1"></a>           
+                    <span class="date">{{post.createdAt|date('Y')}}<span>{{post.createdAt|date('M')}}  {{post.createdAt|date('d')}}</span></span>
+                </div>
+                <div class="post-item-info">
+                    <h3 class="post-name"><a href="">{{post.title|title}}</a></h3>
+                    <div class="post-metas">
+                        <span class="author">Post by: <span>{{post.user.fullName}}</span></span>
+                        <span class="comment"><i class="fa fa-comment" aria-hidden="true"></i>{{post.commentCount}} Comments</span>
+                    </div>
+                </div>
+            </div>
+            {{loop.index is divisible by(2) and not  loop.last  ? "</div><div class='row'>" : loop.last ? "</div>" }}
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block postsFooter %}
+    <div class="content-ins">
+        {% for post in latestPosts %}
+            <a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}" title="{{post.title}}"><img src="{{asset(post.featureImage|imagine_filter('hub_thumbnail'))}}" alt="post{{loop.index}}" style="width:80px; height: 60px"></a>
+            {% endfor %}
+    </div>
+{% endblock %}

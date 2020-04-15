@@ -1,0 +1,59 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/datepicker/datepicker3.css')}}" />
+{% endblock %}
+{% block breadcrumbs %}    
+    <li class="active"><span>Store Items</span></li>
+    {% endblock %}
+    {% block crumbLinks %}
+    <li>
+        <a class="sonata-action-element" href="{{path('add_product', {'slug':supplier.slug})}}"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Add new
+        </a>
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="row">               
+        <div class="col-md-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header">
+                    <h3 class="box-title">All Notifications</h3>
+                    <div class="box-tools pull-right">
+                        {{notifications.totalItemCount}} Total
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body" > 
+                    <div class="col-md-4">
+                        <ul class="menu" style="list-style: none">
+                            {% for notification in notifications %}
+                                <li><!-- start notification -->
+                                    <a href="{{path('store_notifications', {'slug':supplier.slug, 'notification_id':notification.id})}}">
+                                        <i class="fa {{notification.entity == constant('App\\Utils\\EntityConfig::ORDER') ? 'fa-shopping-cart text-aqua' : 'fa-file text-orange'}}"></i> 
+                                        {{notification.subject}} {{notification.entity is not constant('App\\Utils\\EntityConfig::ORDER') ? 'Made' }}
+                                    </a>
+                                </li><!-- end notification -->
+                            {%endfor %}
+                        </ul>                            
+                        <div class="box-footer clearfix">
+                            <div class="pagination pagination-sm no-margin pull-right">    
+                                {{ knp_pagination_render(notifications) }}                                        
+                            </div>
+                        </div><!-- /.box-footer -->
+                    </div>
+                    <div class="col-md-8" style="padding: 10px; background-color: whitesmoke; border-radius: 3px">
+                        {% include "store/admin/includes/selected.notification.html.twig" %}
+                    </div>
+                </div>
+            </div>
+        </div>              
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+
+
+{% endblock javascripts %}

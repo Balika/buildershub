@@ -1,0 +1,71 @@
+<div class="form-body">
+    <div class="section">
+        <label  class="field-label">Register Me As</label>
+        <label class="prepend-icon">                      
+            <select class="input-gui"  id="userType" style="height:40px; width:100%" name="userType" required>
+                <option>Select User Type</option>
+                <option value="supplier">Buyer/Guest</option>    
+                <option value="ARTISAN">Artisan & Craftmen </option>                                       
+                <option value="PROFESSIONAL">Professional </option>
+                <option value="STUDENT">Student </option>                                             
+            </select>   
+        </label>
+    </div>
+    <div class="section col-md-6">
+        <label>Firstname</label>
+        <label class="field prepend-icon">                               
+            {{ form_widget(userForm.firstname,{ 'attr': {class: 'gui-input', placeholder: 'Enter Firstname'} }) }}   
+            <span class="field-icon"><i class="fa fa-user"></i></span>  
+
+        </label>
+    </div><!-- end section -->                    
+    <div class="section col-md-6">
+        <label>Lastname</label>
+        <label class="field prepend-icon">
+            {{ form_widget(userForm.lastname,{ 'attr': {class: 'gui-input', placeholder: 'Enter Lastname'} }) }}
+            <span class="field-icon"><i class="fa fa-user"></i></span>  
+        </label>
+    </div><!-- end section -->  
+    <div class="section col-md-12">
+        <label>Email Address/Username</label>
+        <label class="field prepend-icon">                          
+            {{ form_widget(userForm.email,{ 'attr': {class: 'gui-input', placeholder: 'Enter Email or Phone number', value:quotationRequest is defined ? quotationRequest.contact : rentalRequest is defined ? rentalRequest.email} }) }}
+            <span class="field-icon"><i class="fa fa-envelope"></i></span>  
+        </label>
+    </div><!-- end section -->  
+    <div class="section col-md-6">
+        <label>Password</label>
+        <label class="field prepend-icon">
+            {{ form_widget(userForm.password.first,{ 'attr': {class: 'gui-input', placeholder: 'Enter password'} }) }}
+            <span class="field-icon"><i class="fa fa-lock"></i></span>  
+        </label>
+    </div><!-- end section -->  
+    <div class="section col-md-6">
+        <label>Confirm Password</label>
+        <label class="field prepend-icon">
+            {{ form_widget(userForm.password.second,{ 'attr': {class: 'gui-input', placeholder: 'Confirm Password'} }) }}
+            <span class="field-icon"><i class="fa fa-lock"></i></span>  
+        </label>
+    </div><!-- end section -->  
+    <div class="section col-md-12">
+        <label>Phone Number</label>
+        <label class="field prepend-icon">                          
+            {{ form_widget(userForm.contactNo,{ 'attr': {class: 'gui-input', placeholder: 'Enter Phone number', value:quotationRequest is defined ? quotationRequest.contact|isPhoneNumber : rentalRequest is defined ? rentalRequest.phone} }) }}
+            <span class="field-icon"><i class="fa fa-phone"></i></span>  
+        </label>
+    </div><!-- end section -->  
+    <div class="col-md-12">
+        <label>
+            <input type="checkbox" > <a href="#">Terms and Conditions</a>
+        </label>
+    </div><!-- /.box-footer -->
+
+</div><!-- end .smart-forms section -->
+<div class="form-footer">
+    {% if isRegisterToggle %}
+        Already on BuildersHub? <a href="#" id="loginLink" style="font-family: 'Segoe UI Black', Helvetica;">Login</a>
+    {% endif %}
+    <button type="submit" class="btn btn-success pull-right" style="font-family: 'Segoe UI Black', Helvetica; color: white">Create Account</button>
+</div><!-- end .form-footer section -->
+{{ form_row(userForm._token) }} 
+{{ form_end(userForm, {'render_rest': false}) }}

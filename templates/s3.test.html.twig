@@ -1,0 +1,23 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent()}}
+   
+
+{% endblock %}
+{% block mainNav %}
+{% endblock %}
+{% block  content %}
+    <h1>Test resized with <code>hub_thumbnail</code></h1>
+{# NOTE THAT FOR THE MOMENT THE THUMBNAIL IS COMMENTED #}
+<img src="{{asset(image | imagine_filter('hub_thumbnail')) }}" alt="" />
+
+<h1>Test resized with <code>profile_cover</code></h1>
+{# NOTE THAT FOR THE MOMENT THE THUMBNAIL IS COMMENTED #}
+<img src="{{ image| imagine_filter('profile_cover') }}" alt="" /> 
+
+<h1>Original Image</h1>
+<img src="{{image}}" alt="" />
+{% endblock %}
+{% block foorter %}
+{% endblock %}  
+

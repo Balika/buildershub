@@ -1,0 +1,82 @@
+<div class="box box-default box-solid">
+    <div class="box-header">
+        <h3 class="box-title">Available Products</h3>
+        {% if products|length > 0%}
+            <div class="box-tools pull-right">
+                <a  data-toggle="modal" class="btn btn-success btn-sm" href="#validityDateDlg" style="color: white">
+                    Set Price Validity Date <span class="fa fa-calendar"></span>
+                </a>
+            </div>
+        {% endif %}
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <table id="products" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>SKU</th>
+                    <th>Stock Status</th>
+                    <th>Price</th>
+                    <th>Featured</th>
+                    <th>New Arrivals</th>
+                    <th>Categories</th>
+                    <th>Price Valid Until</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="product-list">
+                {% for product in products %}
+                    <tr>
+                        <td>
+                            <a href="{{path('edit_product',{'slug':supplier.slug, 'product_slug':product.slug})}}">
+                                <img src="{{product.featureImage is not null ? asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" width="80px" height="60px"/>
+                            </a>
+                        </td>
+                        <td><a href="{{path('edit_product',{'slug':supplier.slug, 'product_slug':product.slug})}}">{{product}}</a></td>
+                        <td>{{product.productData.SKU}}</td>
+                        <td>{{product.productData.stockStatus}}</td>
+                        <td>{{product.productData.regularPrice|number_format(2,'.',',')}}</td>
+                        <td>
+                            {% if product.isFeatured %}
+                                <a href="{{path('update_featured_action',{'slug':product.slug})}}" title="Click to unfeature" class="featuredStatus"><i class='fa fa-star'></i></a>
+                                {% else %}
+                                <a href="{{path('update_featured_action',{'slug':product.slug})}}" class="featuredStatus">Feature</a>
+                            {% endif %}               
+                        </td>
+                        <td>
+                            {% if product.isNewArrival %}
+                                <a href="{{path('update_new_arrival_action',{'slug':product.slug})}}" title="Click to remove from new arrival list" class="newArrivals"> <small class="label label-success">New</small></a>
+                            {% else %}
+                                <a href="{{path('update_new_arrival_action', {'slug':product.slug})}}" class="newArrivals">Mark New Arrivals</a>
+                            {% endif %}               
+                        </td>
+                        <td>
+                            {% for cat in product.categories %}
+                                <a href="#">{{cat}}</a> 
+                            {% endfor %}   
+                        </td>
+                        <td>
+                            {{product.validityDate|date('m/d/Y')}}  
+                        </td>
+                        <td>{{product.createdAt|date('m/d/Y')}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>SKU</th>
+                    <th>Stock Status</th>
+                    <th>Price</th>
+                    <th>Featured</th>
+                    <th>New Arrivals</th>
+                    <th>Categories</th>
+                    <th>Price Valid Until</th>
+                    <th>Date</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->

@@ -1,0 +1,144 @@
+{% extends "store/shared/page.base.html.twig" %}
+{% block breadcrumbs %}
+{% endblock %}
+{% block pageMenu %}
+    <li style="width: 80%; padding-top: 8px">
+        {{ render_esi(controller('App\\Controller\\StoreUtilityController::renderSuppliersCombo'), {"default":'Loading form....'}) }}
+    </li>   
+    <li class="menu-item-has-children arrow pull-right">
+        <a href="#" class="dropdown-toggle">Store Actions</a>
+        <span class="toggle-submenu hidden-md"></span>
+        <ul class="submenu parent-megamenu">
+            <li class="menu-item">
+                <a href="{{path('supplier_store_view',{'slug':supplier.slug, 'page':'quotation-request'})}}"><i class="fa fa-file-pdf-o"></i> Request for Quotation</a>
+            </li>
+            <li class="menu-item">
+                <a href="{{path('supplier_store_view',{'slug':supplier.slug, 'page':'pricelist-request'})}}"><i class="fa fa-list"></i> Request Pricelist</a>
+            </li>
+            <li class="menu-item">
+                <a href="#"> <i class="fa fa-download"></i> Download Products Brochure</a>
+            </li>
+        </ul>
+    </li>
+{% endblock %}
+{% block  content %}
+    {% include "store/supplier/includes/message.to.supplier.dialog.html.twig" %}
+    <div class="block-section-1">
+        <div class="main-slide slide-opt-6 full-width">
+            <div class="item-slide item-slide-1">
+                <div class="supplier-store">
+                    <div class="supplier-store-details">
+                        <h4> 
+                            <a href='{{path('supplier_store_view',{'slug':supplier.slug})}}'><strong>{{supplier.name}}</strong></a> 
+                            <span class="pull-right"><a class="btn btn-warning btn-small" id="supplierNumberHash"><i class="fa fa-phone"></i> {{supplier.mobile1|slice(0, 6)}} XXXX</a>                      
+                                <a class="btn btn-warning btn-small hide" id="supplierNumberDisp"><i class="fa fa-phone"></i> {{supplier.mobile1}}</a></span>
+                            <small class="block" style="font-size: 0.5em ">{{supplier.businessSummary}}</small>
+                        </h4>
+                        <p style="color: #FFC321; font-weight: bolder">
+                            <i class="fa fa-map-marker"></i> <span class="review">{{supplier.businessLocation is not null ?  supplier.businessLocation ~','}} {{supplier.region}}</span>                         
+                        </p>  
+                    </div>
+                    <div class="img-holder">
+                        <img src="{{asset('images/default-user.png')}}"/>
+                    </div>
+                    <div class="supplier-stats">
+                        <ul>
+                            <li>
+                                <span>
+                                    Orders Completed:
+                                </span>
+                                <span class="data pull-right">
+                                    1200
+                                </span> 
+                            </li>
+                            <li>
+                                <span>
+                                    Successful Deliveries:
+                                </span>
+                                <span class="data pull-right">
+                                    17,200
+                                </span> 
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="supplier-call-to-action" id='supplier-call-to-action'>
+                        <a href='#' class="btn btn-success btn-medium" id='send-message-link'><i class="fa fa-envelope"></i> Send Direct Request</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include template %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }} 
+    <script>
+        jQuery(function ($) {
+            //########################################### Add Exam Results ############################################          
+            var $collectionHolder;
+            // setup an "add a tag" link
+            var $addProductLink = $('<div class="form-group col-md-12"><a href="#" class="pull-right">Add Product</a></div>');
+            var $newLinkDiv = $('<div></div>').append($addProductLink);
+            jQuery(document).ready(function () {
+                // Get the ul that holds the collection of tags
+                $collectionHolder = $('div.orderItems');
+                // add a delete link to all of the existing tag form li elements
+                $collectionHolder.find('div#items').each(function () {
+                    addSubjectFormDeleteLink($(this));
+                });
+                // add the "add a subject" anchor and li to the subjects ul
+                $collectionHolder.append($newLinkDiv);
+                // count the current form inputs we have (e.g. 2), use that as the new
+                // index when inserting a new item (e.g. 2)
+                $collectionHolder.data('index', $collectionHolder.find(':input').length);
+                $addProductLink.on('click', function (e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+                    // add a new tag form (see next code block)
+                    addProductForm($collectionHolder, $newLinkDiv);
+                });
+
+            });
+            function addProductForm($collectionHolder, $newLinkDiv) {
+                // Get the data-prototype explained earlier
+                var prototype = $collectionHolder.data('prototype');
+                // get the new index
+                var index = $collectionHolder.data('index');
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                var newForm = prototype.replace(/__name__/g, index);
+                // increase the index with one for the next item
+                $collectionHolder.data('index', index + 1);
+                // Display the form in the page in an li, before the "Add a tag" link li
+                var $newFormDiv = $('<div class="col-md-12"></div>').append(newForm);
+                // add a delete link to the new form
+                addSubjectFormDeleteLink($newFormDiv);
+                $newLinkDiv.before($newFormDiv);
+            }
+            function addSubjectFormDeleteLink($subjectFormDiv) {
+                var $removeFormA = $('<div class="form-group col-md-2"><a href="#" style="color:red">Delete</a></div>');
+                $subjectFormDiv.append($removeFormA);
+                $removeFormA.on('click', function (e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+                    // remove the li for the tag form
+                    $subjectFormDiv.remove();
+                });
+            }
+        });
+        $(document).ready(function () {
+            console.log('------------------Loading store home asyn content--------------------- ');
+            var url = Routing.generate('update_page_view', {entityType: 'App:Supplier', entityId: {{supplier.id}}, page: 'SupplierStore'});
+            $.get(url, function (data) {
+
+            });
+            $('#toggleContactForm').on('click', function () {
+                $('.mqr-form').toggle();
+            });
+            $('#supplierNumberHash').on('click', function () {
+                $('#supplierNumberHash').addClass('hide');
+                $('#supplierNumberDisp').removeClass('hide');
+            });
+        });
+    </script>
+{% endblock %} 

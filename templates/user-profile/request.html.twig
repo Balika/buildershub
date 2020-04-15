@@ -1,0 +1,76 @@
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+{% if isOwnProfile %}
+    
+        <div class="row">
+            <div class="col-md-12">
+                <h5>You have <span style="font-weight: bolder; color: #00ca6d">{{user.requests|length}}</span> Incoming Requests</h5>               
+                <ul class="list-2 bg-white">
+                    {% for request in  user.requests %}
+                        <li style="border: 1px solid #eeeded; border-radius: 4px; width: 100%">
+                            <div class="imgbox-xtiny round overflow-hidden left"><a href="{{path('user_profile', {'usernameCanonical':request.lead.usernameCanonical})}}">
+                                    <img src="{{asset('uploads/profile/'~request.lead.person.profilePicture)}}" alt="{{request.lead.firstname}} Profile Picture" class="img-responsive"/></a>
+                            </div>
+                            <div class="text-box-right">
+                                <h6 class="nopadding title"><strong>{{request.requestType}}</strong></h6>
+                                <p class="padding-top-1"> {{request.request}} </p>
+                                <div class="pull-left">
+                                    <span class="label label-success text-left"><a class="text-white" href="{{path('user_profile', {'usernameCanonical':request.lead.usernameCanonical})}}">From: {{request.lead.fullName}}</a></span>
+                                    <span class="label label-info">Date: {{request.createdAt|date('m/d/Y')}}</span>
+                                </div>
+                                <div class="pull-right">
+                                    {% if request.lead.contactNo is not null %}<span class="label label-primary"><i class="fa fa-phone"></i> {{request.lead.person.contactNo}}</span>{% endif %}
+                                    {% if request.lead.email is not null %}<span class="label label-default"><i class="fa fa-envelope"></i> {{request.lead.email}}</span>{% endif %}
+                                </div>
+                            </div>
+
+                        </li>
+                    {% endfor  %}                    
+                </ul>
+            </div>
+            <!--end item-->
+        </div>
+   
+{% else %}
+    <div class="smartforms-modal-body" >
+        <div class="smart-wrap" >
+            <div class="smart-forms smart-container transparent wrap-full">
+                <div class="form-body no-padd" style="margin: 3px 15px 3px 15px"> 
+                    <h5>Make a Direct Request to <span class="text-danger">{{requestedProfile.firstname}}</span></h5>
+                        {{ form_start(form, {'method': 'post', 'action':path('send_request', {'usernameCanonical':requestedProfile.usernameCanonical}), 'attr': {'class': 'requestForm form-horizontal', 'role':'form'} }) }}
+                        {% if isSaved or  app.request.get('isSaved') %}
+                        <div class="alert alert-success">
+                            Your request has been sent to <span class="text-blue">{{requestedProfile.firstname}}</span>.  Thank you!
+                        </div>
+                    {% else %}
+                        <div class="alert alert-info">
+                            <strong>Please Note!</strong> Your phone number and/or email will be sent to {{requestedProfile.firstname}}, so you can be reached.
+                            <br/><br/>
+                            <strong>Type your request here and send to <span class="text-green">{{requestedProfile.firstname}}</span> for a prompt response.</strong> 
+
+                        </div>
+                        <div class="section">
+                            <label class="select-box-2 prepend-icon">
+                                {{form_widget(form.requestType, {'attr': {placeholder:"Select request type" } } )}}   
+                                <span class="field-icon"><i class="fa fa-list"></i></span>
+                            </label>
+                        </div>
+                        <div class="section">
+                            <label class="field prepend-icon">
+                                {{form_widget(form.request, {'attr': {class:"gui-textarea", placeholder:"Please write your request here..." } } )}}
+                                <span class="field-icon"><i class="fa fa-file-o"></i></span>
+                                <span class="input-hint"> <strong>Hint:</strong> Let <strong>{{requestedProfile.firstname}}</strong> know what exactly what you want done</span>   
+                            </label>
+                        </div><!-- end section -->
+                        {{ form_row(form._token) }}              
+                        <div class="form-footer text-right">                          
+                            <button class="btn btn-primary btn-small" type="submit" >Send Request</button>
+                        </div>
+                    {% endif %}
+                    {{ form_end(form, {'render_rest': false}) }} 
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+</div>
+

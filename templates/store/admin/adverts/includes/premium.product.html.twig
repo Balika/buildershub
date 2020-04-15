@@ -1,0 +1,77 @@
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h3 class="box-title"><strong>Premium Product Slot</strong></h3>
+        <div class="box-tools pull-right">
+            {{bids|length}} Bids
+        </div>
+    </div><!-- /.box-header -->
+    {% if premiumProductSlot.isOpen  %}
+        <div class="box-body" style="height: 360px; overflow-y: scroll">
+            <h5 style="color: #005983"><strong>Bidding Closes at:</strong></h5>
+            <div id="premium-slot-bid-countdown" style="padding: 10px; color:#800; font-weight: bolder">
+            </div>
+            <hr/>
+            <table class="table table-bordered" id="bids">
+                <tr>
+                    <th>No.</th>
+                    <th>Bidder</th>
+                    <th>Product</th>  
+                    <th>Bid Amount (GH¢)</th>                                                                                    
+                </tr> 
+                {% set isBidPlaced = false %}
+                {% if bids|length > 0 %}
+                    {% for bid in bids %}
+                        {% if supplier.id == bid.supplier.id %} 
+                            {% set isBidPlaced = true %}                                    
+                        {% endif %}
+                        <tr>
+                            <td>{{loop.index}}</td>
+                            <td>
+                                {% if isBidPlaced %}
+                                    {{ bid.supplier  }}
+                                {% else  %}
+                                    ###################
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if isBidPlaced %}
+                                    <a href="#">{{bid.product}}</a>
+                                {% else %}
+                                    {{bid.product}}
+                                {% endif  %}
+                            </td>
+                            <td>
+                                {% if loop.first %}
+                                    <strong class="text-green">{{bid.bidAmount}}</strong>
+                                {% else %}
+                                    {{bid.bidAmount}}
+                                {% endif  %}
+                                {% if isBidPlaced %}
+                                    <a href="{{path('edit_bid',{'slug':supplier.slug, 'bid_id':bid.id})}}" title="Edit your bid" id="editBidLink"><i class="fa fa-pencil text-danger"></i></a>
+                                    {% endif  %}
+                            </td>                                   
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4">
+                            <div class="alert alert-info">                                                    
+                                <strong>
+                                    <i class="ace-icon fa fa-info"></i>
+                                </strong>
+                                There are currently no bids placed for Premium Slot
+                            </div>
+                        </td>
+                    </tr>
+                {% endif  %}           
+            </table>
+        </div><!-- /.box-body -->
+        <div class="box-footer">
+            <a class="btn btn-primary btn-sm pull-right" href="#placeBidDlg" id="placeBidLink" data-toggle="modal">Place New Bid</a>
+        </div> 
+    {% else %}
+        <div class="alert alert-warning">
+            <strong>{{premiumProductSlot}} is Closed!</strong> This slot is currently not opened for bidding. You will be notified once bidding is open.
+        </div> 
+    {% endif  %}
+</div>  

@@ -1,0 +1,31 @@
+<div id="specialtyDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h3 class="modal-title" id="myModalLabel"> <span style="color: green"><strong>Add your work type or specialty</strong></span></h3>
+            </div>  
+            <div class="smartforms-modal-body" >
+                <div class="smart-wrap" style="padding-top: 25px">
+                    <div class="smart-forms smart-container transparent wrap-full">
+                        {{form_start(specialtyForm, { method: 'POST', action:path('add_specialty') ,'attr':{id: "specialtyForm"} })}}  
+                        <div class="section">
+                            <label class="label"> <strong>Name of work type</strong></label><div class="smart-widget sm-right smr-120">
+                                <label class="field">
+                                    {{form_widget(specialtyForm.name, {'attr': {class:"gui-input", placeholder:"Enter area work..." } } )}}
+                                </label>
+                                <button type="submit" class="button"> <i class="fa fa-plus"></i> Add </button>
+                            </div><!-- end .smart-widget section -->                   
+                        </div><!-- end section -->      
+                        {{ form_row(specialtyForm._token) }} 
+                        {{ form_end(specialtyForm, {'render_rest': false}) }} 
+                    </div>
+                    <div class="form-footer">
+                         <button type="button" class="button btn-default" data-dismiss="modal"> Cancel </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

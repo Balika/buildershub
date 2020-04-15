@@ -1,0 +1,86 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="active"> Bid Slots - 
+        <small>This gives you an opportunity to bid for premium slots on BuildersHub </small>
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h4><span class="text-success"><i class="fa fa-bullhorn"> Campaigns & Promos</i></span>
+                <small style="display: block; font-size: 0.6em">Apps developed by <a>BuildersHub</a> to help you effectively manage your construction or consulting firm</small></h4>
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#premium-product" data-toggle="tab"> <b></b> <span class="text-success">Premium Products Slot</span></a>
+                </li>
+                <li role="presentation">
+                    <a href="#top-supplier" data-toggle="tab">  <b></b> <span class="text-success">Top Supplier Slot</span></a>
+                </li>
+                <li role="presentation">
+                    <a href="#supplier-intro" data-toggle="tab"> <b></b> <span class="text-success">In-Store Ads Slots</span></a>
+                </li>
+                <li role="presentation">
+                    <a href="#weekly-deals" data-toggle="tab">  <b></b> <span class="text-success">Weekly Deals Slot</span></a>
+                </li>
+            </ul>
+            <div class="row">
+                <div class="col-divider-margin-1"></div>
+                <div class=" divider-line solid light"></div>  
+                <div class="col-divider-margin-1"></div>  
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="premium-product">
+                            {% include 'store/admin/adverts/includes/slot.placement.dialog.html.twig' %}
+                            {% include 'store/admin/adverts/includes/premium.product.html.twig' %}     
+                        </div>
+                        <div class="tab-pane fade in" id="top-supplier">
+                            {{ render(controller('App\\Controller\\Backend\\StoreBackendUtilityController:renderAdSlots', {'block': 'topSuppliers', 'adSlot':constant('App\\Utils\\Constants::TOP_SUPPLIER'), 'supplier':supplier}), {"default":'Loading Cart....'}) }}         
+                        </div>
+                        <div class="tab-pane fade in" id="supplier-intro">
+                            {{ render(controller('App\\Controller\\Backend\\StoreBackendUtilityController:renderAdSlots', {'block': 'supplierAds', 'adSlot':constant('App\\Utils\\Constants::SUPPLIER_INTRO'), 'supplier':supplier}), {"default":'Loading Cart....'}) }}                 
+                        </div>
+                        <div class="tab-pane fade in" id="weekly-deals">
+                            {{ render(controller('App\\Controller\\Backend\\StoreBackendUtilityController:renderAdSlots', {'block': 'weeklyDeals', 'adSlot':constant('App\\Utils\\Constants::SUPPLIER_WEEKLY_DEALS'), 'supplier':supplier}), {"default":'Loading Cart....'}) }}                 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            var dateString = "{{premiumProductSlot.endingAt|date('Y')}}, {{premiumProductSlot.endingAt|date('F')}}, {{premiumProductSlot.endingAt|date('d')}}";
+            var biddingEnds = new Date(dateString);
+            $('#premium-slot-bid-countdown').countdown({until: biddingEnds});
+            $('.bidForm').on('submit', function (e) {
+                $('#placeBidDlg').modal('hide');
+            });
+            var topSupplierTimerUrl = Routing.generate('render_top_supplier_timer');
+            $.get(topSupplierTimerUrl, function (html) {
+                var topSupplierDateString = html.dateString;
+                var topSupplierBiddingEnds = new Date(topSupplierDateString);
+                $('#top-supplier-slot-bid-countdown').countdown({until: topSupplierBiddingEnds});
+            });
+            $('#dealType').on('change', 'input', function (e) {
+                var dealType = $(this).val();
+                if (dealType === 'discountRate') {
+                    $('#discountRate').removeClass('hide');
+                    $('#dealPrice').addClass('hide');
+                } else {
+                    $('#discountRate').addClass('hide');
+                    $('#dealPrice').removeClass('hide');
+                }
+            });
+
+        });
+    </script>
+{% endblock %}

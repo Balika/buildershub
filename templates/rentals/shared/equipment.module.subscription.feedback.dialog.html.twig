@@ -1,0 +1,32 @@
+<style>
+    #mqrDlg {
+        top:5%;
+        right:20%;
+        left: 5%;
+        outline: none;
+    }
+    #mqrDlg .modal-dialog  {width:75%;}
+    @media screen and (min-width: 768px) {
+        #mqrDlg .modal-dialog  {width:700px;}
+    }
+</style>
+<div id="equiptModFeedbackDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="width:30%">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 class="modal-title" id="myModalLabel" style="text-align: center"> <span style="color: green"><strong><i class="fa fa-check-circle fa-3x"></i></strong></span>
+                </h4>
+            </div>   
+            <div class="modal-body">
+                <p align="center" style="color: green">
+                    You have successfully added equipment mdoulde to <strong>{{selectedCompany}}</strong>
+                </p>
+            </div>
+            <div class="modal-footer">                
+                <a class="btn btn-default btn-sm pull-left" data-dismiss="modal">Close</a>
+                <a class="btn btn-success btn-sm pull-right" href="{{hubernize_host(selectedCompany.domain)~'equipment-inventory/list'}}">Manage Equipment</a>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

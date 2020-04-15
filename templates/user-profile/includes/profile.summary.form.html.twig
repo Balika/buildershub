@@ -1,0 +1,21 @@
+<div class="overlay-content smartforms-modal-body" id="user-profile-form" style="display: none;">
+    <h3 class="font-weight-5 text-center">Briefly Tell Visitors What You Do</h3>                    
+    <div class="smart-wrap">
+        <div class="smart-forms smart-container transparent wrap-full">                           
+            {{form_start(profileForm, { method: 'POST', 'attr':{id: "smart-form"} })}}             
+            <div class="section">
+                <label class="field prepend-icon">
+                    {{form_widget(profileForm.profile, {'attr': {class:"gui-textarea", placeholder:"Enter profile update", maxlength:250} } )}}
+                    <span class="field-icon"><i class="fa fa-user"></i></span>
+                    <span class="input-hint"> <strong>Hint:</strong> Brief tell vistors what you do so they can engage you properly - max: 250 characters</span>   
+                    
+                </label>
+            </div><!-- end section -->
+            <div class="form-footer text-right">
+                <button type="submit" class="btn h5a-btn btn-info pull-right"><i class="fa fa-lock"></i> Update Profile</button>
+            </div>
+            {{ form_row(profileForm._token) }} 
+            {{ form_end(profileForm, {'render_rest': false}) }}                        
+        </div>
+    </div>
+</div>

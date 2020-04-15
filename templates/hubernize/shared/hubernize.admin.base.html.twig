@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>BuildersHub - Promoting Excellence in the Build Environment</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        {% block stylesheets %}
+            {% include 'shared/backendcss.html.twig' %}
+        {% endblock  %}
+    </head>
+    <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+    <body class="sonata-bc skin-black fixed">
+        <div class="wrapper">
+            {{ render(controller('App\\Controller\\Hubernize\\HubernizeUtilityController::validateHubernizeAccess'), {"default":'Loading Cart....'}) }}                                                                                                       
+            <header class="main-header">
+                <noscript>
+                <div class="noscript-warning">
+                    Javascript is disabled in your web browser. Some features will not work properly.
+                </div>
+                </noscript>
+                <!-- Logo -->
+                <a href="{{path('home')}}" class="logo" target="blank"> 
+                    <img src="{{asset('favicon.ico')}}" alt="BuildersHub"><span>BuildersHub</span>
+                </a>
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle Navigation</span>
+                    </a>
+                    <div class="navbar-left" style="margin-left: 20%">
+                        <a href="{{path('firm_profile',{'slug':company.slug})}}" target="blank"><span style="font-size: 2.0em; color: green;"><strong>{{company}}</strong></span></a>
+                    </div>
+                    <div class="navbar-right">
+                        {% include 'hubernize/shared/hubernize.header.right.html.twig' %}
+                    </div>
+                </nav>
+            </header>
+            {% if app.user != null %}
+                <!-- Left side column. contains the logo and sidebar -->
+                <aside class="main-sidebar">
+                    <!-- sidebar: style can be found in sidebar.less -->
+                    <section class="sidebar">
+                        <!-- search form -->
+                        <form action="#" method="get" class="sidebar-form">
+                            <div class="input-group">
+                                <input type="text" name="q" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                    <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </form>  
+                        {% block sidebarBlock %}
+                            {{ knp_menu_render('hub_menu', {'depth': 2, 'currentClass':'active', 'ancestorClass':'active', 'firstClass': null, 'lastClass':null, 'allow_safe_labels': true})|raw }}                                                                                                     
+                        {% endblock %}
+                    </section>
+                    <!-- /.sidebar -->
+                </aside>
+                <!-- Full Width Column -->
+                <div class="content-wrapper">  
+                    <section class="content-header">
+                        <nav class="navbar navbar-default fixed" role="navigation">
+                            <div class="container-fluid">
+                                <div class="hidden-xs">
+                                    <ol class="nav navbar-top-links breadcrumb">
+                                        <li>
+                                            <a href="{{path('hubernize_dashboard')}}">
+                                                <i class="fa fa-home"></i>                                                                    
+                                            </a>
+                                        </li>
+                                        {% block breadcrumbs %}
+                                            <li class="active"><span>Post Category List</span></li>
+                                            {% endblock %}
+                                    </ol>
+                                </div>
+                                <div class="navbar-collapse">
+                                    <div class="nav navbar-right btn-group">
+                                        {% block listMode %}
+                                            <a href="/admin/app/postcategory/list?_list_mode=list" class="btn btn-default navbar-btn btn-sm active"><i class="fa fa-list fa-fw"></i></a>
+                                            <a href="/admin/app/postcategory/list?_list_mode=mosaic" class="btn btn-default navbar-btn btn-sm"><i class="fa fa-th-large fa-fw"></i></a>
+                                            {% endblock %}
+                                    </div>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        {% block crumbLinks %}
+                                            <li><a class="sonata-action-element" href="/admin/app/postcategory/create"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                                    Add new
+                                                </a>
+                                            </li>
+                                        {% endblock %}
+                                    </ul>
+                                    <ul class="nav navbar-nav navbar-right">
+                                        {% block crumbFilters %}
+                                        <!--    <li class="dropdown sonata-actions">
+                                                <a href="#" class="dropdown-toggle sonata-ba-action" data-toggle="dropdown">
+                                                    <i class="fa fa-filter" aria-hidden="true"></i>
+                                                    Filters
+                                                    <span class="badge sonata-filter-count"></span>
+                                                    <b class="caret"></b>
+                                                </a>
+
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li>
+                                                        <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s5c3af6e257cb2-name" filter-container="filter-container-s5c3af6e257cb2">
+                                                            <i class="fa fa-square-o"></i>Name
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>-->
+                                        {% endblock %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </section>
+                    <!-- Content Header (Page header) -->
+                    <!-- Main content -->
+                    <section class="content" id="backend-content">
+                        {% block content %}
+                        {% endblock content %}
+                    </section><!-- /.content -->
+                </div><!-- /.content-wrapper -->
+            {% endif %}
+            <footer class="main-footer">
+                {# include 'Shared/footer.html.twig' #}
+            </footer>
+        </div><!-- ./wrapper --> 
+        {% block javascripts %}
+            {% include 'shared/backendjs.html.twig' %}
+        {% endblock  %}
+        <script src="{{asset('js/hubernize.backend.js') }}" ></script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

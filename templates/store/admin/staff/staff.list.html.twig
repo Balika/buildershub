@@ -1,0 +1,153 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+
+{% endblock %}
+{% block breadcrumbs %}    
+    <li class="active"><span>Store User List</span></li>
+    {% endblock %}
+    {% block crumbLinks %}
+    <li>
+        <a class="sonata-action-element" href="{{path('add_staff',{'slug':supplier.slug})}}"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Add new user
+        </a>
+    </li>
+{% endblock %}
+{% block listMode %}
+    <a href="{{path('list_staff', {'slug':supplier.slug, 'list_mode':'list'})}}" class="btn btn-default navbar-btn btn-sm {{listMode=='list' or listMode is null  ? 'active'}}"><i class="fa fa-list fa-fw"></i></a>
+    <a href="{{path('list_staff', {'slug':supplier.slug, 'list_mode':'mosaic'})}}" class="btn btn-default navbar-btn btn-sm {{listMode=='mosaic'?'active'}}"><i class="fa fa-th-large fa-fw"></i></a>
+    {% endblock %}
+    {% block content %}
+    <div class="row">               
+        <div class="col-md-12">
+            <div class="box box-default box-solid">
+                <div class="box-header">
+                    <h3 class="box-title">Staff/User List</h3>
+                    <a class="btn btn-primary pull-right" href="{{path('add_staff',{'slug':supplier.slug})}}" style="color:white"><i class="fa fa-user"></i> Add User to Store</a>                 
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    {% if staffList|length > 0 %}
+                        {% if listMode == 'mosaic' %}
+                            {% for staff in staffList %}
+                                <div class="col-xs-6 col-sm-3 mosaic-box sonata-ba-list-field-batch sonata-ba-list-field"
+                                     objectId="2">
+                                    <a class="mosaic-inner-link"
+                                       href="#">
+                                        <div class="mosaic-box-outter">
+                                            <div class="mosaic-inner-box">
+                                                <div class="mosaic-inner-box-default">
+                                                    <img src="{{staff.person is not null and staff.person.profilePicture is not null ? asset(staff.person.profilePicture|imagine_filter('hub_thumbnail')) :  asset('cipron/dist/img/user1-128x128.jpg')}}"/>
+                                                    <span class="mosaic-box-label label label-primary pull-right">{{ staff.fullName}}</span>
+                                                </div>
+                                                <div class="mosaic-inner-box-hover">
+                                                    <span class="mosaic-box-label label label-primary pull-right">{{ staff.fullName }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="mosaic-inner-text">
+                                                {% if staff.userProfile is not null %}
+                                                    {{staff.userProfile.subLocation is not null ? staff.userProfile.subLocation ~', '}} {{staff.userProfile.town}}{{staff.userProfile.region!=null ? ', '~staff.userProfile.region ~' Region' }}  
+                                                {% endif %}
+                                            </div>
+                                        </div>
+
+                                    </a>
+                                </div>
+                            {% endfor %}
+                            <div class="row">               
+                                <div class="col-md-12">
+                                    <div class="pagination pagination-sm no-margin pull-right">                        
+                                        {{ knp_pagination_render(staffList) }}
+                                        <span class="show-resuilt">Showing <span>{{ staffList.getPaginationData.firstItemNumber }} - {{ staffList.getPaginationData.lastItemNumber }}</span> of <span>{{staffList.totalItemCount}}</span> results</span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+
+                            <table id="staff" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Pix</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
+                                        <th>Active</th>
+                                        <th>Last Login</th>
+                                        <th>Actions</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="staff-list">
+                                    {% for staff in staffList %}                             
+                                        <tr>
+                                            <td>  <img src="{{staff.person is not null and staff.person.profilePicture is not null ? asset(staff.person.profilePicture|imagine_filter('hub_thumbnail'))}}" width="80px" height="60px"/>
+                                            </td>
+                                            <td>
+                                                <a href="#">
+                                                    {{staff.firstname}}
+                                                </a>
+                                            </td>
+                                            <td><a href="#">{{staff.lastname}}</a></td>                                    
+                                            <td>{{staff.email}}</td>
+                                            <td>{{staff.contactNo}}</td>                                    
+                                            <td>   
+                                                {{staff.isActive}}
+                                            </td>
+                                            <td>
+                                                {{staff.lastLogin|date('m/d/Y')}}  
+                                            </td>
+                                            <td>
+
+                                            </td>
+
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Pix</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
+                                        <th>Active</th>
+                                        <th>Last Login</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        {% endif %}
+                    {% else %}
+                        <div class="alert alert-danger">
+                            No Users are assigned to {{supplier}} yet
+                        </div>
+                    {% endif  %}
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>              
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <!-- DataTables -->
+    <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+
+    <script>
+
+        $(function () {
+            $('#staff').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false
+            });
+        });
+
+    </script>
+{% endblock javascripts %}
+

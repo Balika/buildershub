@@ -1,0 +1,29 @@
+<form id="loginForm" action="{{path('security_login_check', {'store-authentication':true, 'redirect':'shopper_dashboard'})}}" method="Post">
+    <div class="form-body">
+        {% if accountExist %}
+            <p style="color:green; padding-bottom: 10px">
+                <strong>We found a BuildersHub account matching username: {{quotationRequest.contact}}</strong>
+            </p>
+        {% endif %}
+        <div class="section">
+            <label class="field prepend-icon">
+                <input type="text" class="gui-input" id="username" name="_username" placeholder="Enter username (email or phone" required value="{{quotationRequest is defined ? quotationRequest.contact : rentalRequest is defined ? rentalRequest.phone }}">
+
+                <span class="field-icon"><i class="fa fa-user"></i></span>  
+            </label>
+        </div><!-- end section -->                    
+        <div class="section">
+            <label class="field prepend-icon">
+                <input type="password" id="password" name="_password" class="gui-input" placeholder="Enter password" />
+                <span class="field-icon"><i class="fa fa-lock"></i></span>  
+            </label>
+        </div><!-- end section -->                                                                                                       
+    </div><!-- end .form-body section -->
+    <div class="form-footer">
+        {% if isRegisterToggle %}
+            <a href="#" id="signupLink" style="font-family: 'Segoe UI Black', Helvetica;"> &laquo; No account? Register</a>
+        {% endif %}
+        <button type="submit" class="button btn-primary pull-right">Login</button>
+    </div><!-- end .form-footer section -->
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+</form>

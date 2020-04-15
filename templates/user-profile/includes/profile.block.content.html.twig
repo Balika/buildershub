@@ -1,0 +1,368 @@
+{% block profileHeaderBlock %}
+    {% include "user-profile/includes/location.dialog.html.twig" %} 
+    {% include "user-profile/includes/profile.summary.form.html.twig" %} 
+    <div class="row text-center">
+        {% if isOwnProfile %}
+            {{ form_start(coverPictureForm, {'method': 'post', 'action': path('update_profile_photos'), 'attr': {'class': 'coverPictureForm form-horizontal', 'id':'coverPictureForm'}  }) }}                   
+            <label class="cover" title="Update Cover Picture">
+                {{form_widget(coverPictureForm.coverFile)}}
+                <span class="fa-stack fa-2x">
+                    <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                    <i class="fa fa-camera fa-stack-1x text-white"></i>
+                </span>
+            </label>
+            <span id="coverButtons" class="hide">
+                <a class="btn btn-danger btn-xs" id="cancelCoverUpdate" href="#">Cancel</a>
+                <input type="submit" class="btn btn-success btn-xs" value="Update" style="margin-left: 40px" id="updateCoverBtn" />
+            </span>
+            {{ form_row(coverPictureForm._token) }} 
+            {{ form_end(coverPictureForm, {'render_rest': false}) }}
+        {% endif %}
+    </div>
+    <div class="row text-center" id="user-location">
+        <h1 class="font-weight-8 text-center"><strong>{{requestedProfile.fullName}}</strong></h1>
+        <h5 class="font-weight-5 text-center less2">
+            {{userProfile.profile|slice(0, 200)}} 
+            {% if isOwnProfile %}
+                <button id="js-overlay-trigger" class="btn btn-tiny border border-green xround-2" data-element="#user-profile-form" type="button" title="Update your profile "><span><i class="fa fa-pencil"></i></span></button>                          
+                        {% endif %}
+        </h5>
+        <img src="{{asset('images/titel-bg-02.png')}}" alt=""> 
+        <h5>
+            {% if isBuilder and requestedProfile.person.profession is not null %}
+                <span class="fa fa-user text-success"> <strong>{{requestedProfile.person.profession.practitioner}}</strong></span>
+            {% endif %}       
+            <!-- <a href="#" title="{#currentJob.placeOfWork}}">{{currentJob.placeOfWork#} </a>-->
+        </h5>
+        <span class="text-danger">
+            {% if requestedProfile.userProfile.town!=null %}
+                <i class="fa fa-map-marker margin-r-5"></i> 
+                <strong>
+                    {{requestedProfile.userProfile.subLocation is not null ? requestedProfile.userProfile.subLocation ~', '}} {{requestedProfile.userProfile.town}}{{requestedProfile.userProfile.region!=null ? ', '~requestedProfile.userProfile.region ~' Region' }}            
+                </strong>
+            {% endif %}   
+            {% if isOwnProfile %}
+                <a href="#locationDlg" data-toggle="modal"><i class="fa fa-pencil text-danger"></i></a>
+                {% endif %}    
+        </span>      
+    </div>
+{% endblock %}
+{% block projectPhotosBlock %}
+    {% set s3_images_url = "https://s3-us-west-1.amazonaws.com/buildershub/images/" %}
+    {% for photoItem in projectPhotos %}
+        <div class="cbp-item {{loop.index==1 ? 'graphic' : loop.index==2 ? 'web-design logos' : loop.index==3 ? 'graphic logos' : loop.index==4 ? 'identity web-design' : loop.index==5 ? 'identity graphic' : 'graphic' }}">
+            <div class="cbp-caption">
+                <div class="cbp-caption-defaultWrap">
+                    <img src="{{photoItem.image is not null ? asset(photoItem.image|imagine_filter('hub_thumbnail'))}}" alt="" style="height: 180px; border-radius: 3px">
+                </div>
+                <div class="cbp-caption-activeWrap">
+                    <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+                            <a href="#js-singlePage-container/project1" class="cbp-singlePage cbp-l-caption-buttonLeft" rel="nofollow">more info</a>
+                            <a href="{{asset(s3_images_url~photoItem.image)}}" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="{{photoItem.caption}}<br>{{project.user.fullName}}">view larger</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cbp-l-grid-projects-title" title="{{photoItem.caption}}">{{photoItem.caption}}</div>
+            <div class="cbp-l-grid-projects-desc"></div>
+        </div>
+    {% endfor %}
+    <div id="js-singlePage-container" style="display: none;">                  
+        <!-- PROJECT 1 -->
+        <div>
+            <div class="cbp-l-project-title">{{project.title|title}}</div>
+            <div class="cbp-l-project-subtitle">by {{project.user.fullName}}</div>
+            <div class="cbp-slider">
+                <ul class="cbp-slider-wrap">
+                    {% for photoItem in projectPhotos %}
+                        <li class="cbp-slider-item">
+                            <img src="{{asset(s3_images_url~photoItem.image)}}" alt="">
+                        {% endfor %}
+                    </li>
+
+                </ul>
+            </div>
+            <div class="cbp-l-project-container">
+                <div class="cbp-l-project-desc">
+                    <div class="cbp-l-project-desc-text">{{project.summary}}</div>
+                </div>
+                <div class="cbp-l-project-details">
+                    <ul class="cbp-l-project-details-list">
+                        <li><strong>Client</strong>{{project.client}}</li>
+                        <li><strong>Date</strong>{{project.startDate|date('d')}} {{project.startDate|date('F')}} {{project.startDate|date('Y')}}</li>
+                        <li><strong>Date</strong>{{project.completionDate|date('d')}} {{project.completionDate|date('F')}} {{project.completionDate|date('Y')}}</li>
+                        <li><strong>Categories</strong>Logo, Graphic</li>
+                    </ul>
+                    <a href="#" target="_blank" class="cbp-l-project-details-visit">OPEN PROJECT</a>
+                </div>
+            </div>            
+            <br><br><br>
+        </div>                   
+    </div>
+{% endblock %}
+{% block engageDashboard %}
+    {% set s3_images_url = "https://s3-us-west-1.amazonaws.com/buildershub/live/images/" %}
+    <section class="sec-padding section-white">
+        <div class="row no-gutter">  
+            {% for post in posts %}
+                {% if loop.index is divisible by(2) %}
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="post-style-3 margin-bottom">
+                            <div class="text-box white">
+                                <h5 class="less-mar-1"><a href="#" title="{{post.title}}">{{post.title|slice(0, 60)~'...'|title}}</a></h5>
+                                <div class="blog-post-info"> <span><i class="fa fa-user"></i> {{post.user.fullName}}</span> <span><i class="fa fa-comments-o"></i> {{post.commentCount}}</span></div>
+                                <br/>
+                                <p><a href='#'>{{post.excerpt|slice(0, 80)~'...'}}</a></p>
+                            </div>
+                            <div class="ce4-post-img">
+                                <div class="arrow-down"></div>
+                                <a href='#'><img src="{{asset(s3_images_url~post.featureImage)}}" alt="" class="img-responsive" style="border-radius: 3px"/> </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end item-->
+                {% else %}
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="post-style-3 margin-bottom">
+                            <div class="ce4-post-img">
+                                <div class="arrow-up"></div>
+                                <a href='#'><img src="{{asset(s3_images_url~post.featureImage)}}" alt="" class="img-responsive" style="border-radius: 3px"/></a> </div>
+                            <div class="text-box one white">
+                                <h5 class="less-mar-1"><a href="#" title="{{post.title}}">{{post.title|slice(0, 60)~'...'|title}} </a></h5>
+                                <div class="blog-post-info"> <span><i class="fa fa-user"></i> By {{post.user.fullName}}</span> <span><i class="fa fa-comments-o"></i> {{post.commentCount}}</span></div>
+                                <br/>
+                                <p><a href='#'>{{post.excerpt|slice(0, 80)~'...'}}</a></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <!--end item-->
+
+        </div>
+    </section>
+{% endblock %}
+
+{% block productAdsDashboard %}
+    {% set s3_images_url = "https://s3-us-west-1.amazonaws.com/buildershub/images/" %}
+    {% for product in featuredProducts %}
+        <div class="cbp-item {{loop.index==1 ? 'graphic' : loop.index==2 ? 'web-design logos' : loop.index==3 ? 'graphic logos' : loop.index==4 ? 'identity web-design' : loop.index==5 ? 'identity graphic' : 'graphic' }}">
+            <div class="cbp-caption">
+                <div class="cbp-caption-defaultWrap">
+                    <img src="{{product.featureImage is not null ? asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="" style="height: 180px; border-radius: 3px">
+                </div>
+                <div class="cbp-caption-activeWrap">
+                    <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+                            <a href="{{path('store_product_detail',{'slug':product.slug})}}" class="cbp-l-caption-buttonLeft" target="_blank">view product</a>
+                            <a href="{{asset(s3_images_url~product.featureImage)}}" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="{{product.name}}<br>{{product.supplier}}">view larger</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cbp-l-grid-projects-title" title="{{product.name}}">{{product.name}}</div>
+            <div class="cbp-l-grid-projects-desc">{{product.category.name}}</div>
+        </div>
+    {% endfor %}
+    <div id="js-singleProduct-container" style="display: none;">  
+        {% for product in featuredProducts %}
+            <!-- PROJECT 1 -->
+            <div>
+                <div class="cbp-l-project-title">{{product.name}}</div>
+                <div class="cbp-l-project-subtitle">by {{product.supplier}}</div>
+                <div class="cbp-slider">
+                    <ul class="cbp-slider-wrap">
+                        {% for photo in product.gallery %}
+                            <li class="cbp-slider-item">
+                                <img src="{{asset(s3_images_url~photo)}}" alt="">
+                            {% endfor %}
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="cbp-l-project-container">
+                    <div class="cbp-l-project-desc">
+                        <div class="cbp-l-project-desc-text">{{product.description}}</div>
+                    </div>
+                    <div class="cbp-l-project-details">
+                        <ul class="cbp-l-project-details-list">
+                            <li><strong>Client</strong>{{product.supplier}}</li>
+                            <li><strong>Date</strong></li>
+                            <li><strong>Date</strong></li>
+                            <li><strong>Categories</strong>Logo, Graphic</li>
+                        </ul>
+                        <a href="#" target="_blank" class="cbp-l-project-details-visit">Contact Supplier</a>
+                    </div>
+                </div>
+                <br><br><br>
+            </div>   
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block userStatus %}
+    <!-- <div>Use this to control height if necessary-->
+    {% set s3_images_url = "https://s3-us-west-1.amazonaws.com/buildershub/images/" %}
+    <div class="smartforms-modal-body" >
+        <div class="smart-wrap" >
+            <div class="smart-forms smart-container transparent wrap-full">
+                <div class="form-body no-padd"> 
+                    {{ form_start(statusForm, {'method': 'post', 'action':path('save_status_post', {'id':requestedProfile.id}), 'attr': {'class': 'statusForm form-horizontal', 'role':'form'} }) }}                
+                    <div class="imgbox-xtiny round overflow-hidden left">
+                        <a href="{{path('user_profile', {'usernameCanonical':user.usernameCanonical})}}">
+                            <img src="{{user.person.profilePicture is not null ? asset(s3_images_url~user.person.profilePicture): asset('images/default-avatar.png')}}" alt="{{user.firstname}} Profile Picture" class="img-responsive"/>
+                        </a>
+                    </div>
+                    <div class="text-box-right">
+                        <h6 class="nopadding title"><a href="{{path('user_profile',{'usernameCanonical':user.usernameCanonical})}}"><strong>{{user.fullName}}</strong></a><small> {% if  isOwnProfile %} Start a conversation {% else %}Post on {{requestedProfile.firstname}}'s page{% endif %}</small></h6>
+                        <div class="section">
+                            <label class="field prepend-icon">
+                                {% if isOwnProfile %}
+                                    {{form_widget(statusForm.title, {'attr': {class:"gui-textarea", placeholder:"Type your post..." } } )}}
+                                    <span class="field-icon"><i class="fa fa-pencil"></i></span>
+                                    <span class="input-hint"> <strong>Hint:</strong> Say what's on your mind regarding infrastruture development in Ghana</span>   
+                                {% else %}
+                                    {{form_widget(statusForm.title, {'attr': {class:"gui-textarea", placeholder:"Engage " ~requestedProfile.fullName } } )}}
+                                    <span class="field-icon"><i class="fa fa-pencil"></i></span>
+                                    <span class="input-hint"> <strong>Hint:</strong> Ask a question, share a thought or solicit technical opinion</span>                               
+                                {% endif %}
+                            </label>
+                            <p>
+                                <label class="myLabel" title="Add image to your post">
+                                    {{form_widget(statusForm.imageFile)}}
+                                    <span><i class="fa fa-camera"></i></span>
+                                </label>
+                                <button class="btn btn-tiny border border-green xround-2 pull-right" type="submit"><span>Submit Post</span></button>
+                            </p>
+                        </div><!-- end section -->
+                    </div> 
+                    {{ form_row(statusForm._token) }}
+                    {{ form_end(statusForm, {'render_rest': false}) }} 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-divider-margin-1"></div>
+    <div class=" divider-line solid light"></div>  
+    <div class="col-divider-margin-1"></div>
+    <div class="row">
+        {% for post in statusPosts %} 
+            <div class="col-md-12">
+                <div class="imgbox-xtiny round overflow-hidden left">
+                    <a href="{{path('user_profile', {'usernameCanonical':post.user.usernameCanonical})}}">
+                        <img src="{{post.user.person.profilePicture is not null ? asset(post.user.person.profilePicture|imagine_filter('hub_thumbnail')): asset('images/default-avatar.png')}}" alt="{{post.user.firstname}} Profile Picture" class="img-responsive"/>
+                    </a>
+                </div>
+                <div class="text-box-right">
+                    <h6 class="nopadding title"><a href="{{path('user_profile',{'usernameCanonical':post.user.usernameCanonical})}}" class="text-success font-weight-8"><strong>{{post.user.fullName}}</strong></a>  {% if post.target is not null %} &raquo; <a href="{{path('user_profile',{'usernameCanonical':post.target.usernameCanonical})}}" class="text-info font-weight-8"><strong>{{post.target.fullName}}</strong></a>{% elseif  isOwnProfile %} <small> you posted on your page {% else  %} posted on his page {% endif  %}</small></h6>
+                    <div class="blog-post-info"> <span><i class="fa fa-clock-o"></i> {{post.createdAt|date('d')}} {{post.createdAt|date('M')}}</span> <span><i class="fa fa-comments-o"></i> {{post.commentCount}}</span></div>
+                    <div class="col-divider-margin-1"></div>
+                    <div class=" divider-line solid light"></div>  
+                    <div class="col-divider-margin-1"></div>
+                    <h5 class="less-mar-1"><a href="#" title="{{post.title}}">{{post.title}} </a></h5>
+                    <div class="ce4-post-img">
+                        <div class="arrow-down"></div>
+                        <a href='#'><img src="{{post.featureImage is not null ? asset(post.featureImage|imagine_filter('hub_thumbnail'))}}" alt="" class="img-responsive" style="border-radius: 3px; max-height: 300px"/> </a>
+                    </div>
+                    <div class="box-tools engageLikeLinks" id="engagePanel{{post.id}}" style="display: block" >
+                        <span class="pull-left">                                
+                            <a class="btn btn-tiny btn-default" > {{post.likes|length|number_format('0', '.',',')}} <i class="fa fa-thumbs-up"></i></a>
+                            <a class="btn btn-tiny btn-default">400 <i class="fa fa-share-alt"></i></a>
+                        </span>
+                        <span class="pull-right">                               
+                            {% if  is_liked(post) %}
+                                <a id="{{post.id}}" class="btn btn-tiny btn-primary xround-2" href="{{path('unlike_post', {'usernameCanonical':requestedProfile.usernameCanonical, 'entityId': post.id, 'entityClass': constant('App\\Utils\\EntityConfig::POST')})}}">Unlike <i class="fa fa-thumbs-o-down"></i></a>                            
+                            {% else %}
+                                <a id="{{post.id}}"  class="btn btn-tiny btn-primary xround-2" href="{{path('like_post', {'usernameCanonical':requestedProfile.usernameCanonical,'entityId': post.id, 'entityClass': constant('App\\Utils\\EntityConfig::POST')})}}">Like <i class="fa fa-thumbs-o-up"></i></a>                         
+                            {% endif %}
+                            <a class="btn btn-tiny btn-info xround-2">Share <i class="fa fa-share-alt"></i></a>
+                        </span>
+                    </div>
+                    <div class="col-divider-margin-1"></div>
+                    <div class=" divider-line solid light"></div>  
+                    <div class="col-divider-margin-1"></div>               
+                    {{ render_esi(controller('App\\Controller\\ProfileUtilityController:renderCommentsBlock', {'postId':post.id}), {"default":'Loading Cart....'}) }}  
+                </div>
+            </div>
+            <div class="col-divider-margin-1"></div>
+            <div class=" divider-line solid light"></div>  
+            <div class="col-divider-margin-1"></div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block postCommentsBlock %} 
+    <div class="col-md-12">
+        <h6><strong>Your comment</strong></h6>  
+    </div>
+    <div class="col-md-12" style="padding: 10px; background-color: whitesmoke">
+        {{ form_start(commentForm, {'method': 'Post', 'action':path('save_post_comment', {'id':post.id}), 'attr': {'class': 'commentForm form-horizontal', 'role':'form'} }) }}                
+        {{form_widget(commentForm.comment, {'attr':{class:'gui-textarea',placeholder:"Type your comment ...",style:'width:100%' } })}}   
+        <span class="pull-right">
+            <button type="submit" name="submitReply" class="btn btn-sm btn-default btn-flat">Post Comment</button>
+        </span>           
+        {{ form_row(commentForm._token) }}         
+        {{ form_end(commentForm, {'render_rest': false}) }} 
+    </div>
+{% endblock %}
+{% block projectCommentsBlock %}
+    {% set s3_images_url = "https://s3-us-west-1.amazonaws.com/buildershub/images/" %}
+    <div class="smartforms-modal-body" >
+        <div class="smart-wrap" >
+            <div class="smart-forms smart-container transparent wrap-full">
+                <div class="form-body no-padd"> 
+                    <div class="imgbox-xtiny round overflow-hidden left">
+                        <a href="{{path('user_profile', {'usernameCanonical':user.usernameCanonical})}}">
+                            <img src="{{user.person.profilePicture is not null ? asset(s3_images_url~user.person.profilePicture): asset('images/default-avatar.png')}}" alt="{{user.firstname}} Profile Picture" class="img-responsive"/></a>
+                    </div>
+                    <div class="text-box-right">
+                        <h6 class="nopadding title"><a href="{{path('user_profile',{'usernameCanonical':user.usernameCanonical})}}"><strong>{{user.fullName}}</a></strong></h6>
+                                {{ form_start(commentForm, {'method': 'Post', 'action':path('save_project_comment', {'id':post.id}), 'attr': {'class': 'commentForm form-horizontal', 'role':'form'} }) }}                
+                        <div class="section">
+                            <label class="field prepend-icon">
+                                {{form_widget(commentForm.comment, {'attr':{class:'gui-textarea',placeholder:"Type your comment ...",style:'width:100%' } })}}   
+
+                                <span class="field-icon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-hint"> <strong>Hint:</strong> Let {{post.user.fullName}} know what you think about this project </span>   
+                            </label>
+                            <p align="right">
+                                <button class="btn btn-tiny border border-green xround-2" type="submit"><span>Post Comment</span></button>
+                            </p>
+                        </div><!-- end section -->
+                        {{ form_row(commentForm._token) }}         
+                        {{ form_end(commentForm, {'render_rest': false}) }} 
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block myProjectPhotoGallery %}    
+    {% for photoItem in projectPhotos %}
+        {{loop.first ? "<div class='row'>" }}
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="img-hover-1 margin-bottom">
+                <div class="img-hover-1">
+                    <div class="text-box ">                        
+                        <p class="text-white"><a href="#">{{photoItem.caption}}</a></p>
+                    </div>
+                    <img src="{{photoItem.image is not null ? asset(photoItem.image|imagine_filter('hub_thumbnail'))}}" alt="" class="img-responsive"/> 
+                </div>
+            </div>
+        </div>
+        {{loop.index is divisible by(3) and  not loop.last ? "</div><br/><div class='row'>" : loop.last ? "</div> <br/>" }}
+    {% endfor %}
+{% endblock %}  
+{% block personsOfInterest %}
+    <!--end item--> 
+    {% set s3_images_url = "https://s3-us-west-1.amazonaws.com/buildershub/live/images/" %}
+    {% for person in personsOfInterest %}
+        <div class="imgbox-xtiny round overflow-hidden left"><a href="{{path('user_profile', {'usernameCanonical':person.user.usernameCanonical})}}" title="{{person.user.fullName}}">
+                <img src="{{person.profilePicture is not null ? asset(s3_images_url~person.profilePicture) :  asset('images/default-avatar.png')}}" alt="{{person.user.firstname}} Profile Picture" class="img-responsive"/></a>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block rightSidebarSponsoredBlock %}
+{% endblock %}
+{% block rightSidebarUserContentBlock %}
+{% endblock %}
+

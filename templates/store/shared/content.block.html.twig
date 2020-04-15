@@ -1,0 +1,135 @@
+{% block supplierCategoriesBlock %}
+    <div id="box-vertical-megamenus" class="box-vertical-megamenus nav-toggle-cat">
+        <h4 class="title active">
+            <span class="btn-open-mobile home-page">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+            <span class="title-menu">Product Categories</span>   
+        </h4>
+        <div class="vertical-menu-content" >
+            <span class="btn-close hidden-md"><i class="fa fa-times" aria-hidden="true"></i></span>
+            <ul class="vertical-menu-list">
+                {% for cat in supplier.productCategories %}
+                    {% if cat.subCategories|length > 0 %}
+                        <li class="menu-item-has-children arrow item-megamenu">
+                            <a href="{{path('supplier_store_view',{'slug':supplier.slug, 'page':'category', 'cat':cat.slug})}}" class="dropdown-toggle">{{cat}}</a>
+                            <span class="toggle-submenu hidden-md"></span>
+                            <div class="submenu parent-megamenu megamenu">
+                                <div class="row">
+                                    <div class="submenu-banner submenu-banner-menu-1">                                       
+                                        <div class="col-md-4">
+                                            <div class="dropdown-menu-info">
+                                                <h6 class="dropdown-menu-title">Sub Categories </h6>
+                                                <div class="dropdown-menu-content">
+                                                    <ul class="menu">
+                                                        {% for subCat in cat.subCategories.slice(0, 7) %}
+                                                            <li class="menu-item"><a href="{{path('supplier_store_view',{'slug':supplier.slug, 'page':'category', 'cat':subCat.slug})}}">{{subCat}}</a></li>  
+                                                            {% endfor %}                                                            
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>   
+                                        <div class="col-md-4">
+                                            <div class="dropdown-menu-info">
+                                                <h6 class="dropdown-menu-title"></h6>
+                                                <div class="dropdown-menu-content">
+                                                    <ul class="menu">
+                                                        {% for subCat in cat.subCategories|slice(8, 15) %}
+                                                            <li class="menu-item"><a href="{{path('supplier_store_view',{'slug':supplier.slug, 'page':'category', 'cat':subCat.slug})}}">{{subCat}}</a></li>  
+                                                            {% endfor %}                                                            
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>   
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% else %}
+                        <li><a href="{{path('supplier_store_view',{'slug':supplier.slug, 'page':'category', 'cat':cat.slug})}}">{{cat}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+{% block supplierRegionsSidebarBlock %}
+    <div id="box-vertical-megamenus" class="box-vertical-megamenus style2"> 
+        <h4 class="title active"  style="background-color: #01bf9d;">
+            <span class="btn-open-mobile home-page">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+            <span class="title-menu">All regions</span>   
+        </h4> 
+        <div class="vertical-menu-content">
+            <span class="btn-close hidden-md"><i class="fa fa-times" aria-hidden="true"></i></span>
+            <ul class="vertical-menu-list">                
+                {% for reg  in regions %}
+                    <li><a href="{{path('supplier_list',{'slug':reg.slug})}}" style="color: {{region==reg?'#01bf9d'}}">{{reg.name}} Region</a></li>
+                    {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block indexTopPremiumSlot %}
+    {% for bid in bids %}
+        <div class="promotion-banner banner-slide-2 style-4 hidden-sm hidden-xs">
+            <a href="{{path('store_product_detail', {'slug':bid.product.slug})}}" class="banner-img"><img src="{{bid.banner is not null ? asset('uploads/adverts/'~bid.banner) : asset(bid.product.featureImage|imagine_filter('hub_thumbnail')) }}" alt="banner1" ></a>
+            <a href="{{path('store_product_detail', {'slug':bid.product.slug})}}" class="btn-shop-now">Shop now</a>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block indexSidePremiumSlot %}
+    {% for bid in bids %}    
+        <div class="col-xs-6 col-sm-12 padding-0">
+            <div class="promotion-banner item-1 style-3">
+                <a href="{{path('store_product_detail', {'slug':bid.product.slug})}}" class="banner-img"><img src="{{bid.banner is not null ? asset('uploads/adverts/'~bid.banner) :  asset(bid.product.featureImage|imagine_filter('hub_thumbnail')) }}" alt="banner3" width="100%"></a>
+                <a href="{{path('store_product_detail', {'slug':bid.product.slug})}}" class="btn-shop-now hidden-xs">Shop now</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
+{% block indexPagePremiumSlot %}
+    <div class="row">
+        {% for bid in bids %}    
+            <div class="col-md-6 col-xs-6 padding-right-10">
+                <div class="promotion-banner style-2">
+                    <a href="{{path('store_product_detail', {'slug':bid.product.slug})}}" class="banner-img"><img src="{{bid.banner is not null ? asset('uploads/adverts/'~bid.banner) : asset(bid.product.featureImage|imagine_filter('hub_thumbnail')) }}" alt="banner5"></a>
+                    <a href="{{path('store_product_detail', {'slug':bid.product.slug})}}" class="shop-now hidden-xs">Shop now</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block locationTopSuppliers %}
+    {% for topSupplier in topSuppliers %}
+        <div class="deal-of-day equal-elem">
+            <div class="product-thumb style1">
+                <div class="thumb-inner">
+                    <a href=""><img src="{{asset('store/images/store-holder.png')}}" alt="d1"></a>
+                </div>
+            </div>
+            <div class="product-innfo">
+                <div class="info-text">
+                    <div class="product-name"><a href="">{{topSupplier.supplier}}</a></div>
+                    <span class="price">
+                        <ins><i class="fa fa-truck"></i></ins>
+                        <del>Deleivery Supported</del>
+                        <span class="onsale"><small>-20% Off</small></span>
+                    </span>
+                    <div class="star-rating">
+                        <i class="fa fa-map-marker"></i> <span class="review">{{topSupplier.supplier.businessLocation is not null ?  topSupplier.supplier.businessLocation ~','}} {{topSupplier.supplier.region}}</span>                         
+                    </div>
+                </div>
+                <a href="{{path('supplier_store_view', {'slug':topSupplier.supplier.slug})}}" class="btn-add-to-cart">Visit Store</a>
+            </div>
+        </div>
+    {% endfor %}    
+{% endblock %}
+

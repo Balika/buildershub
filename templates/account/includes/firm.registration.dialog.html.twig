@@ -1,0 +1,43 @@
+<div id="sigupInfoDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="width: 50%">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 class="modal-title text-green" id="myModalLabel">BuildersHub <strong>Account Sigup</strong> </h4>
+            </div>   
+            <div class="modal-body" style="padding: 25px; min-height: 280px">  
+                <div class="row"> 
+                    <div class="col-md-6">                  
+                        <a class="btn btn-action btn-success btn-lg" href="{{path('register_store')}}" style="width:100%"><i class="fa fa-shopping-cart"></i> Register as Supplier</a>
+                        <br/>
+                        <small class="block">Sell construction equipment, hand tools, materials and building suppliers, sanitary & kitchen wares, furniture, interior and exterior decor</small>
+                    </div><!-- /.form group -->
+                    <div class="col-md-6">
+                        <a class="btn btn-action btn-primary btn-lg" href="{{path('register_store', {'type':'property'})}}" style="width:100%"><i class="fa fa-home"></i> Advertise Esate/Property</a>         
+                        <br/>
+                        <small class="block">For estate developers, property owners, landlords, estates agents. Get best deals for your property by reaching millions on BuildersHub</small>
+                    </div><!-- /.form group -->
+                </div>
+                <div class="row" style="padding-top: 30px"> 
+                    <div class="col-md-6">
+                        <a class="btn btn-action btn-info btn-lg" data-dismiss="modal" style="width:100%"> <i class="fa fa-user"></i> Artisan, Professional, Student</a>
+                        <br/>
+                        <small class="block">Artisans (plumbers, carpenters, masons, welders, steel benders), Engineers, Architects, Surveyors, Cost Estimators, Planners, Students</small>           
+                    </div>
+                    <div class="col-md-6">
+                        <a class="btn btn-action btn-danger btn-lg" href="{{path('register_store', {'type':'firm'})}}" style="width:100%"> <i class="fa fa-briefcase"></i> Register as Contractor, Consultant</a>
+                        <br/>
+                        <small class="block">Construction and consulting firms in road works, buildings, dams & irrigation, mining, borehole drilling, land survey mapping & GIS </small>           
+                    </div>
+                </div>
+
+                <div class="box-footer" style="padding: 10px">
+                    <a href="{{previousPage}}" class="text-danger">&laquo; Back</a>
+
+                    <a data-dismiss="modal" class="btn btn-default btn-sm pull-right">Close</a>
+
+                </div>   
+            </div><!-- /.box-body -->         
+        </div> 
+    </div> 
+</div> 

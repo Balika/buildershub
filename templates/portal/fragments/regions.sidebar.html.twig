@@ -1,0 +1,18 @@
+<div class="padding-top-1 text-left"style="padding:8px">
+    {% for region in regions %}
+        <div class="icons-list-1 border-bottom">
+
+            <div class="text">
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                {% if page == 'artisans' or page == 'professionals' %}
+                    <a href='{{path('find_builders', {'b-page':page,'slug':region.slug})}}' style="color: {{region==selectedRegion?"orange"}}">{{region~' Region'}} 
+                    </a>
+                {% else %}
+                    <a href='{{path('list_firms', {'b-page':page,'slug':region.slug})}}' style="color: {{region==selectedRegion?"orange"}}">{{region~' Region'}} 
+                    </a>
+                {%endif %}
+            </div>
+        </div>       
+    {% endfor %}
+</div>
+

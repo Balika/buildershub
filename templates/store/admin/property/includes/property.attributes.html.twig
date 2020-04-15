@@ -1,0 +1,84 @@
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h4 class="box-title">Listing Type</h4>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div><!-- /.box-tools -->
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">     
+                <li  class="{{property.listingType=="For Rent" or property.id < 1 ?"active"}}"><a href="#forRent" data-toggle="tab" id='forRentTab'><strong>For Rent</strong></a></li> 
+                <li class="{{property.listingType=="For Sale"?"active"}}"><a href="#forSale" data-toggle="tab"id='forSaleTab'><strong>For Sale</strong></a></li>                 
+            </ul>            
+            <div class="tab-content">
+                <div class="tab-pane {{property.listingType=="For Sale"?"active"}}" id="forSale">
+                    <div class="form-group">
+                        <label>Sale Price </label>
+                        {{form_widget(form.regularPrice, { 'attr': {class: 'form-control',   } })}}
+                        <p class="help-block">The acceptable price for this property</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Minimum Price</label>
+                        {{form_widget(form.minPrice, { 'attr': {class: 'form-control',   } })}}
+                        <p class="help-block">The minimum price this property could go for</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Maximum Price</label>
+                        {{form_widget(form.maxPrice, { 'attr': {class: 'form-control',   } })}}
+                        <p class="help-block">The maximum price this property could go for</p>
+                    </div>
+                </div><!-- /.tab-pane -->
+                <div class="tab-pane {{property.listingType=="For Rent" or property.id < 1 ?"active"}}" id="forRent">
+                    <div class="form-group">
+                        <label>Rent Amount <small>(Per Month)</small></label>
+                        {{form_widget(form.salePrice, { 'attr': {class: 'form-control',   } })}}
+
+                    </div>
+                    <div class="form-group">
+                        <label>Rent Advance </label>
+                        {{form_widget(form.advanceDuration, { 'attr': {class: 'form-control',   } })}}
+                        <p class="help-block">How many years advance rent expected</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Renewal Cycle</label>
+                        {{form_widget(form.renewalCycle, { 'attr': {class: 'form-control',   } })}}
+                        <p class="help-block">How often rent renewal is expeted</p>
+                    </div>
+                </div><!-- /.tab-pane -->
+                {{form_widget(form.listingTypeHolder, { 'attr': {class: 'form-control',   } })}}
+            </div><!-- /.tab-content -->
+        </div><!-- nav-tabs-custom -->
+        <div class="form-group">
+            <label>Currency </label>
+            {{form_widget(form.currency, { 'attr': {class: 'form-control',   } })}}
+
+        </div>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h4 class="box-title">Product Image</h4>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div><!-- /.box-tools -->
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        {{form_widget(form.imageFile, { 'attr': {class: 'form-control'  } })}}
+        <p>
+            <img src="{{property.featureImage is not null ? asset(property.featureImage|imagine_filter('hub_thumbnail'))}}" class="img-responsive" style="border-radius: 5px" >
+        </p>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h4 class="box-title">Photo Gallery</h4>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div><!-- /.box-tools -->
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        {#form_widget(form.galleryFiles, { 'attr': {class: 'form-control'   } })#}
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+

@@ -1,0 +1,21 @@
+<style>   
+    #picLocationDlg .modal-dialog  {width:80%;}
+</style>
+<div id="picLocationDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">        
+        <div class="modal-content" id="loaded-ad-form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h3 class="modal-title" id="myModalLabel"> <span style="color: green"><strong> Pick the location you wish to rent/hire equipment from!</strong></span> </h3>
+            </div>             
+            <div class="modal-body">
+                 {{ render_esi(controller('App\\Controller\\RentalUtilityController:renderContentFragment', {'template':'pick.location', 'regionId':selectedRegion is defined and selectedRegion is not null ? selectedRegion.id : 0}), {"default":'Loading Cart....'}) }}                                         
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-default btn-medium pull-right" data-dismiss="modal">Close</a>                
+            </div>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+

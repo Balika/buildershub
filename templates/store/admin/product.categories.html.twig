@@ -1,0 +1,84 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}    
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+
+{% endblock %}
+{% block contentHeader %}
+    PRODUCT CATEGORIES
+    <small>Categories of Construction Equipment, Tools & Material You Trade In </small>    
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header">
+                    <h3 class="box-title">
+                        Available Product Categories
+                    </h3>
+                    <a class="btn btn-default pull-right" href="#supplierCategoriesDlg" data-toggle="modal"><i class="fa fa-list"></i> Select Product Categories</a>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <div class="col-md-8" id="vendorCategories">
+                        {% include 'store/admin/includes/product.categories.dialog.html.twig' %}
+                        {% include 'store/admin/includes/categories.table.html.twig' %}
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box box-default box-solid">
+                            <div class="box-header">
+                                <h5 class="box-title"><strong>Add New Product Category</strong></h5>                   
+                            </div><!-- /.box-header -->
+                            <div class="box-body">
+                                <p style="color: green; display:  {{success ? 'block' : 'none'}}">
+                                    <strong></strong>Your New Category Has Been Successfully Added
+                                </p>                    
+                                {% include 'store/admin/includes/category.form.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <!-- DataTables -->
+    <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+
+    <script>
+        $(function () {
+            $('#categories').DataTable();
+        });
+        $(document).ready(function () {
+            var id = "";
+            $('#category_list td').hover(
+                    function (e) {
+                        id = $(this).attr('id');
+                        $('#action_' + id).show();
+                    },
+                    function () {
+                        $('#action_' + id).slideUp(250); //.fadeOut(205)
+                    }
+            );
+        });
+        $(function () {
+            $('body').confirmation({
+                selector: '[data-toggle="confirmation"]'
+            });
+            $('.confirmation-callback').confirmation({
+                onConfirm: function (event, elem) {
+                    var ID = $(elem).attr('id');
+                    alert('confirm: ' + ID);
+                },
+                onCancel: function () {
+                    // alert('cancel');
+                }
+            });
+        });
+
+    </script>
+{% endblock javascripts %}

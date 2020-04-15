@@ -1,0 +1,48 @@
+{% include "user-profile/includes/location.dialog.html.twig" %} 
+{% include "user-profile/includes/profile.summary.form.html.twig" %} 
+<div class="row text-center">
+    {% if isOwnProfile %}
+        {{ form_start(coverPictureForm, {'method': 'post', 'action': path('update_profile_photos'), 'attr': {'class': 'coverPictureForm form-horizontal', 'id':'coverPictureForm'}  }) }}                   
+        <label class="cover" title="Update Cover Picture">
+            {{form_widget(coverPictureForm.coverFile)}}
+            <span class="fa-stack fa-2x">
+                <i class="fa fa-circle fa-stack-2x icon-background"></i>
+                <i class="fa fa-camera fa-stack-1x text-white"></i>
+            </span>
+        </label>
+        <span id="coverButtons" class="hide">
+            <a class="btn btn-danger btn-xs" id="cancelCoverUpdate" href="#">Cancel</a>
+            <input type="submit" class="btn btn-success btn-xs" value="Update" style="margin-left: 40px" id="updateCoverBtn" />
+        </span>
+        {{ form_row(coverPictureForm._token) }} 
+        {{ form_end(coverPictureForm, {'render_rest': false}) }}
+    {% endif %}
+</div>
+<div class="row text-center" id="user-location">
+    <h1 class="font-weight-8 text-center"><strong>{{requestedProfile.fullName}}</strong></h1>
+    <h5 class="font-weight-5 text-center less2">
+        {{userProfile.profile|slice(0, 200)}} 
+        {% if isOwnProfile %}
+            <button id="js-overlay-trigger" class="btn btn-tiny border border-green xround-2" data-element="#user-profile-form" type="button" title="Update your profile "><span><i class="fa fa-pencil"></i></span></button>                          
+                    {% endif %}
+    </h5>
+    <img src="{{asset('images/titel-bg-02.png')}}" alt=""> 
+    <h5>
+        {% if isBuilder and requestedProfile.person.profession is not null %}
+            <span class="fa fa-user text-success"> <strong>{{requestedProfile.person.profession.practitioner}}</strong></span>
+        {% endif %}       
+        <!-- <a href="#" title="{#currentJob.placeOfWork}}">{{currentJob.placeOfWork#} </a>-->
+    </h5>
+    <span class="text-danger">
+        {% if requestedProfile.userProfile.town!=null %}
+            <i class="fa fa-map-marker margin-r-5"></i> 
+            <strong>
+                {{requestedProfile.userProfile.subLocation is not null ? requestedProfile.userProfile.subLocation ~', '}} {{requestedProfile.userProfile.town}}{{requestedProfile.userProfile.region!=null ? ', '~requestedProfile.userProfile.region ~' Region' }}            
+            </strong>
+        {% endif %}   
+        {% if isOwnProfile %}
+            <a href="#locationDlg" data-toggle="modal"><i class="fa fa-pencil text-danger"></i></a>
+            {% endif %}    
+    </span>      
+</div>
+

@@ -1,0 +1,64 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link href="{{asset('js/smart-forms/smart-addons.css')}}" rel="stylesheet">   
+{% endblock %}
+{% block breadcrumbs %}                               
+    <li> <a href="{{path('open_bids', {'slug':supplier.slug})}}">&laquo; Back to Bids</a></li>
+    <li class="active">Top Suppliers for Product Categories</li>
+    {% endblock  %}
+    {% block contentHeader %}    
+        {{topSupplierSlot.name}}    
+    {% endblock %}
+    {% block content %}   
+        {% if topSupplier != null %}
+            {{form_start(form, {method:"POST", action: path('top_supplier_bid_form', {'slug':supplier.slug, 'bid_id':topSupplier.id, 'action':'edit'}), 'attr':{id: 'topSupplierForm'} })}}
+        {% else %}
+            {{form_start(form, {method:"POST", action: path('top_supplier_bid_form', {'slug':supplier.slug}), 'attr':{id: 'topSupplierForm'} })}}
+        {% endif  %}
+    <div class='row' >       
+        <div class="col-md-12">           
+            <div class="box box-default box-solid">
+                <div class="box-header">
+                    <h3 class="box-title">Top Suppliers Bid</h3>
+                    
+                </div><!-- /.box-header -->
+                <div class="box-body" > 
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label  class="field-label">Bid Amount: (<small>Enter amount you wish to place on bid</small>)</label>                    
+                            {{form_widget(form.bidAmount, {'attr':{class: "form-control", placeholder:"Enter your bid amount "} })}}                   
+                        </div><!-- /.field-row -->
+                        <div class="col-md-6 form-group">
+                            <label  class="field-label">Feature Image (<small>To be displayed as banner for the selected categories</small>)</label>                   
+                            {{form_widget(form.imageFile, {'attr':{class: "form-control"} })}}                        
+                        </div><!-- /.field-row -->
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <div class="col-md-12" id="productCategories">
+                            <input type="checkbox" class="flat-red" value="" id="topSupplierAllCategories" /> <strong>Select All Product Categories <small class="text-danger"> Your company/store will appear as top supplier under any of the categories you select below</small></strong>
+                            <br/><br/>
+                            <div class='row' id="productList">
+                                {% for category in supplier.productCategories %}
+                                    <div class="col-md-3" style="padding-bottom: 10px">
+                                        <input type="checkbox" class="flat-red" value="{{category.id}}" {{topSupplier is not null and category.id in topSupplier.productCategories ? 'checked'}} /> <span title="{{category.name}}">{{category.name|length > 25 ?  category.name|slice(0, 25)~'...' : category.name}}</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <input type="hidden" id='selectedCategories' name="selectedCategories"/>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer"> 
+                    <a href="{{path('open_bids', {'slug':supplier.slug})}}" class="btn btn-default btn-sm">Cancel</a>
+                    <button type="submit" class="btn btn-success btn-sm pull-right" id="placeBidBtn">{{topSupplier is not null ? 'Update Bid': "Place Bid"}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_row(form._token) }} 
+    {{ form_end(form, {'render_rest': false}) }}
+{% endblock %}

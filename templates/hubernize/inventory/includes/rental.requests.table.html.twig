@@ -1,0 +1,41 @@
+<table id="rentalRequestTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Request Message</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>No. Requested</th>    
+            <th>Request Date</th>    
+            <th>Request Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="rentalRequestData">
+        {% for request in ad.requests %}
+            <tr>                             
+                <td>{{request.message}}</td>
+                <td>{{request.phone}}</td>                
+                <td>{{request.email}}</td>                 
+                <td>
+                    {{request.numberRequested|number_format(2, '.', ',')}}
+                </td>
+                <td>
+                     <td>{{request.status}}</td>     
+                </td>
+                <td>
+                    <a href="#" class="label label-primary">Approve</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Request Message</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>No. Requested</th>           
+            <th>Request Status</th>
+            <th>Actions</th>
+        </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,49 @@
+<div class="row"> 
+    <div class="col-md-3 col-sm-6">
+        <div class="fo-map">
+            <div class="footer-logo"><a href="{{path('home')}}"><img src="{{asset('hub-logo-white.png')}}" alt=""/></a></div>
+            <p class="padding-top-3">We are more than happy to hear from you. Visit our offices or call us</p>
+            <address>
+                <strong class="text-white">Address:</strong> <br>
+                P.O. Box A1 124, Spintex Road, <br>
+                 Accra, Ghana
+            </address>
+            <span><strong class="text-white">Phone:</strong> (+233) 246 7389 54</span><br>
+            <span><strong class="text-white">Email:</strong> info@buldershub.com </span><br>
+            <span><strong class="text-white">Fax:</strong> (+233) 208 6216 11</span> </div>
+    </div>
+    <!--end item-->
+    <div class="col-md-3 col-sm-6">
+        <div class="item-holder">
+            <h4 class="text-white font-weight-6 uppercase less-mar3">Recent Posts</h4>
+            <div class="fo-title-bottom-line white"></div>
+            <div class="clearfix"></div>
+            {{ render_esi(controller('App\\Controller\\PortalUtilityController::renderHomeFragments', {'template':'footer.posts'}), {"default":'Loading Cart....'})}}                                  
+        </div>
+    </div>
+    <!--end item-->
+
+    <div class="col-md-3 col-sm-6">
+        <h4 class="uppercase footer-title less-mar3 font-weight-6">Quick Links</h4>
+        <div class="clearfix"></div>
+        <div class="footer-title-bottomstrip"></div>
+        <ul class="footer-quick-links-4">
+            <li><a href="{{path('store_index')}}" target="_blank"><i class="fa fa-angle-right"></i> Building Materials Store</a></li>
+            <li><a href="{{path('estates_index')}}" target="_blank"><i class="fa fa-angle-right"></i> Estates & Properties Portal</a></li>
+            <li><a href="{{path('rental_index')}}"><i class="fa fa-angle-right"></i> Equipment Rentals</a></li>
+            <li><a href="{{path('find_builders',{'b-page':'artisans'})}}"><i class="fa fa-angle-right"></i> Artisans & Technical Professionals</a></li>
+            <li><a href="{{path('category_view',{'slug':'equipment-spare-parts'})}}" target="_blank"><i class="fa fa-angle-right"></i> Equipments & Machinery Parts</a></li>
+            <li><a href="#"><i class="fa fa-angle-right"></i> Research Topics for Students</a></li>
+            <li><a href="#"><i class="fa fa-angle-right"></i> Skills Development & Training</a></li>
+        </ul>
+    </div>
+    <!--end item-->
+    <div class="col-md-3 col-xs-12 clearfix margin-bottom">
+        <h5 class="text-white uppercase less-mar3 font-weight-7">Connect with Us</h5>
+        <div class="clearfix margin-bottom-1"></div>
+        <ul id="basicuse" class="thumbs">
+        </ul>
+    </div>
+    <!--end item--> 
+    <br/>
+</div>

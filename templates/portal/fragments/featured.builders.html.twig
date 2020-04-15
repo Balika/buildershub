@@ -1,0 +1,60 @@
+{# set s3_images_url = "https://s3-us-west-1.amazonaws.com/buildershub/images/" #}
+<div id="js-grid-slider-projects" class="cbp">
+    {% for builder in builders %}
+        <div class="cbp-item {{loop.index==1 ? 'graphic' : loop.index==2 ? 'web-design logos' : loop.index==3 ? 'graphic logos' : loop.index==4 ? 'identity web-design' : loop.index==5 ? 'identity graphic' : 'graphic' }}">
+            <div class="cbp-caption">
+                <div class="cbp-caption-defaultWrap">
+                    <img src="{{builder.profilePicture is not null ? asset(builder.profilePicture|imagine_filter('hub_thumbnail') ) : asset('images/default-user.png')}}" alt="" style="border-radius: 3px">
+                </div>
+                <div class="cbp-caption-activeWrap">
+                    <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+                            <a href="{{path('user_profile',{'usernameCanonical':builder.user.usernameCanonical})}}" class="cbp-l-caption-buttonLeft" target="_blank">view profile</a>
+                            <a href="{{builder.profilePicture is not null ? asset(builder.profilePicture|imagine_filter('hub_thumbnail') ) : asset('images/default-user.png')}}" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="{{builder.user.fullName}}<br>{{builder.profession is not null ? builder.profession.practitioner}}">view larger</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cbp-l-grid-projects-title" title="#">{{builder.user.fullName}} {{builder.profession is not null ? ' - ' ~builder.profession.practitioner}}</div>
+            <div class="cbp-l-grid-projects-desc">
+                {% if builder.user.userProfile.town!=null %}
+                    <i class="fa fa-map-marker margin-r-5"></i> 
+                    <strong>
+                        {{builder.user.userProfile.subLocation is not null ? builder.user.userProfile.subLocation ~', '}} {{builder.user.userProfile.town}}{{builder.user.userProfile.region!=null ? ', '~builder.user.userProfile.region ~' Region' }}            
+                    </strong>
+                {% endif %}   
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<div id="js-singleProduct-container" style="display: none;">  
+    {% for builder in builders %}
+        <!-- PROJECT 1 -->
+        <div>
+            <div class="cbp-l-project-title">{{builder.user.fullName}}</div>
+            <div class="cbp-l-project-subtitle"> {{builder.profession is not null ? builder.profession.practitioner}}</div>
+            <div class="cbp-slider">
+                <ul class="cbp-slider-wrap">
+
+
+                </ul>
+            </div>
+            <div class="cbp-l-project-container">
+                <div class="cbp-l-project-desc">
+                    <div class="cbp-l-project-desc-text">{{builder.user.userProfile.profile}}</div>
+                </div>
+                <div class="cbp-l-project-details">
+                    <ul class="cbp-l-project-details-list">
+                        <li><strong>Client</strong></li>
+                        <li><strong>Date</strong></li>
+                        <li><strong>Date</strong></li>
+                        <li><strong>Categories</strong>Logo, Graphic</li>
+                    </ul>
+                    <a href="#" target="_blank" class="cbp-l-project-details-visit">View Profile</a>
+                </div>
+            </div>
+            <br><br><br>
+        </div>   
+    {% endfor %}
+</div>
+

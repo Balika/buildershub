@@ -1,0 +1,35 @@
+<div class="box box-white box-solid">
+    <div class="box-header">
+        <h3 class="box-title"></h3>
+        <div class="box-tools pull-right">
+            <a class="btn btn-sm btn-success " data-toggle="modal" href="#promotedProductListDlg" style="color: white">Promote Products</a>
+        </div>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+
+        {% for promotedProduct in supplier.promotedProducts %}
+            <div class="col-xs-6 col-sm-3 mosaic-box sonata-ba-list-field-batch sonata-ba-list-field"
+                 objectId="2">
+                <a class="mosaic-inner-link"
+                   href="{{path('edit_product',{'slug':supplier.slug, 'product_slug':promotedProduct.product.slug})}}">
+                    <div class="mosaic-box-outter">
+                        <div class="mosaic-inner-box">
+                            <div class="mosaic-inner-box-default">
+                                <img src="{{promotedProduct.product.featureImage is not null ? asset(promotedProduct.product.featureImage|imagine_filter('hub_thumbnail'))}}"/>
+                                <span class="mosaic-box-label label label-warning pull-right">{{promotedProduct.campaign.name}}</span>
+                            </div>
+                            <div class="mosaic-inner-box-hover">
+                                <span class="mosaic-box-label label label-warning pull-right">{{promotedProduct.campaign.name}}</span>
+                            </div>
+                        </div>
+                        <div class="mosaic-inner-text">
+                            {{promotedProduct.product}} <span class="text-danger">(GH¢{{promotedProduct.product.productData.salePrice!=null ? promotedProduct.product.productData.salePrice|number_format(2, '.',',') : promotedProduct.product.productData.regularPrice|number_format(2, '.',',')}})</span>
+                        </div>
+                    </div>
+
+                </a>
+            </div>
+            
+        {% endfor %}
+    </div>
+</div>

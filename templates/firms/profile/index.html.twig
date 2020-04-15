@@ -1,0 +1,90 @@
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+    <div class="sec-padding">       
+        <div class="row">
+            <div class="col-md-12">
+                <div class="sec-title-container less-padding-1 text-center">
+                    <h2 class="font-weight-5  text-center">  Our Services  </h2>
+                    <p class="line-height-1  less2"></p>
+                    <img src="{{asset('images/titel-bg-02.png')}}" alt=""/> 
+                </div>
+            </div>
+            <div class="col-md-12">
+                {% if  firm.serviceOfferings|length > 0 %}
+                    <!--end title-->
+                    <div id="service-grid-container">
+                        {% for service in firm.serviceOfferings %}
+                            <div class="cbp-item">
+                                <div class="feature-boxed-20 margin-bottom-2">                 
+                                    <h4 class="roboto font-weight-5"> {{service.title}} </h4>
+                                    <p class="padding-bottom-3">{{service.summary}}</p>
+                                    {% if service.link is not null %}
+                                        <a href="{{url(service.link) }}" class="but-stbutton-7 font-weight-6" target="_new">Read More</a> 
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div> 
+                {% else %}
+                    <div class="alert alert-warning">
+                        <span class="text-danger"><strong>{{firm}}</strong></span> has not shared any service offering yet
+                    </div>
+                {% endif%}
+            </div>
+        </div>
+    </div><!-- end section-->    
+    <div class="col-divider-margin-1"></div>  
+    <div class="section-padding section-medium-dark">
+        <div class="row">
+            <div class="col-md-8">
+                <ul class="footer-social-icons-1">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    <li class="last"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 nopadding"> 
+                {% if firm.companyType == "supplier" %}
+                    <a class="btn btn-dark-1 pull-right" href="{{path('supplier_store_view',{'slug':firm.slug}) }}" target="_new"><i class="fa fa-shopping-cart"></i> Visit Store</a> 
+                {% else %}
+                    <a class="btn btn-dark-1 pull-right" href="#"><i class="fa fa-comments"></i> Live Chat</a> 
+                {% endif  %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-divider-margin-1"></div>
+<div class="divider-line solid light"></div>  
+<div class="col-divider-margin-1"></div>  
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+    <section class=" sec-padding">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class=" roboto font-weight-4 margin-bottom-3">Business Summary</h2>
+                <h6 class=" roboto font-weight-3 line-height-4 margin-bottom-4">{{firm.businessSummary}}</h6>
+                <a href="#contactFirm" class="but-stbutton-14 text-small font-weight-6 cbp-singlePage" ><i class="fa fa-envelope"> Contact Us</i></a> 
+                <a href="{{firm.url is not null? url(firm.url) : '#'}}" class="but-stbutton-14 text-small font-weight-6"><i class="fa fa-envelope"> Visit Website</i></a>
+            </div><!-- end col -->   
+            <div class="col-md-6">
+                <img src="{{asset('images/site-img48.jpg')}}" class="img-responsive"  alt="" />
+            </div><!-- end col -->
+        </div>
+    </section>
+</div>
+<div class="col-divider-margin-1"></div>
+<div class=" divider-line solid light"></div>  
+<div class="col-divider-margin-1"></div>  
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+    <div class="row">
+        {% include 'firms/profile/includes/post.list.html.twig' %}
+    </div>
+</div>
+<div class="col-divider-margin-1"></div>
+<div class=" divider-line solid light"></div>  
+<div class="col-divider-margin-1"></div>  
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+    <p>
+        {{firm}} projects portfolio will appear 
+    </p>
+</div>
+

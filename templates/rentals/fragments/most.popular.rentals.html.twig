@@ -1,0 +1,82 @@
+<div class="block-latest-roducts-content">
+    <div class="owl-carousel nav-style2" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"600":{"items":1},"1000":{"items":1}}'>
+        {% set top4 = popularRentals|slice(0, 4) %}
+        {% set next4 = popularRentals|slice(4, 4) %}
+        {% set last4 = popularRentals|slice(8, 4) %}
+        <div class="owl-ones-row">
+            {% for ad in top4 %}
+                <div class="product-item style1">
+                    <div class="product-inner">
+                        <div class="product-thumb">
+                            <div class="thumb-inner">
+                                <a href="{{path('rental_filter', {'slug':ad.slug})}}">
+                                    <img src="{{ad.featureImage is not null ? asset(ad.featureImage|imagine_filter('hub_thumbnail')) : 
+                            ad.equipment.featureImage is not null  ? asset(ad.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" style="height: 75px; width: 75px; margin: auto; border-radius: 3px;"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-innfo">
+                            <div class="product-name"><a href="{{path('rental_filter', {'slug':ad.slug})}}">{{ad|length > 24 ? ad|slice(0, 24) ~ '...' : ad}}</a></div>
+                            <span class="price">
+                                <ins>GH¢{{ad.rentalRate|number_format(2,'.', ',')}}</ins> <small><span class="text-danger">{{ad.billingCycle}}</span></small>
+                            </span>
+                            <div class="star-rating">
+                                <i class="fa fa-map-marker"></i> <span class="review">{{ad.company.region}}</span>
+                            </div>        
+                        </div>    
+                    </div>
+                </div>
+            {% endfor %}                         
+        </div>
+        <div class="owl-ones-row">
+            {% for ad in next4 %}
+                <div class="product-item style1">
+                    <div class="product-inner">
+                        <div class="product-thumb">
+                            <div class="thumb-inner">
+                                <a href="{{path('rental_filter', {'slug':ad.slug})}}">
+                                    <img src="{{ad.featureImage is not null ? asset(ad.featureImage|imagine_filter('hub_thumbnail')) : 
+                            ad.equipment.featureImage is not null  ? asset(ad.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" style="height: 75px; width: 75px; margin: auto; border-radius: 3px;"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-innfo">
+                            <div class="product-name"><a href="{{path('rental_filter', {'slug':ad.slug})}}">{{ad|length > 24 ? ad|slice(0, 24) ~ '...' : ad}}</a></div>
+                            <span class="price">
+                                <ins>GH¢{{ad.rentalRate|number_format(2,'.', ',')}}</ins> <small><span class="text-danger">{{ad.billingCycle}}</span></small>
+                            </span>
+                            <div class="star-rating">
+                                <i class="fa fa-map-marker"></i> <span class="review">{{ad.company.region}}</span>
+                            </div>        
+                        </div>      
+                    </div>
+                </div>
+            {% endfor %}         
+        </div>
+        <div class="owl-ones-row">
+            {% for ad in last4 %}
+                <div class="product-item style1">
+                    <div class="product-inner">
+                        <div class="product-thumb">
+                            <div class="thumb-inner">
+                                <a href="{{path('rental_filter', {'slug':ad.slug})}}">
+                                    <img src="{{ad.featureImage is not null ? asset(ad.featureImage|imagine_filter('hub_thumbnail')) : 
+                            ad.equipment.featureImage is not null  ? asset(ad.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" style="height: 75px; width: 75px; margin: auto; border-radius: 3px;"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-innfo">
+                            <div class="product-name"><a href="{{path('rental_filter', {'slug':ad.slug})}}">{{ad|length > 24 ? ad|slice(0, 24) ~ '...' : ad}}</a></div>
+                            <span class="price">
+                               <ins>GH¢{{ad.rentalRate|number_format(2,'.', ',')}}</ins> <small><span class="text-danger">{{ad.billingCycle}}</span></small>
+                            </span>
+                            <div class="star-rating">
+                                <i class="fa fa-map-marker"></i> <span class="review">{{ad.company.region}}</span>
+                            </div>        
+                        </div>      
+                    </div>
+                </div>
+            {% endfor %}         
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+{% extends "shared/buildershub.base.html.twig" %}
+{% block stylesheets %}
+     {{ parent()}}
+    <link href="{{asset('js/accordion/css/smk-accordion.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('js/ytplayer/ytplayer.css')}}" />
+    <link href="{{asset('js/tabs/css/responsive-tabs.css')}}" rel="stylesheet" type="text/css" media="all" />
+{% endblock %}
+{% block pageScripts %}    
+    <script src="{{asset('js/tabs/js/responsive-tabs.min.js')}}" type="text/javascript"></script> 
+    <script src="{{asset('js/offcanvas/offcanvas.js')}}"></script>
+{% endblock %}
+{% block initScripts %} 
+    {{parent()}}
+{% endblock %}
+{% block mainNav %}
+    {% include 'shared/main.nav.html.twig' %}
+{% endblock %}
+
+

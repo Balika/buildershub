@@ -1,0 +1,59 @@
+<div id="box-vertical-megamenus" class="box-vertical-megamenus nav-toggle-cat">
+    <h4 class="title active">
+        <span class="btn-open-mobile home-page">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <span class="title-menu">Equipment Categories</span>   
+    </h4>
+    <div class="vertical-menu-content" >
+        <span class="btn-close hidden-md"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <ul class="vertical-menu-list">
+            {% set regSlug = selectedRegion is defined and selectedRegion is not null ? selectedRegion.slug : null %}
+            {% set townSlug = selectedTown is defined and selectedTown is not null ? selectedTown.slug : null %}
+            {% for cat in categories %}                          
+                {% if cat.subCategories|length > 0  %}
+                    <li class="menu-item-has-children arrow item-megamenu">
+                        <a href="{{path('rental_filter',{'category_id':cat.slug, 'region_id':regSlug, 'town_id':townSlug})}}" class="dropdown-toggle">{{cat.name}}</a>
+                        <span class="toggle-submenu hidden-md"></span>
+                        <div class="submenu parent-megamenu megamenu">
+                            <div class="row">
+                                <div class="submenu-banner submenu-banner-menu-1">                                            
+                                    <div class="col-md-4">
+                                        <div class="dropdown-menu-info"> 
+                                            <h6 class="dropdown-menu-title">Sub Categories ({{cat.subCategories|length}})</h6>                                            
+                                            <div class="dropdown-menu-content">
+                                                <ul class="menu">
+                                                    {% for subCat in cat.subCategories|slice(0, 7) %}
+                                                        <li class="menu-item"><a href="{{path('rental_filter',{'category_id':subCat.slug, 'region_id':regSlug, 'town_id':townSlug})}}">{{subCat.name}}</a></li>
+                                                        {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-4">
+                                        <div class="dropdown-menu-info"> 
+                                            <h6 class="dropdown-menu-title" style="color: white">.</h6>                                      
+                                            <div class="dropdown-menu-content">
+                                                <ul class="menu">
+                                                    {% for subCat in cat.subCategories|slice(8, 16) %}
+                                                        <li class="menu-item"><a href="{{path('rental_filter', {'category_id':subCat.slug, 'region_id':regSlug, 'town_id':townSlug})}}">{{subCat.name}}</a></li>
+                                                        {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+                    </li>                       
+                {% else %}
+                    <li><a href="{{path('rental_filter', {'category_id':cat.slug, 'region_id':regSlug, 'town_id':townSlug})}}">{{cat.name}}</a></li>
+                    {% endif %}
+                {% endfor %}
+        </ul>
+    </div>
+</div>
+
+

@@ -1,0 +1,180 @@
+{% block weeklyDeals %}
+    <div class="col-md-12">
+        <div class="box box-success box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title"><strong>Weekly Deals Slot</strong></h3>
+                <div class="box-tools pull-right">
+
+                </div>
+            </div><!-- /.box-header -->
+            {% if weeklyDealSlot.isOpen %}
+                <div class="box-body" style="height: 360px; overflow-y: scroll">
+                    <div class="col-md-7">
+                        <h5 style="color: #005983"><strong>Bidding Closes at:</strong></h5>
+                        <!-- <div id="top-supplier-slot-bid-countdown" style="padding: 10px; color:#800; font-weight: bolder">
+                         </div>-->  
+                        <hr/>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Product</th>
+                                <th>Regular Price</th>
+                                <th>Deal Price (GHc)</th>    
+                                <th>Discount Rate (%)</th>     
+                                <th>Actions</th>  
+                            </tr>
+                            {% if weeklyDeals|length > 0 %}
+                                {% for deal in weeklyDeals %}
+                                    <tr>
+                                        <td><img src="{{asset(deal.product.featureImage|imagine_filter('hub_thumbnail'))}}" width="80px" height="60px"/></td>
+                                        <td>{{deal.product.productData.salePrice|number_format(2,'.',',')}}</td>  
+                                        <td>{{deal.dealPrice|number_format(2,'.',',')}}</td>  
+                                        <td>{{deal.discountRate}}</td>  
+                                        <td>
+                                            <a href="{{path('top_supplier_bid_form', {'slug':deal.supplier.slug, 'bid_id':deal.id, 'action':'edit'})}}"><i class="fa fa-pencil"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="alert alert-info">                                                    
+                                            <strong>
+                                                <i class="ace-icon fa fa-info"></i>
+                                            </strong>
+                                            You have not yet added any product to deal list
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endif  %}
+                        </table>
+                    </div>
+                    <div class="col-md-5">
+                        <h4>New Weekly Deal Form</h4>
+                        <div  style="padding: 15px; border: 1px solid #03b595; background-color: whitesmoke">
+                            {{ form_start(dealForm, {'method': 'post', 'action':path('save_weekly_deal',{'slug':supplier.slug}), 'attr': {'class': 'dealForm form-horizontal'} }) }}
+                            <div class="col-md-12 form-group">
+                                <label>Select product to add to weekly deals</label>
+                                {{form_widget(dealForm.product,{'attr':{'class':'form-control'} })}}
+                            </div><!-- /.form group -->
+                            <div class="row" id="dealType" style="padding: 0 0 20px 0">
+                                <div class="col-md-6">
+                                    <label> <input type="radio" name="dealType" checked="true" value="discountRate"/> Use Discount Rate</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label> <input type="radio" name="dealType" value="dealPrice"/> Use Reduced Price</label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group hide" id="dealPrice">
+                                <label>Enter Deal Price (GH¢)</label>
+                                {{form_widget(dealForm.dealPrice,{'attr':{'class':'form-control', 'placeholder':'e.g. 100 '} })}}
+                            </div><!-- /.form group -->
+                            <div class="col-md-12 form-group" id="discountRate">
+                                <label>Enter Discount Rate (%)</label>
+                                {{form_widget(dealForm.discountRate,{'attr':{'class':'form-control', 'placeholder':'e.g. 50 '} })}}
+                            </div><!-- /.form group -->               
+                            <div class="box-footer">                       
+                                <button class="btn btn-success btn-sm pull-right" type="submit">Add to Deals List</button>
+                            </div>
+                            {{ form_row(dealForm._token) }} 
+                            {{ form_end(dealForm, {'render_rest': false}) }}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-warning" style="padding:15px">
+                    <strong>{{weeklyDealSlot}} is Closed!</strong> This slot is currently not opened for bidding. You will be notified once bidding is open.
+                </div> 
+            {% endif  %}
+        </div>
+    </div>      
+{% endblock %}
+{% block supplierAds %}
+    <div class="col-md-6">
+        <div class="box box-primary box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title"><strong>Supplier Intro Slot</strong></h3>
+                <div class="box-tools pull-right">
+
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body" style="height: 360px; overflow-y: scroll">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="box box-primary box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title"><strong>Supplier Mid-Page Slot</strong></h3>
+                <div class="box-tools pull-right">
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body" style="height: 360px; overflow-y: scroll">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block topSuppliers %}
+    <div class="box box-default box-solid">
+        <div class="box-header with-border">
+            <h3 class="box-title"><strong>Top Suppliers Slot</strong></h3>
+            <div class="box-tools pull-right">
+                {{topSuppliers|length}} Bids Received
+            </div>
+        </div><!-- /.box-header -->
+        {% if topSupplierSlot.isOpen  %}
+            <div class="box-body" style="height: 360px; overflow-y: scroll">
+                <h5 style="color: #005983"><strong>Bidding Closes at:</strong></h5>
+                <div id="top-supplier-slot-bid-countdown" style="padding: 10px; color:#800; font-weight: bolder">
+                </div>  
+                <hr/>
+                <table class="table table-bordered">
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Supplier</th>
+                        <th>Bid Amount (GHc)</th>                                             
+                        <th>Actions</th>  
+                    </tr>
+                    {% set isBidPlaced = false %}
+                    {% if topSuppliers|length > 0 %}
+                        {% for topSupplier in topSuppliers %}
+                            {% if topSupplier.supplier == supplier %}
+                                {% set isBidPlaced = true %}
+                            {% endif %}
+                            <tr>
+                                <td>{{loop.index}}</td>
+                                <td>{{isBidPlaced ? topSupplier.supplier : '##############'}}</td>
+                                <td>{{topSupplier.bidAmount}}</td>                          
+                                <td>
+                                    {% if isBidPlaced %}
+                                        <a href="{{path('top_supplier_bid_form', {'slug':topSupplier.supplier.slug, 'bid_id':topSupplier.id, 'action':'edit'})}}"><i class="fa fa-pencil"></i></a>
+                                        {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6">
+                                <div class="alert alert-info">                                                    
+                                    <strong>
+                                        <i class="ace-icon fa fa-info"></i>
+                                    </strong>
+                                    You have not yet added any bids/ads slots!
+                                </div>
+                            </td>
+                        </tr>
+                    {% endif  %}
+                </table>
+                <p align="right">
+
+                </p>
+            </div>
+            <div class="box-footer">
+                <a href="{{path('top_supplier_bid_form', {'slug':supplier.slug})}}" class="btn btn-primary btn-sm pull-right">Place New Bid</a>
+            </div>
+        {% else %}
+            <div class="alert alert-warning" style="padding:15px">
+                <strong>{{topSupplierSlot}} is Closed!</strong> This slot is currently not opened for bidding. You will be notified once bidding is open.
+            </div> 
+        {% endif  %}
+    </div>    
+{% endblock %}

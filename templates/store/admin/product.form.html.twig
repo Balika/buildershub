@@ -1,0 +1,156 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}     
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="{{asset('plugins/iCheck/all.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/datepicker/datepicker3.css')}}" />
+{% endblock %}
+{% block crumbFilters %}
+{% endblock %}
+{% block listMode %}
+    
+{% endblock %}
+{% block breadcrumbs %}
+    <li>
+        <a href="{{path('products', {'slug':supplier.slug})}}"><i class="fa fa-angle-double-left"></i> Products List</a> 
+    </li>
+    <li class="active"><span>Product Form</span></li>
+    {% endblock %}
+    {% block content %}
+        {% if product !=null and  product.id > 0 %}
+            {% include 'store/admin/includes/sale.options.form.dialog.html.twig' %}
+        {% endif %}
+        {{form_start(form,{'method': 'POST', 'attr': {id:'productForm' } })}}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box-body">
+                {%if isSaved %}
+                    <h4 class="text-green">Item has been updated successfully</h4>
+                {% endif %}
+                {% include 'store/admin/includes/product.info.html.twig' %}
+            </div><!-- /.box-body -->
+            <div class="box box-widget">
+                <div class='box-header with-border'>
+                    <h4 class="box-title">Product Data</h4>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+                <div class='box-body'>
+                    {% include 'store/admin/includes/product.data.html.twig' %}
+                </div><!-- /.box-body -->
+                <div class='box-footer'>
+
+                </div><!-- /.box-footer -->
+            </div><!-- /.box -->
+            {{ form_row(form._token) }} 
+        </div>
+        <div class="col-md-4">
+            <!-- Box Comment -->
+            <div class="box box-widget">
+                <div class='box-header with-border'>
+                </div><!-- /.box-header -->
+                <div class='box-body'>
+                    {% include 'store/admin/includes/product.form.actions.html.twig' %}
+                    {% include 'store/admin/includes/product.association.html.twig' %}
+                </div><!-- /.box-body -->
+                <div class='box-footer'>
+                </div><!-- /.box-footer -->
+            </div><!-- /.box -->
+        </div>
+    </div>
+    {{ form_end(form, {'render_rest': false}) }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{asset('store/js/hub.store.admin.js')}}"></script>
+    <!-- jQuery REVOLUTION Slider  -->   
+    <script type="text/javascript" src="{{asset('plugins/iCheck/icheck.min.js')}}"></script>
+    <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+    <script>
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        });
+        $(document).ready(function () {
+            $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
+                e.preventDefault();
+                $(this).siblings('a.active').removeClass("active");
+                $(this).addClass("active");
+                var index = $(this).index();
+                $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+                $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+            });
+        });
+    </script>
+    <script>
+        jQuery(function ($) {
+            //datepicker plugin
+            //link
+            $('.date').datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                showOn: 'button',
+                buttonImageOnly: true,
+                changeMonth: true,
+                changeYear: true,
+                format: 'yyyy-mm-dd',
+                yearRange: "-0:+1"
+            });
+        });
+        var $category = $('#product_category');
+        // When category gets selected ...
+        $category.change(function () {
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected category value.
+            var data = {};
+            data[$category.attr('name')] = $category.val();
+            // Submit data via AJAX to the form's action path.
+            $.ajax({
+                url: $form.attr('action'),
+                type: $form.attr('method'),
+                data: data,
+                success: function (html) {
+                    // Replace current town field ...
+                    $('#productCategories').replaceWith(
+                            // ... with the returned one from the AJAX response.
+                            $(html).find('#productCategories')
+                            );
+                    $('#vehicle-brand').replaceWith(
+                            // ... show vehicle brand for spare part
+                            $(html).find('#vehicle-brand')
+                            );
+                    // Position field now displays the appropriate positions.
+
+                }
+            });
+        });
+        $(function () {
+            $(".featuredStatus").delegate('a', 'click', function (e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                $.get(url, function (html) {
+                    location.reload();
+                });
+            });
+            var selectedProducts = [];
+            $('#relatedProducts input').on('ifChanged', function (event) {//Check and uncheck all products as related products              
+                var selectedIds;
+                if (event.target.checked) {
+                    var item = $(this).attr('value');
+                    selectedProducts.push(item);
+                } else {
+                    var item = $(this).attr('value');
+                    var index = selectedProducts.indexOf(item);
+                    selectedProducts.splice(index, 1);
+                }
+                selectedIds = selectedProducts.toString();
+                $('input[name="relatedProducts"]').val(selectedIds);
+
+            });
+        });
+    </script>
+
+{% endblock javascripts %}

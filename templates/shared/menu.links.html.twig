@@ -1,0 +1,77 @@
+<div class="main-nav">
+    <ul class="nav navbar-nav top-nav">
+        <li class="search-parent"> <a href="javascript:void(0)" title="Seacrh Builders Hub with key words" class="m-link"><i aria-hidden="true" class="fa fa-search"></i></a>
+            <div class="search-box ">
+                <div class="content">
+                    <div class="form-control">
+                        <input type="text" placeholder="Search for artisans, engineers, archtects, cost estimators etc" />
+                        <a href="#" class="search-btn mar-2"><i aria-hidden="true" class="fa fa-search"></i></a> </div>
+                    <a href="#" class="close-btn mar-1">x</a> </div>
+            </div>
+        </li>
+        <li class="cart-parent"> <a href="{{path('store_index')}}" title="Visit Store" class="m-link" target="_blank"> <i aria-hidden="true" class="fa fa-shopping-cart"></i> <span class="number mar2"> Store </span> </a>
+            <!--<div class="cart-box">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-8"> 2 item(s) </div>
+                        <div class="col-xs-4 text-right"> <span>$99</span> </div>
+                    </div>
+                    <ul>
+                        <li> <img src="{{asset('images/cart-img1.jpg')}}" alt=""> Jean & Teashirt <span>$30</span> <a href="#" title="" class="close-btn">x</a> </li>
+                        <li> <img src="{{asset('images/cart-img2.jpg')}}" alt=""> Jean & Teashirt <span>$30</span> <a href="#" title="" class="close-btn">x</a> </li>
+                    </ul>
+                    <div class="row">
+                        <div class="col-xs-6"> <a href="#" title="View Cart" class="btn btn-block btn-warning">View Cart</a> </div>
+                        <div class="col-xs-6"> <a href="#" title="Check out" class="btn btn-block btn-primary">Check out</a> </div>
+                    </div>
+                </div>
+            </div>-->
+        </li>
+        <li class="visible-xs menu-icon"> <a href="javascript:void(0)" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu" aria-expanded="false"> <i aria-hidden="true" class="fa fa-bars"></i> </a> </li>
+    </ul>
+    <div id="menu" class="collapse">
+        <ul class="nav navbar-nav">
+           <!-- <li class="current"> 
+                <a href="{{path('home')}}">Home</a> 
+            </li>-->
+            <li class="right"> <a href="#" class="m-link"><strong><i class="fa fa-briefcase"></i> Firms</strong></a>
+                <ul>
+                    <li> <a href="{{path('list_firms', {'b-page':'suppliers'})}}">Suppliers</a> <span class="arrow"></span></li>
+                    <li> <a href="{{path('list_firms', {'b-page':'consulting-firms'})}}">Consulting Firms</a> </li>
+                    <li> <a href="{{path('list_firms', {'b-page':'construction-firms'})}}">Construction Firms</a> </li>                        
+                </ul>
+            </li>
+            <li class="mega-menu"> <a href="#" class="m-link">Buy & Sell</a> <span class="arrow"></span>
+                <ul>
+                    {{ render_esi(controller('App\\Controller\\PortalUtilityController::renderMenuLinks'), {"default":'Loading Cart....'})}}                    
+                </ul>
+            </li>
+            
+            <li class="mega-menu"> <a href="#" class="m-link">Technical Expertise</a> <span class="arrow"></span>
+                <ul>
+                    {{ render_esi(controller('App\\Controller\\PortalUtilityController::renderMenuLinks',{'template':'expertise.menu.links'}), {"default":'Loading Cart....'})}}                
+                </ul>
+            </li>  
+            <li> 
+                <a href="{{path('list_apps')}}"><i class="fa fa-th"></i> Apps</a> 
+            </li>
+            <!--<li> <a href="{{path('engage_index')}}" class="m-link">Engage</a> <span class="arrow"></span></li>-->
+            <li class="right"> <a href="{{path('contact_us')}}" class="m-link">Contact Us</a> </li>
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li class="right"> <a href="#" class="m-link" style="color: orange"><strong><i class="fa fa-user"></i> {{app.user.fullName}}</strong></a>
+                    <ul>
+                        <li> <a href="{{path('account_settings')}}">Account Settings</a> <span class="arrow"></span></li>
+                        <li> <a href="{{path('user_profile', {'usernameCanonical':app.user.usernameCanonical})}}">My Profile</a> </li>
+                        <li> <a href="{{path('account_settings', {'tab':'firm-details'})}}">Manage Firm(s)</a> </li>
+                        <li> <a href="#">Security & Privacy</a> </li>
+                        <li class="header text-center"> </li>
+                        <li><a href="{{path('security_logout')}}" style="color: red"><strong>Logout</strong></a></li>
+                    </ul>
+                </li>
+            {% else %}
+                <li> <a href="{{path('signup')}}" style="color: orange"><strong>Sign Up</strong></a> </li>
+                <li> <a href="{{path('security_login_form')}}" style="color: green"><strong><i class="fa fa-lock"></i> Login</strong></a> </li>
+                            {% endif %}
+        </ul>
+    </div>
+</div>

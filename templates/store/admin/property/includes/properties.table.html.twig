@@ -1,0 +1,39 @@
+<div class="box box-default box-solid">
+    <div class="box-header">
+        <h3 class="box-title">Available Properties</h3>        
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <table id="properties" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Listing Type</th>
+                    <th>Price</th>   
+                </tr>
+            </thead>
+            <tbody id="property-list">
+                {% for property in properties %}
+                    <tr>
+                        <td>
+                            <a href="{{path('edit_property',{'slug':supplier.slug, 'property_slug':property.slug})}}">
+                                <img src="{{asset(property.featureImage|imagine_filter('hub_thumbnail'))}}" width="80px" height="60px"/>
+                            </a>
+                        </td>
+                        <td><a href="{{path('edit_property',{'slug':supplier.slug, 'property_slug':property.slug})}}">{{property}}</a></td>
+                        <td>{{property.listingType}}</td>
+                        <td>{{property.currency}}{{ property.salePrice is not null ? property.salePrice|number_format(2,'.',',') : property.regularPrice|number_format(2,'.',',')}}</td>                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Listing Type</th>
+                    <th>Price</th>                    
+                </tr>
+            </tfoot>
+        </table>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->

@@ -1,0 +1,42 @@
+{% extends "shared/page.base.html.twig" %}
+{% block mainNav %}
+
+{% endblock %}
+{% block modalHeader %}
+    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+    <h4 class="modal-title" id="myModalLabel">
+        BuildersHub Account Activation
+    </h4>
+{% endblock %}
+{% block modalBody %}
+    <div class="col-xs-12">
+        {% if  success is defined %}
+            <div class="alert alert-success">                                       
+                {{ success }}                                             
+            </div>
+            <p align='right'>
+                <a href="{{path('security_login_form') }}" class="btn btn-group btn-success btn-sm"> Proceed to Login</a>  
+            </p>
+        {% elseif error is defined %}  
+            {% if  user.isActive  %}
+                <div class="alert alert-info">                                       
+                    Your account has already been activated.                                           
+                </div>
+                <p align='right'>
+                    <a href="{{path('security_login_form') }}" class="btn btn-group btn-success btn-sm"> Proceed to Login</a>  
+                </p>
+            {% else %}
+                <div class="alert alert-danger">                                       
+                    {{ error }}                                             
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-info">                                       
+                <h2>You probably got to this page by mistake.If you you have account on ZibbleSMP, please login</h2>                                             
+            </div>
+            <p align='right'>
+                <a href="{{path('security_login_form') }}" class="btn btn-group btn-success btn-sm">Login</a>  
+            </p>
+        {% endif %}  
+    </div>
+{% endblock %}

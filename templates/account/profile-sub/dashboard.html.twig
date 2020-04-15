@@ -1,0 +1,72 @@
+<h4 class="text-primary">Hi <a href="{{path('user_profile', {'usernameCanonical':user.usernameCanonical})}}" target="_blank">{{user.firstname}}</a>, welcome to your Hub Account Settings</h4>
+<div class="col-md-12 nopadding">
+    <div class="col-divider-margin-2"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="text-box padding-1 border">
+                <p class="btn btn-tiny border border-green xround-1" ><span class="fa fa-info"> About</span></p>
+                <a class="btn btn-tiny border border-red xround-1 pull-right" href="{{path('home')}}" ><span>Portal Home</span></a>
+                <a href="#">
+                    <img src="{{asset('images/shortcodes/41.jpg')}}" alt="" class="img-responsive"/>
+                </a>
+                <div class="clearfix"></div>
+                <br/>
+                <div class="col-md-12"> 
+                    <p>
+                        <a href="#"><strong>BuildersHub</strong></a> brings together artisans, professionals, property owners, building materials 
+                        & equipment suppliers to exchange goods and services.
+                    </p>
+                </div>                    
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="text-box padding-1 border">              
+                <a class="btn btn-tiny border border-cyan xround-1 pull-right" href="{{path('store_index')}}" target="_blank"><span class="fa fa-shopping-cart"> Online Store</span></a>
+                <a href="#">
+                    <img src="{{asset('images/shortcodes/41.jpg')}}" alt="" class="img-responsive"/>
+                </a>
+                <div class="clearfix"></div>
+                <br/>
+                <div class="col-md-12"> 
+                    <p>
+                        <strong>Compare Prices</strong>, <strong>Place Orders</strong>, get <strong>Pricelist</strong>, request  <strong>Price Quotations</strong> or <strong>Rent Equipment</strong> from the many store listings of building, construction materials & equipment suppliers.
+                    </p>
+                </div>                    
+            </div>
+        </div>
+    </div>
+    <div class="divider-line" style="padding: 6px"></div>  
+    <div class="row">
+        <div class="col-md-6">
+            <div class="text-box padding-1 border">
+                <p class="btn btn-tiny border border-cyan xround-1" ><span class="fa fa-comments"> Conversations</span></p>
+                <a class="btn btn-tiny border border-blue xround-1 pull-right" href="{{path('user_profile', {'usernameCanonical':user.usernameCanonical})}}" target="_blank"><span>Share your Thoughts</span></a>
+                <a href="#">
+                    <img src="{{asset('images/shortcodes/41.jpg')}}" alt="" class="img-responsive"/>
+                </a>
+                <div class="clearfix"></div>
+                <br/>
+                <div class="col-md-12"> 
+                    <p>
+                        If you need any help or education on infrastructure development or have a strong opinion to share about the built environment, <a>BuildersHub</a>  is the place.</p>
+                </div>                    
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="text-box padding-1 border">
+                <a class="btn btn-tiny border border-cyan xround-1 pull-right" href="{{path('account_settings', {'tab':'firm-details', 'sub':'add-new'})}}" ><span class="fa fa-plus"> Add Company</span></a>
+                <a href="#">
+                    <img src="{{asset('images/shortcodes/41.jpg')}}" alt="" class="img-responsive"/>
+                </a>
+                <div class="clearfix"></div>
+                <br/>
+                <div class="col-md-12"> 
+                    <p>
+                        If you own a <strong>Construction</strong>, <strong>Consulting</strong>,<strong>Building Materials</strong> or <strong>Equipment</strong> Supplies company, enlist
+                        to benefit from our wide ranges of services.
+                    </p>
+                </div>                    
+            </div>
+        </div>
+    </div>
+</div>

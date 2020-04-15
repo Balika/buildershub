@@ -1,0 +1,27 @@
+{% extends 'hubernize/shared/hubernize.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+
+    <!-- Select2 -->
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="active"><span>Equipment on Assignments</span></li>
+    {% endblock %}
+    {% block crumbLinks %}
+    <li><a class="sonata-action-element" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Add new
+        </a>
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            
+        </div>        
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+
+{% endblock javascripts %}

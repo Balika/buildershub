@@ -1,0 +1,89 @@
+<div class="block-slide">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9 padding-left-5 main-slide slide-opt-2">                
+                <div class="title-of-section"><small><a href='{{path('supplier_store_view',{'slug':supplier.slug})}}'>&laquo;Back</a></small> <span class="text-danger"><strong>{{category}}</strong></span></div>
+                {% if products|length > 0 %}
+                <div class="tab-product tab-product-fade-effect">
+                    <ul class="box-tabs nav-tab style3">
+                        <li class="active"><a data-animated="" data-toggle="tab" href="#all">All Matching </a></li>                        
+                        <li><a data-animated="fadeInDownBig" data-toggle="tab" href="#new">New Arrivals</a></li>                        
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-container">
+                            <div id="all" class="tab-panel active">
+                                <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="true" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":5}}'>
+                                    {% for product in products %}
+                                        <div class="product-item style1">
+                                            <div class="product-inner equal-elem">
+                                                <div class="product-thumb">
+                                                    <div class="thumb-inner">
+                                                        <a href="{{path('store_product_detail', {'slug':product.slug})}}"><img src="{{asset('uploads/products/'~product.featureImage)}}" alt="f1"  style="height: 130px; margin: auto; border-radius: 3px;"></a>
+                                                    </div>
+                                                    <a href="{{path('store_product_detail', {'slug':product.slug})}}" class="quick-view">View Details</a>
+                                                </div>
+                                                <div class="product-innfo">
+                                                    <div class="product-name"><a href="{{path('store_product_detail', {'slug':product.slug})}}">{{product.name}}</a></div>
+                                                    <span class="price price-dark">
+                                                        <ins>GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',')}}</ins>
+                                                    </span>
+                                                    <div class="star-rating">
+                                                        <i class="fa fa-map-marker"></i> <span class="review">{{product.supplier.businessLocation is not null ?  product.supplier.businessLocation ~','}} {{product.supplier.region}}</span>
+                                                    </div>
+                                                    <div class="group-btn-hover">
+                                                        <div class="inner">
+                                                            <a href="{{path('contact_supplier', {'slug':product.supplier.slug, 'product_slug':product.slug})}}" class="add-to-cart"><i class="fa fa-envelope"></i> Contact Supplier</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div id="new" class="tab-panel ">
+                                <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="true" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":5}}'>
+                                    {% for product in products if product.isNewArrival %}
+                                        <div class="product-item style1">
+                                            <div class="product-inner equal-elem">
+                                                <div class="product-thumb">
+                                                    <div class="thumb-inner">
+                                                        <a href="{{path('store_product_detail', {'slug':product.slug})}}"><img src="{{asset('uploads/products/'~product.featureImage)}}" alt="f1"  style="height: 130px; margin: auto; border-radius: 3px;"></a>
+                                                    </div>
+                                                    <a href="{{path('store_product_detail', {'slug':product.slug})}}" class="quick-view">View Details</a>
+                                                </div>
+                                                <div class="product-innfo">
+                                                    <div class="product-name"><a href="{{path('store_product_detail', {'slug':product.slug})}}">{{product.name}}</a></div>
+                                                    <span class="price price-dark">
+                                                        <ins>GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',')}}</ins>
+                                                    </span>
+                                                    <div class="star-rating">
+                                                        <i class="fa fa-map-marker"></i> <span class="review">{{product.supplier.businessLocation is not null ?  product.supplier.businessLocation ~','}} {{product.supplier.region}}</span>
+                                                    </div>
+                                                    <div class="group-btn-hover">
+                                                        <div class="inner">
+                                                            <a href="{{path('contact_supplier', {'slug':product.supplier.slug, 'product_slug':product.slug})}}" class="add-to-cart"><i class="fa fa-envelope"></i> Contact Supplier</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    {% else %}
+                    <div  class="alert alert-danger">
+                        <strong>No Matching Products!</strong>
+                        <p>
+                            {{supplier.name}} has no products / items listed under {{category}}
+                        </p>
+                    </div>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+<div id="supplierCategoriesDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="width:80%; ">        
+        <div class="modal-content" style="overflow-y: scroll">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h3 class="modal-title" id="myModalLabel"> <span style="color: green">Select <strong>Products Categories </strong> you deal in at your <strong>Shop</strong></span></h3>
+            </div>                                           
+            <div class="modal-body" style="padding-bottom: 15px" id="response">        
+                <input type="checkbox" class="flat-red" value="" id="selectAll"/> <strong>Select all Products Categories</strong>
+                <hr/>
+                <form id="categoriesForm" method="POST">
+                    <div class='row' >
+                        <h5 style="color: green; padding-left: 10px; font-weight: bolder">Equipment & Hand Tools Categories</h5>
+                        {% for category in equipmentSubCategories %}
+                            <div class="col-md-3" style="padding-bottom: 10px; display: {{category in supplier.productCategories ? 'none'}}">
+                                <input type="checkbox" class="flat-red" value="{{category.id}}" /> {{category.name}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class='row'>
+                        <h5 style="color: green; padding-left: 10px; font-weight: bolder">Construction Materials Categories</h5>
+                        {% for category in materialsSubCategories %}
+                            <div class="col-md-3" style="padding-bottom: 10px; display: {{category in supplier.productCategories ? 'none'}}">
+                                <input type="checkbox" class="flat-red" value="{{category.id}}" /> {{category.name}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class='row' >
+                        <h5 style="color: green; padding-left: 10px; font-weight: bolder">Material Supplies & Products 
+                            <small class="text-muted">These are materials & products that are usually not found in stores</small>
+                        </h5>
+                        {% for category in suppliesSubCategories %}
+                            <div class="col-md-3" style="padding-bottom: 10px; display: {{category in supplier.productCategories ? 'none'}}">
+                                <input type="checkbox" class="flat-red" value="{{category.id}}" /> {{category.name}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" id='selectedProducts' name="selectedCategories"/>
+                    <div class="modal-footer">                
+                        <a data-dismiss="modal" class="btn btn-danger btn-sm pull-left" >Cancel</a>   
+                        <button type="submit" class="btn btn-success btn-sm pull-right hide" id="add-categories-btn">Add To Store</button>
+                    </div>
+                </form>
+               
+            </div><!-- /.modal-dialog -->
+        </div>
+    </div>
+</div>
+
+
+
+

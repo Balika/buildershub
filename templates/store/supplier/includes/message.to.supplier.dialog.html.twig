@@ -1,0 +1,19 @@
+<div id="supplierMessageDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="width:70%;">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 class="modal-title" id="myModalLabel" style="text-align: center"> <span style="color: green"><strong><i class="fa fa-envelope"></i></strong></span>
+                    Direct Request to {{supplier}}
+                </h4>
+            </div>   
+            <div class="modal-body">
+              <div class="smart-wrap">
+                    <div class="smart-forms smart-container transparent wrap-full">
+                        {{ render_esi(controller('App\\Controller\\TransactionController::mqrForm'), {"default":'Loading form....'}) }} 
+                    </div>
+                </div>
+            </div>           
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

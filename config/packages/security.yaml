@@ -1,0 +1,79 @@
+security:
+    encoders:
+        # Our user class and the algorithm we'll use to encode passwords
+        # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
+        App\Entity\User: bcrypt
+        
+    role_hierarchy:        
+        ROLE_SUPPLIER: ROLE_USER
+        ROLE_ADMIN: ROLE_SUPPLIER
+        
+    providers:
+        # in this example, users are stored via Doctrine in the database
+        # To see the users at src/AppBundle/DataFixtures/ORM/LoadFixtures.php
+        # To load users from somewhere else: http://symfony.com/doc/current/cookbook/security/custom_provider.html
+        database_users:
+            id: app.buildershub_user_provider
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+            
+        #esi:
+            #pattern: ^/_fragment$
+            #security: false
+
+        secured_area:
+            pattern: ^/
+            anonymous: true
+            form_login:
+                # The route name that the login form submits to
+                check_path: security_login_check
+                # The name of the route where the login form lives
+                # When the user tries to access a protected page, they are redirected here
+                login_path: security_login_form
+                #success_handler: security.authentication.success_handler
+                # Secure the login form against CSRF
+                # Reference: http://symfony.com/doc/current/cookbook/security/csrf_in_login_form.html
+                csrf_token_generator: security.csrf.token_manager
+                #Redirect to the following page after login if previously requested url is not stored in a session
+                #default_target_path: default_after_login
+                use_referer: true
+               
+            
+            remember_me:
+                secret: '%env(APP_SECRET)%'
+                lifetime: 604800 
+                path: /
+                
+            logout:
+                path: /logout
+                target: /
+            
+            provider: database_users
+            guard:
+                authenticators:
+                    #- app.cipron_facebook_authenticator
+                    - app.buildershub_form_login_authenticator
+                entry_point:  app.buildershub_form_login_authenticator
+
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:        
+         - { path: ^/account, roles: ROLE_USER }
+         - { path: ^/apps, roles: ROLE_HUBERNIZE }
+         - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/portal, roles: ROLE_FIRM }
+         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }        
+         - { path: ^/forgotten-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/admin, roles: ROLE_HUB_ADMIN }
+         - { path: ^/store/admin/, roles: ROLE_SUPPLIER }

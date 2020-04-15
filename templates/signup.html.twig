@@ -1,0 +1,82 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link href="{{asset('js/smart-forms/smart-addons.css')}}" rel="stylesheet">    
+{% endblock %}
+{% block mainNav %}
+{% endblock %}
+{% block  content %}
+    {% set previousPage = app.request.headers.get('referer') %} 
+    {% include "account/includes/firm.registration.dialog.html.twig" %} 
+    {% include "account/includes/response.dialogs.html.twig" %} 
+    <div>
+        <a href="#" data-smart-modal="#supplier-dialog" class="smartforms-modal-trigger hide" id="supplier-dialog-btn" ></a>
+        <a href="#" data-smart-modal="#property-dialog" class="smartforms-modal-trigger hide" id="property-dialog-btn"></a>
+        <a href="#" data-smart-modal="#firm-dialog" class="smartforms-modal-trigger hide" id="firm-dialog-btn"></a>
+    </div>    
+    <section class="sec-padding" style="background: url('{{asset("images/sliders/slide-2.png")}}')">
+        <div class="container" id="site-wrapper">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="logo" align="center">
+                        <a href="{{path('home')}}"><img src="{{asset('hub-logo-white.png')}}" alt="logo"></a>
+                    </p><!-- logo -->
+                    <div class="smart-wrap">
+                        <div class="smart-forms smart-container transparent wrap-0">
+                            <div class="modal-dialog" style="width:100%;">
+                                <div class="modal-content">
+                                    <div class="modal-header">  
+                                        <div class="col-md-1">
+                                            <a href="{{previousPage}}" class="text-danger">&laquo; Back</a>
+                                        </div>
+                                        <div class="col-md-9" style="text-align: center; padding-top:15px">
+                                            <div class="frm-row">
+                                                <div class="section colm colm12">
+                                                    <div class="spacer-b30">
+                                                        <div class="tagline"><h4><strong>How would you want to use BuildersHub?</strong></h4></span></div><!-- .tagline -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <select class="selectpicker" style="width: 100%; height: 45px; border-radius: 3px; font-size: 18px; padding-left: 20px" id="userType">
+                                                <option value="NA">Select Registration Type</option>
+                                                <option value="artisan">Artisan & Craftmen </option>                                       
+                                                <option value="professional">Professional </option>
+                                                <option value="student">Student </option>
+                                                <option value="supplier">Supplier </option>
+                                                <option value="firm">Construction/Consulting Firm </option>
+                                                <option value="property">Property & Real Estate Owner </option>
+                                            </select>   
+                                            <br/>
+                                            <strong>Call Us: +233 24 673 8954 </strong>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body" id="signupForm">
+                                        <h3 class="modal-title" id="myModalLabel">
+                                            {{formTitle}}
+                                            <small>{{target}}</small>
+                                        </h3>    
+                                        <hr/>
+                                        {% set vars = { 'form': form} %} 
+                                        {% include 'account/includes/'~type~'.registration.html.twig' with vars  %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block  javascripts %}
+    {{parent()}}
+    <script type="text/javascript" src="{{asset('js/smart-forms/smartforms-modal.min.js')}}"></script>
+    <script>
+        var overlayHTML = "<div class='overlay'><div class='overlay-content'></div></div>";
+        var userType = "{{type}}";      
+        if (userType === "NA") {
+            $("#signupForm").prepend(overlayHTML);
+        }
+    </script>
+{% endblock %}

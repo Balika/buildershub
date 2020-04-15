@@ -1,0 +1,96 @@
+{% extends 'hubernize/shared/hubernize.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+    
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="active"><span>Rental Ads List</span></li>
+    {% endblock %}
+    {% block crumbLinks %}
+    <li><a class="sonata-action-element" href="{{path('hubernize_rental_ads_placement', {'action':'add'})}}"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Add New Ad
+        </a>
+    </li>
+{% endblock %}
+{% block listMode %}
+{% endblock %}
+{% block content %}
+    {{ include("hubernize/inventory/includes/rental.promo.dialog.html.twig") }}
+     {{ include("hubernize/inventory/includes/rental.weekly.deal.dialog.html.twig") }}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default box-solid">
+                <div class="box-header">
+                    <h3 class="box-title">List of <span class="text-success">{{company}}</span> Rental Ads</h3>                    
+                    <div class="box-tools pull-right">
+                        <!-- <a  data-toggle="modal" class="btn btn-success btn-sm" href="#validityDateDlg" style="color: white">
+                             Set Price Validity Date <span class="fa fa-calendar"></span>
+                         </a>-->
+                    </div>                  
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    {{ include("hubernize/inventory/includes/rental.ads.table.html.twig") }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+             $('input#weekly_deal_dealPrice').prop('required', true);
+             $('#rental-weekly-deal-form-panel').on('submit', 'form#weeklyDealForm', function (e) {
+                 $('#rentalWeeklyDealDlg').modal('hide');
+                 $('#ads').prepend(loaderHTML);
+             });
+        });
+        $(function () {
+            $('#rentalAdsTable').DataTable();
+            $('#rentalAdsTable').on('click', '.rental-ad-action a, a#weekly-deal-link', function (e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                var dialog="#rentalPromoDlg";
+                var replacementId = '#rental-promo-form-panel';
+                if($(this).attr('id') === 'weekly-deal-link'){
+                    dialog = '#rentalWeeklyDealDlg';
+                    replacementId ='#rental-weekly-deal-form-panel';
+                }              
+               makeRentalAdActionRequest(url, dialog, replacementId);
+            });
+            
+            $('#backend-content').on('submit', 'form#rental-ad-promo-form', function (e) {
+                 $('#rentalPromoDlg').modal('hide');
+                 $('#rentalAdsTable').prepend(loaderHTML);
+            });
+            $('#backend-content').on('change', 'div#dealType input', function (e) {
+                var dealType = $(this).val();
+                $('#weekly_deal_dealPrice').prop('required', false);
+                $('input#weekly_deal_discountRate').prop('required', false);
+                if (dealType === 'discountRate') {
+                    $('#discountRate').removeClass('hide');
+                    $('#dealPrice').addClass('hide');
+                    $('#weekly_deal_discountRate').prop('required', true);
+                } else {
+                    $('#discountRate').addClass('hide');
+                    $('#dealPrice').removeClass('hide');
+                    $('#input#weekly_deal_dealPrice').prop('required', true)
+                }               
+            });
+           
+        });
+        function makeRentalAdActionRequest(url, dialog, replacementId){
+             $(dialog).modal('show');               
+                $(replacementId).prepend(loaderHTML);
+                $.get(url, function (data) {
+                    $(loaderHolder).hide();
+                    if (typeof data.response !== 'undefined') {
+                        $(replacementId).html(data.response);
+                    }
+                });
+        }
+    </script>
+{% endblock javascripts %}

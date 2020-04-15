@@ -1,0 +1,8 @@
+ <select id="suppliersCombo" data-select='true' class="form-control" style="width: 100%">
+        <option value="0">Change Store...</option>
+        {% for supplier in suppliers %}
+            <option value="{{supplier.slug}}">
+                {{supplier.name}} - <i class="fa fa-map-marker"></i> <span class="review">{{supplier.businessLocation is not null ?  supplier.businessLocation ~','}} {{supplier.region}}</span> 
+        </option>
+    {% endfor %}
+</select>

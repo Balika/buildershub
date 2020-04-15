@@ -1,0 +1,36 @@
+<section class="sec-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>
+                    {{isOwnProfile ? "Your Education & Certificates Obtained" : requestedProfile.firstname ~ " Educational Background"}} 
+                    {% if isOwnProfile %}
+                         <a class="btn btn-tiny border border-cyan xround-1 pull-right" href="{{path('account_settings', {'tab':'personal-details', 'sub':'education'})}}"><span class="fa fa-plus"> Add Education</span></a>
+
+                        {% endif %}
+                </h4>                    
+                <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1"> 
+                    {% if educationHistory|length > 0 %}
+                        <ul class="list-2 bg-light">
+                            {% for education in educationHistory %}
+                                <li>
+                                    <div class="imgbox-small left"><i class="fa fa-graduation-cap fa-3x text-success"></i></div>
+                                    <div class="text-box-right">
+                                        <h5 class="nopadding title"><a href="#">{{education.certificateAwarded}}</a></h5>
+                                        <p class="padding-top-1"> 
+                                            <span class="text-gray"><a href="#">{{education.institution}}</a></span><span class="text-success pull-right">{{education.from}} - {{education.to}}</span>
+                                        </p>
+                                    </div>
+                                </li>
+                            {% endfor %}                        
+                        </ul>
+                    {% else %}
+                        <div class="alert alert-info">
+                            <strong>No Education/Diplomas Shared!</strong>  {{requestedProfile.firstname}} has no yet shared any education history on <a href="#">BuildersHub</a>                          
+                        </div>
+                    {% endif  %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

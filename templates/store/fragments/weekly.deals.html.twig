@@ -1,0 +1,31 @@
+<div class="owl-carousel nav-style2" data-nav="true" data-autoplay="true" data-dots="true" data-loop="true" data-margin="10" data-responsive='{"0":{"items":1},"480":{"items":2},"680":{"items":3},"768":{"items":1}}'>
+    {% for deal in weeklyDeals %}
+        <div class="product-item style1">
+            <div class="product-inner">
+                <div class="product-thumb">
+                    <div class="thumb-inner">
+                        <a href="{{path('store_product_detail', {'slug':deal.product.slug})}}"><img src="{{asset(deal.product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="d1" style="margin: auto; border-radius: 3px;"/></a>
+                    </div>
+                    <a href="{{path('store_product_detail', {'slug':deal.product.slug})}}" class="quick-view">Quick View</a>
+                </div>
+                <div class="product-innfo">
+                    <div class="product-name"><a href="{{path('store_product_detail', {'slug':deal.product.slug})}}">{{deal.product.name|title}}</a></div>
+                    <span class="price">
+                        {% set salePrice = deal.product.productData.salePrice!=null ? deal.product.productData.salePrice : deal.product.productData.regularPrice %}
+                        <ins>GH¢{{deal.discountRate is not null ? (salePrice-(deal.discountRate/100 * salePrice) )|number_format(2, '.',',') : deal.dealPrice|number_format(2, '.',',') }}</ins>
+                        <del>GH¢{{salePrice|number_format(2, '.',',')}}</del>
+                    </span>
+
+                    <span class="onsale">{{deal.discountRate is not null ? deal.discountRate|number_format(1, '.',',') : ((salePrice-deal.dealPrice)/salePrice * 100)|number_format(1, '.',',')}}% off</span>
+                    <div class="star-rating">
+                        <i class="fa fa-map-marker"></i> <span class="review">{{deal.supplier.businessLocation is not null ?  deal.supplier.businessLocation ~','}} {{deal.supplier.region}}</span>
+                    </div>
+                </div>
+                <div class="product-count-down">
+                    <div class="title-count-down">Hurry up!<span>Deal ends in:</span></div>
+                    <div class="kt-countdown" data-y="{{deal.endDate|date('Y')}}" data-m="{{deal.endDate|date('m')}}" data-d="{{deal.endDate|date('d')}}" data-h="12" data-i="0" data-s="0"></div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

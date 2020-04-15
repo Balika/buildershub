@@ -1,0 +1,40 @@
+<div class="block-slide">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9 padding-left-5 main-slide slide-opt-2">
+                <h4><small><a href='{{path('supplier_store_view',{'slug':supplier.slug})}}'>&laquo;Back</a></small> <i class="fa fa-file-text"></i> Price List Request </h4>
+                <div class="smart-wrap">
+                    <div class="smart-forms smart-container wrap-full transparent" style="border: 1px solid green; background-color: whitesmoke; border-radius: 4px" id="response">
+                        <div class="form-body" style="padding-bottom: 15px" id="response">
+                            <h5 class="text-success" id='message'>
+                                Select <strong>Items/Products</strong> for which you want <strong>Price List</strong> from <span class="text-danger">{{supplier}}</span>
+                            </h5>
+                            <hr/>
+                            <form id="priceListForm" method="POST" action="{{path('pricelist_request',{'slug':supplier.slug})}}">
+                                <p>
+                                    <button type="submit" class="btn btn-success btn-sm pull-right hide" id='price-list-request-btn' style="color: white">Submit  Price List Request</button>                   
+                                </p>
+                                <input type="checkbox" class="flat-red" value="" id="selectAll"/> <strong>Select all Products</strong>
+                                <hr/>
+                                <div class='row' id="productListDlg">
+                                    {% for product in supplier.products %}
+                                        <div class="col-md-3" style="padding-bottom: 10px">
+                                            <input type="checkbox" class="flat-red" value="{{product.id}}"/> {{product.name}}
+                                            <b class="tooltip tip-right-top"><em> {{product.name}}: {{product.description}}</em></b>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <input type="hidden" id='selectedProducts' name="selectedProducts"/>
+                                <div class="form-footer">                                    
+                                    <button type="submit" class="btn btn-success btn-sm pull-right hide" id='price-list-request-btn' style="color: white">Submit  Price List Request</button>
+                                </div>
+                            </form>
+                        </div><!-- /.modal-content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

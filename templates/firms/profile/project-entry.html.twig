@@ -1,0 +1,18 @@
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+    <div class="col-md-3">
+       <a class="btn btn-tiny border border-green xround-1"  href="{{previousPage}}"><span class="fa fa-chevron-left"> Back to Projects </span></a>       
+    </div>
+        <div class="col-md-9">
+        <h4>New Project Entry <small style="display: block; font-size: 0.6em">Share your project details so potential clients know your experience level</small></h4>        
+    </div>
+    <div class="smartforms-modal-body" >
+        <div class="smart-wrap" >
+            <div class="smart-forms smart-container transparent wrap-full">
+                <div class="form-body no-padd"> 
+                    {{ form_start(form, {'method': 'post', 'action':path('save_firm_work', {'slug':firm.slug}), 'attr': {'class': 'workForm form-horizontal', 'role':'form'} }) }}                
+                    {% include 'shared/profile/work.form.html.twig' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-V6FW3JQS0C"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'G-V6FW3JQS0C');
+        </script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <title>  {% block title %}BuildersHub Store - Buy and Sell construction materials, interior and interior decor, furniture, building supplies{% endblock %}</title>
+        {% block stylesheets %}
+            {% include 'store/shared/css.html.twig' %}
+        {% endblock %}
+        <link rel="shortcut icon" href="{{asset('favicon.ico')}}">
+    </head>
+    <body class="index-opt-5">
+        <div class="wrapper">
+            <form id="block-search-mobile" method="get" class="block-search-mobile">
+                <div class="form-content">
+                    <div class="control">
+                        <a href="#" class="close-block-serach"><span class="icon fa fa-times"></span></a>
+                        <input type="text" name="search" placeholder="Search" class="input-subscribe">
+                        <button type="submit" class="btn search">
+                            <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <!-- HEADER -->
+            {% block header %}
+                {% include "store/shared/header.premium.html.twig"  %}
+            {% endblock %}
+            <!-- MAIN -->
+            <main class="site-main" id="site-main">
+                {% block breadcrumbs %}
+                    <div class="container">
+                        <ol class="breadcrumb-page">
+                        </ol>
+                    </div>
+                {% endblock %}
+                {% include 'shared/feedback.dialog.html.twig' %}
+                {% include 'store/shared/add.to.cart.feedback.dialog.html.twig' %}
+
+                {% include 'shared/feedback.html.twig' %}
+                {% block mqrBlock %}    
+                    {% include 'store/shared/mqr.dialog.html.twig' %}
+                    {% include 'store/shared/mqr.html.twig' %}
+                {% endblock %}
+                {% block content %}                 
+                {% endblock  %}
+            </main><!-- end MAIN -->
+            <!-- FOOTER -->
+            {% block footer %}
+                {% include 'store/shared/footer.opt1.html.twig' %}
+            {% endblock %}
+            <!--back-to-top  -->
+            <!-- <a href="#" class="back-to-top">
+                <i aria-hidden="true" class="fa fa-angle-up"></i>
+            </a> -->
+        </div>
+        <a href="#" id="scrollup" title="Scroll to Top">Scroll</a>
+        {% block javascripts %}
+            {% include 'store/shared/scripts.html.twig' %}
+            <script src="{{asset('js/hubstore.js')}}"></script>   
+        {% endblock %}
+        <!--Start of Tawk.to Script-->
+        <script type="text/javascript">
+    /**   var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+     (function () {
+     var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+     s1.async = true;
+     s1.src = 'https://embed.tawk.to/5b3f2a596d961556373d77bc/default';
+     s1.charset = 'UTF-8';
+     s1.setAttribute('crossorigin', '*');
+     s0.parentNode.insertBefore(s1, s0);
+     })();*/
+        </script>
+        <!--End of Tawk.to Script-->
+    </body>
+</html>

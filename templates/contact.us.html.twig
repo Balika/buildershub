@@ -1,0 +1,108 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('js/popup/novicell.css')}}">
+    <link rel="stylesheet" href="{{asset('js/popup/popup.css')}}">
+{% endblock %}
+{% block  content %}
+    <section class="sec-padding section-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-12 col-xs-12 text-left">
+                    <h4>Address Info</h4>
+                    <h6>BuildersHub by <a href="#">Baseline Technologies  Lab. Ltd</a></h6>
+                    <p>P.O. Box A1 124, Spintex Road, Accra, Ghana
+                        <br/>
+                        Main Line: (+233) 246 7389 54
+                        <br/>
+                        Line 2: (+233) 208 6216 11
+                    </p>
+                    <br/>
+                    <p>E-mail: info@buildershub.net</p>
+                    <p>Website: www.buildershub.net</p>
+                </div>
+                <!--end item--> 
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    <h3 class="uppercase">Send Us a Message</h3>
+                    <p>We are more than happy to hear from you. Visit our offices or call us. We are opened to business from <strong>Monday  to Friday: 8:00am to 5:00pm</strong></p>
+                    <br/>
+                    <br/>
+                    <div class="text-box white padding-4">
+                        <div class="smartforms-modal-body">
+                            <div class="smart-wrap">
+                                <div class="smart-forms smart-container transparent wrap-full">
+                                    <div class="form-body no-padd">
+                                        <form method="post" action="php/smartprocess.php" id="smart-form">
+
+                                            <div class="section">
+                                                <label class="field prepend-icon">
+                                                    <input type="text" name="sendername" id="sendername" class="gui-input" placeholder="Enter name">
+                                                    <span class="field-icon"><i class="fa fa-user"></i></span>  
+                                                </label>
+                                            </div><!-- end section -->
+
+                                            <div class="section">
+                                                <label class="field prepend-icon">
+                                                    <input type="email" name="emailaddress" id="emailaddress" class="gui-input" placeholder="Email address">
+                                                    <span class="field-icon"><i class="fa fa-envelope"></i></span>
+                                                </label>
+                                            </div><!-- end section -->
+
+
+                                            <div class="section">
+                                                <label class="field prepend-icon">
+                                                    <input type="text" name="telephone" id="telephone" class="gui-input" placeholder="Enter Telephone...">
+                                                    <span class="field-icon"><i class="fa fa-phone-square"></i></span>  
+                                                </label>
+                                            </div><!-- end section -->
+
+
+                                            <div class="section">
+                                                <label class="field prepend-icon">
+                                                    <input type="text" name="sendersubject" id="sendersubject" class="gui-input" placeholder="Enter subject">
+                                                    <span class="field-icon"><i class="fa fa-lightbulb-o"></i></span>
+                                                </label>
+                                            </div><!-- end section -->
+
+                                            <div class="section">
+                                                <label class="field prepend-icon">
+                                                    <textarea class="gui-textarea" id="sendermessage" name="sendermessage" placeholder="Enter message"></textarea>
+                                                    <span class="field-icon"><i class="fa fa-comments"></i></span>
+                                                    <span class="input-hint"> <strong>Hint:</strong> Please enter between 80 - 300 characters.</span>   
+                                                </label>
+                                            </div><!-- end section -->
+
+
+                                            <div class="result"></div><!-- end .result  section --> 
+
+                                            <!-- end .form-body section -->
+                                            <div class="form-footer text-right">
+                                                <a href="{{previousPage}}" class="button"> Cancel </a>
+                                                <button type="submit" data-btntext-sending="Sending..." class="button btn-primary">Submit</button>
+                                                
+                                            </div><!-- end .form-footer section -->
+                                        </form>                                                                                   
+                                    </div><!-- end .form-body section -->
+                                </div><!-- end .smart-forms section -->
+                            </div><!-- end .smart-wrap section -->            
+                        </div>
+                    </div><!-- end .smart-wrap section -->
+                    <!-- end .smart-forms section --> 
+                </div>
+                <!--end item-->
+
+            </div>
+        </div>
+    </section>
+    <div class="clearfix"></div>
+{% endblock %}
+{% block pageScripts %}
+    {{parent()}}
+    <script src="{{asset('js/accordion/js/smk-accordion.js')}}"></script> 
+    <script src="{{asset('js/accordion/js/custom.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.form.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/smart-form.js')}}"></script>
+{% endblock %}

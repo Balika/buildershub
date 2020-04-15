@@ -1,0 +1,32 @@
+<h5 class="text-success">List of Consulting Firms  <small style="font-size: 13px"> 
+ {% if category is not null %} of  <span style="color: brown;">{{category}}</span> {% endif %} {% if town is not null %}  in or around <span style="color: brown;">{{region }} &raquo; {{town}} </span>{% elseif  region is not null%} in or around  <span style="color: brown;">{{region}}</span> {% endif %} </small></h5>
+{% for supplier in firms %}
+    <div class="col-md-4 col-sm-4">
+        <div class="text-box margin-bottom-2">
+            <figure class="blog-thumbnail blog-fullwidth"> <img src="{{loop.index is divisible by(2) ? asset('images/design/firm-default.jpg') : asset('images/design/firm-default.jpg')}}" class="img-responsive">
+                <div class="blog-detail">
+                    <div class="latest-blog-border padding3">
+                        <h5 class="title text-white">
+                            <a href="{{path('firm_profile', {'slug':supplier.slug})}}"> {{supplier}} <br/>
+                                <span class="text-primary text-small"> <i class="fa fa-map-marker"></i> {{supplier.region}} Region </span>                        
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+            </figure>
+            <div class="text-center">
+                <span class="label label-primary"><a class="text-white" href="{{path('firm_profile', {'slug':supplier.slug})}}" target="_blank"><i class="fa fa-eye" style="color:white"></i> View Profile</a></span>
+                <!--<span class="label label-success text-right"><a class="text-white" target="_blank" href="{{path('store_index')}}"><i class="fa fa-shopping-cart" style="color:white"></i> Visit Store</a></span>-->
+            </div>
+        </div>
+    </div>
+{% endfor %}
+<div class="row">
+    <div class="col-md-12">
+        {{ knp_pagination_render(firms) }}
+        {% if firms|length > 0%}
+            <span class="show-resuilt pull-right" style="padding-top: 15px">Showing <span>{{ firms.getPaginationData.firstItemNumber }} - {{ firms.getPaginationData.lastItemNumber }}</span> of <span>{{firms.totalItemCount}}</span> results</span>
+        {% endif %}
+    </div>
+</div>
+

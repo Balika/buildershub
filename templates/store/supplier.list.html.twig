@@ -1,0 +1,107 @@
+{% extends "store/shared/store.base.html.twig" %}
+{% block breadcrumbs %}
+
+{% endblock %}
+{% block pageMenu %}{% endblock %}
+
+{% block  content %}
+    <div class="container">
+        <div class="row">  
+            <div class="col-md-9 col-sm-8 float-none float-right padding-left-5">
+                <div class="header-menu header-menu-resize" style="background-color: #EFEFEF">
+                    <ul class="header-nav krystal-nav">
+                        <li class="btn-close hidden-md"><i class="fa fa-times" aria-hidden="true"></i></li>
+                        <li>
+                            <a href="#">Supplier List  {{region is not null ? ' - ' : region }} <span class="text-danger"> {{town is not null or region is not null ? ' <i class=" fa fa-map-marker"></i>'}} {{town is not null ? town~','}} {{region is not null ? region ~ ' region'}}</span></a>  
+                        </li>
+                    </ul>
+                </div>
+                <div class="main-content"> 
+                    <div class="block-promotion-banner">
+
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="promotion-banner style-7">
+                                    <a href="" class="banner-img"><img src="{{asset('store/images/home2/banner4.jpg')}}" alt="banner4"></a>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="promotion-banner style-7">
+                                    <a href="" class="banner-img"><img src="{{asset('store/images/home2/banner5.jpg')}}" alt="banner5"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="block-daily-deals style2">
+                        <div class="title-of-section">Sponsored Suppliers</div>
+                        <!-- <div class="product-count-down">
+                             <div class="kt-countdown" data-y="2018" data-m="7" data-d="24" data-h="10" data-i="0" data-s="0"></div>
+                         </div>-->
+                        <div class="block-daily-deals-content">
+                            <div class="owl-carousel nav-style2 equal-container" data-nav="true" data-autoplay="true" data-dots="true" data-loop="true" data-margin="1" data-responsive='{"0":{"items":1},"480":{"items":2},"992":{"items":2}}'>
+                                {{ render(controller('App\\Controller\\StoreUtilityController:topSuppliersByLocation', {'region':region, 'town': town} ), {"default":'Loading Cart....'}) }}                                                                                                  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="toolbar-products">
+                        {% include 'store/includes/location.filter.form.html.twig' %}
+                    </div>
+
+                    <div class="products products-list products-grid equal-container">
+                        {% for supplier in suppliers %}
+                            <div class="product-item style1 width-33 padding-0 col-md-3 col-sm-6 col-xs-6 equal-elem">
+                                <div class="product-inner">
+                                    <div class="product-thumb">
+                                        <div class="thumb-inner">
+                                            <a href=""><img src="{{asset('store/images/store-holder.png')}}" alt="d1"></a>
+                                        </div>
+                                        <span class="onnew">Verified</span>
+                                        <a href="" class="quick-view">Quick View</a>
+                                    </div>
+                                    <div class="product-innfo">
+                                        <div class="product-name"><a href="{{path('supplier_store_view', {'slug':supplier.slug})}}">{{supplier}}</a></div>
+
+                                        <span class="star-rating">
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                            <span class="review">5 Review(s)</span>
+                                        </span>
+                                        <div class="info-product">
+                                            {% if supplier.subLocation is not null %}
+                                                <p> <i class="fa fa-map-marker"></i> <a href="#">{{supplier.subLocation}}</a><a href="#">{{supplier.businessLocation is not null ?  ', '~supplier.businessLocation}}</a></p>
+                                                {% else %}
+                                                <p> <i class="fa fa-map-marker"></i> <a href="#">{{supplier.businessLocation is not null ?  supplier.businessLocation }} </a></p>                                       
+                                            {% endif %}
+                                            <p><i class="fa fa-map-marker"></i> <a href="#">{{supplier.region ~ ' Region'}}</a></p>
+                                        </div>
+                                        <div class="single-add-to-cart">
+                                            <a href="{{path('supplier_store_view', {'slug':supplier.slug})}}" class="btn-add-to-cart">Visit Store</a>
+                                            <a href="" class="compare"><i class="flaticon-refresh-square-arrows"></i>Compare</a>
+                                            <a href="" class="wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i>Wishlist</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %} 
+                    </div>    
+                    <div class="pagination">
+                        {{ knp_pagination_render(suppliers) }}
+                        <span class="show-resuilt">Showing <span>{{ suppliers.getPaginationData.firstItemNumber }} - {{ suppliers.getPaginationData.lastItemNumber }}</span> of <span>{{suppliers.totalItemCount}}</span> results</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 site-main-sidebar">
+                <div class="col-sidebar">
+                    {{ render(controller('App\\Controller\\StoreUtilityController:categoriesSidebar', {'block':'supplierRegionsSidebarBlock', 'region':region} ), {"default":'Loading Cart....'}) }}                                                                                                  
+                    <div class="block-banner-sidebar">
+                        <a href=""><img src="{{asset('store/images/banner3.jpg')}}" alt="banner-sidebar"></a>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div> 
+{% endblock %}

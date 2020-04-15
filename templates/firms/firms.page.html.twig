@@ -1,0 +1,73 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('js/popup/novicell.css')}}">
+    <link rel="stylesheet" href="{{asset('js/popup/popup.css')}}">
+{% endblock %}
+{% block  content %}
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row">                
+                <div class="col-md-12 text-left">
+                    <ol class="breadcrumbs-2">
+                        <li><a href="{{path('home')}}"><i class="fa fa-home" aria-hidden="true"></i> Home</a><span><i class="fa fa-angle-right" aria-hidden="true"></i></span></li>
+                       <li><a href="{{path('list_firms', {'b-page':page=='suppliers'?'consulting-firms':'suppliers'})}}"><i class="fa fa-spinner" aria-hidden="true"></i> {{page=='suppliers'? 'Load Consulting & Construction Firms' : "Load Suppliers"}}</a><span><i class="fa fa-angle-right" aria-hidden="true"></i></span></li>
+                       
+                        <li class="current"><a href="#"><i class="fa fa-certificate" aria-hidden="true"></i> Firms - {{page=='suppliers'?" Suppliers ":" Construction and Consulting"}}</a></li>
+                        <li class="pull-right"><a target="_new" class="btn btn-tiny border border-green xround-1" href="{{path('store_index')}}"><span class="fa fa-shopping-cart"> Visit BuilderHub Store</span></a></li>
+                    </ol>
+                </div>
+            </div>
+            <!--<div class="col-divider-margin-1"></div>
+            <div class=" divider-line solid light"></div>  
+            <div class="col-divider-margin-1"></div>-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="call-to-action">
+                        {% if page == 'suppliers' %}
+                            {% include 'firms/includes/suppliers.call.to.action.html.twig' %}
+                        {% else %}
+                            {% include 'firms/includes/firms.call.to.action.html.twig' %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-sm-9 col-xs-12">
+                    {{ render_esi(controller('App\\Controller\\PortalUtilityController::renderRegionsSidebar',{'page':page, 'regionId':(region is not null ? region.id : 0)}), {"default":'Loading Cart....'})}}                        
+                </div>               
+                <div class="col-md-7 col-sm-5 col-xs-12">
+                    {% include 'firms/includes/location.filter.form.html.twig' %}
+                    <div class="col-divider-margin-1"></div>
+                    <div class=" divider-line solid light"></div>  
+                    <div class="col-divider-margin-1"></div>
+                    {% include template %}
+                    <div class="clearfix"></div>
+                </div>
+                <div class="col-md-2 col-sm-10 col-xs-12">                                      
+
+                    <div class="clearfix"></div>
+                </div>
+                <!--end item-->
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+{% block pageScripts %}
+    {{parent()}}
+    <script src="{{asset('js/accordion/js/smk-accordion.js')}}"></script> 
+    <script src="{{asset('js/accordion/js/custom.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.form.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/smart-form.js')}}"></script>
+    <script>
+
+    </script>
+    <script src="{{asset('js/popup/novicell.js')}}"></script>
+    <script type="text/javascript">
+
+    </script>
+{% endblock %}

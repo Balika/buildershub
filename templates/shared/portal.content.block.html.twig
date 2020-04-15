@@ -1,0 +1,554 @@
+{% block categoryMenuLinks %}
+    <li style="width: 33%"> <a href="#">Building Materials & Supplies</a> <span class="arrow"></span>
+        <ul>
+            {% for category in materialCategories|slice(0, 7) %}
+                <li> <a href="{{path('category_view',{'slug':category.slug})}}" target="_blank" title="{{category}}"><i class="fa fa-angle-right"></i>&nbsp; {{category|length > 20 ? category|slice(0,20)~'...': category}}</a> </li>
+                {% endfor %}
+        </ul>
+        <p align="right">
+            <a rel="nofollow" href="{{path('store_index')}}" class="animated-button thar-one font-weight-7 lspace-6" target="_blank"> Visit Store</a>
+        </p>
+    </li>
+    <li  style="width: 33%"> <a href="#">Construction Equipment & Parts </a> <span class="arrow"></span>
+        <ul>
+            {% for category in equipmentCategories %}
+                <li> <a href="{{path('category_view',{'slug':category.slug})}}" target="_blank" title="{{category}}"><i class="fa fa-angle-right"></i>&nbsp; {{category|length > 20 ? category|slice(0,20)~'...': category}}</a> </li>
+                    {% for subCat in category.subCategories|slice(0, 2) %}
+                    <li> <a href="{{path('category_view',{'slug':subCat.slug})}}" target="_blank" title="{{subCat}}"><i class="fa fa-angle-right"></i>&nbsp; {{subCat|length > 20 ? subCat|slice(0,20)~'...': subCat}}</a> </li>
+                    {% endfor %}
+                {% endfor %}
+        </ul>
+        <p align="right">
+            <a rel="nofollow" href="{{path('register_store')}}" class="animated-button thar-one font-weight-7 lspace-6" target="_blank"> List your Store</a>
+        </p>
+    </li>     
+    <li  style="width: 33%"> <a href="{{path('estates_index')}}" target="_blank">Estate & Properties</a> <span class="arrow"></span>
+        <ul>
+            <li> <a href="{{path('list_estates', {"page":"for-rent"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Houses for Rents</a> </li>
+            <li> <a href="{{path('list_estates', {"page":"for-sale"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Estates for Sale</a> </li>
+            <li> <a href="{{path('list_estates', {"page":"commercial-properties"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Commercial Properties</a> </li>
+            <li> <a href="{{path('list_estates', {"page":"gated-communities"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Gated Communities</a> </li>
+            <li> <a href="{{path('list_estates', {"page":"suites-and-villas"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Suites & Villas</a> </li>
+            <li> <a href="{{path('list_estates', {"page":"commercial-properties"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Commercial Properties</a> </li>
+            <li> <a href="{{path('list_estates', {"page":"gated-communities"})}}" target="_blank"><i class="fa fa-angle-right"></i>&nbsp; Gated Communities</a> </li>          
+        </ul>
+        <p align="right">
+            <a rel="nofollow" href="{{path('register_store', {'type':'property'})}}" class="animated-button thar-one font-weight-7 lspace-6" target="_blank"> Advertise Properties</a>
+        </p>
+    </li>    
+{% endblock %}
+{% block expertiseLinks %}
+    <li style="width: 33%"> <a href="{{path('find_builders',{'b-page':'artisans'})}}" title="home samples">Artisans & Draftmen</a> <span class="arrow"></span>
+        <ul>
+            {% for category in artisanCategories|slice(0, 7) %}
+                <li> <a href="{{path('find_builders',{'b-page':'artisans','category':category.slug})}}" title="{{category.practitioner}}"><i class="fa fa-angle-right"></i>&nbsp; {{category.practitioner|length > 20 ? category.practitioner|slice(0,20)~'...': category.practitioner~'s'}}</a> </li>
+                {% endfor %}
+            <li>
+                <p align="right">
+                    <a rel="nofollow" href="{{path('find_builders',{'b-page':'artisans'})}}" class="animated-button thar-one font-weight-7 lspace-6"> Find Artisans</a>
+                </p>
+            </li>
+        </ul>
+    </li>
+    <li style="width: 33%"> <a href="{{path('find_builders',{'b-page':'professionals'})}}">Other Professionals</a> <span class="arrow"></span>
+        <ul>
+            {% for category in professionalCategories|slice(0, 7) %}
+                <li> <a href="{{path('find_builders',{'b-page':'professionals','category':category.slug})}}" title="{{category.practitioner}}"><i class="fa fa-angle-right"></i>&nbsp; {{category.practitioner|length > 20 ? category.practitioner|slice(0,20)~'...' : category.practitioner~'s'}}</a> </li>
+                {% endfor %}
+        </ul>
+        <p align="right">
+            <a rel="nofollow" href="{{path('find_builders',{'b-page':'professionals'})}}" class="animated-button thar-one font-weight-7 lspace-6"> Find Consultants</a>
+        </p>
+    </li>
+    <li style="width: 33%"> <a href="#">Construction Sector Firms</a> <span class="arrow"></span>
+        <ul>
+            <li> <a href="#"><i class="fa fa-angle-right"></i> Suppliers of Materials</a> </li>
+            <li> <a href="#"><i class="fa fa-angle-right"></i> Consulting Firms</a> </li>
+            <li> <a href="#"><i class="fa fa-angle-right"></i> Construction Firms</a> </li> 
+            <li> <a href="#"><i class="fa fa-angle-right"></i> Property / Estate Owners </a> </li> 
+        </ul>
+    </li>
+{% endblock %}
+{% block topSuppliersIntro %}
+    <div id="owl-demo8" class="owl-carousel owl-theme">
+        {% for supplier in topSuppliers %}
+            <div id="owl-demo8" class="owl-carousel owl-theme">
+                <div class="item">
+                    <div class="feature-boxed-9 hover-shadow-1 {{loop.index==2?'active'}} margin-bottom-2">                 
+                        <h1 class="text-primary font-weight-1"><a href="{{path('supplier_store_view', {'slug':supplier.slug})}}" target="_blank" style="font-size: 0.6em" title="{{supplier}}">{{supplier|length>20?supplier|slice(0, 20)~'...':supplier}}</a> <br/>
+                            <em class="text-primary"><i class="fa fa-map-marker"></i> <a href='#'>{{supplier.businessLocation is not null ? supplier.businessLocation~', '}}</a> <a href='#'>{{supplier.region}}</a></em></h1>
+                        <div class="line"></div>
+                        <ul>
+                            {% for category in supplier.productCategories|slice(0, 6) %}
+                                <li><a href="{{path('category_view',{'slug':category.slug})}}" target="_blank" title="{{category}}"><i class="fa  fa-check"></i> {{category|length>25?category|slice(0, 25)~'...':category}} </a></li>
+                                {% endfor %}                  
+                        </ul>
+                        <div class="clearfix margin-bottom-4"></div>
+                        <a href="{{path('supplier_store_view', {'slug':supplier.slug})}}" class="but-stbutton-14 uppercase font-weight-7" target="_blank"><i class="fa fa-shopping-cart" style="color:white"></i> Visit Store</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block footerPosts %}
+    {% for  post in posts|slice(0, 3) %}
+        <div class="fo-posts">
+            <div class="imgbox-medium left"><a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}"><img src="{{asset(post.featureImage|imagine_filter('hub_thumbnail'))}}" alt="" class="img-responsive"/></a></div>
+            <div class="text-box-right">
+                <h6 class="nopadding font-weight-6 text-white"><a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}" title="{{post.title}}" target="new">{{post.title|slice(0, 35)}}...</a></h6>               
+                <div class="post-info"> <span>By {{post.user.firstname}}</span><span> {{post.createdAt|date('M')}} {{post.createdAt|date('d')}}</span> </div>
+            </div>
+        </div>
+        <div class=" divider-line light solid light opacity-1 "></div>
+        <div class="clearfix"></div>
+    {% endfor %}
+{% endblock %}
+{% block lastestNewsIntro %}
+    {% set s3_images_url = "https://s3-us-west-1.amazonaws.com/buildershub/images/" %}
+    {% for  post in posts %}
+        {% if loop.first %}
+            <div class="col-md-6 nopadding animate" data-anim-type="fadeInUp" data-anim-delay="700">
+                <div class="grid">                     
+                    <figure class="effect-marley"> <img src="{{asset(s3_images_url~post.featureImage)}}" alt="" class="img-responsive" />
+                        <figcaption>
+                            <h3 class=" text-primary font-weight-5"><a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}">{{post.title}}</a> </h3>
+                            <p class="sfont gray"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{post.createdAt|date('F')}} {{post.createdAt|date('d')}}, {{post.createdAt|date('Y')}} &nbsp; &nbsp; <i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp; 
+                                {% for tag in post.postTags %}
+                                    <a href="#">{{post.postTags|length > 1 ? tag.name~', ' : tag.name}}</a>
+                                {% endfor %}    <br />
+                                <i>By</i> {{post.user.fullName}}</p>
+                        </figcaption>
+                    </figure>                    
+                </div>
+            </div>
+            <!-- end col -->
+        {% elseif loop.index == 2 %}
+            <div class="col-md-3 nopadding animate" data-anim-type="fadeInUp" data-anim-delay="900">
+                <div class="grid"> 
+                    <figure class="effect-marley"> <img src="{{asset(s3_images_url~post.featureImage)}}" alt="" class="img-responsive" />
+                        <figcaption>
+                            <h3 class=" text-primary font-weight-5"><a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}">{{post.title}}</a> </h3>
+
+                            <p class="sfont gray"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; {{post.createdAt|date('F')}} {{post.createdAt|date('d')}}, {{post.createdAt|date('Y')}} &nbsp; &nbsp; <i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp;
+                                {% for tag in post.postTags %}
+                                    <a href="#">{{post.postTags|length > 1 ? tag.name~', ' : tag.name}}</a>
+                                {% endfor %}    <br />
+                                <i>By</i> {{post.user.fullName}}</p>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <!-- end col -->
+        {% elseif loop.index == 3 %}
+            <div class="col-md-3 nopadding animate" data-anim-type="fadeInUp" data-anim-delay="1000">
+                <div class="grid"> <a href="#">
+                        <figure class="effect-marley"> <img src="{{asset(s3_images_url~post.featureImage)}}" alt="" class="img-responsive" />
+                            <figcaption>
+                                <h3 class=" text-primary font-weight-5">{{post.title}}</h3>
+                                <p class="sfont gray"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; {{post.createdAt|date('F')}} {{post.createdAt|date('d')}}, {{post.createdAt|date('Y')}} &nbsp; &nbsp; <i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp; 
+                                    {% for tag in post.postTags %}
+                                        <a href="#">{{post.postTags|length > 1 ? tag.name~', ' : tag.name}}</a>
+                                    {% endfor %}    <br />
+                                    <i>By</i> {{post.user.fullName}}</p>
+                            </figcaption>
+                        </figure>
+                    </a> </div>
+            </div>
+            <!-- end col -->
+        {% elseif loop.index == 4 %}
+            <div class="col-md-3 nopadding animate" data-anim-type="fadeInUp" data-anim-delay="500">
+                <div class="grid"> <a href="#">
+                        <figure class="effect-marley"> <img src="{{asset(s3_images_url~post.featureImage)}}" alt="" class="img-responsive" />
+                            <figcaption>
+                                <h3 class=" text-primary font-weight-5">{{post.title}}</h3>
+                                <p class="sfont gray"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; {{post.createdAt|date('F')}} {{post.createdAt|date('d')}}, {{post.createdAt|date('Y')}}&nbsp; &nbsp; <i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp;
+                                    {% for tag in post.postTags %}
+                                        <a href="#">{{post.postTags|length > 1 ? tag.name~', ' : tag.name}}</a>
+                                    {% endfor %}    <br />
+
+                                    <i>By</i> {{post.user.fullName}}</p>
+                            </figcaption>
+                        </figure>
+                    </a> </div>
+            </div>
+        {% elseif loop.index == 5 %}
+            <!-- end col -->
+            <div class="col-md-3 nopadding animate" data-anim-type="fadeInUp" data-anim-delay="600">
+                <div class="grid"> <a href="#">
+                        <figure class="effect-marley"> <img src="{{asset(s3_images_url~post.featureImage)}}" alt="" class="img-responsive" />
+                            <figcaption>
+                                <h3 class=" text-primary font-weight-5">{{post.title}}</h3>
+                                <p class="sfont gray"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; {{post.createdAt|date('F')}} {{post.createdAt|date('d')}}, {{post.createdAt|date('Y')}} &nbsp; &nbsp; <i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp;
+                                    {% for tag in post.postTags %}
+                                        <a href="#">{{post.postTags|length > 1 ? tag.name~', ' : tag.name}}</a>
+                                    {% endfor %}    <br />
+                                    <i>By</i> {{post.user.fullName}}
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </a> </div>
+            </div>
+        {% endif  %}
+        <!-- end col --> 
+    {% endfor %}
+{% endblock %}
+{% block featuredBuilders %}
+    {% set s3_images_url = "https://s3-us-west-1.amazonaws.com/buildershub/images/" %}
+    <div id="js-grid-slider-projects" class="cbp">
+        {% for builder in builders %}
+            <div class="cbp-item {{loop.index==1 ? 'graphic' : loop.index==2 ? 'web-design logos' : loop.index==3 ? 'graphic logos' : loop.index==4 ? 'identity web-design' : loop.index==5 ? 'identity graphic' : 'graphic' }}">
+                <div class="cbp-caption">
+                    <div class="cbp-caption-defaultWrap">
+                        <img src="{{builder.profilePicture is not null ? asset(s3_images_url~builder.profilePicture ) : asset('images/default-user.png')}}" alt="" style="border-radius: 3px">
+                    </div>
+                    <div class="cbp-caption-activeWrap">
+                        <div class="cbp-l-caption-alignCenter">
+                            <div class="cbp-l-caption-body">
+                                <a href="{{path('user_profile',{'usernameCanonical':builder.user.usernameCanonical})}}" class="cbp-l-caption-buttonLeft" target="_blank">view profile</a>
+                                <a href="{{builder.profilePicture is not null ? asset(s3_images_url~builder.profilePicture ) : asset('images/default-user.png')}}" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="{{builder.user.fullName}}<br>{{builder.profession is not null ? builder.profession.practitioner}}">view larger</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cbp-l-grid-projects-title" title="#">{{builder.user.fullName}} {{builder.profession is not null ? ' - ' ~builder.profession.practitioner}}</div>
+                <div class="cbp-l-grid-projects-desc">
+                    {% if builder.user.userProfile.town!=null %}
+                        <i class="fa fa-map-marker margin-r-5"></i> 
+                        <strong>
+                            {{builder.user.userProfile.subLocation is not null ? builder.user.userProfile.subLocation ~', '}} {{builder.user.userProfile.town}}{{builder.user.userProfile.region!=null ? ', '~builder.user.userProfile.region ~' Region' }}            
+                        </strong>
+                    {% endif %}   
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div id="js-singleProduct-container" style="display: none;">  
+        {% for builder in builders %}
+            <!-- PROJECT 1 -->
+            <div>
+                <div class="cbp-l-project-title">{{builder.user.fullName}}</div>
+                <div class="cbp-l-project-subtitle"> {{builder.profession is not null ? builder.profession.practitioner}}</div>
+                <div class="cbp-slider">
+                    <ul class="cbp-slider-wrap">
+
+
+                    </ul>
+                </div>
+                <div class="cbp-l-project-container">
+                    <div class="cbp-l-project-desc">
+                        <div class="cbp-l-project-desc-text">{{builder.user.userProfile.profile}}</div>
+                    </div>
+                    <div class="cbp-l-project-details">
+                        <ul class="cbp-l-project-details-list">
+                            <li><strong>Client</strong></li>
+                            <li><strong>Date</strong></li>
+                            <li><strong>Date</strong></li>
+                            <li><strong>Categories</strong>Logo, Graphic</li>
+                        </ul>
+                        <a href="#" target="_blank" class="cbp-l-project-details-visit">View Profile</a>
+                    </div>
+                </div>
+                <br><br><br>
+            </div>   
+        {% endfor %}
+    </div>
+
+{% endblock %}
+{% block regionsSidebar %}
+    <div class="padding-top-1 text-left"style="padding:8px">
+        {% for region in regions %}
+            <div class="icons-list-1 border-bottom">
+
+                <div class="text">
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    {% if page == 'artisans' or page == 'professionals' %}
+                        <a href='{{path('find_builders', {'b-page':page,'slug':region.slug})}}' style="color: {{region==selectedRegion?"orange"}}">{{region~' Region'}} 
+                        </a>
+                    {% else %}
+                        <a href='{{path('list_firms', {'b-page':page,'slug':region.slug})}}' style="color: {{region==selectedRegion?"orange"}}">{{region~' Region'}} 
+                        </a>
+                    {%endif %}
+                </div>
+            </div>       
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block userTestimonies %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 nopadding">
+                <div class="sec-title-container sec-tpadding-2 less-padding-3 text-center">
+                    <h2 class="font-weight-7 text-center">What People Says</h2>
+                    <p class="line-height-2 less2">There are variations available majoritaey suffered alteration words which look believable <br/>
+                        dolor sit amet consectetuer adipiscing elit suspendisse justdo structure versions.</p>
+                    <img src="images/titel-bg-02.png" alt=""/> </div>
+            </div>
+            <!--end title-->
+            <div class="clearfix margin-bottom-3"></div>
+            <div>
+                <div id="owl-demo3" class="owl-carousel owl-theme">
+                    <div class="item padding-top-2">
+
+                        <div class="col-md-4 animate-in" data-anim-type="zoom-in" data-anim-delay="100">
+                            <div class="feature-box-24 margin-bottom box-shadow-1">
+                                <div class="text-box padding-percent-2">
+                                    <h5 class="font-weight-7 margin-bottom-1">New stunning projects !</h5>
+                                    <p class="margin-bottom-3">We need sure generate internet repeat predefine the centuries one the release internet...</p>
+                                    <div class="above-arrow-line">
+                                        <img src="images/people-img-small1.jpg" alt="" class="imgbox-xtiny2 round float-left margin-right-3 margin-bottom-2 margin-top-1" />
+                                        <h6 class="small-text nomargin font-weight-7">Marison Avasa</h6>
+                                        <i class="text-small">Website.com</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end item-->
+                        <div class="col-md-4 animate-in" data-anim-type="zoom-in" data-anim-delay="200">
+                            <div class="feature-box-24 margin-bottom box-shadow-1">
+                                <div class="text-box padding-percent-2">
+                                    <h5 class="font-weight-7 margin-bottom-1">for our amazing clients</h5>
+                                    <p class="margin-bottom-3">We need sure generate internet repeat predefine the centuries one the release internet...</p>
+                                    <div class="above-arrow-line">
+                                        <img src="images/people-img-small2.jpg" alt="" class="imgbox-xtiny2 round float-left margin-right-3 margin-bottom-2 margin-top-1" />
+                                        <h6 class="small-text nomargin font-weight-7">Joan Collins</h6>
+                                        <i class="text-small">Website.com</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end item-->
+                        <div class="col-md-4 animate-in" data-anim-type="zoom-in" data-anim-delay="300">
+                            <div class="feature-box-24 margin-bottom box-shadow-1">
+                                <div class="text-box padding-percent-2">
+                                    <h5 class="font-weight-7 margin-bottom-1">Done, Exactly as We Needed</h5>
+                                    <p class="margin-bottom-3">We need sure generate internet repeat predefine the centuries one the release internet...</p>
+                                    <div class="above-arrow-line">
+                                        <img src="images/people-img-small3.jpg" alt="" class="imgbox-xtiny2 round float-left margin-right-3 margin-bottom-2 margin-top-1" />
+                                        <h6 class="small-text nomargin font-weight-7">Melinda Liza</h6>
+                                        <i class="text-small">Website.com</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end item-->
+
+                        <div class="clearfix margin-bottom-2"></div>
+                    </div>
+                    <!--end carousel item-->
+
+                    <div class="item padding-top-2">
+
+                        <div class="col-md-4 animate-in" data-anim-type="zoom-in" data-anim-delay="100">
+                            <div class="feature-box-24 margin-bottom box-shadow-1">
+                                <div class="text-box padding-percent-2">
+                                    <h5 class="font-weight-7 margin-bottom-1">Wow, Job Done Very Fast!</h5>
+                                    <p class="margin-bottom-3">We need sure generate internet repeat predefine the centuries one the release internet...</p>
+                                    <div class="above-arrow-line">
+                                        <img src="images/people-img-small1.jpg" alt="" class="imgbox-xtiny2 round float-left margin-right-3 margin-bottom-2 margin-top-1" />
+                                        <h6 class="small-text nomargin font-weight-7">Marison Avasa</h6>
+                                        <i class="text-small">Website.com</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end item-->
+
+                        <div class="col-md-4 animate-in" data-anim-type="zoom-in" data-anim-delay="200">
+                            <div class="feature-box-24 margin-bottom box-shadow-1">
+                                <div class="text-box padding-percent-2">
+                                    <h5 class="font-weight-7 margin-bottom-1">Highly Recommended</h5>
+                                    <p class="margin-bottom-3">We need sure generate internet repeat predefine the centuries one the release internet...</p>
+                                    <div class="above-arrow-line">
+                                        <img src="images/people-img-small3.jpg" alt="" class="imgbox-xtiny2 round float-left margin-right-3 margin-bottom-2 margin-top-1" />
+                                        <h6 class="small-text nomargin font-weight-7">Joan Collins</h6>
+                                        <i class="text-small">Website.com</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end item-->
+
+                        <div class="col-md-4 animate-in" data-anim-type="zoom-in" data-anim-delay="300">
+                            <div class="feature-box-24 margin-bottom box-shadow-1">
+                                <div class="text-box padding-percent-2">
+                                    <h5 class="font-weight-7 margin-bottom-1">Done, Exactly as We Needed</h5>
+                                    <p class="margin-bottom-3">We need sure generate internet repeat predefine the centuries one the release internet...</p>
+                                    <div class="above-arrow-line">
+                                        <img src="images/people-img-small2.jpg" alt="" class="imgbox-xtiny2 round float-left margin-right-3 margin-bottom-2 margin-top-1" />
+                                        <h6 class="small-text nomargin font-weight-7">Melinda Liza</h6>
+                                        <i class="text-small">Website.com</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end item-->
+
+                        <div class="clearfix margin-bottom-2"></div>
+                    </div>
+                    <!--end carousel item-->
+
+                    <div class="item padding-top-2">
+
+                        <div class="col-md-4 animate-in" data-anim-type="zoom-in" data-anim-delay="100">
+                            <div class="feature-box-24 margin-bottom box-shadow-1">
+                                <div class="text-box padding-percent-2">
+                                    <h5 class="font-weight-7 margin-bottom-1">Wow, Job Done Very Fast!</h5>
+                                    <p class="margin-bottom-3">We need sure generate internet repeat predefine the centuries one the release internet...</p>
+                                    <div class="above-arrow-line">
+                                        <img src="images/people-img-small3.jpg" alt="" class="imgbox-xtiny2 round float-left margin-right-3 margin-bottom-2 margin-top-1" />
+                                        <h6 class="small-text nomargin font-weight-7">Marison Avasa</h6>
+                                        <i class="text-small">Website.com</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end item-->
+
+                        <div class="col-md-4 animate-in" data-anim-type="zoom-in" data-anim-delay="200">
+                            <div class="feature-box-24 margin-bottom box-shadow-1">
+                                <div class="text-box padding-percent-2">
+                                    <h5 class="font-weight-7 margin-bottom-1">Highly Recommended</h5>
+                                    <p class="margin-bottom-3">We need sure generate internet repeat predefine the centuries one the release internet...</p>
+                                    <div class="above-arrow-line">
+                                        <img src="images/people-img-small1.jpg" alt="" class="imgbox-xtiny2 round float-left margin-right-3 margin-bottom-2 margin-top-1" />
+                                        <h6 class="small-text nomargin font-weight-7">Joan Collins</h6>
+                                        <i class="text-small">Website.com</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end item-->
+
+                        <div class="col-md-4 animate-in" data-anim-type="zoom-in" data-anim-delay="300">
+                            <div class="feature-box-24 margin-bottom box-shadow-1">
+                                <div class="text-box padding-percent-2">
+                                    <h5 class="font-weight-7 margin-bottom-1">Done, Exactly as We Needed</h5>
+                                    <p class="margin-bottom-3">We need sure generate internet repeat predefine the centuries one the release internet...</p>
+                                    <div class="above-arrow-line">
+                                        <img src="images/people-img-small2.jpg" alt="" class="imgbox-xtiny2 round float-left margin-right-3 margin-bottom-2 margin-top-1" />
+                                        <h6 class="small-text nomargin font-weight-7">Melinda Liza</h6> 
+                                        <i class="text-small">Website.com</i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end item-->
+
+                        <div class="clearfix margin-bottom-2"></div>
+                    </div>
+                    <!--end carousel item--> 
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block featuredProjects %}
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 nopadding animate-in" data-anim-type="fade-in-up" data-anim-delay="200">
+                    <div class="sec-title-container less-padding-3 text-center">
+                        <h2 class="font-weight-7 less-mar-3">Featured Projects</h2>
+                        <p class="line-height-2 less2">There are variations available majoritaey suffered alteration words which look believable <br/>
+                            dolor sit amet consectetuer adipiscing elit suspendisse justdo structure versions.</p>
+                        <img src="{{asset('images/titel-bg-02.png')}}" alt=""/> </div>
+                </div>
+                <!--end title-->
+
+                <div class="clearfix margin-bottom-2"></div>
+
+                <div id="js-grid-mosaic-flat" class="cbp cbp-l-grid-mosaic-flat">
+                    <div class="cbp-item web-design graphic"> <a href="images/portfolio/1.jpg" class="cbp-caption cbp-lightbox" data-title="Bolt UI<br>by Tiberiu Neamu">
+                            <div class="cbp-caption-defaultWrap"> <img src="images/portfolio/mosaic-flat-sm1.jpg" alt=""> </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignCenter">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">Bolt UI</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a> </div>
+                    <div class="cbp-item print motion"> <a href="images/portfolio/3.jpg" class="cbp-caption cbp-lightbox" data-title="World Clock Widget<br>by Paul Flavius Nechita">
+                            <div class="cbp-caption-defaultWrap"> <img src="images/portfolio/mosaic-flat-sm2.jpg" alt=""> </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignCenter">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">World Clock Widget</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a> </div>
+                    <div class="cbp-item print motion"> <a href="images/portfolio/2.jpg" class="cbp-caption cbp-lightbox" data-title="WhereTO App<br>by Tiberiu Neamu">
+                            <div class="cbp-caption-defaultWrap"> <img src="images/portfolio/mosaic-flat-mbig1.jpg" alt=""> </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignCenter">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">WhereTO App</div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="cbp-item motion graphic"> <a href="images/portfolio/10.jpg" class="cbp-caption cbp-lightbox" data-title="Seemple* Music for iPad<br>by Tiberiu Neamu">
+                            <div class="cbp-caption-defaultWrap"> <img src="images/portfolio/mosaic-flat-big1.jpg" alt=""> </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignCenter">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">Seemple* Music for iPad</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a> 
+                    </div>
+                    <div class="cbp-item web-design print"> <a href="images/portfolio/12.jpg" class="cbp-caption cbp-lightbox" data-title="iDevices<br>by Tiberiu Neamu">
+                            <div class="cbp-caption-defaultWrap"> <img src="images/portfolio/mosaic-flat-mbig2.jpg" alt=""> </div>
+                            <div class="cbp-caption-activeWrap">
+                                <div class="cbp-l-caption-alignCenter">
+                                    <div class="cbp-l-caption-body">
+                                        <div class="cbp-l-caption-title">iDevices</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block feedbackBlock  %}
+    {{form_start(feedbackForm, {'method':'POST', 'action':path('feedback')})}}
+    <div class="modal-body" style="padding-bottom: 15px" >
+        {% if isSaved %}
+            <div class="alert alert-success">
+                Your feedback has been received. Thank you for taking time to drop us a message.
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                We are working hard to make BuildersHub a great platform to serve you better.
+                Let us know what you think.
+            </div>
+            <div class="form-group">
+                {{form_widget(feedbackForm.email,{'attr':{'class':'form-control', 'placeholder':'Your e-mail'} })}}
+            </div>
+            <div class="form-group">
+                {{form_widget(feedbackForm.email_address)}}
+            </div>
+            <div class="form-group">
+                {{form_widget(feedbackForm.message,{'attr':{'class':'form-control', 'placeholder':'Please write your feedback here...', 'rows':5} })}}           
+            </div>
+        {% endif  %}
+    </div>
+    <div class="modal-footer">    
+        {% if isSaved %}
+            <button type="button" class="btn btn-default btn-sm pull-right" data-dismiss="modal">OK</button> 
+        {% else %}
+            <button type="button" class="btn btn-danger btn-sm pull-left" data-dismiss="modal">Cancel</button>   
+            <button class="btn btn-primary pull-right" type="submit"  style="display: {{isSaved?'none'}}">Send Feedback</button>
+        {% endif  %}
+    </div>
+    {{ form_row(feedbackForm._token) }} 
+    {{ form_end(feedbackForm, {'render_rest': false}) }}
+{% endblock %}

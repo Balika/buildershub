@@ -1,0 +1,23 @@
+{% extends 'hubernize/shared/hubernize.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+
+    <!-- Select2 -->
+{% endblock %}
+{% block contentHeader %}
+    Dashboard
+    <small>{{company}} </small>
+{% endblock %}
+{% block content %}
+    {{company}}   
+    <div class="row">
+        <div class="col-md-8">
+        </div>
+        <div class="col-md-4" id="entityForm">
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+{% endblock javascripts %}

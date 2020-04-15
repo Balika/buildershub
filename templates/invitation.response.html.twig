@@ -1,0 +1,173 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link href="{{asset('js/smart-forms/smart-addons.css')}}" rel="stylesheet">
+{% endblock %}
+{% block  content %}
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row"> 
+                <div class="col-md-10 col-sm-2 col-xs-12">
+                    <div >
+                        <a href="#" data-smart-modal="#supplier-dialog" class="smartforms-modal-trigger hide" id="supplier-dialog-btn" ></a>
+                        <a href="#" data-smart-modal="#property-dialog" class="smartforms-modal-trigger hide" id="property-dialog-btn"></a>
+                    </div>
+                    {% include "account/includes/response.dialogs.html.twig" %}
+                    <div class="smartforms-modal-body">
+                        <div class="smart-wrap">
+                            <div class="smart-forms smart-container transparent wrap-full" >
+                                <div class="form-header header-primary">
+                                    <h4><i class="fa fa-users"></i> <small style="color: white;"><strong>Welcome to BuildersHub</strong> </small> 
+                                        <span style="font-size: 0.4em; font-weight: bolder"> where building/construction sector professionals, artisans, property owners, suppliers of building materials & equipment together with the general public exchage goods and services</span></h4>
+                                </div>
+                                <div class="form-body" style="border: 1px solid green;  border-radius: 4px">
+                                    {{form_start(form, {method:"POST", 'attr':{id:'responseForm'} } )}}     
+                                    <div class="frm-row">
+                                        <div class="section colm colm12">
+                                            <div class="spacer-b30">
+                                                <div class="tagline"><span><strong>How would you want to use BuildersHub</strong></span></div><!-- .tagline -->
+                                            </div>
+                                            <div class="option-group field" id="userTypeOptionPanel">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label class="option block">
+                                                            <input type="radio" name="userType" value="artisan">
+                                                            <span class="radio"></span> As Artisan/Draftman
+                                                            <b class="tooltip"><em>Plumbers, masons, tilers, carpenters, steel benders, painters, electricians etc</em></b>                  
+                                                        </label>
+                                                    </div> 
+                                                    <div class="col-md-4">
+                                                        <label class="option block">
+                                                            <input type="radio" name="userType" value="professional">
+                                                            <span class="radio"></span> As Professional
+                                                            <b class="tooltip"><em>Engineers, architects, quantity surveyors, planners, projects managers etc</em></b>                  
+                                                        </label>
+                                                    </div>  
+                                                    <div class="col-md-4">
+                                                        <label class="option block">
+                                                            <input type="radio" name="userType" value="student">
+                                                            <span class="radio"></span> As Student
+                                                            <b class="tooltip"><em>Student pursuing technical courses in engineering, architecture, planning, building technology etc</em></b>                  
+                                                        </label>
+                                                    </div>  
+                                                    <div class="col-md-4">
+                                                        <label class="option block">
+                                                            <input type="radio" name="userType" value="supplier">
+                                                            <span class="radio"></span> As Supplier
+                                                            <b class="tooltip"><em>Suppliers of building materials, construction supplies, construction equipment, hand tools, interior decor, furniture, lighting & secutity gadgtes etc</em></b>                  
+                                                        </label>
+                                                    </div>  
+                                                    <div class="col-md-4">
+                                                        <label class="option block">
+                                                            <input type="radio" name="userType" value="guest">
+                                                            <span class="radio"></span> As Property Owner
+                                                            <b class="tooltip"><em>Landlords, property managers etc</em></b>                  
+                                                        </label>
+                                                    </div>  
+
+                                                    <div class="col-md-4">
+                                                        <label class="option block">
+                                                            <input type="radio" name="userType" value="firm">
+                                                            <span class="radio"></span> As Construction / Consulting Firm
+                                                            <b class="tooltip"><em>Companies into construction, engineering consulting, bore hole drilling, mining, oil & gas etc</em></b>                  
+                                                        </label>
+                                                    </div>  
+                                                    <div class="col-md-4">
+                                                        <label class="option block">
+                                                            <input type="radio" name="userType" value="property">
+                                                            <span class="radio"></span> As Real Estate Company/Agent
+                                                            <b class="tooltip"><em>Real estate companies, real estates agents, property brokers etc</em></b>                  
+                                                        </label>
+                                                    </div>  
+                                                </div>
+                                            </div><!-- end .option-group section -->
+                                        </div><!-- end section --> 
+                                    </div><!-- end section --> 
+                                    <div class="col-divider-margin-1"></div>
+                                    <div class="divider-line dotted text-gray-2"></div> 
+                                    <div class="col-divider-margin-1"></div>
+
+                                    <div id="responseFormPanel" class="hide">
+                                        <h5 id="userTypeTitle" style="font-weight: bolder; text-align: center"></h5>
+                                        <div class="section col-md-12">
+                                            <label  class="field-label">Email Address <i class="text-danger">*</i></label>
+                                            <label class="field prepend-icon">
+                                                {{ form_widget(form.email,{ 'attr': {class: 'gui-input', placeholder: 'e.g. balikaem@gmail.com' } }) }}
+                                                <span class="field-icon"><i class="fa fa-envelope"></i></span>
+                                            </label>
+                                            <!--<div id="institutionResults" style="border: white solid 1px; background-color: white; color: black; border-radius: 4px; z-index:1; position: absolute; max-height: 250px; overflow: auto; width: 100%" class="row"></div> -->   
+                                        </div>
+                                        <div class="section col-md-6">
+                                            <label  class="field-label">First Name <i class="text-danger">*</i></label>
+                                            <label class="field prepend-icon">
+                                                {{ form_widget(form.firstname,{ 'attr': {class: 'gui-input',placeholder: 'e.g. Edmond' } }) }}
+                                                <span class="field-icon"><i class="fa fa-user"></i></span>
+                                            </label>
+                                            <!--<div id="institutionResults" style="border: white solid 1px; background-color: white; color: black; border-radius: 4px; z-index:1; position: absolute; max-height: 250px; overflow: auto; width: 100%" class="row"></div> -->   
+                                        </div>
+                                        <div class="section col-md-6">
+                                            <label  class="field-label">Last Name <i class="text-danger">*</i></label>
+                                            <label class="field prepend-icon">
+                                                {{ form_widget(form.lastname,{ 'attr': {class: 'gui-input',placeholder: 'e.g. Balika' } }) }}
+                                                <span class="field-icon"><i class="fa fa-user"></i></span>
+                                            </label>
+                                            <!--<div id="institutionResults" style="border: white solid 1px; background-color: white; color: black; border-radius: 4px; z-index:1; position: absolute; max-height: 250px; overflow: auto; width: 100%" class="row"></div> -->   
+                                        </div>
+                                        <div class="section col-md-6">
+                                            <label  class="field-label">Password <i class="text-danger">*</i></label>
+                                            <label class="field prepend-icon">
+                                                {{ form_widget(form.password.first,{ 'attr': {class: 'gui-input',placeholder: 'Password' } }) }}
+                                                <span class="field-icon"><i class="fa fa-lock"></i></span>
+                                            </label>
+                                            <!--<div id="institutionResults" style="border: white solid 1px; background-color: white; color: black; border-radius: 4px; z-index:1; position: absolute; max-height: 250px; overflow: auto; width: 100%" class="row"></div> -->   
+                                        </div>
+                                        <div class="section col-md-6">
+                                            <label  class="field-label">Confirm password <i class="text-danger">*</i></label>
+                                            <label class="field prepend-icon">
+                                                {{ form_widget(form.password.second,{ 'attr': {class: 'gui-input',placeholder: 'Confirm Password' } }) }}
+                                                <span class="field-icon"><i class="fa fa-retweet"></i></span>
+                                            </label>
+                                            <!--<div id="institutionResults" style="border: white solid 1px; background-color: white; color: black; border-radius: 4px; z-index:1; position: absolute; max-height: 250px; overflow: auto; width: 100%" class="row"></div> -->   
+                                        </div>
+                                        <div class="section col-md-12">
+                                            <label  class="field-label">What do you do? <i class="text-danger">*</i></label>
+                                            <label class="field prepend-icon">
+                                                {{ form_widget(form.profile,{ 'attr': {class: 'gui-textarea',placeholder: 'Write briefly about your work' } }) }}
+                                                <span class="field-icon"><i class="fa fa-file"></i></span>
+                                                <span class="input-hint"> <strong>Hint:</strong> Let your profile viewers know what you do so they can engage you better</span>                                                       
+                                            </label>
+                                            <!--<div id="institutionResults" style="border: white solid 1px; background-color: white; color: black; border-radius: 4px; z-index:1; position: absolute; max-height: 250px; overflow: auto; width: 100%" class="row"></div> -->   
+                                        </div>  
+                                        <div class="section col-md-12">
+                                            <div class="option-group field">
+                                                <label class="option block">
+                                                    {{form_widget(form.agreeTerms)}}
+                                                    <span class="checkbox"></span> I agree to BuildersHub <a href="#">Terms & Conditions</a>                          
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-footer text-right">
+                                            <button type="submit" data-btntext-sending="Sending..." class="button btn-primary">Create Account</button>
+                                        </div><!-- end .form-footer section -->
+                                        {{ form_row(form._token) }}
+                                        {{ form_end(form, {'render_rest': false})}}
+                                    </div>
+                                </div><!-- end .form-body section -->
+
+                            </div><!-- end .smart-forms section -->
+                        </div><!-- end .smart-wrap section -->            
+                    </div>
+
+                </div>
+                <div class="col-md-2 col-sm-10 col-xs-12">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block pageScripts %}
+    {{parent()}}    
+    <script type="text/javascript" src="{{asset('js/smart-forms/smartforms-modal.min.js')}}"></script>
+{% endblock %}

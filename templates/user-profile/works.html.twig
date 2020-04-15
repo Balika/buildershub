@@ -1,0 +1,54 @@
+{% if projects|length > 0 %}
+    <section class="sec-padding">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="js-filters-masonry-projects" class="cbp-l-filters-buttonCenter">
+                    <div data-filter="*" class="cbp-filter-item-active cbp-filter-item">
+                        All <div class="cbp-filter-counter"></div>
+                    </div>
+                    <div data-filter=".identity" class="cbp-filter-item">
+                        Identity <div class="cbp-filter-counter"></div>
+                    </div>
+                    <div data-filter=".web-design" class="cbp-filter-item">
+                        Web Design <div class="cbp-filter-counter"></div>
+                    </div>
+                    <div data-filter=".graphic" class="cbp-filter-item">
+                        Graphic <div class="cbp-filter-counter"></div>
+                    </div>
+                    <div data-filter=".logos" class="cbp-filter-item">
+                        Logo <div class="cbp-filter-counter"></div>
+                    </div>
+                    <div data-filter=".logos, .graphic" class="cbp-filter-item">
+                        Logo & Graphic <div class="cbp-filter-counter"></div>
+                    </div>
+                </div>
+                <div id="js-grid-masonry-projects" class="cbp cbp-l-grid-masonry-projects">
+                    {% for project in projects %}
+                        <div class="cbp-item {{loop.index==1 ? 'graphic' : loop.index==2 ? 'web-design logos' : loop.index==3 ? 'graphic logos' : loop.index==4 ? 'identity web-design' : loop.index==5 ? 'identity graphic' : 'graphic' }}">
+                            <div class="cbp-caption">
+                                <div class="cbp-caption-defaultWrap">
+                                    <img src="{{asset('uploads/content/'~project.featureImage)}}" alt="" style="border-radius: 3px">
+                                </div>
+                                <div class="cbp-caption-activeWrap">
+                                    <div class="cbp-l-caption-alignCenter">
+                                        <div class="cbp-l-caption-body">
+                                            <a href="#" class="cbp-singlePage cbp-l-caption-buttonLeft" rel="nofollow">more info</a>
+                                            <a href="{{asset('uploads/content/'~project.featureImage)}}" class="cbp-lightbox cbp-l-caption-buttonRight" data-title="{{project.title}}<br>by {{project.user.fullName}}">view larger</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="cbp-singlePage cbp-l-grid-masonry-projects-title" rel="nofollow">{{project.title}}</a>
+                            <div class="cbp-l-grid-masonry-projects-desc">web design / graphic</div>
+                        </div>
+                    {% endfor  %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% else %}
+    <div class="alert alert-danger">
+        {{requestedProfile.fullName}} do not currently have any projects in portfolio
+    </div>
+{% endif %}
+

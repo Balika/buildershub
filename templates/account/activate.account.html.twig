@@ -1,0 +1,141 @@
+{% extends "shared/page.base.html.twig" %}
+{% block mainNav %}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link href="{{asset('js/smart-forms/smart-addons.css')}}" rel="stylesheet">
+    <link href="{{asset('css/froala_style.min.css')}}" rel="stylesheet">
+{% endblock %}
+{% block  content %}
+    <section class="sec-padding" style="background: url('{{asset("images/sliders/slider01-2.png")}}')">
+        <div class="container">
+            <div class="row">
+                <div class="clearfix"></div>                
+                <div class="smart-forms smart-container wrap-0">
+                    <div class="form-body">
+                        <p class="logo" align="center">
+                            <a href="{{path('home')}}"><img src="{{asset('hub-logo-white.png')}}" alt="logo"></a>
+                        </p><!-- logo -->
+                        <div class="modal-dialog" >
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    {% block modalHeader %}
+                                        <div class="col-md-12 text-center"> <h3 class="less-mar-1 font-weight-5 raleway">BuildersHub Account Activation</h3></div> 
+                                    {% endblock %}
+                                </div>
+                                <div class="modal-body" id="activationContentHolder">
+                                    {% if isActivated %}
+                                        <div class="alert alert-success">
+                                            Hi {{user.firstname}}, Your account has already been activated!
+                                            <p>What do you want to do?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="{{path('store_index')}}" class="btn btn-info btn-medium pull-left"><i class="fa fa-shopping-cart"></i> Shop on BuildersHub</a>
+                                            <a href="{{path('security_login_form', {"id":user.id})}}" class="btn btn-success btn-medium pull-right"><i class="fa fa-lock"></i> Login</a>
+                                        </div>
+                                    {% else %}
+                                        {% if mode == 'sms' %}
+                                            <div class="alert alert-success">
+                                                Thanks {{user.firstname}}, An activation code has been sent to your phone number: <strong>{{user.contactNo}}</strong>.
+                                                Enter the code received to activate your account
+                                            </div>
+                                        {% elseif mode == 'email' %}
+                                            <div class="alert alert-success">
+                                                Thanks {{user.firstname}}, An activation link has been sent to your email <strong>{{user.email}}.</strong> Click on it to activate account.
+                                            </div>
+                                        {% else %}
+                                            <div class="alert alert-success">
+                                                Hi {{user.firstname}}, You have successfully created an account on BuildersHub. Activate your account to unlock the full features of the Hub Services.
+                                            </div>
+                                        {% endif %}
+                                        {{form_start(form, {method:"POST", action: path('activate_account', {'id':user.id}), 'attr':{id:'registerForm'} } )}}                           
+
+                                        <div id="modePanel" style="padding-bottom: 20px;" class="{{mode=='email'?'hide'}}">
+                                            <label  class="field-label"><strong>Choose how you wish to activate account</strong></label>
+                                            <div class="section col-md-6">
+                                                <div class="option-group field">
+                                                    <label class="option block">
+                                                        <input type="radio" value="email" name="mode" class="flat-red"  /> 
+                                                        <span class="checkbox"></span> Email Alert                         
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="section col-md-6">
+                                                <div class="option-group field">
+                                                    <label class="option block">
+                                                        <input type="radio" value="sms" name="mode" /> 
+                                                        <span class="checkbox"></span> SMS Code                        
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="smsPanel" class="{{mode=='sms'?'show':'hide'}}">
+                                            <div class="section form-group {{(mode=='sms'or isSMSSent) ? 'hide'}}" >
+                                                <label  class="field-label">Send SMS Code To:</label>
+                                                <label class="input-group field prepend-icon">  
+                                                    {{ form_widget(form.phone,{ 'attr': {class: 'gui-input',placeholder: 'Enter phone number' } }) }}
+                                                    <span class="field-icon"><i class="fa fa-phone"></i></span>
+                                                    <span class="input-group-addon">
+                                                        {{ form_widget(form.sendSMS,{ 'attr': {class: 'btn btn-primary' } }) }}
+                                                    </span>
+                                                </label>
+                                            </div>                     
+                                            <div class="section" id="smsChildPanel" style="display: {{ isSMSSent?"block":"none"}}">
+                                                <label  class="field-label">SMS Code:</label>
+                                                <label class="field prepend-icon">
+                                                    {{ form_widget(form.code,{ 'attr': {class: 'gui-input',placeholder: 'Enter SMS Code you just received ' } }) }}
+                                                    <span class="field-icon"><i class="fa fa-pencil"></i></span>
+                                                </label>
+
+                                                <p align="right">
+                                                    {{ form_widget(form.activateAccount,{ 'attr': {class: 'btn btn-default' } }) }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div id="emailPanel" class="{{mode=='email'?'show':'hide'}}">                                                
+                                            <p align="right">
+                                                <a href="{{path('send_activation_link', {"id":user.id})}}" class="btn btn-primary {{mode=='email'?'hide'}}"><i class="fa fa-envelope"></i> Send Email Activation Link</a>
+                                            </p>
+                                        </div>
+                                        {{ form_row(form._token) }}
+                                        {{ form_end(form, {'render_rest': false})}}
+                                    {% endif  %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}  
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.form.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/smart-form.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-custom.min.js')}}"></script>
+    <script type="text/javascript">
+        $(function () {
+            var contentHolder = "#activationContentHolder";
+            $(contentHolder).on('click', 'a, button', function(e){
+                //alert('clicked: ' + $(this).attr('class'));
+                $('.modal-dialog').prepend(loaderHTML);
+            });
+            $(contentHolder).on('change', "input[type='radio']", function (e) {
+                var mode = $(this).val();                
+                if (mode === 'sms') {
+                    $("#smsPanel, #smsChildPanel").removeClass('hide');
+                    $("#emailPanel").addClass('hide');
+                } else if (mode === 'email') {
+                    $("#smsPanel, #smsChildPanel").addClass('hide');
+                    $("#emailPanel").removeClass('hide');
+                }
+            });
+        });
+    </script>
+
+
+{% endblock %}
+

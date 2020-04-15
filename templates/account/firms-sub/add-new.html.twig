@@ -1,0 +1,54 @@
+<div class="text-box padding-2 border" id="companyTypesHolder">
+    <div class="alert-box success">
+        <span class="alert-closebtn" onClick="this.parentElement.style.display = 'none';">&times;</span>
+        <strong><i class="fa fa-info" aria-hidden="true"></i> &nbsp;  Take a Minute!</strong> &nbsp; Select the type of company or firm you wish to add to your account
+    </div>
+    <div class="col-md-4">
+        <label class="control control--radio"><strong>Supplier</strong>
+            <input type="radio" name="radio" value="{{constant('App\\Utils\\CompanyTypes::SUPPLIER')}}" {{constant('App\\Utils\\CompanyTypes::SUPPLIER')==type ? 'checked'}} />
+            <div class="control__indicator cyan"></div>
+        </label>
+    </div>
+    <div class="col-md-4">
+        <label class="control control--radio"><strong>Consulting Firm</strong>
+            <input type="radio" name="radio" value="{{constant('App\\Utils\\CompanyTypes::CONSULTING')}}" {{constant('App\\Utils\\CompanyTypes::CONSULTING')==type ? 'checked'}}/>
+            <div class="control__indicator cyan"></div>
+        </label>
+    </div>
+    <div class="col-md-4">
+        <label class="control control--radio"><strong>Construction Firm</strong>
+            <input type="radio" name="radio" value="{{constant('App\\Utils\\CompanyTypes::CONSTRUCTION')}}" {{constant('App\\Utils\\CompanyTypes::CONSTRUCTION')==type ? 'checked'}}/>
+            <div class="control__indicator cyan"></div>
+        </label>
+    </div>
+    <div class="col-md-4">
+        <label class="control control--radio"><strong>Both Construction & Consulting</strong>
+            <input type="radio" name="radio" value="{{constant('App\\Utils\\CompanyTypes::CONSTRUCTION_AND_CONSULTING')}}" {{constant('App\\Utils\\CompanyTypes::CONSTRUCTION_AND_CONSULTING')==type ? 'checked'}}/>
+            <div class="control__indicator cyan"></div>
+        </label>
+    </div>
+    <div class="col-md-4">
+        <label class="control control--radio"><strong>Artisanal Firm</strong>
+            <input type="radio" name="radio" value="{{constant('App\\Utils\\CompanyTypes::ARTISANAL')}}" {{constant('App\\Utils\\CompanyTypes::ARTISANAL')==type ? 'checked'}}/>
+            <div class="control__indicator cyan"></div>
+        </label>
+    </div>
+    <div class="col-md-4">
+        <label class="control control--radio"><strong>Advertising Firm</strong>
+            <input type="radio" name="radio" value="{{constant('App\\Utils\\CompanyTypes::ADVERTISING')}}" />
+            <div class="control__indicator cyan"></div>
+        </label>
+    </div>                        
+</div>
+<div class="row">                       
+    <div id="serverResponse" class="col-md-12">
+        {% if type is defined and type is not null %}
+            <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+                <h4 class="text-center">Selected Company Type: <span class="text-success">{{type}}</span></h4>               
+                <div class=" divider-line solid light"></div>                                      
+                {% include 'account/firm/includes/company.form.html.twig' %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+

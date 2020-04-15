@@ -1,0 +1,574 @@
+// Variables
+// =========
+
+// Colors
+@colorPrimary: #2ecc71;
+@colorSecondary: #1996e5;
+@colorTertiary: #fff;
+@colorBg: white;
+@bradius: 5px;
+// Metrics
+@boxWidth: 1240px;
+
+// Other
+@layoutType: "wide";
+@borderType: "square";
+
+@outerBgType: "color";
+@outerBgColor: @colorSecondary;
+@outerBgImage: "";
+
+@preloader: "";
+
+// Mixins
+.animation(@animation) {
+  -webkit-animation: @animation;
+          animation: @animation;
+}
+.transform(@transform) {
+  -webkit-transform: @transform;
+      -ms-transform: @transform; // IE9 only
+          transform: @transform;
+}
+
+
+// Styles
+// ======
+
+// Backgrounds
+body {
+	background: @colorBg !important;
+}
+body when (@layoutType = "boxed") and (@outerBgType = "color") {
+	background: @outerBgColor !important;
+}
+body when (@layoutType = "boxed") and (@outerBgType = "pattern") and not (@outerBgImage = "") {
+	background: url(@outerBgImage) @colorBg repeat left top !important;
+}
+html when (@layoutType = "boxed") and (@outerBgType = "image") and not (@outerBgImage = "") {
+	height: 100%;
+	background: url(@outerBgImage) @colorBg repeat center top / cover fixed !important;
+}
+body when (@layoutType = "boxed") and (@outerBgType = "image") {
+	background: none !important;
+}
+
+// Layout
+.wrapper-boxed when (@layoutType = "boxed") {
+	max-width: @boxWidth;
+}
+
+// Colors
+
+.text-color-primary {
+	color: @colorPrimary !important;
+}
+.bg-color-primary {
+	background-color: @colorPrimary;
+}
+.bg-color-secondary {
+	background-color: @colorSecondary;
+}
+.bg-color-tertiary {
+	background-color: @colorTertiary;
+}
+.btn.btn-color-primary {
+	background-color: @colorPrimary;
+}
+
+
+//theme styles
+
+
+// =========== mega menu ====================
+
+.header-section ul li.active > a {
+    color: @colorPrimary;
+}
+.header-section.style4 ul li ul {
+    background: @colorPrimary;
+}
+.header-section ul li:hover > a, .header-section ul li.active > a {
+    color: @colorPrimary;
+}
+.header-section.style4 ul li.search-parent .search-box {
+    background: @colorPrimary;
+}
+
+.header-section.style4 ul li.search-parent .search-box .form-control {
+    background: @colorPrimary;
+}
+
+@media only screen and (max-width: 1000px) {
+
+ .header-section.style4 #menu ul {
+    background: @colorPrimary;
+} 
+  
+}
+
+.header-section ul li .number {
+    background: @colorPrimary;
+}
+.header-section.style4 ul li.cart-parent .cart-box {
+    background: @colorPrimary;
+}
+
+.header-section ul li.mega-menu > ul > li ul li a:hover {
+ color:@colorPrimary;
+}
+.header-section ul li.search-parent a.m-link {
+    color: @colorPrimary;
+}
+.header-section ul li.cart-parent a.m-link {
+    color: @colorPrimary;
+}
+.header-section.dark-dropdowns.style4 ul li:hover > a, .header-section.dark-dropdowns.style4 ul li.active > a {
+    color: @colorPrimary;
+}
+.header-section.dark-dropdowns.style4 ul li.mega-menu > ul > li ul li a:hover {
+    color: @colorPrimary;
+}
+.header-section.dark-dropdowns.style4 #menu ul li ul li:hover a span.sub-arrow, header-section.dark-dropdowns.style4 #menu ul li ul li.active a span.sub-arrow {
+    color: @colorPrimary;
+  }
+.header-section.dark-dropdowns.style2 ul li:hover > a, .header-section.dark-dropdowns.style2 ul li.active > a {
+    color: @colorPrimary;
+}
+.header-section.dark-dropdowns.style2 ul li.mega-menu > ul > li ul li.active a {
+    color: @colorPrimary;
+}
+ .header-section.dark-dropdowns.style2 ul li.mega-menu > ul > li ul li a:hover {
+    color: @colorPrimary;
+} 
+.btn-top-1 {
+    background-color: @colorPrimary;
+}  
+.header-section.dark-dropdowns.style1 ul li:hover > a, .header-section.dark-dropdowns.style1 ul li.active > a {
+    color: @colorPrimary;
+}
+.header-section.dark-dropdowns.style1 ul li.mega-menu > ul > li ul li a:hover {
+    color: @colorPrimary;
+}  
+.header-section.dark-dropdowns.style1 ul li:hover > a, .header-section.dark-dropdowns.style1 ul li.active > a {
+    color: @colorPrimary;
+} 
+.header-section.act-style-1 ul li.active > a {
+    background-color: @colorPrimary !important;
+}  
+ 
+.header-section.style3 #menu ul li.mega-menu li ul li:hover a, .header-section.style3 #menu ul li.mega-menu li ul li.active a {
+    color: @colorPrimary;
+}  
+.header-section.style3 #menu ul li.mega-menu li ul li:hover a, .header-section.style3 #menu ul li.mega-menu li ul li.active a {
+    color: @colorPrimary;
+  }  
+.header-section.style3 #menu ul li ul li:hover > a, .header-section.style3 #menu ul li ul li.active > a {
+    color: @colorPrimary;
+  }
+  .header-section.style3 #menu ul li ul li:hover a span.sub-arrow, header-section.style3 #menu ul li ul li.active a span.sub-arrow {
+    color: @colorPrimary;
+  }  
+.header-section.style5.dark #menu ul li ul li:hover > a, .header-section.style5.dark #menu ul li ul li.active > a {
+    color: @colorPrimary;
+}
+.header-section ul li.cart-parent .cart-box span {
+    color: @colorPrimary;
+} 
+.header-section ul li.cart-parent .cart-box span {
+    color: @colorPrimary;
+}  
+.header-section ul li.cart-parent .cart-box .btn.btn-primary {
+    background: @colorPrimary none repeat scroll 0 0 !important;
+}  
+  
+  
+  
+// =========== corporate ====================
+
+
+a.animated-button.thar-one {
+	color: @colorPrimary !important;
+	border: 1px solid @colorPrimary;
+}
+
+a.animated-button.thar-one:hover {
+	color: @colorTertiary !important;
+	box-shadow: inset 270px 0px 0 0px @colorPrimary;
+}
+#items .item:hover a {
+    color: @colorPrimary;
+}
+.text-primary {
+    color: @colorPrimary !important;
+}
+a.animated-button.thar-green {
+    border: 2px solid @colorPrimary;
+    background: @colorPrimary;
+}
+.text-secondary {
+    color: @colorSecondary !important;
+}
+.section-secondary {
+    background-color: @colorSecondary;
+}
+.section-primary {
+    background-color: @colorPrimary;
+}
+
+.but-stbutton-2 {
+    background: @colorSecondary;
+}
+.cbp-l-grid-mosaic-flat .cbp-caption-activeWrap {
+    background-color: @colorPrimary;
+}
+.section-secondary {
+    background-color: @colorSecondary;
+}
+a.secondary {
+    color: @colorSecondary;
+}
+.boxlight-hover-secondary:hover {
+    background-color: @colorSecondary;
+}
+.but-stbutton-7 {
+    color: @colorPrimary;
+    border: 2px solid @colorPrimary;
+}
+.section-secondary {
+    background-color: @colorSecondary;
+}
+.but-stbutton-7:hover {
+	background: @colorPrimary;
+}
+.but-stbutton-8 {
+    color: @colorSecondary;
+}
+.but-stbutton-8:hover {
+	box-shadow: inset 200px 0px 0 0px @colorPrimary;
+}
+.but-stbutton-11 {
+    color: @colorPrimary;
+}
+.but-stbutton-11:hover {
+	box-shadow: inset 200px 0px 0 0px @colorSecondary;
+}
+.but-stbutton-4 > a {
+    color: @colorSecondary;
+}
+.background-image01 {
+    background: @colorSecondary;
+}
+.img-hover-text-1 {
+    background: @colorSecondary;
+}
+.feature-box-2 .img-box-main .img-box .sc-icons-box{
+	background-color:@colorSecondary;
+}
+.slider-button-2 a:hover {
+	box-shadow: inset 250px 0 0 0px @colorSecondary;
+}
+.icon-plain-msmall {
+    color: @colorPrimary;
+}
+.bg-shape-image::before {
+    background:@colorSecondary;
+}
+.feature-box-3 .item-holder .text-box{
+	background-color:@colorSecondary;
+}
+.feature-box-3 .btn-circle.primary {
+    border: 1px solid @colorSecondary;
+    color: @colorSecondary;
+}
+.feature-box-4:hover .img-box .text-box, .feature-box-4.active .img-box .text-box{
+	background-color:@colorSecondary;
+}
+
+.feature-box-5 {
+	-webkit-box-shadow: 0px 0px 0px 12px @colorPrimary;
+}
+.feature-box-5:hover {
+	-webkit-box-shadow: 0px 0px 0px 12px @colorSecondary;
+}
+.text-primary {
+    color: @colorPrimary !important;
+}
+.feature-box-6 .img-box .post-date-box {
+    color: @colorPrimary;
+}
+.feature-box-6 .img-box .post-date-box span {
+    color: @colorPrimary;
+}
+.feature-box-7:hover .icon, .feature-box-7.active .icon {
+	background-color:@colorPrimary;
+	border:1px solid @colorPrimary;
+}
+.feature-box-7:hover .title, .feature-box-7.active .title {
+	color:@colorPrimary;
+}
+.cbp-l-filters-buttonCenter .cbp-filter-counter {
+    background-color: @colorPrimary;
+}
+.cbp-l-filters-buttonCenter .cbp-filter-item.cbp-filter-item-active {
+    color: @colorPrimary;
+    border-color: @colorPrimary;
+}
+.cbp-l-filters-buttonCenter .cbp-filter-counter:after {
+	border-top: 4px solid  @colorPrimary;
+}
+
+.feature-box-8:hover, .feature-box-8.active {
+	background-color: @colorSecondary;
+	border: 1px solid @colorSecondary;
+}
+.feature-box-8:hover .iconbox-small, .feature-box-8.active .iconbox-small {
+	color: @colorSecondary;
+}
+.feature-box-10 .image div  {
+	border: 3px solid @colorPrimary;
+}
+.feature-box-10 .box:hover .image div{    
+	background-color: @colorPrimary;
+	border: 3px solid @colorPrimary;
+}
+.feature-box-9:hover, .feature-box-9.active{
+	background-color: @colorSecondary;
+}
+.text-secondary {
+    color: @colorSecondary !important;
+}
+.text-primary {
+    color: @colorPrimary !important;
+}
+.feature-box-11 #triangle-up:hover div.icon{
+	color:@colorPrimary;
+}
+.feature-box-11 #triangle-down { 
+	border-top: 210px solid @colorPrimary;
+}
+.feature-box-11 #triangle-down:hover div.icon{ 
+	color: @colorPrimary;
+}
+.slider-button-2 a:hover {
+	box-shadow: inset 250px 0 0 0px @colorSecondary;
+}
+.feature-box-12.bg-light{
+	background-color:@colorPrimary;
+}
+.feature-box-12 .img-box .sc-icons-box{
+	background-color:@colorPrimary;
+}
+.feature-box-14.active .img-box .overlay {
+    background: @colorPrimary;
+}
+.but-stbutton-9 {
+	background: @colorPrimary;
+}
+.but-stbutton-9:hover {
+	color: @colorPrimary;
+}
+.text-primary {
+    color: @colorPrimary !important;
+}
+.feature-box-15.active {
+	background-color:@colorPrimary;
+}
+.text-primary {
+    color: @colorPrimary !important;
+}
+.but-stbutton-8 {
+    color: @colorSecondary;
+}
+.feature-box-19:hover, .feature-box-19.active {
+	background-color: @colorPrimary;
+}
+.feature-box-20:hover .img-circle .img,
+.feature-box-20.active .img-circle .img {
+	background-color:@colorPrimary;
+}
+.feature-box-22 .box:hover,
+.feature-box-22 .box.active {
+	border:solid 1px @colorPrimary;
+
+}
+.feature-box-22 .box:hover h2,
+.feature-box-22 .box.active h2 {
+	color: @colorPrimary;
+}
+.feature-box-22 .box:hover i {
+    color: #fff;
+    background-color: @colorPrimary;
+    border: 1px solid @colorPrimary;
+}
+.feature-box-22 .box.active i {
+    color: #fff;
+    background-color: @colorPrimary;
+    border: 1px solid @colorPrimary;
+}
+.feature-box-22 .linebtn.one:hover,
+.feature-box-22 .box:hover .linebtn.one,
+.feature-box-22 .box.active  .linebtn.one{
+	border-color: @colorPrimary;
+	background-color:@colorPrimary;
+}
+.parallax-overlay.secondary {
+	background-color: @colorSecondary;
+}
+
+.feature-box-21-wrap::before, .feature-box-21-wrap::after {
+	background: @colorPrimary;
+}
+.loader-item.style2 > div {
+  background-color: @colorSecondary;
+}
+.loader-item.style3 > div {
+  background-color: @colorSecondary;
+}
+.loader-item.style4 > div {
+  background-color: @colorSecondary;
+}
+.loader-item.style5 > div {
+  background-color: @colorSecondary;
+}
+.error-search-box .input_submit {
+    background-color: @colorPrimary;
+    border: 1px solid @colorPrimary;
+}
+.smart-forms .btn-primary {
+    background-color: @colorPrimary;
+}
+ul.sitemap li a {
+    color: @colorPrimary;
+}
+
+
+.sec-bgimg-17 {
+	background:@colorPrimary url(../images/bg-img-10.png) no-repeat center center;
+}
+.feature-boxed-3:hover .distext .hidtext {
+	opacity: 1;
+	background: @colorPrimary;
+}
+.but-stbutton-16 {
+	color: @colorSecondary;
+	border: 2px solid @colorSecondary;
+}
+.but-stbutton-16:hover {
+	background: @colorSecondary;
+	border: 2px solid @colorSecondary;
+}
+.but-stbutton-17 {
+	color: @colorPrimary;
+}
+.but-stbutton-17:hover {
+	color: @colorSecondary;
+}
+
+.but-stbutton-14 {
+	background: @colorPrimary;
+}
+.but-stbutton-14:hover {
+	color: #fff;
+	box-shadow: inset 200px 0px 0 0px @colorSecondary;
+}
+
+.feature-boxed-30 {
+	background-color:@colorPrimary
+}
+.hover-shadow-color1:hover {
+	box-shadow: inset 0 -300px 0 0px @colorSecondary;
+}
+.ce-price-table-1:hover .list-box, .ce-price-table-1.active .list-box {
+	background-color: @colorPrimary;
+}
+.ce-price-table-1:hover, .ce-price-table-1.active {
+	background-color: @colorSecondary;
+}
+
+.ce-price-table-1 .price-box .price {
+	color: @colorPrimary;
+}
+.feature_boxed-2 .boxed-last1 {
+	border-right:solid 1px @colorPrimary;
+}
+
+.feature_boxed-2 i {
+	color:@colorPrimary;
+	border:solid 1px @colorPrimary;
+}
+.feature-box-25:hover, .feature-box-25.active{
+	border:10px solid @colorPrimary;
+}
+
+.btn.btn-prim {
+	background-color: @colorPrimary;
+}
+
+.feature-boxed-11 .inner-box .icon{
+	background-color: @colorPrimary;
+}
+.feature-boxed-11 .inner-box .title-line{
+	background-color: @colorPrimary;
+}
+.feature-boxed-10 .img-box .icon-box{
+	background-color: @colorPrimary;
+}
+.feature-boxed-20 {
+	border-right:solid 1px @colorPrimary;
+}
+
+
+.but-stbutton-7 {
+	color: @colorPrimary;
+	border: 2px solid @colorPrimary;
+}
+.but-stbutton-7:hover {
+	background: @colorPrimary;
+}
+.but-stbutton-10 {
+	background: @colorPrimary;
+}
+.but-stbutton-10:hover {
+	box-shadow: inset 200px 0px 0 0px @colorPrimary;
+}
+
+.feature-boxed-22:hover .img-box .text-box, .feature-boxed-22.active .img-box .text-box{
+	background-color: @colorPrimary;
+}
+
+// =========== portfolio ====================
+
+.cbp-l-filters-button .cbp-filter-counter::after {
+    border-top: 4px solid @colorPrimary;
+}
+.cbp-l-filters-button .cbp-filter-counter {
+    background-color: @colorPrimary;
+}
+.cbp-l-caption-buttonLeft, .cbp-l-caption-buttonRight {
+    background-color: @colorPrimary;
+}
+.cbp-l-filters-alignRight .cbp-filter-item.cbp-filter-item-active {
+    background-color: @colorPrimary;
+    border-color: @colorPrimary;
+}
+.cbp-l-filters-alignRight .cbp-filter-counter::after {
+    border-top: 4px solid @colorPrimary;
+}
+.cbp-l-filters-alignRight .cbp-filter-counter {
+    background: @colorPrimary none repeat scroll 0 0;
+}
+
+
+
+
+
+// Border roundness
+.btn when (@borderType = "rounded") {
+	border-radius: @bradius;
+}
+
+
+
+
+

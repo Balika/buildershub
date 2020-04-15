@@ -1,0 +1,65 @@
+
+{% set error = app.request.get('error')%}
+{% if error|length>0 %}
+    <div class="alert alert-danger">
+        <i class="fa fa-clock-o pull-right"></i> 
+        {{ error }}
+    </div>
+{% endif %}
+{% if isSaved %}
+    <div class="alert alert-success">
+        <i class="fa fa-clock-o pull-right"></i> 
+        You have successfully added a new service
+    </div>
+    <p><a href="#" id="add-new-service-link" class="pull-right">Add Another Service</a></p>
+{% endif %}
+<div id="serviceFormPanel" class="{{isSaved?'hide':'show'}}">
+    {% if service is not null %}
+        {{form_start(serviceForm, { method: 'POST', action: path('save_company_service', {'slug':company.slug, 'service_id':service.id}), 'attr':{id: "serviceForm"} })}} 
+    {% else %}
+        {{form_start(serviceForm, { method: 'POST', action: path('save_company_service', {'slug':company.slug}), 'attr':{id: "serviceForm"} })}}  
+    {% endif %}
+    <div class="section">
+        <label>Service Title</label>
+        <label class="field prepend-icon">
+            {{form_widget(serviceForm.title, {'attr': {class:"gui-input", placeholder:"Enter service title" } } )}}
+            <span class="field-icon"><i class="fa fa-pencil"></i></span>
+        </label>
+    </div><!-- end section -->
+    <div class="section">
+        <label>Service Summary</label>
+        <label class="field prepend-icon">
+            {{form_widget(serviceForm.summary, {'attr': {class:"gui-textarea", placeholder:"Enter service summary" } } )}}
+            <span class="field-icon"><i class="fa fa-file-text"></i></span>
+            <span class="input-hint"> <strong>Hint:</strong> Describe briefly what this service and highlight what the offering is about</span> 
+        </label>
+    </div><!-- end section -->
+    <div class="section">
+        <label>Displayed Image <small>( if any)</small></label>
+        <label class="field prepend-icon">
+            {{form_widget(serviceForm.imageFile, {'attr': {class:"gui-input" } } )}}
+            <span class="field-icon"><i class="fa fa-image"></i></span>
+        </label>
+    </div><!-- end section -->     
+    <div class="section">
+        <label>Image Caption</label>
+        <label class="field prepend-icon">
+            {{form_widget(serviceForm.imageCaption, {'attr': {class:"gui-input", placeholder:"Give a caption to the uploaded image" } } )}}
+            <span class="field-icon"><i class="fa fa-info"></i></span>
+        </label>
+    </div><!-- end section -->   
+    <div class="section">
+        <label>Url to more info</label>
+        <label class="field prepend-icon">
+            {{form_widget(serviceForm.link, {'attr': {class:"gui-input", placeholder:"Enter url to more information. e.g your website" } } )}}
+            <span class="field-icon"><i class="fa fa-globe"></i></span>
+        </label>
+    </div><!-- end section -->     
+    <div class="form-footer text-right">
+        <button type="submit" class="btn h5a-btn btn-info pull-right" ><i class="fa fa-save"></i> Add Service</button>
+    </div>
+    {{ form_row(serviceForm._token) }} 
+    {{ form_end(serviceForm, {'render_rest': false}) }}
+</div>
+
+

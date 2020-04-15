@@ -1,0 +1,63 @@
+{% extends 'hubernize/shared/hubernize.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"  href="{{asset('js/smart-forms/smart-addons.css')}}">
+{% endblock %}
+{% block contentHeader %}
+    Dashboard
+    <small>{{company}}  > Site Diary </small>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header" id="boxHeader">
+                    <h3 class="box-title">
+                        New Site Diary Entry
+                    </h3>
+                    <a class="btn btn-default pull-right" href="{{path('hubernize_diary_entries')}}" id="showAddUserLink"><i class="fa fa-list"></i> View Previous Entries</a>                  
+                </div><!-- /.box-header -->
+                <div class="smart-wrap" >
+                    <div class="smart-forms smart-container transparent wrap-full">
+                        <div class="form-body no-padd" style="padding: 20px"> 
+                            {{ form_start(form, {'method': 'post',  'attr': {'class': 'workForm form-horizontal', 'role':'form'} }) }}                
+                            {% include 'hubernize/diary/includes/diary.entry.form.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-custom.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-timepicker.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-touch-punch.min.js')}}"></script>
+    <script>
+        $('#diary_entry_shiftStart').timepicker({
+            beforeShow: function (input, inst) {
+                var newclass = 'smart-forms';
+                var smartpikr = inst.dpDiv.parent();
+                if (!smartpikr.hasClass('smart-forms')) {
+                    inst.dpDiv.wrap('<div class="' + newclass + '"></div>');
+                }
+            }
+        });
+        $('#diary_entry_shiftEnd').timepicker({
+            beforeShow: function (input, inst) {
+                var newclass = 'smart-forms';
+                var smartpikr = inst.dpDiv.parent();
+                if (!smartpikr.hasClass('smart-forms')) {
+                    inst.dpDiv.wrap('<div class="' + newclass + '"></div>');
+                }
+            }
+
+        });
+    </script>
+
+
+{% endblock javascripts %}

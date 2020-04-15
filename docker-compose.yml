@@ -1,0 +1,31 @@
+## YAML Template.
+version: '3.7'
+services:
+  php:
+    build:
+      context: .
+      dockerfile: docker/build/php/Dockerfile
+    ports:
+      - "80:80"
+  db:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD:Anbang$2018#
+    ports:
+      # just if you also want to access it directly from you host
+      # node neede for phpmyadmin
+      - "3306:3306"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    environment: 
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=Anbang$2018#
+ 
+    ports:
+      - "8080:8080"
+ 
+
+

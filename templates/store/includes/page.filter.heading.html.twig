@@ -1,0 +1,8 @@
+<div class="header-menu header-menu-resize" style="background-color: #EFEFEF">
+    <ul class="header-nav krystal-nav">
+        <li class="btn-close hidden-md"><i class="fa fa-times" aria-hidden="true"></i></li>
+        <li>
+            <a href="#">{% if searchTerm is defined %} {{searchTerm is not null ? searchTerm ~' - ' : searchTerm }} {% endif %} {{region is not null ? category ~' - ' : category }} <span class="text-danger"> {{town is not null or region is not null ? ' <i class=" fa fa-map-marker"></i>'}} {{town is not null ? town~','}} {{region is not null ? region ~ ' region'}}</span></a>  
+        </li>
+    </ul>
+</div>

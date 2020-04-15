@@ -1,0 +1,23 @@
+<div class="smartforms-modal-container">
+    <div class="smartforms-modal-header">
+        <h3 style="color: white">User Registration Form</h3>
+        <a href="#" class="smartforms-modal-close"></a>            
+    </div><!-- .smartforms-modal-header -->
+    <div class="smartforms-modal-body">
+        <div class="smart-wrap">
+            <div class="smart-forms smart-container transparent wrap-full">              
+                    <div class="col-md-12" style="padding: 10px 20px 10px 20px">
+                        <div class="alert alert-info">
+                            You are almost there, let the supplier contact you. Enter your details so you can keep track of your request and have a smooth shopping experience.
+                        </div>
+                    </div>              
+                {% if supplier is not null and user is not null %}
+                    {{ form_start(userForm, {'method': 'post', 'action': path('contact_supplier',{'slug':supplier.slug, 'product_slug':product.slug, 'request_id':quotationRequest.id }), 'attr': {'class': 'form-horizontal'} }) }}
+                {% else %}
+                    {{form_start(userForm, {'method':'POST', action:path('buyer_signup', {'id':quotationRequest.id}), 'attr':{class: "signup-form", id:"smart-form"} } )}}
+                {% endif %}
+                {{ include ('store/includes/new.user.form.html.twig', {'isRegisterToggle':true}) }}              
+            </div><!-- end .smart-wrap section -->            
+        </div><!-- .smartforms-modal-body -->
+    </div><!-- .smartforms-modal-container -->
+</div><!-- .smartforms-modal 2 -->

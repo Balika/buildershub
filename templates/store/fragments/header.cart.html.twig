@@ -1,0 +1,73 @@
+<!-- block mini cart -->
+<span data-action="toggle-nav" class="menu-on-mobile hidden-md style2">
+    <span class="btn-open-mobile home-page">
+        <span></span>
+        <span></span>
+        <span></span>
+    </span>
+    <span class="title-menu-mobile">Main menu</span> 
+</span>
+<div class="block-minicart dropdown style2">
+    <a class="minicart" href="#">
+        <span class="counter qty">
+            <span class="cart-icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
+            <span class="counter-number">{{shoppingCart|length}}</span>
+        </span>
+        <span class="counter-your-cart">
+            <span class="counter-label">Your Cart:</span>
+            <span class="counter-price">¢{{order is not null ? order.subTotal|number_format(0, '.',',') : 0}}</span>
+        </span>
+    </a>
+    <div class="parent-megamenu">
+        {% if shoppingCart|length> 0 %}
+            <form>
+                <div class="minicart-content-wrapper" >
+                    <div class="subtitle">
+                        You have <span>{{shoppingCart|length}}</span> item(s) in your cart
+                    </div>
+                    <div class="minicart-items-wrapper">
+                        <ol class="minicart-items">
+                            {% for orderItem in shoppingCart %}
+                            <li class="product-inner">
+                                <div class="product-thumb style1">
+                                    <div class="thumb-inner">
+                                        <a href="{{path('store_product_detail', {'slug':orderItem.product.slug})}}"><img src="{{asset(orderItem.product.featureImage|imagine_filter('hub_thumbnail_sm'))}}" alt="c1" style="margin: auto; border-radius: 3px;"></a>
+                                    </div>
+                                </div>
+                                <div class="product-innfo">
+                                    <div class="product-name"><a href="{{path('store_product_detail', {'slug':orderItem.product.slug})}}">{{orderItem.product}}</a></div>
+                                    <a href="#" class="remove"><i class="fa fa-times" aria-hidden="true"></i></a>
+                                    <span class="price price-dark">
+                                         <ins>GH¢{{orderItem.product.productData.salePrice!=null ? orderItem.product.productData.salePrice|number_format(2, '.',',') : orderItem.product.productData.regularPrice|number_format(2, '.',',')}}</ins>                                                   
+                                        <del>{{orderItem.product.productData.salePrice!=null ? 'GH¢'~orderItem.product.productData.regularPrice|number_format(2, '.',',')}}</del>                                        
+                                    </span>
+                                </div>
+                            </li>
+                            <br/>
+                            {% endfor %}                           
+                        </ol>
+                    </div>
+                    <div class="subtotal">
+                        <span class="label">Total :</span>
+                        <span class="price">GH¢{{order.subTotal|number_format(2, '.',',')}}</span>
+                    </div>
+                    <div class="actions">
+                        <a class="btn btn-viewcart" href="{{path('view_cart')}}">View cart</a>
+                        <a class="btn btn-checkout" href="{{path('checkout')}}">Checkout</a>
+                    </div>
+                </div>
+            </form>
+        {% else %}
+            <div class="alert alert-info">
+                <strong>Your Cart is Empty!</strong> You currently have no items in your shopping cart.
+            </div>
+            <p align="right">
+                <a href="{{path('store_index')}}" class="btn btn-info btn-lg">
+                    <span><i class="fa fa-shopping-cart"></i> Start Shopping</span>
+                </a>
+            </p>
+        {% endif %}
+    </div>
+</div><!-- block mini cart -->
+<a href="" class="hidden-md search-hidden"><span class="pe-7s-search"></span></a>
+<a class="wishlist-minicart" href="#" title="View Comparison List" id="compare-products"><i class="fa fa-retweet" aria-hidden="true"></i></a>

@@ -1,0 +1,81 @@
+<ul class="header-nav krystal-nav">
+    <li class="btn-close hidden-md"><i class="fa fa-times" aria-hidden="true"></i></li>
+    <li class="menu-item">
+        <a href="{{path('rental_index')}}">Rentals Home</a>
+    </li>     
+    <li class="menu-item-has-children arrow">
+        <a href="#">Premium Rental Companies</a>
+        <span class="toggle-submenu hidden-md"></span>
+        <ul class="submenu parent-megamenu">           
+            <li class="menu-item"><a href="#">Erata Motors</a></li>
+            <li class="menu-item"><a href="#">Japan Motors</a></li> 
+            <li class="menu-item"><a href="#">Catapilla Heavy Duty Equipt</a></li>
+            <li class="menu-item"><a href="#">Wanlar Motors</a></li> 
+        </ul>
+    </li>
+    <li class="menu-item-has-children arrow item-megamenu">
+        <a href="#">Plants, Equipment  & Hand Tools</a>
+        <span class="toggle-submenu hidden-md"></span>
+        <div class="submenu parent-megamenu megamenu">
+            <div class="row">
+                <div class="submenu-banner submenu-banner-menu-2">
+                    <div class="col-md-3">
+                        <div class="dropdown-menu-info">                            
+                            <div class="dropdown-menu-content">
+                                <ul class="menu">
+                                    {% for subCat in categories|slice(0, 8) %}
+                                        <li class="menu-item"><a href="{{path('category_view',{'slug':subCat.slug})}}" title="{{subCat}}">{{subCat|length > 35 ? subCat|slice(0, 35) ~' ....' : subCat}}</a></li>
+                                        {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dropdown-menu-info">                            
+                            <div class="dropdown-menu-content">
+                                <ul class="menu">
+                                    {% for subCat in categories|slice(8, 8)  %}
+                                        <li class="menu-item"><a href="{{path('category_view',{'slug':subCat.slug})}}" title="{{subCat}}">{{subCat}}</a></li>
+                                        {% endfor %}  
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dropdown-menu-info">                           
+                            <div class="dropdown-menu-content">
+                                <ul class="menu">
+                                    {% for subCat in categories|slice(16, 8)  %}
+                                        <li class="menu-item"><a href="{{path('category_view', {'slug':subCat.slug})}}" title="{{subCat}}">{{subCat}}</a></li>
+                                        {% endfor %}    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dropdown-menu-info">                           
+                            <div class="dropdown-menu-content">
+                                <ul class="menu">
+                                    {% for subCat in categories|slice(23, 8)  %}
+                                        <li class="menu-item"><a href="{{path('category_view', {'slug':subCat.slug})}}" title="{{subCat}}">{{subCat}}</a></li>
+                                        {% endfor %}    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="#" class="pull-right">View All Categories</a>
+                </div>
+            </div>
+        </div>
+    </li>                            
+    <li class="menu-item">
+        <a href="{{path('rental_firm_registration')}}"  target="new" class="btn btn-success btn-lg"><strong>Advertise for Rent</strong></a>        
+    </li>
+    <li class="menu-item">
+         <a href="#picLocationDlg" class="btn btn-warning btn-lg" data-toggle="modal"><i class="fa fa-map-marker"></i> Find by Location</a>
+    </li>
+</ul>

@@ -1,0 +1,93 @@
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+    <div class="alert alert-info">
+        <strong>BuildersHub ratings</strong> gives an indication of the work ethic of {{requestedProfile.fullName}}. A good ratings improves 
+        his reputation as technical expert whilst a not so good rating gives feedback for improvement.
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12 slide-controls-primary">
+        <!-- Accordion begin -->
+        <div class="accordion_example"> 
+            <div class="accordion_in style3 {{isOwnProfile ? 'acc_active' }}">
+                <div class="acc_head">{{requestedProfile.firstname}}'s Overall Rating 
+                   <!-- <div class="smartforms-modal-body  pull-right">
+                        <div class="smart-forms smart-container transparent wrap-full">
+                            <div class="rating block">                       
+                                <div class="rating-wrapper">
+                                    <input class="rating-input" id="r5" type="radio"  name="custom" checked readonly="true">
+                                    <label class="rating-star" for="r5"><i class="fa fa-star"></i><span>Excellent</span></label>
+                                    <input class="rating-input" id="r4" type="radio"  name="custom">
+                                    <label class="rating-star" for="r4"><i class="fa fa-star"></i><span>Good</span></label>
+                                    <input class="rating-input" id="r3" type="radio"  name="custom">
+                                    <label class="rating-star" for="r3"><i class="fa fa-star"></i><span>Tried</span></label>
+                                    <input class="rating-input" id="r2" type="radio"  name="custom">
+                                    <label class="rating-star" for="r2"><i class="fa fa-star"></i><span>Fair</span></label>
+                                    <input class="rating-input" id="r1" type="radio"  name="custom">
+                                    <label class="rating-star" for="r1"><i class="fa fa-star"></i><span>Poor</span></label>
+                                </div>
+                            </div><!-- end rating section 
+                        </div>
+                    </div>-->
+                </div>
+                <div class="acc_content no-lpadd">
+                </div>
+            </div>
+            <!-- Section 1 -->
+            {% if not isOwnProfile %}
+                <div class="accordion_in style3 acc_active">
+                    <div class="acc_head">Rate {{requestedProfile.fullName}}</div>
+                    <div class="acc_content no-lpadd" >
+                        <div class="smartforms-modal-body">
+                            <div class="smart-forms smart-container transparent wrap-full">     
+                                {{form_start(form, {method:'POST', action:path('submit_review', {'id':requestedProfile.id})} )}}                  
+                                <div class="form-body no-padd">
+                                    <div class="section">
+                                        {% for measure in ratingMeasures %}
+                                            {% set index = loop.index %}
+                                            <div class="rating block">
+                                                <span class="lbl-text"><strong>{{measure.name}}</strong></span>
+                                                <div class="rating-wrapper">                                    
+                                                    <input class="rating-input" id="{{loop.first ? 'r5' : index==2 ? 'rr5' : index==3 ? 'rx5': index==4 ? 'five-stars': index==5 ? '5stars' :'5s' }}" type="radio"  name="{{measure.measureKey}}" value="r5">
+                                                    <label class="rating-star" for="{{loop.first ? 'r5' : index==2 ? 'rr5' : index==3 ? 'rx5': index==4 ? 'five-stars': index==5 ? '5stars' :'5s' }}"><i class="fa fa-star"></i><span>Excellent</span></label>
+                                                    <input class="rating-input" id="{{loop.first ? 'r4' : index==2 ? 'rr4' : index==3 ? 'rx4': index==4 ? 'four-stars': index==5 ? '4stars' :'4s' }}" type="radio"  name="{{measure.measureKey}}" value="r4">
+                                                    <label class="rating-star" for="{{loop.first ? 'r4' : index==2 ? 'rr4' : index==3 ? 'rx4': index==4 ? 'four-stars': index==5 ? '4stars' :'4s' }}"><i class="fa fa-star"></i><span>Good</span></label>
+                                                    <input class="rating-input" id="{{loop.first ? 'r3' : index==2 ? 'rr3' : index==3 ? 'rx3': index==4 ? 'three-stars': index==5 ? '3stars' :'3s' }}" type="radio"  name="{{measure.measureKey}}" value="r3">
+                                                    <label class="rating-star" for="{{loop.first ? 'r3' : index==2 ? 'rr3' : index==3 ? 'rx3': index==4 ? 'three-stars': index==5 ? '3stars' :'3s' }}"><i class="fa fa-star"></i><span>Tried</span></label>
+                                                    <input class="rating-input" id="{{loop.first ? 'r2' : index==2 ? 'rr2' : index==3 ? 'rx2': index==4 ? 'two-stars': index==5 ? '2stars' :'2s' }}" type="radio"  name="{{measure.measureKey}}" value="r2">
+                                                    <label class="rating-star" for="{{loop.first ? 'r2' : index==2 ? 'rr2' : index==3 ? 'rx2': index==4 ? 'two-stars': index==5 ? '2stars' :'2s' }}"><i class="fa fa-star"></i><span>Fair</span></label>
+                                                    <input class="rating-input" id="{{loop.first ? 'r1' : index==2 ? 'rr1' : index==3 ? 'rx1': index==4 ? 'one-star': index==5 ? '1star' :'1s' }}" type="radio"  name="{{measure.measureKey}}" value="r1">
+                                                    <label class="rating-star" for="{{loop.first ? 'r1' : index==2 ? 'rr1' : index==3 ? 'rx1': index==4 ? 'one-star': index==5 ? '1star' :'1s' }}"><i class="fa fa-star"></i><span>Poor</span></label>                                   
+                                                </div>
+                                            </div> 
+                                        {% endfor %}                         
+                                    </div>
+                                </div>
+                                <div class="form-footer">
+                                    <button class="btn btn-tiny btn-success round-1 pull-right" type="submit"><span class="fa fa-star"> Submit Review</span></button>
+                                </div>
+                                {{ form_row(form._token) }} 
+                                {{ form_end(form, {'render_rest': false}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Section 2 -->
+            <div class="accordion_in style3 ">
+                <div class="acc_head">{{requestedProfile.firstname}}'s Ratings Summary</div>
+                <div class="acc_content no-lpadd">
+                </div>
+            </div>
+            <!-- Section 3 -->
+            <div class="accordion_in style3">
+                <div class="acc_head">{{requestedProfile.firstname}}'s Rating Details</div>
+                <div class="acc_content no-lpadd">
+                </div>
+            </div>
+        </div>
+        <!-- Accordion end --> 
+    </div>
+
+</div>
+
+
+

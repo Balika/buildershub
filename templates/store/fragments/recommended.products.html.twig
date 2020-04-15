@@ -1,0 +1,34 @@
+<div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="true" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":6}}'>
+    {% for product in recommendedProducts %}
+        <div class="product-item style1">
+            <div class="product-inner equal-elem">
+                <div class="product-thumb">
+                    <div class="thumb-inner">
+                        <a href="{{path('store_product_detail', {'slug':product.slug})}}"><img src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="f1"  style="height: 140px; margin: auto; border-radius: 3px;"></a>                         
+                    </div>
+                    <span class="onsale">-50%</span>
+                    <a href="{{path('store_product_detail', {'slug':product.slug})}}" class="quick-view">Quick View</a>
+                </div>
+                <div class="product-innfo">
+                    <div class="product-name">
+                        <a href="{{path('store_product_detail', {'slug':product.slug})}}">{{product|length > 24 ? product|slice(0, 24) ~ '...' : product}}</a>
+                    </div>
+                    <span class="price">
+                        <ins>GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',') : product.productData.regularPrice|number_format(2, '.',',')}}</ins>                                                   
+                        <del>{{product.productData.salePrice!=null ? 'GH¢'~product.productData.regularPrice|number_format(2, '.',',')}}</del>
+                    </span>
+                    <div class="star-rating">
+                        <i class="fa fa-map-marker"></i> <span class="review">{{product.supplier.businessLocation is not null ?  product.supplier.businessLocation ~','}} {{product.supplier.region}}</span>
+                    </div>
+                    <div class="star-rating">
+                        <i class="fa fa-industry"></i> <span class="review">{{product.supplier}}</span>
+                    </div>
+                    <div class="group-btn-hover style2">
+                        <a href="{{path('add_to_cart', {'slug':product.slug})}}" class="add-to-cart btn-info btn-sm"><i class="fa" id="spinner"></i> <i class="fa fa-shopping-cart"></i> add to cart</a>                            
+                        <a href="" class="compare"><i class="fa fa-retweet"></i></a>                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    {%endfor %}  
+</div>

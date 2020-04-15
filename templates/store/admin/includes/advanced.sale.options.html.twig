@@ -1,0 +1,24 @@
+<table class="table table-bordered">
+    <tr>
+        <th>Sale Volume</th>
+        <th>Dimension/Size</th>
+        <th>Brand</th>
+        <th>Price (GH₵)</th>
+        <th>Unit of Sale</th>
+    </tr>
+    {% for option in product.saleOptions %}
+        <tr>
+            <td>{{option.saleVolume|number_format(1,'.',',')}}</td>
+            <td>{{option.dimension}}</td>
+            <td>
+               {{option.brand}}
+            </td>
+            <td>
+                {{option.price|number_format(2,'.',',')}}
+            </td>
+            <td>
+                {{option.unit}}
+            </td>
+        </tr>
+    {% endfor %}
+</table>

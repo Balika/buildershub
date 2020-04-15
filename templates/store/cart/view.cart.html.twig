@@ -1,0 +1,171 @@
+{% extends "store/shared/page.base.html.twig" %}
+{% block  stylesheets %}
+    {{parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link href="{{asset('js/smart-forms/smart-addons.css')}}" rel="stylesheet">   
+{% endblock %}
+{% block bodyClass %} page-product{% endblock %}
+{% block mainClass %}
+    site-main shopping-cart
+{% endblock %}
+{% block pageMenu %}
+{% endblock %}
+{% block breadcrumbs %}
+    <div class="container">
+        <ol class="breadcrumb-page">
+            <li><a href="#">Home </a></li>
+            <li class="active"><a href="#">Shopping Cart</a></li>
+        </ol>
+    </div>
+{% endblock %}
+{% block headerCart %}
+    <a class="btn btn-action btn-success btn-lg" href="{{path('register_store')}}" target="_blank"><i class="fa fa-shopping-cart"></i> Sell on BuildersHub</a>
+{% endblock %}
+{% block content %}
+    <div class="container" id="cartContainer">
+        <div class="row" id="shoppingCart">
+            {% if shoppingCart|length > 0 %}
+                <div class="col-md-9">
+                    {{form_start(form, {action:path('update_cart'), method:'POST', attr:{class:'form-cart', id:'cartForm'} } )}}
+                    <div class="table-cart">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="tb-image"></th>
+                                    <th class="tb-product">Product Name</th>
+                                    <th class="tb-price">Unit Price</th>
+                                    <th class="tb-qty">Qty</th>
+                                    <th class="tb-total">SubTotal</th>
+                                    <th class="tb-remove"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for orderItem in shoppingCart %}
+                                    <tr>
+                                        <td class="tb-image"><a href="{{path('store_product_detail', {'slug':orderItem.product.slug})}}" class="item-photo"><img src="{{asset(orderItem.product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="cart"></a></td>
+                                        <td class="tb-product">
+                                            <div class="product-name"><a href="{{path('store_product_detail', {'slug':orderItem.product.slug})}}">{{orderItem.product}}</a></div>
+                                        </td>
+                                        <td class="tb-price">
+                                            <span class="price">GH¢{{orderItem.product.productData.salePrice!=null ? orderItem.product.productData.salePrice|number_format(2, '.',',') : orderItem.product.productData.regularPrice|number_format(2, '.',',')}}</span>
+                                        </td>
+                                        <td class="tb-qty">
+                                            <div class="quantity">
+                                                <div class="buttons-added">
+                                                    <input type="text" value="{{orderItem.quantity}}" title="Qty" class="input-text qty text" size="1" name="product_{{orderItem.product.id}}">
+                                                    <a href="#" class="sign minus"><i class="fa fa-minus"></i></a>
+                                                    <a href="#" class="sign plus" ><i class="fa fa-plus"></i></a>                                                    
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="tb-total">
+                                            <span class="price">GH¢{{orderItem.subTotal|number_format(2, '.',',')}}</span>
+                                        </td>
+                                        <td class="tb-remove">
+                                            <a href="{{path('remove_from_cart', {'slug':orderItem.product.slug} )}}" class="action-remove" id="removeItem"><span><i class="fa fa-times" aria-hidden="true"></i></span></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="cart-actions">
+                        <a href="{{path('store_index')}}" class="btn btn-default btn-medium btn-continue">
+                            <span>Continue Shopping</span>
+                        </a>
+                        <button type="submit" class="btn-medium btn-clean" >
+                            <span>Update Shopping Cart</span>
+                        </button>
+                        <a href="{{path('empty_cart')}}" class="btn-update empty-callback" id="confirm-empty"
+                           data-toggle="confirmation"
+                           data-placement="left"
+                           data-btn-ok-label="Clear Shopping Cart" data-btn-ok-class="btn btn-danger btn-sm btn-update"
+                           data-btn-ok-icon-class="material-icons" data-btn-ok-icon-content="check"
+                           data-btn-cancel-label="Cancel" data-btn-cancel-class="btn btn-default btn-sm"                                               
+                           data-btn-cancel-icon-class="material-icons" data-btn-cancel-icon-content="close"
+                           data-title="Empty My Cart">                                
+                            <span>Clear Shopping Cart</span>
+                        </a>
+                    </div>
+                    {{form_row(form._token)}}
+                    {{form_end(form, {'render_rest':false} )}}
+                </div>
+                <div class="col-md-3 padding-left-5">
+                    <div class="order-summary">
+                        <h4 class="title-shopping-cart">Order Summary</h4>
+                        <div class="checkout-element-content">
+                            <span class="order-left">Subtotal:<span>GH¢{{order.subTotal|number_format(2, '.',',')}}</span></span>
+                            <span class="order-left">Tax:<span>GH¢{{order.tax|number_format(2, '.',',')}}</span></span>
+                            <span class="order-left">Shipping:<span>Free Shipping</span></span>
+                            <span class="order-left">Total:<span>GH¢{{order.total|number_format(2, '.',',')}}</span></span>
+                            <ul style="padding: 15px 0 15px 0">
+                                <li><label class="inline" ><input type="checkbox"><span class="input"></span>I have promo code</label></li>
+                            </ul>
+                            <a href="{{path('checkout')}}" class="checkout-callback btn-checkout" id="confirm-checkout"
+                               data-toggle="confirmation"
+                               data-placement="left"
+                               data-btn-ok-label="Place Order" data-btn-ok-class="btn btn-success btn-sm"
+                               data-btn-ok-icon-class="material-icons" data-btn-ok-icon-content="check"
+                               data-btn-cancel-label="Cancel" data-btn-cancel-class="btn btn-default btn-sm"                                               
+                               data-btn-cancel-icon-class="material-icons" data-btn-cancel-icon-content="close"
+                               data-title="Confrim My Order">                                                          
+                                <span>Place Order</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-9">
+                    <div class="alert alert-info">
+                        <strong>Your Cart is Empty!</strong> You currently have no items in your shopping cart.
+                    </div>
+                    <p align="right">
+                        <a href="{{path('store_index')}}" class="btn btn-info btn-lg">
+                            <span><i class="fa fa-shopping-cart"></i> Start Shopping</span>
+                        </a>
+                    </p>
+                </div>
+                <div class="col-md-3 padding-left-5">
+                    <div class="block-title">Popular Products</div>
+                    {{ render_esi(controller('App\\Controller\\StoreUtilityController:sidebarMostPopularProducts'), {"default":'Loading Cart....'}) }}                                                                                
+                </div>
+            {% endif  %}
+            <script>
+                initBSConfirmation();
+            </script>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script>
+        initBSConfirmation();
+        function initBSConfirmation() {
+            $('.empty-callback').confirmation({
+                rootSelector: '[data-toggle=confirmation]',
+                template: '<div class="popover" style="width: 300px"><div class="arrow"></div>'
+                        + '<h3 class="popover-title"></h3>'
+                        + '<div class="popover-content">'
+                        + '<div class="red" style="padding: 10px 0 20px 0">Are sure you want to empty your cart? <br/><strong><small>All your order items will be removed from your cart.</small></strong></div>'
+                        + '<a data-apply="confirmation" id="confirmEmpty">Yes</a>'
+                        + '<a data-dismiss="confirmation" class="pull-right" id="cancel">No</a>'
+                        + '</div>'
+                        + '</div>'
+                        // other options
+            });
+            $('.checkout-callback').confirmation({
+                rootSelector: '[data-toggle=confirmation]',
+                template: '<div class="popover" style="width: 300px"><div class="arrow"></div>'
+                        + '<h3 class="popover-title"></h3>'
+                        + '<div class="popover-content">'
+                        + '<div class="green" style="padding: 10px 0 20px 0">You are about to submit your order to suppliers of your selected items. Are you sure you want to proceed?</div>'
+                        + '<a data-apply="confirmation" id="confirmCheckout"  class="pull-right">Yes</a>'
+                        + '<a data-dismiss="confirmation" id="cancel">No</a>'
+                        + '</div>'
+                        + '</div>'
+                        // other options
+            }
+            );
+        }
+    </script>
+{% endblock %}

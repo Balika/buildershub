@@ -1,0 +1,439 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <script src="{{asset('js/accordion/js/smk-accordion.js')}}"></script> 
+    <script src="{{asset('js/accordion/js/custom.js')}}"></script> 
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link href="{{asset('js/smart-forms/smart-addons.css')}}" rel="stylesheet">
+    <link href="{{asset('css/froala_style.min.css')}}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{asset('js/popup/novicell.css')}}">
+    <link rel="stylesheet" href="{{asset('js/popup/popup.css')}}">
+    <style>
+        .widget-user .widget-user-header {
+            padding: 5px; /*Modified*/
+            height: 360px;
+            border-top-right-radius: 3px;
+            border-top-left-radius: 3px;
+        }
+        label.cover input[type="file"] {     
+            position: fixed;           
+            top: -1000px;         
+        }
+        .cover {           
+            cursor: pointer;
+            display: inline-block;
+        }
+        #coverButtons {
+            position: absolute;
+            top: 160px;
+            left:45%;
+
+        }
+        .cover :invalid + span {
+            color: #A44;
+        }
+        .cover + span {
+            color: #4A4;
+        }
+
+
+        .widget-user .widget-user-image {
+            position: absolute;
+            top: 260px;
+            left: 2%;
+            margin-left: 10px;
+        }
+
+        .widget-user .widget-user-image a > img {
+            width: 140px;
+            height: 140px;
+            border: 3px solid #fff;
+        }
+        .widget-user .widget-user-username {          
+            position: absolute;
+            top: 261px;           
+            left: 20%;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 25px;
+            font-weight: 300;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+        .widget-user .widget-user-username a{
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bolder;           
+        }  
+        .widget-user .widget-user-username a:hover{           
+            color: black;          
+        }  
+        .widget-user .widget-user-desc {
+            position: absolute;
+            top: 300px;
+            left: 20%;
+            margin-top: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 3px;
+            border-radius: 3px;
+        }
+        #user-location {          
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 5px;
+            padding: 8px;
+        }
+        .widget-user  #profile-stats {          
+            position: absolute;
+            top: 300px;           
+            left: 58%;
+            margin-top: 0;
+            margin-bottom: 5px;
+            padding: 3px
+        }
+        .widget-user  #profile-stats .item{
+            background-color: whitesmoke;
+            border-radius: 2px;
+        }
+
+        .widget-user  #profile-stats a{ 
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 18px;
+            font-weight: 300;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+        .widget-user  #user-links {          
+            position: absolute;
+            top: 370px;           
+            left: 30%;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .widget-user  #network {          
+            position: absolute;
+            top: 380px;           
+            right:  3%;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .widget-user  #user-links a{          
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        #user-profile a{
+            font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        .nav-tabs { border-bottom: 1px solid #DDD; }
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
+        .nav-tabs > li > a { border: none; color: #666; }
+        .nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; color: #4A4 !important; background: transparent; }
+        .nav-tabs > li > a::after { content: ""; background: #4A4; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
+        .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
+        .tab-nav > li > a::after { background: #21527d none repeat scroll 0% 0%; color: #fff; }
+        .tab-pane { padding: 15px 0; }
+        .tab-content{padding:20px}
+        .widget-user .card {background: #FFF none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; }
+        .card{
+            text-align: left
+        }
+
+        label.myLabel input[type="file"] {
+            position: fixed;
+            top: -1000px;
+        }
+
+        /***** Profile Image upload styling *****/
+        .myLabel {
+            border: 2px solid #AAA;
+            border-radius: 4px;
+            padding: 2px 5px;
+            margin: 2px;
+            background: #DDD;
+            cursor: pointer;
+            display: inline-block;
+
+        }
+        #picturePanel .myLabel {
+            position: absolute;
+            top: 180px;           
+            left: 45%;
+        }
+        .myLabel:hover {
+            background: #CCC;
+        }
+        .myLabel:active {
+            background: #CCF;
+        }
+        .myLabel :invalid + span {
+            color: #A44;
+        }
+        .myLabel :valid + span {
+            color: #4A4;
+        }
+    </style>
+{% endblock %}
+{% block  content %}
+    <section class="page-title-5" style="background: url('{{requestedProfile.person.coverPicture is not null ? asset(requestedProfile.person.coverPicture|imagine_filter('profile_cover')) : asset("images/bg-img-13.jpg")}}') no-repeat center top" >
+        <div class="container" id="coverPicturePanel">
+            {{ render(controller('App\\Controller\\ProfileUtilityController:profileHeader', {'requestedProfile':requestedProfile,'page':page}), {"default":'Loading Cart....'}) }}                               
+        </div>
+    </section>
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row no-gutter nopadding">
+                <div class="col-md-3" id='profileLeftSidebar'>
+                    <div class="img-box">
+                        <div class="text-box" id="picturePanel">
+                            <img src="{{requestedProfile.person.profilePicture is not null ? asset(requestedProfile.person.profilePicture|imagine_filter('hub_thumbnail')) : asset('images/default-avatar.png')}}" alt="" class="img-responsive"  id="profilePicture" title="{{requestedProfile.fullname}}" style="width: 100%; min-height: 200px; padding: 8px"> 
+                            <div style="text-align: center; padding: 5px">
+                                {% if isOwnProfile %}
+                                    <a class="btn btn-border border-1x light" href="{{path('account_settings')}}" > {{requestedProfile.firstname}}, Manage Account</a>                                    
+                                {% else %}
+                                    <div id="followLinks">
+                                        {% if isFollowing %}
+                                            <a class="btn btn-medium btn-cyan-dark btn-anim-2 xround-5" href="{{path('unfollow_user', {'usernameCanonical':requestedProfile.usernameCanonical})}}"><i class="fa fa-unlink" aria-hidden="true"></i> <span>Unfollow {{requestedProfile.fullName}}</span></a>
+                                        {% else %} 
+                                            <a class="btn btn-medium btn-cyan-dark btn-anim-2 xround-5" href="{{path('follow_user', {'usernameCanonical':requestedProfile.usernameCanonical})}}"><i class="fa fa-link" aria-hidden="true"></i> <span>Follow {{requestedProfile.fullName}}</span></a>                             
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% if isOwnProfile %}
+                                {{ form_start(profilePictureForm, {'method': 'post', 'action': path('update_profile_photos'), 'attr': {'class': 'profilePictureForm form-horizontal', 'id':'profilePictureForm'}  }) }}
+                                <p style="text-align: center">
+                                    <label class="myLabel" title="Update Profile Picture">
+                                        {{form_widget(profilePictureForm.profileFile)}}
+                                        <span><i class="fa fa-camera"></i></span>
+                                    </label>
+                                </p>
+                                {{ form_row(profilePictureForm._token) }} 
+                                <a class="btn btn-danger btn-xs  hide" id="cancelUpdate" href="{{requestedProfile.person.profilePicture}}">Cancel</a>
+                                <input type="submit" class="btn btn-success btn-xs" value="Update" style="display: none;" id="updatePictureBtn" />
+                                {{ form_end(profilePictureForm, {'render_rest': false}) }}
+                            {% endif %}   
+                            <div class="padding-top-1 text-left" id="engage-stats" style="padding:8px">
+                                <div class="icons-list-1 icon-tiny border-bottom">
+                                    <div class="icon icon-green icon-circle"><i class="fa fa-users" aria-hidden="true"></i></div>
+                                    <div class="text"><a href="#"><strong>Followers</strong></a>  <span class="label label-success pull-right">{{requestedProfile.followers|length}}</span></div>
+                                </div>
+                                <div class="icons-list-1 icon-tiny border-bottom">
+                                    <div class="icon icon-blue icon-circle"><i class="fa fa-users" aria-hidden="true"></i></div>
+                                    <div class="text"><a href="#"><strong>Following</strong></a> <span class="label label-primary pull-right">{{requestedProfile.following|length}}</span></div>
+                                </div>
+                                <div class="icons-list-1 icon-tiny border-bottom">
+                                    <div class="icon icon-orange icon-circle"><i class="fa fa-star" aria-hidden="true"></i></div>
+                                    <div class="text"><a href="#"><strong>User Ratings</strong></a>
+                                        <span class="label label-warning pull-right">
+                                            <i class="fa fa-star" ></i> <i class="fa fa-star" ></i> <i class="fa fa-star" ></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="icons-list-1 icon-tiny border-bottom">
+                                    <div class="icon icon-grey icon-circle"><i class="fa fa-eye" aria-hidden="true"></i></div>
+                                    <div class="text"><a href="#"><strong>Profile Views</strong></a> 
+                                        <span class="label label-default pull-right">
+                                            {{ render_esi(controller('App\\Controller\\ProfileUtilityController:renderProfileViews', {'userId':requestedProfile.id}), {"default":'Loading Cart....'}) }}                               
+                                        </span>
+                                    </div>
+                                </div>                               
+                            </div>
+                        </div>
+                    </div>
+                    <div id="buildersData" class="{{requestedProfile.person.personType == "artisan" or requestedProfile.person.personType == "professional" }}">
+                        <h6><strong>Additional Info</strong></h6>
+                        <ul class="list-3 icon-circle icon-green">
+                            <li>
+                                <div class="icon"><i class="fa fa-graduation-cap"></i></div>
+                                <div class="text"><a href="{{path('user_profile',{'usernameCanonical' : requestedProfile.usernameCanonical, 'page':'education', 'uref':user.id})}}" class="{{page=="education"?"text-primary"}}">Education / Certificates</a></div>
+                            </li>
+                            <br/>
+                            <li>
+                                <div class="icon"><i class="fa fa-wrench"></i></div>
+                                <div class="text"><a href="{{path('user_profile',{'usernameCanonical' : requestedProfile.usernameCanonical, 'page':'experience', 'uref':user.id})}}" class="{{page=="experience"?"text-primary"}}">Work Experience</a></div>
+                            </li>
+                            <br/>
+                            <li>
+                                <div class="icon"><i class="fa fa-users"></i></div>
+                                <div class="text"><a href="{{path('user_profile',{'usernameCanonical' : requestedProfile.usernameCanonical, 'page':'association', 'uref':user.id})}}" class="{{page=="association"?"text-primary"}}">Associations</a></div>
+                            </li>
+                            <br/>
+                            <li>
+                                <div class="icon"><i class="fa fa-trophy"></i></div>
+                                <div class="text"><a href="{{path('user_profile',{'usernameCanonical' : requestedProfile.usernameCanonical, 'page':'awards', 'uref':user.id})}}" class="{{page=="awards"?"text-primary"}}">Awards / Accolates</a></div>
+                            </li>                           
+                        </ul>
+                    </div>
+                    <div class="col-divider-margin-1"></div>
+                    <div class=" divider-line solid light"></div>  
+                    <div class="col-divider-margin-1"></div> 
+
+                    <h6><strong>People that may be of interest</strong></h6>
+                    {{ render_esi(controller('App\\Controller\\ProfileUtilityController:renderPersonsOfInterest', {'userId':requestedProfile.id}), {"default":'Loading Cart....'}) }}                               
+
+                </div>
+                <div class="col-md-9"> 
+                    <ul class="nav nav-tabs" role="tablist" id='profilePages'>
+                        {% block pageLinks %}
+                            <li role="presentation" class="{{page=='index'?'active'}}">
+                                <a href="{{path('user_profile',{'usernameCanonical' : requestedProfile.usernameCanonical, 'uref':user.id})}}">{{isOwnProfile ? 'Dashboard' : requestedProfile.firstname~"'\s" ~ ' Dashboard'}}</a>
+                            </li>
+
+                            {% if not isOwnProfile %}
+                                <li role="presentation" class="{{page=='works'?'active'}}">
+                                    <a href="{{path('user_profile',{'usernameCanonical' : requestedProfile.usernameCanonical, 'page':'works', 'uref':user.id})}}" >Works</a>
+                                </li>
+                            {% endif %}
+                            {% if  isBuilder %}
+                                <li role="presentation" class="{{page=='ratings'?'active'}}">
+                                    <a href="{{path('user_profile',{'usernameCanonical' : requestedProfile.usernameCanonical, 'page':'ratings', 'uref':user.id})}}">Ratings  & Reviews</a>
+                                </li>
+                            {% endif %}
+                            <li role="presentation" class="{{page=='request'?'active'}}">
+                                <a href="{{path('user_profile',{'usernameCanonical' : requestedProfile.usernameCanonical, 'page':'request', 'uref':user.id})}}">{{isOwnProfile ? 'Incoming Requests':'Contact '~ requestedProfile.firstname}}</a>
+                            </li>
+                            {% if isOwnProfile %}
+                                <li role="presentation" class="{{page=='projects'?'active'}}">
+                                    <a href="{{path('user_profile',{'usernameCanonical' : requestedProfile.usernameCanonical, 'page':'projects', 'uref':user.id})}}" >My Projects</a>
+                                </li>
+                            {% endif %}
+                        {% endblock %}
+                    </ul> 
+                    <div class="col-divider-margin-1"></div>
+                    <div class=" divider-line solid light"></div>  
+                    <div class="col-divider-margin-1"></div> 
+                    <div class="row">
+                        <div class="col-md-8" id="pageContent">
+                            {% include template %}
+                        </div> 
+                        <div class="col-md-4"  id='profileRightSidebar'>
+                            {{ render_esi(controller('App\\Controller\\AccountUtilityController:includeInvitationForm'), {"default":'Loading Cart....'}) }}                               
+                            <a rel="nofollow" href="#" data-smart-modal="#invite-firends-dialog" class="smartforms-modal-trigger transparent" > Invite Friends</a>                                                      
+                            <div id="sponsoredContentHolder">
+                            </div>
+                            <div id="userTypeContent">
+                            </div>
+                        </div> 
+                        <!--end item--> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="clearfix"></div>
+    <!-- end section -->
+{% endblock %}
+{% block pageScripts %}
+    {{parent()}}
+    <script src="{{asset('js/cubeportfolio/main.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.form.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/smart-form.js')}}"></script>
+    <script src="{{asset('js/accordion/js/smk-accordion.js')}}"></script> 
+    <script src="{{asset('js/accordion/js/custom.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/cubeportfolio/slider-projects.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/cubeportfolio/masonry-projects.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/smartforms-modal.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/jquery.sticky-kit.min.js')}}"></script>
+    <script src="{{asset('js/popup/novicell.js')}}"></script>
+    <script>
+        //$("#profileLeftSidebar, #profileRightSidebar").stick_in_parent();
+        $("#picturePanel").on('change', "#profile_picture_profileFile", function (e) {
+            readURL(this);
+        });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#profilePicture').attr('src', e.target.result);
+                };
+                $('.myLabel').hide();
+                $('#updatePictureBtn').show();
+                $('#cancelUpdate').removeClass('hide');
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#picturePanel").on('click', '#cancelUpdate', function (e) {
+            e.preventDefault();
+            var profilePicture = $(this).attr('href');
+            var profilePath = "{{asset('uploads/profile/profilePicture')}}";
+            profilePath = profilePath.replace('profilePicture', profilePicture);
+            console.log('Profile Path: ' + profilePath);
+            $('#profilePicture').attr('src', profilePath);
+            $('.myLabel').show();
+            $(this).addClass('hide');
+            $('#updatePictureBtn').hide();
+        });
+
+        $("#coverPicturePanel").delegate('#cover_picture_coverFile', 'change', function (e) {
+            readCoverURL(this);
+        });
+        function readCoverURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.page-title-4').css("background", "url(" + e.target.result + ")");
+                };
+                $('.cover').hide();
+                $('#coverButtons').removeClass('hide');
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#coverPicturePanel").delegate('#cancelCoverUpdate', 'click', function (e) {
+            e.preventDefault();
+            var coverPicture = $(this).attr('href');
+            var coverPath = "{{asset('uploads/cover/coverPicture')}}";
+            coverPath = coverPath.replace('coverPicture', coverPicture);
+            console.log('Cover Path: ' + coverPath);
+            $('.page-title-4').css("background", "url(" + coverPath + ")");
+            $('.cover').show();
+            $('#coverButtons').addClass('hide');
+        });
+
+        $(document).ready(function () {
+        {% if page == 'projects' %}
+                console.log('Page Loading: -------------------------------------');
+                var projectsUrl = Routing.generate('load_projects_asyn_content');
+                $(asynContentHolder).prepend(loaderHTML);
+                $.get(projectsUrl, function (html) {
+                    $(loaderHolder).hide();
+                    $(asynContentHolder).replaceWith($(html).find(asynContentHolder));
+                });
+        {% endif %}
+            });
+            document.addEventListener("DOMContentLoaded", function () {
+                // Select your overlay trigger
+                var trigger = document.querySelector('#js-overlay-trigger');
+                trigger.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    novicell.overlay.create({
+                        'selector': trigger.getAttribute('data-element'),
+                        'class': 'selector-overlay',
+                        "onCreate": function () {
+                            console.log('created');
+                        },
+                        "onLoaded": function () {
+                            console.log('loaded');
+                        },
+                        "onDestroy": function () {
+                            console.log('Destroyed');
+                        }
+                    });
+                });
+            });
+            /**
+             * 
+             * Loads most viewed products asynchronously after index page loads
+             */
+            $(document).ready(function () {
+        {% if page =='index' %}
+                console.log('------------------Updating Profile Page View--------------------- ');
+                var url = Routing.generate('update_page_view', {entityType: 'App:User', entityId:   {{requestedProfile.id}} , page: 'ProfilePage'});
+                $.get(url, function (data) {
+
+                });
+        {% endif %}
+            });
+    </script>   
+
+{% endblock %}
+

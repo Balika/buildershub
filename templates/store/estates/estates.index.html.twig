@@ -1,0 +1,307 @@
+{% extends "store/shared/store.base.html.twig" %}
+{% block header %} 
+    {% include "store/shared/header.estate.html.twig" %}
+{% endblock %}
+{% block mqrBlock %}
+{% endblock %}  
+{% block content %}           
+    <div class="modal fade" id="popup-newsletter" tabindex="-1" role="dialog" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i></span></button>
+                <div class="block-newletter-popup">
+                    <div class="block-content">
+                        <p class="text-popup-primary">25% <br>Discount</p>
+                        <p class="text-des">on your next purchase</p>
+                        <p class="text-italic">minimum purchase $100.00 (Without Tax)</p>
+                        <p class="text-your-email">Enter your email blow and get your voucher</p>
+                        <div class="newsletter-form">
+                            <form id="newsletter-validate-detail" class="form subscribe">
+                                <div class="control">
+                                    <input type="email" id="newsletter" placeholder="Enter your email address..." name="email" class="input-subscribe">
+                                    <button type="submit" title="Subscribe" class="btn subscribe">
+                                        <span>Subscribes</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <ul class="checkbox-popup">
+                    <li><label class="inline" ><input type="checkbox"><span class="input"></span>Don’t show this popup again</label></li>
+                </ul>                   
+            </div>
+        </div>
+    </div>
+    <div class="block-section-1">
+        <div class="main-slide slide-opt-1 full-width">
+            <div class="owl-carousel nav-style1" data-nav="true" data-autoplay="true" data-dots="true" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"600":{"items":1},"1000":{"items":1}}'>
+                <div class="item-slide item-slide-1">
+                    <div class="slide-desc slide-desc-1">
+                        <div class="p-primary">Best of Housing and Estates Showcase</div>
+                        <p style="color:green; font-weight: bolder">We've got a database of the most prominent estate developers, agents and property owners</p>
+                        <a href="{{path('list_estates', {'page':'list-all-properties'})}}" class="btn-shop-now">Make Your Pick</a>                            
+                    </div>
+                </div>
+                <div class="item-slide item-slide-2">
+                    <div class="slide-desc slide-desc-2">
+                        <div class="p-primary">Luxury Homes, Villas, Suites, Commercial Property ...</div>
+                        <p style="color:green; font-weight: bolder">
+                            Are you looking for a plush home or extate to buy? look no further BuildersHub's got the best deal for you!!                           
+                        </p>
+                        <a href="{{path('list_estates', {'page':'list-all-propeties'})}}" class="btn-shop-now">Rent or Buy a Home</a>                            
+                    </div>
+                </div>
+                <div class="item-slide item-slide-3">
+                    <div class="slide-desc slide-desc-3">
+                        <div class="p-primary">Live Your Dreams!! <br/> Own that home</div>
+                        <p style="color:brown; font-weight: bolder">BuildersHub work with you to choose the property that best suite your needs. We work closely with estate developers and property owners</p>
+                        <a href="{{path('list_estates', {'page':'for-sale'})}}" class="btn-shop-now">Shop Now</a>                            
+                    </div>
+                </div>
+                <div class="item-slide item-slide-4">
+                    <div class="slide-desc slide-desc-4">
+                        <div class="p-primary">Best Deals for your property!! Work with BuildersHub</div>
+                        <p style="color:brown; font-weight: bolder">We make it easy for prospectus  real estate buyers find you and fast!</p>
+                        <a href="{{path('list_estates', {'page':'for-sale'})}}" class="btn-shop-now">Advertise Your Estate</a>                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-daily-deals style1">
+        <div class="container">
+            <div class="title-of-section">Top Estates/Properties</div>
+            <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="true" data-dots="true" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"768":{"items":3},"992":{"items":2}}'>
+                {% for property in featuredProperties %}
+                    <div class="deal-of-day equal-elem">
+                        <div class="product-thumb style1">
+                            <div class="thumb-inner">
+                                <a href="{{path('property_details',{'slug':property.slug})}}"><img src="{{asset(s3_images_url~property.featureImage)}}" alt="d1" style="width: 250px; height: 180px; border-radius: 3px;"></a>
+                            </div>
+                        </div>
+                        <div class="product-innfo">
+                            <div class="product-name"><a href="{{path('property_details',{'slug':property.slug})}}">{{property.name}}</a></div>
+                            <span class="price">
+                                <ins>{{property.currency}}{{property.salePrice is not null ? property.salePrice|number_format(2, '.',',') : property.regularPrice|number_format(2, '.',',')}}</ins>
+                                <del></del>
+                                <br/>
+                                <span class="{{property.listingType=='For Sale'? 'onsale' : 'onnew'}}">{{property.listingType}}</span>
+                            </span> 
+                            <br/>
+
+                            <div class="star-rating">
+                                <i class="fa fa-map-marker"></i> <span class="review">{{property.town is not null ?  property.town ~','}} {{property.region ~' Region'}}</span>                         
+                            </div>
+                            <!--<div class="product-count-down">
+                                <div class="kt-countdown" data-y="2018" data-m="6" data-d="1" data-h="10" data-i="0" data-s="0"></div>
+                            </div>-->
+                            <a href="#" class="btn-add-to-cart">Contact Realtor</a>
+                        </div>
+                    </div>
+                {% endfor %}               
+            </div>
+        </div>
+    </div>
+    <div class="block-section-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-5">
+                    <div class="promotion-banner style-1">
+                        <a href="" class="banner-img"><img src="{{asset('store/images/home1/banner-1.jpg')}}" alt="banner-1"></a>
+                    </div>
+                </div>
+                <div class="col-md-7 col-sm-7">
+                    <div class="promotion-banner style-1">
+                        <a href="" class="banner-img"><img src="{{asset('store/images/home1/banner-2.jpg')}}" alt="banner-2"></a>
+                        <a href="" class="shop-now hidden-mobile">Shop now<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    <div class="block-section-4">
+        <div class="full-width">
+            <div class="container">
+                <div class="title-of-section style2">Property Listings</div>
+                <div class="tab-product tab-product-fade-effect">
+                    <ul class="box-tabs nav-tab style2">
+                        <li class="active"><a data-animated="" data-toggle="tab" href="#all">All Properties </a></li>
+                        <li><a data-animated="fadeInLeft" data-toggle="tab" href="#for-sale">For Sale </a></li>
+                        <li><a data-animated="zoomInUp" data-toggle="tab" href="#for-rent">For Rent </a></li>
+                        <li><a data-animated="zoomInUp" data-toggle="tab" href="#featured">Featured</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-container">
+                            <div id="all" class="tab-panel active">
+                                <div class="owl-carousel" data-nav="false" data-autoplay="false" data-dots="false" data-loop="true" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"1000":{"items":3}}'>
+                                    {% for property in listings %}
+                                        {{loop.first ? "<div class='owl-one-row'>" }}
+                                        <div class="product-item style1">
+                                            <div class="product-inner equal-elem">
+                                                <div class="product-thumb style1">
+                                                    <div class="thumb-inner">
+                                                        <a href="{{path('property_details', {'slug':property.slug})}}"><img src="{{asset(s3_images_url~property.featureImage)}}" alt="r1" style="height: 240px; margin: auto; border-radius: 3px;"></a>
+                                                    </div>
+                                                    <span class="{{property.listingType== "For Rent" ? 'onnew':'onsale'}}">{{property.listingType}}</span>
+                                                    <a href="{{path('property_details', {'slug':property.slug})}}" class="quick-view">Quick View</a>
+                                                </div>
+                                                <div class="product-innfo">
+                                                    <div class="product-name"><a href="{{path('property_details', {'slug':property.slug})}}">{{property.name}}</a></div>
+                                                    <span class="price">
+                                                        <ins>{{property.currency}}{{property.salePrice is not null ? property.salePrice|number_format(2, '.',',') : property.regularPrice|number_format(2, '.',',')}}</ins>
+                                                        <del></del>
+                                                    </span>
+                                                    <div class="star-rating">
+                                                        <i class="fa fa-map-marker"></i> <span class="review">{{property.town is not null ?  property.town ~','}} {{property.region ~' Region'}}</span>                         
+                                                    </div>
+                                                    <div class="group-btn-hover" style="text-align: center">
+                                                        <a href="" class="add-to-cart"><i class="fa fa-phone" aria-hidden="true"></i> Contact Realtor</a>                                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                        {{loop.index is divisible by(2) and  not loop.last ? "</div><div class='owl-one-row'>" : loop.last ? "</div>" }}
+                                    {% endfor %}
+                                </div>                                   
+                            </div>
+                            <div id="for-sale" class="tab-panel">
+                                <div class="owl-carousel" data-nav="false" data-autoplay="false" data-dots="false" data-loop="true" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"1000":{"items":3}}'>
+                                    {% for property in forSale %}
+                                        {{loop.first ? "<div class='owl-one-row'>" }}
+                                        <div class="product-item style1">
+                                            <div class="product-inner equal-elem">
+                                                <div class="product-thumb style1">
+                                                    <div class="thumb-inner">
+                                                        <a href="{{path('property_details', {'slug':property.slug})}}"><img src="{{asset(s3_images_url~property.featureImage)}}" alt="r1" style="height: 240px; width: 100%; margin: auto; border-radius: 3px;"></a>
+                                                    </div>
+                                                    <span class="{{property.listingType== "For Rent" ? 'onnew':'onsale'}}">{{property.listingType}}</span>
+                                                    <a href="{{path('property_details', {'slug':property.slug})}}" class="quick-view">Quick View</a>
+                                                </div>
+                                                <div class="product-innfo">
+                                                    <div class="product-name"><a href="{{path('property_details', {'slug':property.slug})}}">{{property.name}}</a></div>
+                                                    <span class="price">
+                                                        <ins>{{property.currency}}{{property.salePrice is not null ? property.salePrice|number_format(2, '.',',') : property.regularPrice|number_format(2, '.',',')}}</ins>
+                                                        <del></del>
+                                                    </span>
+                                                    <div class="star-rating">
+                                                        <i class="fa fa-map-marker"></i> <span class="review">{{property.town is not null ?  property.town ~','}} {{property.region ~' Region'}}</span>                         
+                                                    </div>
+                                                    <div class="group-btn-hover">
+                                                        <a href="" class="add-to-cart"><i class="fa fa-phone" aria-hidden="true"></i> Contact Realtor</a>                                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        {{loop.index is divisible by(2) and  not loop.last ? "</div><div class='owl-one-row'>" : loop.last ? "</div>" }}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div id="for-rent" class="tab-panel">
+                                <div class="owl-carousel" data-nav="false" data-autoplay="false" data-dots="false" data-loop="true" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"1000":{"items":3}}'>
+                                    {% for property in forRent %}
+                                        {{loop.first ? "<div class='owl-one-row'>" }}
+                                        <div class="product-item style1">
+                                            <div class="product-inner equal-elem">
+                                                <div class="product-thumb style1">
+                                                    <div class="thumb-inner">
+                                                        <a href="{{path('property_details', {'slug':property.slug})}}"><img src="{{asset(s3_images_url~property.featureImage)}}" alt="r1" style="height: 240px; margin: auto; border-radius: 3px;"></a>
+                                                    </div>
+                                                    <span class="{{property.listingType== "For Rent" ? 'onnew':'onsale'}}">{{property.listingType}}</span>
+                                                    <a href="{{path('property_details', {'slug':property.slug})}}" class="quick-view">Quick View</a>
+                                                </div>
+                                                <div class="product-innfo">
+                                                    <div class="product-name"><a href="{{path('property_details', {'slug':property.slug})}}">{{property.name}}</a></div>
+                                                    <span class="price">
+                                                        <ins>{{property.currency}}{{property.salePrice is not null ? property.salePrice|number_format(2, '.',',') : property.regularPrice|number_format(2, '.',',')}}</ins>
+                                                        <del></del>
+                                                    </span>
+                                                    <div class="star-rating">
+                                                        <i class="fa fa-map-marker"></i> <span class="review">{{property.town is not null ?  property.town ~','}} {{property.region ~' Region'}}</span>                         
+                                                    </div>
+                                                    <div class="group-btn-hover">
+                                                        <a href="" class="add-to-cart"><i class="fa fa-phone" aria-hidden="true"></i> Contact Realtor</a>                                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        {{loop.index is divisible by(2) and  not loop.last ? "</div><div class='owl-one-row'>" : loop.last ? "</div>" }}
+                                    {% endfor %}                                                                 
+                                </div>
+                            </div>
+                            <div id="featured" class="tab-panel">
+                                <div class="owl-carousel" data-nav="false" data-autoplay="false" data-dots="false" data-loop="true" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"1000":{"items":3}}'>
+                                    {% for property in featured %}
+                                        {{loop.first ? "<div class='owl-one-row'>" }}
+                                        <div class="product-item style1">
+                                            <div class="product-inner equal-elem">
+                                                <div class="product-thumb style1">
+                                                    <div class="thumb-inner">
+                                                        <a href="{{path('property_details', {'slug':property.slug})}}"><img src="{{asset(s3_images_url~property.featureImage)}}" alt="r1" style="height: 240px; margin: auto; border-radius: 3px;"></a>
+                                                    </div>
+                                                    <span class="{{property.listingType== "For Rent" ? 'onnew':'onsale'}}">{{property.listingType}}</span>
+                                                    <a href="{{path('property_details', {'slug':property.slug})}}" class="quick-view">Quick View</a>
+                                                </div>
+                                                <div class="product-innfo">
+                                                    <div class="product-name"><a href="{{path('property_details', {'slug':property.slug})}}">{{property.name}}</a></div>
+                                                    <span class="price">
+                                                        <ins>{{property.currency}}{{property.salePrice is not null ? property.salePrice|number_format(2, '.',',') : property.regularPrice|number_format(2, '.',',')}}</ins>
+                                                        <del></del>
+                                                    </span>
+                                                    <div class="star-rating">
+                                                        <i class="fa fa-map-marker"></i> <span class="review">{{property.town is not null ?  property.town ~','}} {{property.region ~' Region'}}</span>                         
+                                                    </div>
+                                                    <div class="group-btn-hover" style="text-align: center">
+                                                        <a href="" class="add-to-cart"><i class="fa fa-phone" aria-hidden="true"></i> Contact Realtor</a>                                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        {{loop.index is divisible by(2) and  not loop.last ? "</div><div class='owl-one-row'>" : loop.last ? "</div>" }}
+                                    {% endfor %}                                                               
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block-section-6">
+        <div class="container">                    
+            <div class="promotion-banner box-single style-2">
+                <a href="" class="banner-img"><img src="{{asset('store/images/home1/banner-3.jpg')}}" alt="banner-3"></a>
+                <a href="" class="shop-now hidden-mobile">Shop now</a>
+            </div>
+        </div>
+    </div>
+    <div class="block-recent-view">
+        <div class="container">
+            <div class="title-of-section">Recently Viewed Products</div>
+            <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":6}}'>
+               {{ render_esi(controller('App\\Controller\\EstateUtilityController::renderMostViewedProperties'), {"default":'Loading Cart....'})}}
+            </div>
+        </div>
+    </div>
+    <div class="block-section-brand">
+        <div class="container">
+            <div class="section-brand style1">
+                <div class="owl-carousel nav-style3" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="2" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":4},"1000":{"items":6}}'>
+                    <a href="" class="item-brand"><img src="{{asset('store/images/home1/brand1.jpg')}}" alt="brand1"></a>
+                    <a href="" class="item-brand"><img src="{{asset('store/images/home1/brand1.jpg')}}" alt="brand1"></a>
+                    <a href="" class="item-brand"><img src="{{asset('store/images/home1/brand1.jpg')}}" alt="brand1"></a>
+                    <a href="" class="item-brand"><img src="{{asset('store/images/home1/brand1.jpg')}}" alt="brand1"></a>
+                    <a href="" class="item-brand"><img src="{{asset('store/images/home1/brand1.jpg')}}" alt="brand1"></a>
+                    <a href="" class="item-brand"><img src="{{asset('store/images/home1/brand1.jpg')}}" alt="brand1"></a>
+                </div>
+            </div>
+        </div>
+    </div><!-- end MAIN -->
+{% endblock %}
+{% block footer %}
+    <!-- FOOTER -->
+    {% include "store/shared/footer.opt1.html.twig" %}
+{% endblock %}
+
+
+

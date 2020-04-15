@@ -1,0 +1,69 @@
+<div class="section">
+    <label class="label">Project title</label>
+    <label class="field prepend-icon">
+        {{form_widget(form.title, {'attr': {placeholder:"Enter project title", class:'gui-input' } } )}}   
+        <span class="field-icon"><i class="fa fa-list"></i></span>
+    </label>
+</div>
+<div class="section">
+    <label class="label">Project summary</label>
+    <label class="field prepend-icon">
+        {{form_widget(form.summary, {'attr': {class:"gui-textarea", placeholder:"Type project summary..." } } )}}
+        <span class="field-icon"><i class="fa fa-file-o"></i></span>
+        <span class="input-hint"> <strong>Hint:</strong> Give a brief description of the project</span>   
+    </label>
+</div><!-- end section -->
+<div class="section">
+    <label class="label">Project status</label>
+    <label class="select-box-2 prepend-icon">
+        {{form_widget(form.status, {'attr': {placeholder:"Select project status" } } )}}   
+        <span class="field-icon"><i class="fa fa-list"></i></span>
+    </label>
+</div>
+<div class="section">
+    <label class="label">Project client</label>
+    <label class="field prepend-icon">
+        {{form_widget(form.client, {'attr': {placeholder:"Enter project client", class:'gui-input' } } )}}   
+        <span class="field-icon"><i class="fa fa-list"></i></span>
+    </label>
+</div>
+<div class="row">
+    <div class="col-md-6 section">
+        <label class="label">Start date</label>
+        <label class="prepend-icon">                          
+            {{form_widget(form.startDate, {'attr':{class:'gui-input', placeholder:'Select start date'} })}}   
+            <span class="field-icon"><i class="fa fa-calendar"></i></span>
+        </label>
+    </div>
+    <div class="col-md-6 section">
+        <label class="label">Completion date</label>
+        <label class="prepend-icon">
+            {{form_widget(form.completionDate, {'attr':{class:'gui-input', placeholder:'Select completion date'} })}}   
+            <span class="field-icon"><i class="fa fa-calendar"></i></span>
+        </label>
+    </div>
+    <div class="col-md-6 section">
+        <label class="select-box-2 prepend-icon">
+            {{form_widget(form.region, {'attr': {placeholder:"Select project region" } } )}}   
+            <span class="field-icon"><i class="fa fa-map-marker"></i></span>
+        </label>
+    </div>
+    <div class="col-md-6 section">
+        <label class="select-box-2 prepend-icon">
+            {{form_widget(form.town, {'attr': {placeholder:"Select project town" } } )}}   
+            <span class="field-icon"><i class="fa fa-map-marker"></i></span>
+        </label>
+    </div>
+</div>
+<div class="section">
+    <label class="label">Where you did the work</label>
+    <label class="field prepend-icon">
+        {{form_widget(form.subLocation, {'attr': {placeholder:"e.g Adenta Barrier", class:'gui-input' } } )}}   
+        <span class="field-icon"><i class="fa fa-map-marker"></i></span>
+    </label>
+</div>                       
+{{ form_row(form._token) }}              
+<div class="form-footer text-right">                          
+    <button class="btn btn-primary btn-small" type="submit" >Save Work</button>
+</div>
+{{ form_end(form, {'render_rest': false}) }} 

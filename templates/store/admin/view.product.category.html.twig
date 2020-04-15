@@ -1,0 +1,21 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}    
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+
+{% endblock %}
+{% block contentHeader %}
+    <a href="{{path('product_categories', {'slug':supplier.slug})}}">&Ll; ALL CATEGORIES</a>  <span class="text-danger"></span> 
+    <small>{{category}} </small>    
+{% endblock %}
+{% block content %}
+    <div class="row">            
+        <div class="col-md-12">
+            {% include 'store/admin/includes/products.table.html.twig' %}
+        </div>         
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }} 
+{% endblock javascripts %}

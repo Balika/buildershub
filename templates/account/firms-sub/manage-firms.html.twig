@@ -1,0 +1,68 @@
+<div class="col-md-12 nopadding">
+    {% if user.company is  not null %}
+      <!--  <div class="alert-box success">
+            <span class="alert-closebtn" onClick="this.parentElement.style.display = 'none';">&times;</span>
+            <strong><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> &nbsp; 
+                {% set noOfCompanies = user.userCompanies|length > 0 ? (user.userCompanies|length + 1): 1 %}
+                {{ noOfCompanies }} {{noOfCompanies > 1 ? " Companies " : "Company" }} Added!</strong> &nbsp; You currently have {{ noOfCompanies }} {{noOfCompanies > 1 ? " companies " : " company" }} added to your account. Use the button above to add another company
+        </div>-->
+        <div class="col-divider-margin-2"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="text-box padding-1 border">
+                    <a class="btn btn-tiny border border-green xround-1" ><span class="fa fa-eye"> View Public Profile</span></a>
+                    <a class="btn btn-tiny border border-red xround-1 pull-right" ><span>Your Default Company</span></a>
+                    <a href="{{path('view_company',{'slug':user.company.slug})}}">
+                        <img src="{{asset('images/shortcodes/41.jpg')}}" alt="" class="img-responsive"/>
+                    </a>
+                    <div class="clearfix"></div>
+                    <br/>
+                    <div class="col-md-12"> 
+                        <h4>
+                            <a href="{{path('view_company',{'slug':user.company.slug})}}">{{user.company}}</a>
+                            <a href="{{path('edit_company',{'slug':user.company.slug})}}" title="Edit Company" class="text-success pull-right">
+                                <span class="icon-pencil" data-icon=""></span></a>
+                        </h4>
+                    </div>
+                    <p>{{user.company.businessSummary}}</p>         
+                </div>
+            </div>
+            <!-- end item-->
+            {% for company in user.userCompanies %}
+                <div class="col-md-6">
+                    <div class="text-box padding-1 border">
+                        {% if company.companyType == 'supplier' %}
+                            <a class="btn btn-tiny border border-green xround-1" href="{{path('store_admin_dashboard', {'slug':company.slug})}}" target="new"><span class="fa fa-briefcase"> Manage Store</span></a>
+                            {% else %}
+                        <a class="btn btn-tiny border border-green xround-1" ><span class="fa fa-eye"> View Public Profile</span></a>
+                        {% endif  %}
+                        <a class="btn btn-tiny border border-blue xround-1 pull-right" href="{{path('hubernize_dashboard', {'sub_domain':company.domain})}}"><span>Make Default</span></a>
+                        <a href="{{path('view_company',{'slug':company.slug})}}">
+                            <img src="{{asset('images/shortcodes/41.jpg')}}" alt="" class="img-responsive"/>
+                        </a>
+                        <div class="clearfix"></div>
+                        <br/>
+                        <div class="col-md-12"> 
+                            <h4>
+                                <a href="{{path('view_company',{'slug':company.slug})}}">{{company|slice(0, 20)}}</a>  
+                                <a href="{{path('edit_company',{'slug':company.slug})}}" title="Edit Company" class="text-success pull-right">
+                                    <span class="icon-pencil" data-icon=""></span>
+                                </a>
+                            </h4>
+                        </div>
+                        <p>{{company.businessSummary|slice(0, 200)}}</p>                       
+                    </div>
+                </div>
+            {% endfor %}
+            <!-- end item-->
+        </div>
+    {% else %}
+        <div class="alert-box warning">
+            <span class="alert-closebtn" onClick="this.parentElement.style.display = 'none';">&times;</span>
+            <strong><i class="fa fa-exclamation" aria-hidden="true"></i> &nbsp; 
+                No Company Added!</strong> &nbsp; You currently do not have any company added to your account. Use the button above to add a company           
+        </div>
+    {% endif  %}
+</div>
+<!--end message box-->
+

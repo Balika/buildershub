@@ -1,0 +1,93 @@
+{% extends "shared/page.base.html.twig" %}
+{% block mainNav %}
+
+{% endblock %}
+{% block  content %}
+    <section class="sec-padding" style="background: url('{{asset("images/sliders/slider01-2.png")}}')">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center"> <h3 class="less-mar-1 font-weight-5 raleway">Select Your User Group to Signup</h3></div>
+                <div class="clearfix"></div>               
+                <div class="tabs-left1-holder">
+                    <div class="col-md-12">
+                        <h3 class="modal-title" id="myModalLabel">Register As</h3>
+                        <ul class="responsive-tabs responsive-tabs-left ">                            
+                            <li><a href="#artisan" target="_self"> 
+                                    Artisan & Craftmen
+                                    <span>Masons, carpenters, plumbers, tilers, steel benders, welders, electricians etc</span>
+                                </a>
+                            </li>
+                            <li><a href="#supplier" target="_self">
+                                    Materials Supplier
+                                    <span>Cement, iron rods, tiles, interior/exterior decor, sand, stones, chippings etc</span>
+                                </a></li>
+                            <li><a href="#professional" target="_self">
+                                    Other Professionals
+                                    <span>Engineers (civil, material, electrical, chemical etc), architects, quantity surveors, land surveyors, planners etc </span></a></li>
+                            <li><a href="#student" target="_self">
+                                    Students
+                                    <span>Students pursuing courses related to infrastructure developments at all levels </span>
+                                </a></li>
+                            <li><a href="#firm" target="_self">
+                                    Construction & Consulting Firm
+                                    <span>Building & road works, borehole drilling, water supply, sanitaion, irrigation etc </span>
+                                </a></li>
+                        </ul>
+                        <div class="responsive-tabs-content responsive-tabs-left bm-larger">
+                            <div id="artisan" class="responsive-tabs-panel">
+                                <div class="responsive-tab-title"></div>
+                                <div class="col-md-1">  </div>
+                                <div class="col-md-11">
+                                     {% set vars = { 'form': artisanForm} %} 
+                                    {% include 'account/includes/artisan.registration.html.twig' with vars  %}
+                                </div>
+                                <!--end item--> 
+                            </div>
+                            <!--end tab 1-->
+                            <div id="supplier" class="responsive-tabs-panel">
+                                <div class="responsive-tab-title"></div>
+                                <div class="col-md-1">  </div>
+                                <div class="col-md-11">
+                                     {% set vars = { 'form': supplierForm} %} 
+                                    {% include 'account/includes/supplier.registration.html.twig' with vars  %}
+                                </div>
+                                <!--end item--> 
+                            </div>
+                            <!--end tab 2-->
+                            <div id="professional" class="responsive-tabs-panel">
+                                <div class="responsive-tab-title"></div>
+                                <div class="col-md-1">  </div>
+                                <div class="col-md-11">
+                                     {% set vars = { 'form': professionalForm} %} 
+                                    {% include 'account/includes/professional.registration.html.twig' with vars %}
+                                </div>
+                                <!--end item--> 
+                            </div>
+                            <!--end tab 3--> 
+                            <div id="student" class="responsive-tabs-panel">
+                                <div class="responsive-tab-title"></div>
+                                <div class="col-md-1">  </div>
+                                <div class="col-md-11">
+                                    {% set vars = { 'form': studentForm} %}                            
+                                    {% include 'account/includes/student.registration.html.twig' with vars %}
+                                </div>
+                                <!--end item--> 
+                            </div>
+                            <!--end tab 3--> 
+                            <div id="firm" class="responsive-tabs-panel">
+                                <div class="responsive-tab-title"></div>
+                                <div class="col-md-1">  </div>
+                                <div class="col-md-11">
+                                    {% set vars = { 'form': studentForm} %}                          
+                                    {% include 'account/includes/firm.registration.html.twig' with vars  %}
+                                </div>
+                                <!--end item--> 
+                            </div>
+                            <!--end tab 3--> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

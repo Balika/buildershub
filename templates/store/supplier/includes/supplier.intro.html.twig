@@ -1,0 +1,12 @@
+<div class="alert alert-success">
+    <h3><a href="{{path('supplier_store_view', {'slug':supplier.slug})}}">{{supplier.name}}</a> <span class="pull-right">
+            <a class="btn btn-warning btn-small" id="supplierNumberHash"><i class="fa fa-phone"></i> {{supplier.mobile1|slice(0, 6)}} XXXX</a>
+            <a class="btn btn-warning btn-small hide" id="supplierNumberDisp"><i class="fa fa-phone"></i> {{supplier.mobile1}}</a>
+        </span></h3>
+    <div class="star-rating">
+        Find us at <i class="fa fa-map-marker"></i> <span class="review">{{supplier.businessLocation is not null ?  supplier.businessLocation ~','}} {{supplier.region}}</span>
+    </div>
+    <p>
+        {{supplier.businessSummary}}
+    </p>
+</div>

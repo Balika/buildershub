@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="smartforms-modal-body">
+        <div class="smart-wrap">
+            <div class="smart-forms smart-container transparent wrap-full">
+                <div class="form-body no-padd" style="padding-top:15px">
+                    <div class="section col-md-12">
+                        <label  class="control-label">Group / Professional Body</label>
+                        <label class="field prepend-icon">
+                            {{ form_widget(form.institution,{ 'attr': {class: 'gui-input', placeholder: 'e.g. Ghana Institution of Engineers' } }) }}
+                            <span class="field-icon"><i class="fa fa-lock"></i></span>
+                        </label>
+                    </div>
+                    <div class="section col-md-12">
+                        <label  class="control-label">Name of Membership</label>
+                        <label class="field prepend-icon">
+                            {{ form_widget(form.membershipTitle,{ 'attr': {class: 'gui-input',placeholder: 'e.g. MGhIE' } }) }}
+                            <span class="field-icon"><i class="fa fa-pencil"></i></span>
+                        </label>
+                        <!--<div id="institutionResults" style="border: white solid 1px; background-color: white; color: black; border-radius: 4px; z-index:1; position: absolute; max-height: 250px; overflow: auto; width: 100%" class="row"></div> -->   
+                    </div>
+
+                    <div class="section col-md-6">
+                        <label  class="control-label">Membership / Registration ID</label>
+                        <label class="field prepend-icon">
+                            {{ form_widget(form.membershipId,{ 'attr': {class: 'gui-input', placeholder: 'e.g. 08332'  } }) }}
+                            <span class="field-icon"><i class="fa fa-lock"></i></span>
+                        </label>
+                    </div>
+                    <div class="section col-md-6">
+                        <label  class="control-label">Date Joined</label>
+                        <label class="field prepend-icon">
+                            {{ form_widget(form.dateJoined,{ 'attr': {class: 'gui-input' } }) }}
+                             <span class="field-icon"><i class="fa fa-calendar-o"></i></span> 
+                        </label>
+                    </div>                   
+                    {{ form_row(form._token) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-footer col-md-12">
+        <a href="#" class="btn btn-default" data-dismiss="modal">Cancel</a>
+        <button class="btn btn-sm btn-success pull-right" type="submit" >Save Association</button>
+    </div>
+    {{ form_end(form, {'render_rest': false})}}
+</div>

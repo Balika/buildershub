@@ -1,0 +1,10 @@
+{% extends "emails/emails.base.html.twig" %}
+{% block headline %}
+   Hi {{user.firstname}}, you have successfully created an account on 
+    <a href="{{url('home')}}" target="_blank">BuildersHub</a>
+{% endblock %}
+{% block callToAction  %}
+    <a href="{{url('activate_account',{'id':user.id, 'token':token})}}" target="_blank"> 
+        Click to Confirm & Activate Account
+    </a>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% include "account/includes/specialty.dialog.html.twig" %}
+{{form_start(profileForm, { method: 'POST', action:path('update_user_profile') ,'attr':{id: "builderExpertiseForm"} })}}                                    
+<div class="frm-row">
+    <div class="section colm colm12">
+        <div class="spacer-b30">
+            <div class="tagline"><span>What Category of Services Would You Want to Provide on BuildersHub</span></div><!-- .tagline -->
+        </div>
+        <div class="option-group field" id="builderServicePanel">
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="option block">
+                        <input type="checkbox" name="serviceCategory" value="ARTISAN" {{'ARTISAN' in user.person.services ? "checked"}}>
+                        <span class="checkbox"></span> <span title="Artisanal Services">Artisanal Services</span>
+                        <b class="tooltip"><em>Property owners will contact you to fix their broken property related to plumbing works, masonry works, electricals etc</em></b>                  
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label class="option block">
+                        <input type="checkbox" name="serviceCategory" value="PROFESSIONAL" {{'PROFESSIONAL' in user.person.services ? "checked"}}>
+                        <span class="checkbox"></span> <span title="Professional Services">Professional Services</span>
+                        <b class="tooltip"><em>Property owners and institutions will contact you to carry out complex infrastructure designs, architectural works, cost estimation, project management etc</em></b>                  
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label class="option block">
+                        <input type="checkbox" name="serviceCategory" value="STUDENT" {{'STUDENT' in user.person.services ? "checked"}}>
+                        <span class="checkbox"></span> <span title="Student">Use as a Student</span>
+                        <b class="tooltip"><em>You will would be offered internship opportunites, asked to undertake some challenging research work etc</em></b>                  
+                    </label>
+                </div>
+                <input type="hidden" name="selectedServiceCategories" id="selectedServiceCategories" />
+            </div>
+        </div><!-- end .option-group section -->
+    </div><!-- end section --> 
+</div>
+<br/><br/>
+<div class="frm-row">
+    <div class="section colm colm12">
+        <div class="spacer-b30">
+            <div class="tagline"><span>Which category best describe your main profession</span></div><!-- .tagline -->
+        </div>
+        <div class="option-group field">
+            <div class="row">
+                <h6>Professional Categories</h6>
+                {% for profession in professionalCategories %}
+                    <div class="col-md-4">
+                        <label class="option block">
+                            <input type="radio" name="workCategory" value="{{profession.id}}" {{user.person.profession == profession ? "checked"}}>
+                            <span class="radio"></span> <span title="{{profession.practitioner}}">{{profession.practitioner|length > 22 ? profession.practitioner|slice(0, 22)~"..." : profession.practitioner}}</span>
+                            <b class="tooltip"><em> {{profession.name}} {{profession.description is not null ?" - " ~profession.description}}</em></b>                  
+                        </label>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <br/>
+                <h6>Artisanal Categories</h6>
+                {% for profession in artisanalCategories %}
+                    <div class="col-md-4">
+                        <label class="option block">
+                            <input type="radio" name="workCategory" value="{{profession.id}}" {{user.person.profession == profession ? "checked"}}>
+                            <span class="radio"></span> <span title="{{profession.practitioner}}">{{profession.practitioner|length > 22 ? profession.practitioner|slice(0, 22)~"..." : profession.practitioner}}</span>
+                            <b class="tooltip"><em> {{profession.name}} {{profession.description is not null ?" - " ~profession.description}}</em></b>                  
+                        </label>
+                    </div>
+                {% endfor %}
+            </div><!-- end .option-group section -->
+        </div><!-- end section -->  
+    </div>
+</div>
+<br/><br/>
+<div class="frm-row">
+    <div class="section colm colm12" id="specialtyPanel">
+        <div class="spacer-b15">
+            <div class="tagline"><span> Select all specific areas of your work</span></div><!-- .tagline -->
+        </div>
+        <div class="option-group field">
+            <div class="row">
+                {% for specialty in specialties %}
+                    <div class="col-md-4">
+                        <label class="option block">
+                            <input type="checkbox" name="languages" value="{{specialty.id}}" {{specialty in user.person.builderSpecialties? "checked"}} >
+                            <span class="checkbox"></span> <span title="{{specialty}}">{{specialty|length > 25 ? specialty|slice(0, 25)~'...' : specialty}}</span>                               
+                        </label>
+                    </div>
+                {% endfor %}
+                <input type="hidden" name="selectedSpecialties" id="selectedSpecialties" />
+            </div>
+            <p>   
+            <div class="col-divider-margin-1"></div>
+            <div class="divider-line dotted text-gray-2"></div> 
+            <div class="col-divider-margin-1"></div>
+            <small><strong>Can't find your area of specialization or your work area in the list?</strong></small>
+            <a href="#specialtyDlg" data-toggle="modal" style="color: #006974"><strong>Add New Item</strong></a>
+            </p>
+        </div><!-- end .option-group section -->
+    </div><!-- end section -->
+</div><!-- end frm-row section -->
+<br/><br/>
+<div class="frm-row">
+    <div class="section colm colm12"> 
+        <div class="spacer-b15">
+            <div class="tagline"><span> Your Profile summary</span></div><!-- .tagline -->
+        </div>
+        <div class="section">
+            <label class="label"> <strong>Briefy describe what you do</strong></label>
+            <label class="field prepend-icon">
+                {{form_widget(profileForm.profile, {'attr': {class:"gui-textarea", placeholder:"Summary of what you do" } } )}}
+                <span class="field-icon"><i class="fa fa-lightbulb-o"></i></span>
+                <span class="input-hint"> <strong>Hint:</strong> Say something brief and catchy about your work: 80 - 300 characters.</span>   
+            </label>
+        </div><!-- end section -->
+        <div class="result"></div><!-- end .result  section --> 
+        <!-- end .form-body section -->
+        <div class="form-footer text-right">
+            <button type="submit" data-btntext-sending="Sending..." class="button btn-primary">Update Details</button>
+        </div><!-- end .form-footer section -->
+    </div>
+</div>
+{{ form_row(profileForm._token) }} 
+{{ form_end(profileForm, {'render_rest': false}) }}

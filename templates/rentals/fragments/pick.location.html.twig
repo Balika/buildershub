@@ -1,0 +1,20 @@
+<div class="row" id="location-filter">
+    <div class="col-md-3">
+        <h5 class="text-primary">Regions in Ghana</h5>
+        <hr/>
+        <ul class="vertical-menu-list" id="regions">                
+            {% for region in regions %}
+                <li><strong><a href="{{path('load_towns', {'id':region.id})}}" class="{{selectedRegion is not null and selectedRegion.id == region.id ? 'text-warning'}}">{{region}}</a></strong></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="col-md-9" id="town-list">
+        {% if selectedRegion is not null %}
+            <h4>Towns in <span class="text-warning">{{selectedRegion}}</span> Region</h4>
+            <hr/>
+            {% for town in townList %}
+                <div class="col-md-3" style="padding: 5px 0 5px 0"><a href="{{path('rental_filter', {'town_id':town.slug, 'region_id':selectedRegion.slug})}}" class="text-primary">{{town}}</a></div>
+                {% endfor %}  
+            {% endif %}
+    </div>
+</div>

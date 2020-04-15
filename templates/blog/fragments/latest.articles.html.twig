@@ -1,0 +1,20 @@
+<div class="owl-carousel nav-style2" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":2},"992":{"items":3}}'>
+    {% for post in latestPosts %}
+        {{loop.first ? "<div class='row'>" }}
+        <div class="blog-item">
+            <div class="post-thumb">
+                <a href="{{path('single_post', {'slug':post.slug, 'type':'article'})}}"><img src="{{asset(post.featureImage|imagine_filter('hub_thumbnail'))}}" alt="blog1"></a>           
+                <span class="date">{{post.createdAt|date('Y')}}<span>{{post.createdAt|date('M')}}  {{post.createdAt|date('d')}}</span></span>
+            </div>
+            <div class="post-item-info">
+                <h3 class="post-name"><a href="">{{post.title|title}}</a></h3>
+                <div class="post-metas">
+                    <span class="author">Post by: <span>{{post.user.fullName}}</span></span>
+                    <span class="comment"><i class="fa fa-comment" aria-hidden="true"></i>{{post.commentCount}} Comments</span>
+                </div>
+            </div>
+        </div>
+        {{loop.index is divisible by(2) and not  loop.last  ? "</div><div class='row'>" : loop.last ? "</div>" }}
+    {% endfor %}
+</div>
+

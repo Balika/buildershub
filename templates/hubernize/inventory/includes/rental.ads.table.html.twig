@@ -1,0 +1,68 @@
+<table id="rentalAdsTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Rental Rate (GHc)</th>
+            <th>Billing Cycle</th>
+            <th>Units Available</th>
+            <th>Date Posted</th>           
+            <th>Is on Promo?</th>   
+            <th>Is on Deal?</th>  
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="rentalAdsData">
+        {% for ad in rentalAds %}
+            <tr>
+                <td>
+                    <a href="{{path('hubernize_view_ad', {'slug':ad.slug})}}">
+                        <img src="{{ad.featureImage is not null ? asset(ad.featureImage|imagine_filter('hub_thumbnail')) : 
+                            ad.equipment.featureImage is not null  ? asset(ad.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" width="80px" height="60px"/>
+                    </a>
+                </td>
+                <td><a href="{{path('hubernize_view_ad', {'slug':ad.slug})}}" title="Edit">{{ad.title}}</a></td>
+                <td>{{ad.rentalRate|number_format(2,'.',',')}}</td>
+                <td>{{ad.billingCycle}}</td>
+                <td>{{ad.unitsAvailable}}</td>
+                <td>{{ad.datePublished|date('d/m/Y')}}</td>
+                <td class="rental-ad-action">
+                    {% if ad.isPromoted %} 
+                        <span  class="text-success"><strong>YES</strong></span>
+                    {% else %}
+                        <a href="{{path('hubernize_promote_rental_ad', {'id':ad.id})}}">Promote Ad</a>
+                    {% endif  %} 
+                </td>
+                <td>
+                    {% if ad.isOnDeal %} 
+                        <span  class="text-success"><strong>YES</strong></span>
+                    {% else %}
+                        <a href="{{path('hubernize_place_rental_weekly_deal', {'id':ad.id})}}" class="text-primary" id="weekly-deal-link" title="Place on Weekly Deal">Deal</a>
+                    {% endif  %} 
+                </td>
+                <td>
+                    {% if  ad.isPublished %}                       
+                        <a href="{{path('hubernize_ad_publication_status', {'id':ad.id})}}" class="label label-danger" title="Click to Disable" id="disable-ad-link">
+                            <i class="fa" id="spinner"></i> 
+                            Disable
+                        </a>  
+                    {% else %}                       
+                        <a href="{{path('hubernize_ad_publication_status', {'id':ad.id})}}" class="label label-success" title="Click to Enable" id="enable-ad-link"><i class="fa" id="spinner"></i> Enable</a> 
+                    {% endif  %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Rental Rate (GHc)</th>
+            <th>Billing Cycle</th>
+            <th>Units Available</th>
+            <th>Date Posted</th>           
+            <th>Is on Promo</th>         
+            <th>Action</th>
+        </tr>
+    </tfoot>
+</table>

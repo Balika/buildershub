@@ -1,0 +1,70 @@
+{% extends "shared/page.base.html.twig" %}
+{% block  content %}
+    <!--<section class="sec-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="call-to-action">
+                        <div class="col-md-9 col-sm-12 col-xs-12">
+                            <h4 class="text-gyellow"><strong>Web Applications for your Construction Business</strong></h4>
+                            <p>
+                                We have innovative tools to help you and your field staff take full control of your  <strong><a  href="#">construction</a></strong> or <a href="#"><strong>consulting 
+                                    </strong></a> business.<br/>
+                                Choose from our list of apps below.
+                            </p>
+                        </div>
+                        <div class="col-md-3 col-sm-12 col-xs-12" style="padding-top:20px"><a class="btn btn-cyan btn-small round pull-right uppercase" href="{{path('add_project')}}">Post Project <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>-->
+    <section class="sec-padding  sec-bgimg-16 ">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h3>Welcome to <strong>BuildersHub</strong> <a href='#' class="text-success">Hubernize</a> Software <a target="_new" class="btn btn-tiny border border-red xround-1 pull-right" href="#"><span class="fa fa-briefcase"> Subscribe Now</span></a><small style="display: block">A single window for your construction or consulting firm management. <strong> Available modules are listed below.</strong></small>
+                    </h3>
+                </div>
+            </div>
+            <div class="row">
+                {% for app in apps %}
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+                            <div class="text-box padding-2 text-center">
+                                <span class="{{app.altIcon}} icon-plain-small text-primary margin-bottom-1"></span>
+                                <h5 class="font-weight-6 margin-bottom-1">{{app.label}}</h5>
+                                <p>{{app.description|slice(0, 65)~'...'}}</p>
+                            </div>
+                            <p align="center"><a class="btn btn-tiny border border-orange xround-1" href="#">Subscribe to this App</a></p>
+                        </div>
+                    </div>
+                    {% if loop.index is divisible by(4) %}
+                        <div class="col-divider-margin-1"></div>
+                        <div class=" divider-line solid light"></div>  
+                        <div class="col-divider-margin-1"></div>  
+                    {% endif %}
+                {% endfor %}
+                <!--end item-->
+            </div>
+        </div>
+    </section>
+    <section class="sec-less-padding section-secondary">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 nopadding">
+                    <div class="col-md-9">
+                        <h2 class="text-white font-weight-5 less-mar-4">Take Full Control of Your  Business on <strong class="font-weight-8">BuildersHub!</strong></h2>
+                        <h5 class="text-white">Our innovative tools help you and your field staff take full control of your construction/consulting business</h5>
+                    </div>
+                    <!-- end col -->
+
+                    <div class="col-md-3"> <a href="#" class="but-stbutton-1 uppercase margin-top-1">Get Started Now!</a> </div>
+                    <!-- end col --> 
+                </div>
+                <!--end item--> 
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

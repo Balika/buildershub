@@ -1,0 +1,5 @@
+<div class="content-ins">
+    {% for post in latestPosts %}
+        <a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}" title="{{post.title}}"><img src="{{asset(post.featureImage|imagine_filter('hub_thumbnail'))}}" alt="post{{loop.index}}" style="width:80px; height: 60px"></a>
+    {% endfor %}
+</div>

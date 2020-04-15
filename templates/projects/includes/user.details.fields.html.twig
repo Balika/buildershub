@@ -1,0 +1,62 @@
+<div class="frm-row">
+    <div class="section colm colm6">
+        <label  class="field-label">Firstname:</label>
+        <label class="field prepend-icon">  
+            {{ form_widget(form.user.firstname,{ 'attr': {class: 'gui-input',placeholder: 'Enter firstname' } }) }}
+            <span class="field-icon"><i class="fa fa-user"></i></span>  
+        </label>
+    </div>
+    <div class="section colm colm6">
+        <label  class="field-label">Last Name:</label>
+        <label class="field prepend-icon">  
+            {{ form_widget(form.user.lastname,{ 'attr': {class: 'gui-input',placeholder: 'Enter lastname' } }) }}
+            <span class="field-icon"><i class="fa fa-user"></i></span>  
+        </label>
+    </div>
+</div>
+<div class="frm-row">
+    <div class="section colm colm6">
+        <label  class="field-label">Phone Number:</label>
+        <label class="field prepend-icon">  
+            {{ form_widget(form.user.contactNo,{ 'attr': {class: 'gui-input',placeholder: 'Enter phone number' } }) }}
+            <span class="field-icon"><i class="fa fa-phone"></i></span>
+        </label>
+    </div>
+    <div class="section colm colm6">
+        <label  class="field-label">Email:</label>
+        <label class="field prepend-icon">  
+            {{ form_widget(form.user.email,{ 'attr': {class: 'gui-input',placeholder: 'Enter your email ' } }) }}
+            <span class="field-icon"><i class="fa fa-envelope"></i></span>
+        </label>
+    </div> 
+</div>
+<div class="frm-row">
+    <div class="section colm colm6">
+        <label  class="field-label">Password:</label>
+        <label class="field prepend-icon"> 
+            {{ form_widget(form.user.password.first,{ 'attr': {class: 'gui-input', placeholder: 'Enter password'} }) }}
+            <span class="field-icon"><i class="fa fa-lock"></i></span>
+        </label>
+    </div>
+    <div class="section colm colm6">
+        <label  class="field-label">Confirm Password:</label>
+        <label class="field prepend-icon"> 
+            {{ form_widget(form.user.password.second,{ 'attr': {class: 'gui-input', placeholder: 'Confirm password'} }) }}
+            <span class="field-icon"><i class="fa fa-retweet"></i></span>
+        </label>
+    </div>
+</div>
+<div class="frm-row">
+    <div class="section colm colm6">
+        <label  class="field-label">Also Register Me As</label>
+        <label class="prepend-icon">                      
+            <select class="input-gui"  id="userType" style="height:40px; width:100%" name="userType" required="true">
+                <option>Select User Type</option>
+                <option value="ARTISAN">Artisan & Craftmen </option>                                       
+                <option value="PROFESSIONAL">Professional </option>
+                <option value="STUDENT">Student </option> 
+                <option value="GUEST">Guest User</option>    
+            </select>   
+        </label>
+    </div>
+</div>

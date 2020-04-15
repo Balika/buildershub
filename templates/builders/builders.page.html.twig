@@ -1,0 +1,165 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/shop.css')}}">
+    <link rel="stylesheet" href="{{asset('js/popup/novicell.css')}}">
+    <link rel="stylesheet" href="{{asset('js/popup/popup.css')}}">
+{% endblock %}
+{% block  content %}
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row">                
+                <div class="col-md-12 text-left">
+                    <ol class="breadcrumbs-2">
+                        <li><a href="{{path('home')}}"><i class="fa fa-home" aria-hidden="true"></i> Home</a><span><i class="fa fa-angle-right" aria-hidden="true"></i></span></li>
+
+                        <li>
+                            {% if page=='artisans' %}
+                                <a href="{{path('find_builders',{'b-page':'professionals'})}}"><i class="fa fa-users" aria-hidden="true"></i> Load Professionals</a><span><i class="fa fa-angle-right" aria-hidden="true"></i></span></li>
+                                {% else %}
+                            <a href="{{path('find_builders',{'b-page':'artisans'})}}"><i class="fa fa-users" aria-hidden="true"></i> Load Artisans</a><span><i class="fa fa-angle-right" aria-hidden="true"></i></span></li>
+                            {% endif  %}
+                        <li class="current"><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Builders - {{page=='artisans'?" Artisans / Draftmen":" Professionals"}}</a></li>
+                            {% if  is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <li class="pull-right"><a target="_new" class="btn btn-tiny border border-green xround-1" href="{{path('store_index')}}"><span class="fa fa-shopping-cart"> Visit BuilderHub Store</span></a></li>
+                            {% else %}
+                            <li class="pull-right"><a target="_new" class="btn btn-tiny border border-orange xround-1" href="{{path('signup', {'type':page=='artisans' ? 'artisan' : 'professional'})}}"><span class="fa fa-user"> Join as {{page=='artisans' ? 'Artisan' : 'Professional'}}</span></a></li>                    
+                            {% endif %}
+                    </ol>
+                </div>
+            </div>
+            <div class="col-divider-margin-1"></div>
+            <div class=" divider-line solid light"></div>  
+            <div class="col-divider-margin-1"></div>  
+            <div class="row">
+                <div class="col-md-3 col-sm-9 col-xs-12">
+                    {{ render_esi(controller('App\\Controller\\PortalUtilityController::renderRegionsSidebar',{'page':page, 'regionId':(region is not null ? region.id : 0)}), {"default":'Loading Cart....'})}}                        
+                </div>               
+                <div class="col-md-9 col-sm-3 col-xs-12 slide-controls-primary">
+                    {% include 'builders/includes/location.filter.form.html.twig' %}
+                    <div class="row">
+                        <div class="col-divider-margin-1"></div>
+                        <div class=" divider-line solid light"></div>  
+                        <div class="col-divider-margin-1"></div>
+                    </div>
+                    {# include 'builders/includes/sponsored.builders.html.twig' #}
+                    {% include template %}
+                    <div class="clearfix"></div>
+                </div>
+                <!--end item-->
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block pageScripts %}
+    {{parent()}}
+    <script src="{{asset('js/accordion/js/smk-accordion.js')}}"></script> 
+    <script src="{{asset('js/accordion/js/custom.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.form.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/smart-form.js')}}"></script>
+    <script>
+        $('#profilePassion').on('click', 'a#editPassion, a#hidePassionForm', function (e) {
+            e.preventDefault();
+            var itemClicked = $(this).attr('id');
+            switch (itemClicked) {
+                case 'editPassion':
+                    $('#profileFormPanel').removeClass('hide');
+                    $('#profileDisplayPanel').addClass('hide');
+                    $('#editPassion').addClass('hide');
+                    $('#hidePassionForm').removeClass('hide');
+                    break;
+                case 'hidePassionForm':
+                    $('#profileFormPanel').addClass('hide');
+                    $('#profileDisplayPanel').removeClass('hide');
+                    $('#hidePassionForm').addClass('hide');
+                    $('#editPassion').removeClass('hide');
+                    break;
+                default:
+                    break;
+            }
+        });
+    </script>
+    <script src="{{asset('js/popup/novicell.js')}}"></script>
+    <script type="text/javascript">
+        // Waiting for the DOM to load
+        document.addEventListener("DOMContentLoaded", function () {
+            // Select your overlay trigger
+            var trigger = document.querySelector('#js-overlay-trigger');
+            trigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                novicell.overlay.create({
+                    'selector': trigger.getAttribute('data-element'),
+                    'class': 'selector-overlay',
+                    "onCreate": function () {
+                        console.log('created');
+                    },
+                    "onLoaded": function () {
+                        console.log('loaded');
+                    },
+                    "onDestroy": function () {
+                        console.log('Destroyed');
+                    }
+                });
+            });
+            var userTrigger = document.querySelector('#user-details-trigger');
+            userTrigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                novicell.overlay.create({
+                    'selector': userTrigger.getAttribute('data-element'),
+                    'class': 'selector-overlay',
+                    "onCreate": function () {
+                        console.log('created');
+                    },
+                    "onLoaded": function () {
+                        console.log('loaded');
+                    },
+                    "onDestroy": function () {
+                        console.log('Destroyed');
+                    }
+                });
+            });
+
+            // Video overlay
+            var videoOverlayTriggers = document.querySelectorAll('.js-video-overlay-trigger');
+            for (var i = 0; i < videoOverlayTriggers.length; i++) {
+                videoOverlayTriggers[i].addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var currentTrigger = e.target;
+                    novicell.overlay.create({
+                        'videoId': currentTrigger.getAttribute('data-video-id'),
+                        'type': currentTrigger.getAttribute('data-type'),
+                        'class': 'video-overlay'
+                    });
+                });
+            }
+        });
+        var detailPanel = $('#userDetailsPanel');
+        $(detailPanel).on('change', '#app_user_userProfile_region', function (e) {
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected sport value.
+            var data = {};
+            data[$(this).attr('name')] = $(this).val();
+            //var data = new FormData($form);
+            // Submit data via AJAX to the form's action path.
+            console.log('URL: ' + $form.attr('action'));
+            $.ajax({
+                url: $form.attr('action'),
+                type: $form.attr('method'),
+                data: data,
+                success: function (html) {
+                    // Replace current position field ...
+                    $('#app_user_userProfile_town').replaceWith(
+                            // ... with the returned one from the AJAX response.
+                            $(html).find('#app_user_userProfile_town')
+                            );
+                    // Position field now displays the appropriate positions.
+
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-9" style="padding-top: 15px">
+            <div class="main-slide slide-opt-4">
+                <div class="owl-carousel nav-style5" data-nav="true" data-autoplay="true" data-dots="true" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"600":{"items":1},"1000":{"items":1}}'>
+                    <div class="item-slide item-slide-1">                        
+                       <!--<div class="slide-desc slide-desc-1">
+                            <div class="p-primary">Great Range of <span>Exclusive Furniture</span> Chair.</div>
+                            <p>Exclusive furniture packages to suit every need.start freom as little as <span class="color-red">$300.00</span></p>
+                            <a href="" class="btn-shop-now">Shop Now</a>                            
+                        </div> -->                      
+                    </div>
+                    <div class="item-slide item-slide-2">
+                        <!--<div class="slide-desc slide-desc-2">
+                            <p class="p-second">How to work a</p>
+                            <div class="p-primary">Sectional sofa</div>
+                            <p class="p-second">into your space</p>
+                            <a href="" class="btn-shop-now">Shop Now</a>                            
+                        </div>-->
+                    </div>
+                   <div class="item-slide item-slide-3">
+                        <!--<div class="container">
+                            <div class="slide-desc slide-desc-3">
+                                <p class="p-second">Great Range</p>
+                                <div class="p-primary">Of Exclusive Furniture Packages</div>
+                                <p>Exclusive furniture packages to suit every need.</p>
+                                <a href="" class="btn-shop-now">Shop Now</a>                            
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="block-latest-roducts" >
+                <div class="block-title">Popular Rental Ads</div>
+                 {{ render_esi(controller('App\\Controller\\RentalController:renderPoularRentals'), {"default":'Loading Cart....'}) }}                                                             
+            </div>
+        </div>
+    </div>
+</div>

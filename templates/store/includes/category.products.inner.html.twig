@@ -1,0 +1,134 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 col-sm-8 float-none float-right padding-left-5">
+            <div class="main-content">
+                <br/>
+                <div class="promotion-banner style-3">
+                    <a href="" class="banner-img"><img src="{{asset('store/images/banners/plumbing-banner.png')}}" alt="banner-product"></a>
+                </div>
+                <div class="toolbar-products">
+                    <h4 class="title-product">Filter by Location</h4>
+                    <div class="toolbar-option">
+                        {{form_start(form, {action:path('category_view', {'slug':category.slug}), method:'POST'})}}
+                        <div class="toolbar-sort">
+                            {{form_widget(form.region, {'attr':{class:'chosen-select sorter-options form-control'} } )}}
+                        </div>
+                        <div class="toolbar-sort" id="towns">               
+                            {{form_widget(form.businessLocation, {'attr':{class:'chosen-select limiter-options form-control'} } )}}
+                        </div> 
+                        <div class="toolbar-per">
+                            <button class="btn btn-sm btn-primary"><i class="fa fa-filter"></i>
+                                <span>Apply</span>
+                            </button>
+                        </div>
+                        {{ form_row(form._token) }} 
+                        {{ form_end(form, {'render_rest': false}) }}
+                    </div>  
+                </div>
+                {% if  products|length > 0 %}
+                    <div class="products products-list products-grid equal-container">
+                        {% for product in products %}
+                            <div class="product-item style1 width-33 padding-0 col-md-3 col-sm-6 col-xs-6 equal-elem">
+                                <div class="product-inner">
+                                    <div class="product-thumb">
+                                        <div class="thumb-inner">
+                                            <a href="{{path('store_product_detail', {'slug':product.slug})}}"><img src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="f1" style="height: 140px; margin: auto; border-radius: 3px;"></a>
+                                        </div>
+                                        <span class="onsale">-50%</span>
+                                        <a href="{{path('store_product_detail', {'slug':product.slug})}}" class="quick-view">View Details</a>
+                                    </div>
+                                    <div class="product-innfo">
+                                        <div class="product-name"><a href="{{path('store_product_detail', {'slug':product.slug})}}">{{product.name}}</a></div>
+                                        <span class="price">
+                                            <ins>GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',')}}</ins>
+                                            <del>{{product.productData.regularPrice|number_format(2, '.',',')}}</del>
+                                        </span>
+                                        <div class="star-rating">
+                                            <i class="fa fa-map-marker"></i> <span class="review">{{product.supplier.businessLocation is not null ?  product.supplier.businessLocation ~','}} {{product.supplier.region}}</span>
+                                        </div>
+                                        <!--<div class="info-product">
+                                            <p>Weigh:  8.25 kg</p>
+                                            <p>Size:  One Size Fits All </p>
+                                            <p>Guarantee:  2 Year</p>
+                                        </div>-->
+                                        <div>
+                                            <a href="{{path('contact_supplier', {'slug':product.supplier.slug, 'product_slug':product.slug})}}" class="btn-add-to-cart"><i class="fa fa-envelope"></i> <i class="fa fa-phone"></i> Supplier</a>
+                                            <a href="" class="compare"><i class="fa fa-retweet"></i> Compare</a>
+                                            <!--<a href="" class="wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i>Wishlist</a>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="pagination">
+                        {{ knp_pagination_render(products) }}
+                        <span class="show-resuilt">Showing <span>{{ products.getPaginationData.firstItemNumber }} - {{ products.getPaginationData.lastItemNumber }}</span> of <span>{{products.totalItemCount}}</span> results</span>
+                    </div>
+                {% else %} 
+                    <br/><br/>
+                    <div class="alert alert-danger" role="alert">
+                        <h4 style="text-align: center">There are no products listed under <strong> {{category}} </strong>  in or around  <span class="text-primary"> {{town is not null or region is not null ? ' - <i class=" fa fa-map-marker"></i>'}} {{town is not null ? town~','}} {{region is not null ? region ~ ' region'}}</span></h4>
+                    </div>
+                    <p>
+                        If you operate a construction & building materials shop you can reach thousands of construction sectors professionals, artisans 
+                        property owners among others. Go on <a href="#" style="color:blue">List your Store</a> on <a href="#" style="color:blue">BuildersHub</a>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-4">
+            <div class="col-sidebar">
+                <div class="filter-options">
+                    <div class="block-title">Filter by</div>
+                    <div class="block-content">
+                        <div class="filter-options-item filter-categori">
+                            <div class="filter-options-title">Sub Categories <a href="#" class="btn btn-sm btn-success pull-right"><i class="fa fa-filter"></i> Apply</a></div>
+                            <div class="filter-options-content" style="max-height: 500px; overflow-y: scroll; overflow-x: hidden">
+                                <ul>
+                                    {% for cat in category.subCategories %}
+                                        <li><label class="inline" ><input type="checkbox"><span class="input"></span>{{cat.name}}</label></li>
+                                            {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="filter-options-item filter-brand">
+                            <div class="filter-options-title">Brand</div>
+                            <div class="filter-options-content">
+                                <!-- <ul>
+                                     <li><label class="inline" ><input type="checkbox"><span class="input"></span>Cameras</label></li>
+                                     <li><label class="inline" ><input type="checkbox"><span class="input"></span>Smartphone</label></li>
+                                     <li><label class="inline" ><input type="checkbox"><span class="input"></span>Printer & Ink</label></li>
+                                     <li><label class="inline" ><input type="checkbox"><span class="input"></span>Game & Consoles</label></li>
+                                     <li><label class="inline" ><input type="checkbox"><span class="input"></span>Sound & Speaker</label></li>
+                                 </ul>-->
+                            </div>
+                        </div>
+                        <div class="filter-options-item filter-price">
+                            <div class="filter-options-title">Price Range</div>
+                            <div class="filter-options-content">
+                                <div class="price_slider_wrapper">
+                                    <div data-label-reasult="Price:" data-min="0" data-max="4000" data-unit="GH¢" class="slider-range-price " data-value-min="100" data-value-max="2000">
+                                        <span class="text-right">Filter</span>
+                                    </div>
+                                    <div class="price_slider_amount">
+                                        <div class="price_label">
+                                            Price: <span class="from">GH¢100</span>-<span class="to">GH¢2000</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+                <div class="block-banner-sidebar">
+                    <!--<a href=""><img src="{{asset('store/images/product/banner-sidebar.jpg')}}" alt="banner-sidebar"></a>-->
+                </div>
+                <div class="block-latest-roducts">
+                    <div class="block-title">Popular Products</div>
+                    {% include 'store/includes/index.popular.products.html.twig' %}
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

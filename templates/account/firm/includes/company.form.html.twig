@@ -1,0 +1,133 @@
+<div class="smart-wrap">
+    <div class="smart-forms smart-container transparent wrap-full">
+        {% if form is defined and form is not null %}                        
+            <div class="form-body smart-steps steps-progress steps-theme-primary">
+                {% if company is defined %}
+                    {{ form_start(form, {'method': 'post', 'action': path('edit_company', {'slug':company.slug}), 'attr': {class: 'firmForm', id:'smart-form'} }) }}                 
+                {% else %}
+                    {{ form_start(form, {'method': 'post', 'action': path('account_settings', {'tab': 'firm-details', 'sub':'add-new','type':type}), 'attr': {class: 'newFirmForm', id:'smart-form'} }) }}                           
+                {% endif  %}
+                <h2>Business Info</h2>
+                <fieldset>
+                    <div class="frm-row">
+                        <div class="section colm colm6">
+                            <label class="field prepend-icon">
+                                {{form_widget(form.name, {'attr': {class:"gui-input", placeholder:"Enter company name"} } )}}
+                                <span class="field-icon"><i class="fa fa-pencil"></i></span>                                         
+                            </label>
+                        </div><!-- end section -->
+                        <div class="section colm colm6">
+                            <label class="select-box-2 prepend-icon">
+                                {{form_widget(form.companySize, {'attr': {placeholder:"Select company size" } } )}} 
+                                <span class="field-icon"><i class="fa fa-arrow-up"></i></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="frm-row">
+                        <div class="section colm colm6">
+                            <label class="select-box-2 prepend-icon">
+                                {{form_widget(form.region, {'attr': {placeholder:"Select your region" } } )}} 
+                                <span class="field-icon"><i class="fa fa-map-marker"></i></span>
+                            </label>
+                        </div>
+                        <div class="section colm colm6">
+                            <label class="select-box-2 prepend-icon">
+                                {{form_widget(form.businessLocation, {'attr': {placeholder:"Select your town" } } )}}   
+                                <span class="field-icon"><i class="fa fa-map-marker"></i></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="frm-row">
+                        <div class="section colm colm6">
+                            <label class="field prepend-icon">
+                                {{form_widget(form.subLocation, {'attr': {class:"gui-input", placeholder:"Enter company sub-location"} } )}}
+                                <span class="field-icon"><i class="fa fa-map-marker"></i></span>                                         
+                            </label>
+                        </div><!-- end section --> 
+                        <div class="section colm colm6">
+                            <label class="field prepend-icon">
+                                {{form_widget(form.imageFile, {'attr': {class:"gui-input", placeholder:"Enter company name"} } )}}
+                                <span class="field-icon"><i class="fa fa-image"></i></span>                                         
+                            </label>
+                        </div><!-- end section -->    
+                    </div>
+                    <div class="frm-row">
+                        <div class="section colm colm12">
+                            <label class="field prepend-icon">
+                                {{form_widget(form.businessSummary, {'attr': {class:"gui-textarea", placeholder:"Enter business summary"} } )}}
+                                <span class="field-icon"><i class="fa fa-file"></i></span>      
+                                <span class="input-hint"> <strong>Hint:</strong> Give a brief description your area of work: 180 characters</span>   
+                            </label>
+                        </div><!-- end section -->
+                        <div class="section colm colm12">
+                            <label class="field prepend-icon">
+                                {{form_widget(form.profile, {'attr': {class:"gui-textarea", placeholder:"Give full profile of your company" } } )}}
+                                <span class="field-icon"><i class="fa fa-file-o"></i></span>
+                                <span class="input-hint"> <strong>Hint:</strong> Give more details about the kind of work you do and how you can be of help to the public</span>   
+                            </label>
+                        </div><!-- end section -->
+                    </div>
+                </fieldset>
+                <h2>Contact Info</h2>
+                <fieldset>
+                    <div class="frm-row">
+                        <div class="section colm colm6">
+                            <label class="field prepend-icon">
+                                {{form_widget(form.telephone1, {'attr': {class:"gui-input", placeholder:"Enter telephone"} } )}}
+                                <span class="field-icon"><i class="fa fa-phone-square"></i></span>                                         
+                            </label>
+                        </div><!-- end section --> 
+                        <div class="section colm colm6">
+                            <label class="field prepend-icon">
+                                {{form_widget(form.mobile1, {'attr': {class:"gui-input", placeholder:"Enter mobile number"} } )}}
+                                <span class="field-icon"><i class="fa fa-mobile"></i></span>                                         
+                            </label>
+                        </div><!-- end section -->
+                    </div>
+                    <div class="frm-row">
+                        <div class="section colm colm6">
+                            <label class="field prepend-icon">
+                                {{form_widget(form.telephone2, {'attr': {class:"gui-input", placeholder:"Enter alternate telephone"} } )}}
+                                <span class="field-icon"><i class="fa fa-phone"></i></span>                                         
+                            </label>
+                        </div><!-- end section -->
+                        <div class="section colm colm6">
+                            <label class="field prepend-icon">
+                                {{form_widget(form.mobile2, {'attr': {class:"gui-input", placeholder:"Enter alternate mobile number"} } )}}
+                                <span class="field-icon"><i class="fa fa-mobile-phone"></i></span>                                         
+                            </label>
+                        </div><!-- end section -->
+                    </div>
+                    <div class="frm-row">
+                        <div class="section colm colm6">
+                            <label class="field prepend-icon">
+                                {{form_widget(form.email, {'attr': {class:"gui-input", placeholder:"Enter company email"} } )}}
+                                <span class="field-icon"><i class="fa fa-envelope"></i></span>                                         
+                            </label>
+                        </div><!-- end section -->
+                        <div class="section colm colm6">
+                            <label class="field prepend-icon">
+                                {{form_widget(form.address, {'attr': {class:"gui-textarea", placeholder:"Enter company address"} } )}}
+                                <span class="field-icon"><i class="fa fa-map-marker"></i></span>                                         
+                            </label>
+                        </div><!-- end section -->
+                    </div>
+                </fieldset>
+                <h2>Summary</h2>
+                <fieldset>
+                    <div class="section">
+                        <div class="notification alert-info">
+                            <p>Plese cross check your information before submitting this company</p>
+                        </div>
+                    </div><!-- end section -->
+                   <!-- <div class="form-footer pull-right">
+                        <button type="submit"  class="button btn-primary">Save Company</button>
+                    </div> end .form-footer section -->
+                </fieldset>
+                {{ form_row(form._token) }} 
+                {{ form_end(form, {'render_rest': false}) }}  
+            </div>
+        {% endif %}
+    </div>
+</div>
+

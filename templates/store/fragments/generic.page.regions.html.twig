@@ -1,0 +1,18 @@
+<div id="box-vertical-megamenus" class="box-vertical-megamenus style2"> 
+    <h4 class="title active"  style="background-color: #01bf9d;">
+        <span class="btn-open-mobile home-page">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <span class="title-menu">All regions</span>   
+    </h4> 
+    <div class="vertical-menu-content">
+        <span class="btn-close hidden-md"><i class="fa fa-times" aria-hidden="true"></i></span>
+        <ul class="vertical-menu-list">                
+            {% for reg  in regions %}
+                <li><a href="{{path('generic_page_view',{'region':reg.slug, 'page':page,'categoryString':categoryString})}}" style="color: {{region==reg?'#01bf9d'}}">{{reg.name}} Region</a></li>
+                {% endfor %}
+        </ul>
+    </div>
+</div>

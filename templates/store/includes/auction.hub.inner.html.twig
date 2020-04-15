@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="row">        
+        <div class="col-md-9 col-sm-8 float-none float-right padding-left-5">
+             {% include 'store/includes/page.filter.heading.html.twig' %}
+            <div class="main-content">               
+                <div class="promotion-banner style-3">
+                    <a href="" class="banner-img"><img src="{{asset('store/images/product/banner-product.jpg')}}" alt="banner-product"></a>
+                </div>
+                <div class="toolbar-products">
+                    {% include 'store/includes/location.filter.form.html.twig' %}
+                </div>
+                {% if  products is defined and products|length > 0 %}
+                    <div class="products products-list products-grid equal-container">
+                        {% for product in products %}
+                            <div class="product-item style1 width-33 padding-0 col-md-3 col-sm-6 col-xs-6 equal-elem">
+                                <div class="product-inner">
+                                    <div class="product-thumb">
+                                        <div class="thumb-inner">
+                                            <a href="{{path('store_product_detail', {'slug':product.slug})}}"><img src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="f1" style="height: 140px; margin: auto; border-radius: 3px;"></a>
+                                        </div>
+                                        <span class="onsale">-50%</span>
+                                        <a href="{{path('store_product_detail', {'slug':product.slug})}}" class="quick-view">View Details</a>
+                                    </div>
+                                    <div class="product-innfo">
+                                        <div class="product-name"><a href="{{path('store_product_detail', {'slug':product.slug})}}">{{product.name}}</a></div>
+                                        <span class="price">
+                                            <ins>GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',')}}</ins>
+                                            <del>$259.00</del>
+                                        </span>
+                                        <div class="star-rating">
+                                            <i class="fa fa-map-marker"></i> <span class="review">{{product.supplier.businessLocation is not null ?  product.supplier.businessLocation ~','}} {{product.supplier.region}}</span>
+                                        </div>
+                                        <!--<div class="info-product">
+                                            <p>Weigh:  8.25 kg</p>
+                                            <p>Size:  One Size Fits All </p>
+                                            <p>Guarantee:  2 Year</p>
+                                        </div>-->
+                                        <div>
+                                            <a href="{{path('contact_supplier', {'slug':product.supplier.slug, 'product_slug':product.slug})}}" class="btn-add-to-cart"><i class="fa fa-envelope"></i> <i class="fa fa-phone"></i> Supplier</a>
+                                            <a href="" class="compare"><i class="fa fa-retweet"></i> Compare</a>
+                                            <!--<a href="" class="wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i>Wishlist</a>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="pagination">
+                        {{ knp_pagination_render(products) }}
+                        <span class="show-resuilt">Showing <span>{{ products.getPaginationData.firstItemNumber }} - {{ products.getPaginationData.lastItemNumber }}</span> of <span>{{products.totalItemCount}}</span> results</span>
+                    </div>
+                {% else %} 
+                    <br/><br/>
+                    <div class="alert alert-danger" role="alert">
+                        <h4 style="text-align: center">There are no products listed under <strong> {{category}} </strong>  in or around  <span class="text-primary"> {{town is not null or region is not null ? ' <i class=" fa fa-map-marker"></i>'}} {{town is not null ? town~','}} {{region is not null ? region ~ ' region'}}</span></h4>
+                    </div>
+                    <p>
+                        If you operate a construction & building materials shop you can reach thousands of construction sectors professionals, artisans 
+                        property owners among others. Go on <a href="#" style="color:blue">List your Store</a> on <a href="#" style="color:blue">BuildersHub</a>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-4 site-main-sidebar">
+            <div class="col-sidebar">
+                {{ render(controller('App\\Controller\\StoreUtilityController:categoriesSidebar', {'category':category, 'region':region, 'town':town, 'block':'genericPageRegionsSidebarBlock', 'page':page, 'categoryString':categoryString} ), {"default":'Loading Cart....'}) }}                                                                                                  
+                <div class="block-banner-sidebar">
+                    <a href=""><img src="{{asset('store/images/banner3.jpg')}}" alt="banner-sidebar"></a>
+                </div>
+                <div class="block-latest-roducts">
+                    <div class="block-title">Popular Products</div>
+                    {# include 'store/includes/index.popular.products.html.twig' #}
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+<div class="block-recent-view">
+    <div class="container">
+        <div class="title-of-section">You may be also interested</div>
+       {{ render_esi(controller('App\\Controller\\StoreUtilityController:recommendedProducts', {'categoryId':category.id, 'regionId':(region is not null ? region.id : null), 'townId':(town is not null ?  town.id : null) } ), {"default":'Loading Cart....'}) }}                                                                                           
+    </div>
+</div>
+
+

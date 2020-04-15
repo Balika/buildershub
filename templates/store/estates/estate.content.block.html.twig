@@ -1,0 +1,260 @@
+{% block estateMainMenu %}  
+    <h4 class="title active">
+        <span class="btn-open-mobile home-page">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <span class="title-menu">Estates & Homes</span>   
+    </h4>
+
+    <div class="header-menu header-menu-resize">
+        <ul class="header-nav krystal-nav">
+            <li class="btn-close hidden-md"><i class="fa fa-times" aria-hidden="true"></i></li>
+            <li class="menu-item">
+                <a href="{{path('estates_index')}}" ><i class="fa fa-home"></i> Home</a>
+                <span class="toggle-submenu hidden-md"></span>                
+            </li>
+            <li class="menu-item" >
+                <a href="{{path('list_estates', {'page':'for-sale'})}}"><i class="fa fa-money"></i> For Sale</a>
+                <span class="toggle-submenu hidden-md"></span>                
+            </li>
+            <li class="menu-item">
+                <a href="{{path('list_estates', {'page':'for-rent'})}}" ><i class="fa fa-retweet"></i> For Rent</a>
+                <span class="toggle-submenu hidden-md"></span>                
+            </li>
+
+            <li class="menu-item-has-children arrow item-megamenu item-megamenu-sub">
+                <a href="#" class="dropdown-toggle">All Properties</a>
+                <span class="toggle-submenu hidden-md"></span>
+                <div class="submenu parent-megamenu megamenu">
+                    <div class="row">
+                        <div class="submenu-banner submenu-banner-menu-3">
+                            <div class="col-md-4">
+                                <div class="dropdown-menu-info">
+                                    <h6 class="dropdown-menu-title">Fashion Clothing</h6>
+                                    <div class="dropdown-menu-content">
+                                        <ul class="menu">
+                                            <li class="menu-item"><a href="#">Leather Jackets</a></li>
+                                            <li class="menu-item"><a href="#">Clothings</a></li>
+                                            <li class="menu-item"><a href="#">shorts</a></li>
+                                            <li class="menu-item"><a href="#">Swimwear</a></li>
+                                            <li class="menu-item"><a href="#">Activewear</a></li>
+                                            <li class="menu-item"><a href="#">Jacket & Coats</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="dropdown-menu-info">
+                                    <h6 class="dropdown-menu-title">Handbags</h6>
+                                    <div class="dropdown-menu-content">
+                                        <ul class="menu">
+                                            <li class="menu-item"><a href="#">Backpacks</a></li>
+                                            <li class="menu-item"><a href="#">Travel</a></li>
+                                            <li class="menu-item"><a href="#">Clutches</a></li>
+                                            <li class="menu-item"><a href="#">Crossbody</a></li>
+                                            <li class="menu-item"><a href="#">Bucket</a></li>
+                                            <li class="menu-item"><a href="#">Wallets</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="dropdown-menu-info">
+                                    <h6 class="dropdown-menu-title">Shoes</h6>
+                                    <div class="dropdown-menu-content">
+                                        <ul class="menu">
+                                            <li class="menu-item"><a href="#">Shoes Sport</a></li>
+                                            <li class="menu-item"><a href="#">Sneakers</a></li>
+                                            <li class="menu-item"><a href="#">Sandals</a></li>
+                                            <li class="menu-item"><a href="#">Booties</a></li>
+                                            <li class="menu-item"><a href="#">Heels</a></li>
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#"><img src="images/home2/menu-banner-3.jpg" alt="banner3"></a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#"><img src="images/home2/menu-banner-4.jpg" alt="banner3"></a>
+                        </div>
+                    </div>
+                </div>
+            </li>            
+            <li>
+                <a href="{{path('list_estates', {'page':'best-property-deals'})}}" class="dropdown-toggle">Best Deals</a>
+                <span class="toggle-submenu hidden-md"></span>
+            </li>
+            <li>
+                <a href="contact-us.html" class="dropdown-toggle">Contact Us</a>
+                <span class="toggle-submenu hidden-md"></span>
+            </li>
+
+        </ul>
+    </div>
+    <span data-action="toggle-nav" class="menu-on-mobile hidden-md">
+        <span class="btn-open-mobile home-page">
+            <span></span>
+            <span></span>
+            <span></span>
+        </span>
+        <span class="title-menu-mobile">Main menu</span> 
+    </span>
+{% endblock %}
+{% block midHeader %}
+    <div class="block-content">
+        <div class="categori-search  ">
+            <select data-placeholder="All Categories" class="chosen-select categori-search-option">
+                <option value="#">Search By</option>
+                <optgroup label="- Property Type">
+                    <option value="apartment">Apartment</option>
+                    <option value="house">House</option>
+                    <option value="commercial">Commercial Property</option>
+                    <option value="villa">Villa</option>
+                </optgroup>  
+                <optgroup label="- Purpose">
+                    <option value="sale">For Sale</option>
+                    <option value="rent">For Rent</option>                   
+                </optgroup> 
+            </select>
+        </div>
+        <div class="form-search">
+            <form>
+                <div class="box-group">
+                    <input type="text" class="form-control" placeholder="Searh entire store here...">
+                    <button class="btn btn-search" type="button"><span>search</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block propertyFilterForm %}
+    <div class="smart-forms smart-container transparent wrap-full"  style="border: 1px solid green;  border-radius: 4px; padding: 0">                                
+        <div class="form-header">
+                    <h4> <i class="fa fa-search"></i>  <strong>Properties Quick Search</strong> <small style="font-size: 0.5em ">
+                <a id="toggleSearchForm" href="#" class="text-danger pull-right"><strong><i class="fa fa-angle-down" ></i> Collapse Search Form</strong></a>
+                </small> 
+                
+            </h4>
+        </div><!-- end .form-header section -->
+        {{form_start(filterForm, {method:'POST', action:path('list_estates', {'page':page}), 'attr':{id:"searchForm", class:"smart-form"} } )}}
+        <div class="form-body" >                                                    
+            <div class="row">
+                <div class="section col-md-3">
+                    <label  class="field-label">Select Region</label>
+                    <label class="prepend-icon">                                                   
+                        {{form_widget(filterForm.region, {'attr': {class:'form-control', placeholder:"Select Region", style:"height:40px" } } )}}                  
+                        <span class="field-icon"><i class="fa fa-map-marker"></i></span>
+                    </label>
+                </div>
+                <div class="section col-md-3">
+                    <label  class="field-label">Select Town</label>
+                    <label class="prepend-icon">                                                   
+                        {{form_widget(filterForm.town, {'attr': {class:'form-control', placeholder:"Select Town", style:"height:40px" } } )}}                
+                        <span class="field-icon"><i class="fa fa-map-marker"></i></span>
+                    </label>
+                </div>
+                <div class="section col-md-3">
+                    <label  class="field-label">Neigbourhood Type</label>
+                    <label class="prepend-icon">                                                   
+                        {{form_widget(filterForm.neighbourhood, {'attr': {class:'form-control', placeholder:"Select Neighbourhood", style:"height:40px" } } )}}                
+                        <span class="field-icon"><i class="fa fa-map-pin"></i></span>
+                    </label>
+                </div>
+                <div class="section col-md-3">
+                    <label  class="field-label">Parking Lots</label>
+                    <label class="prepend-icon">                                                   
+                        {{form_widget(filterForm.parkingLots, {'attr': {class:'form-control', placeholder:"Specifiy Parking Lots", style:"height:40px" } } )}}                  
+                        <span class="field-icon"><i class="fa fa-car"></i></span>
+                    </label>
+                </div>
+                <div class="section col-md-3">
+                    <label  class="field-label">Bedrooms</label>
+                    <label class="prepend-icon">                                                   
+                        {{form_widget(filterForm.bedrooms, {'attr': {class:'form-control', placeholder:"Specify number of bedrooms", style:"height:40px" } } )}}                
+                        <span class="field-icon"><i class="fa fa-bed"></i></span>
+                    </label>
+                </div>
+
+                <div class="section col-md-3">
+                    <label  class="field-label">Bathrooms</label>
+                    <label class="prepend-icon">                                                   
+                        {{form_widget(filterForm.bathrooms, {'attr': {class:'form-control',  placeholder:"Specify number of bathrooms", style:"height:40px" } } )}}                                                         
+                        <span class="field-icon"><i class="fa fa-bath"></i></span>
+                    </label>
+                </div>
+                <div class="section col-md-3">
+                    <label  class="field-label">Type</label>
+                    <label class="prepend-icon">                                                   
+                        {{form_widget(filterForm.buildingType, {'attr': {class:'form-control', placeholder:"Select proprty type", style:"height:40px" } } )}}                
+                        <span class="field-icon"><i class="fa fa-home"></i></span>
+                    </label>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="section col-md-3">
+                    <label  class="field-label">Min Price</label>
+                    <label class="prepend-icon">                                                   
+                        {{form_widget(filterForm.minPrice, {'attr': {class:'gui-input', placeholder:"e.g. 10,000", style:"height:40px" } } )}}                                       
+                        <span class="field-icon"><i class="fa fa-money"></i></span>
+                    </label>
+                </div>
+                <div class="section col-md-3">
+                    <label  class="field-label">Max Price</label>
+                    <label class="prepend-icon">                                                   
+                        {{form_widget(filterForm.maxPrice, {'attr': {class:'gui-input form-control', placeholder:"e.g 40,000", style:"height:40px" } } )}}                                       
+                        <span class="field-icon"><i class="fa fa-money"></i></span>
+
+                    </label>
+                </div>
+                <div class="col-md-3">
+                    <label  class="field-label">Total Area</label>
+                    <label class="prepend-icon">                                                   
+                        {{form_widget(filterForm.area, {'attr': {class:'gui-input', placeholder:"Specify Total Area", style:"height:40px" } } )}}                                       
+                        <span class="field-icon"><i class="fa fa-area-chart"></i></span>
+
+                    </label>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-action btn-primary btn-lg pull-right" type="submit"><i class="fa fa-search"></i> Search Properties</button>
+                </div>
+            </div>
+            {{ form_row(filterForm._token) }} 
+        </div>
+        {{ form_end(filterForm, {'render_rest': false}) }}
+    </div>
+{% endblock %}
+{% block mostViewedProperties %}
+    {% for property in mostViewed %}
+        <div class="product-item style1">
+            <div class="product-inner equal-elem">
+                <div class="product-thumb">
+                    <div class="thumb-inner">
+                        <a href="{{path('property_details', {'slug':property.slug})}}"><img src="{{asset(property.featureImage|imagine_filter("hub_thumbnail"))}}" alt="r1" style="height: 140px; margin: auto; border-radius: 3px;"></a>
+                    </div>
+                    <span class="{{property.listingType== "For Rent" ? 'onnew':'onsale'}}">{{property.listingType}}</span>
+                    <a href="{{path('property_details', {'slug':property.slug})}}" class="quick-view">Quick View</a>
+                </div>
+                <div class="product-innfo">
+                    <div class="product-name"><a href="{{path('property_details', {'slug':property.slug})}}">{{property.name}}</a></div>
+                    <span class="price">
+                        <ins>{{property.currency}}{{property.salePrice is not null ? property.salePrice|number_format(2, '.',',') : property.regularPrice|number_format(2, '.',',')}}</ins>
+                        <del></del>
+                    </span>
+                    <div class="star-rating">
+                        <i class="fa fa-map-marker"></i> <span class="review">{{property.town is not null ?  property.town ~','}} {{property.region ~' Region'}}</span>                         
+                    </div>
+                    <div class="group-btn-hover">
+                        <a href="" class="add-to-cart"><i class="fa fa-phone" aria-hidden="true"></i> Contact Realtor</a>                                                                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}             
+{% endblock %}
+

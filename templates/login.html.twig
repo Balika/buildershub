@@ -1,0 +1,93 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+
+{% endblock %}
+{% block mainNav %}
+{% endblock %}
+{% block  content %}
+    <div class="row" style="background-image: url({{asset('images/design/login-bg.jpg')}}); padding: 10px"> 
+        <div class="col-md-6" >
+           
+        </div>
+        <div class="col-md-5">
+           <!-- <h1 class="font-weight-8 text-center"><a href="{{path('home')}}"><span>Builders</span><span class="text-success">Hub</span></a> Login</h1>-->
+            <div class="smart-wrap">
+                <div class="smart-forms smart-container transparent wrap-3">
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="width: 80%">
+                            <div class="modal-body">
+                                <div class="well">
+                                    <div class="col-xs-12">
+                                        {% if error is defined and error|length > 0 %}
+                                            <div class="alert alert-danger">
+                                                <h6><i class="icon fa fa-ban"></i> Login Failure</h6>                   
+                                                <small>{{error.message}}</small>
+                                            </div>
+                                        {% endif %}
+                                        {% set timeOut = app.request.get('timeOut') %}
+                                        {% if timeOut|length>0 %}
+                                            <div class="alert alert-danger">
+                                                <i class="fa fa-clock-o pull-right"></i> 
+                                                <strong>{{ timeOut }}</strong>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <form id="loginForm" action="{{path('security_login_form')}}" method="Post">
+                                        <div class="form-body">                                               
+                                            <div class="spacer-b20">
+                                                <div><span>New to <a href="{{path('home')}}">BuildersHub?</a>  <a href="{{redirect is not null ? path(redirect, {'allowRedirect':true}) : path('signup')}}" class="text-blue">Create Account</a> </span></div><!-- .tagline -->
+                                            </div>
+                                            <div class="section">
+                                                <label><strong>Username</strong></label>
+                                                <label class="field prepend-icon">
+                                                    <input type="text" class="gui-input" id="username" name="_username" placeholder="Enter your email" required value="{{last_username}}">
+                                                    <span class="field-icon"><i class="fa fa-user"></i></span>  
+                                                </label>
+                                            </div><!-- end section -->                    
+                                            <div class="section">
+                                                <label><strong>Password</strong> </label>
+                                                <a href="{{path('forgotten_password')}}" class="text-info pull-right">Forgotten Password</a>
+                                                <label class="field prepend-icon">
+                                                    <input type="password" id="password" name="_password" class="gui-input" placeholder="Enter your password" required />
+                                                    <span class="field-icon"><i class="fa fa-lock"></i></span>  
+                                                </label>
+                                            </div><!-- end section -->  
+                                            <div class="section">
+                                                <label class="switch block">
+                                                    <input type="checkbox" name="_remember" id="remember" checked>
+                                                    <span class="switch-label" for="remember" data-on="YES" data-off="NO"></span> 
+                                                    <span> Keep me logged in</span>
+                                                </label>
+                                            </div><!-- end section -->  
+                                            <div>
+                                                <button type="submit" class="button btn-primary pull-right">Sign in</button>
+                                            </div><!-- end .form-footer section -->
+                                        </div><!-- end .form-body section -->
+
+                                        <div class="form-footer">
+                                            <input type="hidden" name="_csrf_token" value="{{csrf_token('authenticate')}}"/>
+                                            <input type="hidden" name="redirect" value="{{redirect}}"/>                                                
+                                        </div>
+                                        <div class="spacer-b20">
+                                            <div class="tagline"><span>Or With </span></div><!-- .tagline -->
+                                        </div>                 
+                                        <div class="section">
+                                            <a href="#" class="button btn-social facebook block"> <span><i class="fa fa-facebook"></i></span> Facebook </a>
+                                           <!-- <a href="#" class="button btn-social twitter span-left">  <span><i class="fa fa-twitter"></i></span> Twitter </a>
+                                            <a href="#" class="button btn-social googleplus span-left"> <span><i class="fa fa-google-plus"></i></span> Google+ </a>-->
+                                        </div><!-- end section -->
+                                    </form>
+                                </div>
+                            </div><!-- end .smart-forms section -->
+                        </div><!-- end .smart-wrap section -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block foorter %}
+{% endblock %}  
+

@@ -1,0 +1,139 @@
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+
+    <div class="col-md-12 col-sm-12 col-xs-12 slide-controls-primary">
+        <!-- Accordion begin -->
+        <div class="accordion_example"> 
+            <!-- Section 1 -->            
+            <div class="accordion_in style3 acc_active">
+                <div class="acc_head">Our Services</div>
+                <div class="acc_content no-lpadd">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button id="add-service-trigger" class="btn btn-tiny border border-blue xround-1 pull-right" data-element="#service-overlay-form" type="button"><span class="fa fa-plus"> Add Service</span></button>                
+                        </div>
+                    </div>
+                    <div class="col-divider-margin-1"></div>
+                    <div class=" divider-line solid light"></div>  
+                    <div class="col-divider-margin-1"></div>  
+                    <div class="row">
+                        {% for service in company.serviceOfferings|slice(0, 4) %}
+                            <div class="col-md-6 col-sm-6col-xs-12">
+                                <div class="col-md-8 col-sm-8 nopadding">
+                                    <h6 class="font-weight-6 margin-bottom">{{service.title}}</h6>
+                                    <p class="option block spacer-t10">
+                                        {{service.summary|length > 80 ? service.summary|slice(0, 80)  ~'...' : service.summary}}
+                                        {% if  service.summary|length> 80 %} <b class="tooltip"><em> This is a checkbox tooltip </em></b>  {% endif %}    
+                                    </p>
+                                </div>
+                            </div><!-- end col -->
+                        {% endfor %}
+                        {% if company.serviceOfferings|length > 4 %} 
+                            {% include 'account/firm/includes/all.services.html.twig' %}
+                            <div class="col-md-12">
+                                <div id="all-services-grid-container">
+                                    <div class="cbp-item"> 
+                                        <a href="#allServices" class="text-success cbp-singlePage pull-right">View All</a>  
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="overlay-content smartforms-modal-body" id="service-overlay-form" style="display: none;">
+                        <h3 class="font-weight-5 text-center">Add New Service Offering</h3>                    
+                        <div class="smart-wrap">
+                            <div class="smart-forms smart-container transparent wrap-full" id="serviceOfferingHolder">                           
+                                {% include 'account/firm/includes/company.service.form.html.twig' %}                           
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">                          
+                <div class="smart-wrap">
+                    <div class="smart-forms smart-container transparent wrap-0" id='companyInfoPanel'>
+                        {{ form_start(form, {'method': 'post', 'action': path('view_company', {'slug':company.slug}), 'attr': {class: 'firmForm', id:'firmForm'} }) }}                                                     
+                        <div class="accordion_in style3">
+                            <div class="acc_head">What we do</div>
+                            <div class="acc_content no-lpadd" id="summaryAccordian">
+                                <p>{{company.businessSummary}} <small><a class="text-danger" href="#" id='editSummary'> Edit <i class="fa fa-pencil"></i></a></small></p>
+                                <div class="frm-row hide" id='summaryPanel'>
+                                    <div class="section">
+                                        <label>Business Summary</label>
+                                        <label class="field prepend-icon">
+                                            {{form_widget(form.businessSummary, {'attr': {class:"gui-textarea", placeholder:"Describe briefly what you do"} } )}}
+                                            <span class="field-icon"><i class="fa fa-bullseye"></i></span> 
+                                            <span class="input-hint"> <strong>Hint:</strong> Summarize exactly what you do so people can easily connect with your brand</span>   
+                                        </label>
+                                        <a class="btn btn-tiny border border-red xround-1" href="#">Cancel</a>                                           
+                                        {{ form_widget(form.summarySubBtn, { 'label': 'Save' }) }} 
+                                    </div><!-- end section -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section 2 -->
+                        <div class="accordion_in style3 ">
+                            <div class="acc_head">Our History</div>
+                            <div class="acc_content no-lpadd" id="historyAccordion">
+                                <p>{{company.history}} <small><a class="text-danger" href="#" id='editHistory'> Edit <i class="fa fa-pencil"></i></a></small></p>
+                                <div class="frm-row hide" id='historyPanel'>
+                                    <div class="section">
+                                        <label>Brief History</label>
+                                        <label class="field prepend-icon">
+                                            {{form_widget(form.history, {'attr': {class:"gui-textarea", placeholder:"Type brief history of your firm"} } )}}
+                                            <span class="field-icon"><i class="fa fa-file-text-o"></i></span> 
+                                            <span class="input-hint"> <strong>Hint:</strong> Tell your story! Let others know how you started and be part of your journey</span>   
+                                        </label>
+                                        <a class="btn btn-tiny border border-red xround-1" href="#">Cancel</a> 
+                                        {{ form_widget(form.historySubBtn, { 'label': 'Save' }) }}
+                                    </div><!-- end section -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Section 3 -->
+                        <div class="accordion_in style3">
+                            <div class="acc_head">Our Vision</div>
+                            <div class="acc_content no-lpadd" id="visionAccordian">
+                                <p>{{company.vision}} <small><a class="text-danger" href="#" id='editVision'> Edit <i class="fa fa-pencil"></i></a></small></p>
+                                <div class="frm-row hide" id='visionPanel'>
+                                    <div class="section">
+                                        <label>Firm's Vision</label>
+                                        <label class="field prepend-icon">
+                                            {{form_widget(form.vision, {'attr': {class:"gui-textarea", placeholder:"Type your firm's vision"} } )}}
+                                            <span class="field-icon"><i class="fa fa-file-text-o"></i></span> 
+                                            <span class="input-hint"> <strong>Hint:</strong> Let's viewers know what you stand for so they can better engage you</span>   
+                                        </label>
+                                        <a class="btn btn-tiny border border-red xround-1" href="#">Cancel</a> 
+                                        {{ form_widget(form.visionSubBtn, { 'label': 'Save' }) }}
+                                    </div><!-- end section -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion_in style3">
+                            <div class="acc_head">Our Mission</div>
+                            <div class="acc_content no-lpadd" id="missionAccordian">
+                                {% block missionAccordian %}
+                                    <p>{{company.mission}} <small><a class="text-danger" href="#" id='editMission'> Edit <i class="fa fa-pencil"></i></a></small></p>
+                                    <div class="frm-row hide" id='missionPanel'>
+                                        <div class="section">
+                                            <label>Firm's Mission</label>
+                                            <label class="field prepend-icon">
+                                                {{form_widget(form.mission, {'attr': {class:"gui-textarea", placeholder:"Type your firm's mission"} } )}}
+                                                <span class="field-icon"><i class="fa fa-file-text-o"></i></span> 
+                                                <span class="input-hint"> <strong>Hint:</strong> What are in existence to do? Let's your mission inspire people to do business with you</span>   
+                                            </label>
+                                            <a class="btn btn-tiny border border-red xround-1" href="#">Cancel</a>  
+                                            {{ form_widget(form.missionSubBtn, { 'label': 'Save' }) }}
+                                        </div><!-- end section -->
+                                    </div>
+                                {% endblock %}
+                            </div>
+                        </div>
+                        {{ form_row(form._token) }} 
+                        {{ form_end(form, {'render_rest': false}) }}  
+                    </div>
+                </div>
+            </div>
+            <!-- Accordion end --> 
+        </div>
+    </div>
+</div>

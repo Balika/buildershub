@@ -1,0 +1,39 @@
+{% extends "store/shared/store.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link href="{{asset('js/smart-forms/smart-addons.css')}}" rel="stylesheet">
+    <link href="{{asset('css/froala_style.min.css')}}" rel="stylesheet">
+{% endblock %}
+{% block header %} 
+    {% include "store/shared/header.estate.html.twig" %}
+{% endblock %}
+{% block content %}     
+    <div class="post-item">
+         {{ render_esi(controller('App\\Controller\\EstateUtilityController::renderPropertyFilterForm', {'page':page}), {"default":'Loading Cart....'}) }} 
+    </div>
+{% endblock %}
+{% block mqrBlock %}
+{% endblock %}  
+{% block javascripts %}
+    {{parent()}}  
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.form.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/smart-form.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-custom.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-combo.min.js')}}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            // $("#quotation_request_unit").combobox();
+        });
+    </script>
+
+{% endblock %}
+{% block footer %}
+    <!-- FOOTER -->
+    {% include "store/shared/footer.premium.html.twig" %}
+{% endblock %}
+
+

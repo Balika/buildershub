@@ -1,0 +1,121 @@
+<div class="form-body">    
+    <div class="row">
+        <div class="col-md-6">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border" style="color: #00A8FF">Business Info:</legend>
+                <div class="section">
+                    <label  class="field-label">Company Name:</label>
+                    <label class="field prepend-icon">  
+                        {{ form_widget(form.name,{ 'attr': {class: 'gui-input',placeholder: 'Enter company name' } }) }}
+                        <span class="field-icon"><i class="fa fa-book"></i></span>
+                    </label>
+                </div>
+                <div class="section">
+                    <label  class="field-label">Company Size</label>
+                    <label class="prepend-icon">                                                   
+                        {{form_widget(form.companySize, {'attr': {placeholder:"Select company size", class:"input-gui", style:"height:40px; width:100%" } } )}}                 
+                        <span class="field-icon"><i class="fa fa-list"></i></span>
+                    </label>
+                </div>
+                <div class="section">
+                    <label  class="field-label">Logo:</label>
+                    <label class="prepend-icon">
+                        {{ form_widget(form.imageFile,{ 'attr': {class: 'form-control',  placeholder: ' '} }) }}
+                        <span class="field-icon"><i class="fa fa-image"></i></span>
+                    </label>
+                </div>
+                <div class="section">
+                    <label  class="field-label">Region Located <small class="text-danger"><i>This is your primary region. You can add more regions after registration</i></small></label>
+                    <label class="prepend-icon">                                                   
+                        {{ form_widget(form.region,{ 'attr': {class: 'form-control',  placeholder:"Select region", style:"height:40px; width:100%" } }) }}
+                        <span class="field-icon"><i class="fa fa-map-marker"></i></span>
+                    </label>
+                </div>
+                <div class="section">
+                    <label  class="field-label">Town Located <small class="text-danger"><i>You can add more locations or company branches after registration</i></small></label>
+                    <label class="prepend-icon">                                                   
+                        {{ form_widget(form.businessLocation,{ 'attr': {class: 'form-control',  placeholder:"Select region", style:"height:40px; width:100%" } }) }}
+                        <span class="field-icon"><i class="fa fa-map-marker"></i></span>
+                    </label>
+                </div>
+                <div class="section">
+                    <label  class="field-label">Specific Area:</label>
+                    <label class="field prepend-icon">  
+                        {{ form_widget(form.subLocation,{ 'attr': {class: 'gui-input',  placeholder: ' Type your office location e.g. Adenta Barrier'} }) }}
+                        <span class="field-icon"><i class="fa fa-map-marker"></i></span>
+                    </label>
+                </div>
+                <div class="section">
+                    <label  class="field-label">About Your Firm:</label>
+                    <label class="field prepend-icon">  
+                        {{ form_widget(form.businessSummary,{ 'attr': {class: 'gui-textarea',  placeholder: ' Tell us about your business', rows:8} }) }}
+                        <span class="field-icon"><i class="fa fa-file-o"></i></span>
+                        <span class="input-hint"> <strong>Hint:</strong>  <span class="text-danger"><i> Write briefly about the type of products or services you provide  so people can easily find you.</i></span>  
+                    </label>
+                </div>                                           
+            </fieldset>
+        </div>
+        <div class="col-md-6">
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border" style="color: #00A8FF">User Info</legend>
+                <div class="section">
+                    <label  class="field-label">Firstname:</label>
+                    <label class="field prepend-icon">  
+                        {{ form_widget(form.owner.firstname,{ 'attr': {class: 'gui-input',placeholder: 'Enter firstname' } }) }}
+                        <span class="field-icon"><i class="fa fa-pencil"></i></span>
+                    </label>
+                </div>
+                <div class="section">
+                    <label  class="field-label">Last Name:</label>
+                    <label class="field prepend-icon">  
+                        {{ form_widget(form.owner.lastname,{ 'attr': {class: 'gui-input',placeholder: 'Enter lastname' } }) }}
+                        <span class="field-icon"><i class="fa fa-pencil"></i></span>
+                    </label>
+                </div>
+                <div class="section">
+                    <label  class="field-label">Phone Number:</label>
+                    <label class="field prepend-icon">  
+                        {{ form_widget(form.owner.contactNo,{ 'attr': {class: 'gui-input',placeholder: 'Enter phone number' } }) }}
+                        <span class="field-icon"><i class="fa fa-phone"></i></span>
+                    </label>
+                </div>
+                <div class="section">
+                    <label  class="field-label">Email:</label>
+                    <label class="field prepend-icon">  
+                        {{ form_widget(form.owner.email,{ 'attr': {class: 'gui-input',placeholder: 'Enter your email ' } }) }}
+                        <span class="field-icon"><i class="fa fa-envelope"></i></span>
+                    </label>
+                </div>                                              
+                <div class="section">
+                    <label  class="field-label">Password:</label>
+                    <label class="field prepend-icon"> 
+                        {{ form_widget(form.owner.password.first,{ 'attr': {class: 'gui-input', placeholder: 'Enter password'} }) }}
+                        <span class="field-icon"><i class="fa fa-lock"></i></span>
+                    </label>
+                </div>
+                <div class="section">
+                    <label  class="field-label">Confirm Password:</label>
+                    <label class="field prepend-icon"> 
+                        {{ form_widget(form.owner.password.second,{ 'attr': {class: 'gui-input', placeholder: 'Confirm password'} }) }}
+                        <span class="field-icon"><i class="fa fa-retweet"></i></span>
+                    </label>
+                </div>
+                <div class="section">
+                    <label  class="field-label">Also Register Me As</label>
+                    <label class="prepend-icon">                      
+                        <select class="input-gui"  id="userType" style="height:40px; width:100%" name="userType" required="true">
+                            <option>Select User Type</option>
+                            <option value="ARTISAN">Artisan & Craftmen </option>                                       
+                            <option value="PROFESSIONAL">Professional </option>
+                            <option value="STUDENT">Student </option>                             
+                            <option value="{{label is defined ? 'firm' : 'supplier'}}">{{label is defined ? label|title : 'Supplier'}} Only</option>    
+                        </select>   
+                    </label>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-md-12 box-footer">
+            <button type="submit" class="btn btn-success btn-lg pull-right"><i class="fa fa-save"></i> Register {{label is defined ? label : 'Store'}}</button>
+        </div><!-- /.box-footer -->
+    </div>
+</div>

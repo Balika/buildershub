@@ -1,0 +1,90 @@
+{% if popularProducts is defined %}
+    <div class="block-latest-roducts-content">
+        <div class="owl-carousel nav-style2" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"600":{"items":1},"1000":{"items":1}}'>
+            {% set top4 = popularProducts|slice(0, 4) %}
+            {% set next4 = popularProducts|slice(4, 4) %}
+            {% set last4 = popularProducts|slice(8, 4) %}
+            <div class="owl-ones-row">
+                {% for product in top4 %}
+                    <div class="product-item style1">
+                        <div class="product-inner">
+                            <div class="product-thumb">
+                                <div class="thumb-inner">
+                                    <a href="{{path('store_product_detail', {'slug':product.slug})}}"><img src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="f1"  style="height:  75px; width: 75px; margin: auto; border-radius: 3px;"></a>
+                                </div>
+                            </div>
+                            <div class="product-innfo">
+                                <div class="product-name"><a href="{{path('store_product_detail', {'slug':product.slug})}}">{{product|length > 24 ? product|slice(0, 24) ~ '...' : product}}</a></div>
+                                <span class="price">
+                                    <ins>GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',') : product.productData.regularPrice|number_format(2, '.',',')}}</ins>                                                   
+                                    <del>{{product.productData.salePrice!=null ? 'GH¢'~product.productData.regularPrice|number_format(2, '.',',')}}</del>
+                                </span>
+                                <div class="star-rating">
+                                    <i class="fa fa-map-marker"></i> <span class="review">{{product.supplier.businessLocation is not null ?  product.supplier.businessLocation ~','}} {{product.supplier.region}}</span>
+                                </div>
+                                <div>
+                                    <a href="{{path('add_to_cart', {'slug':product.slug})}}" class="add-to-cart btn btn-info btn-sm pull-right"><i class="fa" id="spinner"></i> <i class="fa fa-shopping-cart"></i> add to cart</a>                            
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                {% endfor %}                         
+            </div>
+            <div class="owl-ones-row">
+                {% for product in next4 %}
+                    <div class="product-item style1">
+                        <div class="product-inner">
+                            <div class="product-thumb">
+                                <div class="thumb-inner">
+                                    <a href="{{path('store_product_detail', {'slug':product.slug})}}"><img src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="f1"  style="height:  75px; width: 75px; margin: auto; border-radius: 3px;"></a>
+                                </div>
+                            </div>
+                            <div class="product-innfo">
+                                <div class="product-name"><a href="{{path('store_product_detail', {'slug':product.slug})}}">{{product|length > 24 ? product|slice(0, 24) ~ '...' : product}}</a></div>
+                                <span class="price">
+                                    <ins>GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',') : product.productData.regularPrice|number_format(2, '.',',')}}</ins>                                                   
+                                    <del>{{product.productData.salePrice!=null ? 'GH¢'~product.productData.regularPrice|number_format(2, '.',',')}}</del>
+
+                                </span>
+                                <div class="star-rating">
+                                    <i class="fa fa-map-marker"></i> <span class="review">{{product.supplier.businessLocation is not null ?  product.supplier.businessLocation ~','}} {{product.supplier.region}}</span>
+                                </div>
+                                <div>
+                                    <a href="{{path('add_to_cart', {'slug':product.slug})}}" class="add-to-cart btn btn-info btn-sm pull-right"><i class="fa" id="spinner"></i> <i class="fa fa-shopping-cart"></i> add to cart</a>                            
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                {% endfor %}         
+            </div>
+            <div class="owl-ones-row">
+                {% for product in last4 %}
+                    <div class="product-item style1">
+                        <div class="product-inner">
+                            <div class="product-thumb">
+                                <div class="thumb-inner">
+                                    <a href="{{path('store_product_detail', {'slug':product.slug})}}"><img src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="f1"  style="height: 75px; width: 75px; margin: auto; border-radius: 3px;"></a>
+                                </div>
+                            </div>
+                            <div class="product-innfo">
+                                <div class="product-name">
+                                    <a href="{{path('store_product_detail', {'slug':product.slug})}}">{{product|length > 24 ? product|slice(0, 24) ~ '...' : product}}</a>
+                                </div>
+                                <span class="price">
+                                    <ins>GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',') : product.productData.regularPrice|number_format(2, '.',',')}}</ins>                                                   
+                                    <del>{{product.productData.salePrice!=null ? 'GH¢'~product.productData.regularPrice|number_format(2, '.',',')}}</del>
+                                </span>
+                                <div class="star-rating">
+                                    <i class="fa fa-map-marker"></i> <span class="review">{{product.supplier.businessLocation is not null ?  product.supplier.businessLocation ~','}} {{product.supplier.region}}</span>
+                                </div>
+                                <div>
+                                    <a href="{{path('add_to_cart', {'slug':product.slug})}}" class="add-to-cart btn btn-info btn-sm pull-right"><i class="fa" id="spinner"></i> <i class="fa fa-shopping-cart"></i> add to cart</a>                            
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                {% endfor %}         
+            </div>
+        </div>
+    </div>
+{% endif %}

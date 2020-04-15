@@ -1,0 +1,48 @@
+<div class="row" id="profilePassion">
+    <div class="col-md-12">
+        {% if user.person.personType == 'builder'  %}
+            <div id="profileFormPanel" style="padding-top: 10px">
+                <div class="smartforms-modal-body">
+                    <div class="smart-wrap">
+                        <div class="smart-forms smart-container transparent wrap-full" >
+                           <!-- <div class="form-header header-primary">
+                                 </div>-->
+                           <h4 class="text-success"><i class="fa fa-info"></i> Share your professional details and areas of work</h4>
+                          
+                            <div class="form-body" style="border: 1px solid green;  border-radius: 4px">
+                                {{ render_esi(controller('App\\Controller\\AccountUtilityController::renderBuilderServicesFragment'), {"default":'Loading Cart....'})}}                                                                                                                      
+                            </div><!-- end .form-body section -->
+                        </div><!-- end .smart-forms section -->
+                    </div><!-- end .smart-wrap section -->            
+                </div>
+            </div>
+        {% endif %}
+        <!--<div id="profileDisplayPanel">
+            <div class="feature_section5 padding-2">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="iconbox-tiny left round outline-blue"><span class="icon-heart" data-icon="&#xe076;"></span></div>    
+                        <div class="col-md-10">
+                            <h5 class="font-weight-6 less-mar-4">My Interests</h5>
+                            <h6 class="small-text font-weight-5 text-gray line-height-3">{{user.userProfile.interests}}</h6>
+                        </div>                                
+                    </div>                                                        
+                    <div class="col-md-12">
+                        <div class="iconbox-tiny left round outline-violet"><span class="icon-rocket" data-icon="&#xe076;"></span></div>                    
+                        <div class="col-md-10">
+                            <h5 class="font-weight-6 less-mar-4">My Motivation</h5>
+                            <h6 class="small-text font-weight-5 text-gray line-height-3">{{user.userProfile.drive}}</h6>
+                        </div>                                
+                    </div>   
+                    <div class="col-md-12">
+                        <div class="iconbox-tiny left round outline-cyan"><span class="icon-lightbulb" data-icon=""></span></div>                    
+                        <div class="col-md-10">
+                            <h5 class="font-weight-6 less-mar-4">Change</h5>
+                            <h6 class="small-text font-weight-5 text-gray line-height-3">{{user.userProfile.help}}</h6>
+                        </div>                                
+                    </div>    
+                </div>                      
+            </div>
+        </div>-->
+    </div>    
+</div>

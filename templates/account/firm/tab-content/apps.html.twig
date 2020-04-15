@@ -1,0 +1,67 @@
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+    <h4><span class="text-success"><i class="fa fa-th">Hubernized Apps</i></span>
+        <small style="display: block; font-size: 0.6em">Apps developed by <a>BuildersHub</a> to help you effectively manage your construction or consulting firm</small></h4>
+    <ul class="nav nav-tabs" role="tablist" >
+        <li role="presentation" class="active">
+            <a href="#subscribed" data-toggle="tab"> <b>{{company}}</b> <span class="text-success">Installed Apps</span></a>
+        </li>
+        <li role="presentation">
+            <a href="#unsubscribed" data-toggle="tab"> Available Apps</a>
+        </li>
+    </ul>
+    <div class="row">
+    <div class="col-divider-margin-1"></div>
+    <div class=" divider-line solid light"></div>  
+    <div class="col-divider-margin-1"></div>  
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane fade in active" id="subscribed">
+            <div class="alert alert-success">
+                You have subscribed to the following modules
+            </div>
+            <div class="row">
+                {% for app in apps %}
+                    <a href="{{app.defaultUri is not null ? host~app.defaultUri : url}}" target="blank">
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="feature-boxed-17 text-center margin-bottom" title="{{app.description}}">
+                                <div class="iconbox-xlarge white box-shadow-2 center round icon"><span class="{{app.altIcon}} text-primary"></span></div>
+                                <br/>
+                                <h4 class="raleway font-weight-6">{{app.label}}</h4>                        
+                            </div>
+                        </div>
+                    </a>
+                    {% if loop.index is divisible by(3) %}
+                        <div class="col-divider-margin-1"></div>
+                        <div class=" divider-line solid light"></div>  
+                        <div class="col-divider-margin-1"></div>  
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="tab-pane fade" id="unsubscribed">
+            <div class="col-md-12 alert alert-info">
+                Other Available Modules 
+            </div>
+            <div class="row">
+                {% for app in apps %}
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+                            <div class="text-box padding-2 text-center">
+                                <span class="{{app.altIcon}} icon-plain-small text-primary margin-bottom-1"></span>
+                                <h5 class="font-weight-6 margin-bottom-1">{{app.label}}</h5>
+                                <p>{{app.description|slice(0, 65)~'...'}}</p>
+                            </div>
+                            <p align="center"><a class="btn btn-tiny border border-orange xround-1" href="#">Subscribe to this App</a></p>
+                        </div>  
+                    </div>
+                    {% if loop.index is divisible by(2) %}
+                        <div class="col-divider-margin-1"></div>
+                        <div class=" divider-line solid light"></div>  
+                        <div class="col-divider-margin-1"></div>  
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+

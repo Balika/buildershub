@@ -1,0 +1,31 @@
+{% if app.user.company.name == "Baseline Engineering Services Ltd" %}
+    <div class="form-group">
+        <label>Supplier Name</label>
+        {{form_widget(form.companyName, { 'attr': {class: 'form-control',  placeholder: ' Enter Supplier Name', } })}}
+    </div>
+{% endif %}
+<div class="form-group">
+    <label>Product Name</label>
+    {{form_widget(form.name, { 'attr': {class: 'form-control',  placeholder: ' Enter Product Name', } })}}
+</div>
+<div class="form-group">
+    <label>Slug</label>
+    {{form_widget(form.slug, { 'attr': {class: 'form-control',  placeholder: ' ', } })}}
+    <p class="help-block">The “slug” is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers and hyphens</p>
+</div>
+<div class="form-group">
+    <label>Product Group</label>
+    {{form_widget(form.category, { 'attr': {class: 'form-control',   } })}}
+    <p class="help-block">Top level categories for all products</p>
+</div>
+<!--<div class="form-group" id='vehicle-brand'>
+    <span class="{{isSparePart ? 'show' :'hide'}}">
+    <label>Vehicle Brand</label>
+    {#form_widget(form.vehicleBrand, { 'attr': {class: 'form-control select2',   } })#}
+    <p class="help-block">The brand of vehicle the spare is for</p>
+    </span>
+</div>-->
+<div class="form-group">
+    <label>Description</label>
+    {{ form_widget(form.description,{ 'attr': {class: 'form-control',  placeholder: ' ', rows:5} }) }}
+</div>       

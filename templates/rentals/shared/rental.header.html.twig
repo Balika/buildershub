@@ -1,0 +1,59 @@
+<!-- HEADER -->
+<header class="site-header header-opt-1">
+    {% if category is not defined %}
+        {% set category = null %}   
+    {% endif %}
+    <!-- header-top -->
+    <div class="header-top">
+        {# render_esi(controller('App\\Controller\\RentalUtilityController:renderHeaderFragment', {'template':'top.header.nav'}), {"default":'Loading Cart....'}) #}                          
+        {{include('store/includes/top.header.html.twig')}}  
+    </div> <!-- header-top -->
+    <!-- header-content -->
+    <div class="header-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 nav-left">
+                    <!-- logo -->
+                    <strong class="logo">
+                        <a href="{{path('store_index')}}"><img src="{{asset('hub-logo.png')}}" alt="logo"></a>
+                    </strong><!-- logo -->
+                </div>
+                <div class="col-md-8 nav-mind">
+                    <!-- block search -->
+                    <div class="block-search style2">
+                        {{ render_esi(controller('App\\Controller\\RentalUtilityController:renderHeaderFragment', {'template':'mid.header'}), {"default":'Loading Cart....'}) }}                          
+                    </div><!-- block search -->
+                </div>
+                <div class="col-md-2 nav-right" id="headerCart">
+                    {# render_esi(controller('App\\Controller\\RentalUtilityController:renderHeaderFragment', {'template':'mini.cart'}), {"default":'Loading Cart....'}) #}                          
+                   
+                </div>
+            </div>
+        </div>
+    </div><!-- header-content -->
+    <!-- header-menu-bar -->
+    <div class="header-menu-bar header-sticky">
+        <div class="header-menu-nav menu-style-1">
+            <div class="container">
+                <div class="header-menu-nav-inner">
+                    {% set regSlug = selectedRegion is defined and selectedRegion is not null ? selectedRegion.slug : null %}
+                    {% set townSlug = selectedTown is defined and selectedTown is not null ? selectedTown.slug : null %}
+                    {% set catSlug = selectedCategory is defined and selectedCategory is not null ? selectedCategory.slug : null %}
+                    <div class="header-menu header-menu-resize">
+                        {{ render_esi(controller('App\\Controller\\RentalUtilityController:renderHeaderFragment', {'template':'rentals.menu', 'region_id':regSlug, 'town_id':townSlug, 'category_id':catSlug}), {"default":'Loading Cart....'}) }}                          
+                    </div>
+                    <!--<a href="#picLocationDlg" class="btn btn-warning btn-lg pull-right" data-toggle="modal"><i class="fa fa-map-marker"></i> Pick Location</a>-->
+                    <span data-action="toggle-nav" class="menu-on-mobile hidden-md">
+                        <span class="btn-open-mobile home-page">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                        <span class="title-menu-mobile">Main menu</span> 
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header><!-- end HEADER -->     
+

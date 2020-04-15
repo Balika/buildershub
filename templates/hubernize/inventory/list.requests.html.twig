@@ -1,0 +1,125 @@
+{% extends 'hubernize/shared/hubernize.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <link rel="stylesheet" href="{{asset('js/smart-forms/smart-forms.css')}}">
+    <link rel="stylesheet" type="text/css"  href="{{asset('js/smart-forms/smart-addons.css')}}">
+    <!-- Select2 -->
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="active"><span>Equipment Rental Requests</span></li>
+    {% endblock %}
+    {% block crumbLinks %}
+    <li><a class="sonata-action-element" href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Add new
+        </a>
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-4" id="incomingRequests">
+            <!-- START ACCORDION & CAROUSEL-->           
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title text-blue">Incoming Rental Requests</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body" id="requestsAccordion">
+                    <div class="box-group" id="accordion">
+                        <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                        {% for request in requests %}
+                            <div class="panel box">
+                                <div class="box-header with-border">
+                                    <h5 class="box-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_{{request.id}}">
+                                            <small class="text-black"><strong>Request from {{request.user is not null ? request.user.email ~' ('~request.phone ~') ': ' ('~request.phone ~')'}}</strong></small> 
+                                        </a>
+                                    </h5>
+                                </div>
+                                <div id="collapse_{{request.id}}" class="panel-collapse collapse {{selectedRequest is not null and (selectedRequest.id == request.id) ? 'in' }}">
+                                    <div class="box-body">
+                                        {{request.message}}
+                                        <p class="requestDetailsHolder"><a href="{{path('hubernize_rental_request_details', {'id':request.id})}}" class="label label-warning pull-right">View Details</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}                        
+                    </div>
+                    <div class="box-footer clearfix" id="requestsPaginator">
+                        {{ knp_pagination_render(requests) }}
+                        {% if requests|length > 0%}
+                            <span class="show-resuilt pull-right" style="padding-top: 15px">Showing <span>{{ requests.getPaginationData.firstItemNumber }} - {{ requests.getPaginationData.lastItemNumber }}</span> of <span>{{requests.totalItemCount}}</span> results</span>
+                        {% endif %}
+                    </div>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+        <div class="col-md-8" id="requestDetailsPanel">
+            {% include 'hubernize/inventory/includes/honour.rental.request.dialog.html.twig' %}
+            <div id="selectedRequestHolder">
+                {% if selectedRequest is not null %}
+                    <div class="box box-solid">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">Request Details</h3>
+                        </div><!-- /.box-header -->
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-3" style="padding: 8px">
+                                    <img src="{{selectedRequest.rentalAd.featureImage is not null ? asset(selectedRequest.rentalAd.featureImage|imagine_filter('hub_thumbnail')) : 
+                            selectedRequest.rentalAd.equipment.featureImage is not null  ? asset(selectedRequest.rentalAd.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" width="100%"/>
+                                </div>
+                                <div class="col-md-9" >
+                                    <div class="row hbox" >
+                                        <div class="col-md-12"><h4><strong><span style="color: #0077b3">{{selectedRequest.rentalAd.title}}</span></strong></h4></div>
+                                        <div class="col-md-4"><strong>Rental Rate: <span class="text-warning">GHc{{selectedRequest.rentalAd.rentalRate|number_format(2, '.',',')}}</span></strong></div>
+                                        <div class="col-md-3"><strong>Billing Cycle: <span class="text-warning">{{selectedRequest.rentalAd.billingCycle}}</span></strong></div>
+                                        <div class="col-md-2"><strong>Views: <span class="text-warning">2,555</span></strong></div>
+                                        <div class="col-md-3"><strong>Units Available: <span class="text-warning">20</span></strong></div>
+                                    </div>
+                                    <hr/>
+                                    <div>
+                                        <p><strong>Message:</strong> {{selectedRequest.message}}</p>
+                                        <p><strong>No. Requested:</strong> {{selectedRequest.numberRequested}}</p>
+                                        <p><strong>Requested By:</strong> {{selectedRequest.user is not null ? selectedRequest.user.email ~' ('~selectedRequest.phone ~') ': ' ('~selectedRequest.phone ~')'}}</p>
+                                        <p><strong>Date Requested:</strong> {{selectedRequest.createdAt|pretty_date}}</p>
+                                    </div>
+                                    <div id="request-action">
+                                        <p align="right" class="action-list">
+                                            <a class="label label-success" href="{{path('hubernize_process_rental_request', {'id':selectedRequest.id})}}">Honour Request</a> <a class="label label-danger" href="#">Reject Request</a> <a class="label label-info" href="#">Assign Request</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row" id="otherRequests">
+                                {% set ad = selectedRequest.rentalAd %}                           
+                                <div class="col-md-12"><h5><strong>Other Request for <span class="text-warning">{{ad.title}}</span></strong></h5></div>
+                                            {% if ad.requests|length > 1 %}
+                                                {% for request in ad.requests %}
+                                                    {% if request != selectedRequest %}
+                                            <div class="col-md-12 request-list">
+                                                &raquo; <a href="{{path('hubernize_rental_request_details', {'id':request.id})}}">Request from {{request.user is not null ? request.user.email ~' ('~request.phone ~') ': ' ('~request.phone ~')'}}</a>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="row">
+                                        <div class="col-md-12" style="padding:20px">
+                                            <div class="alert alert-info">
+                                                No other requests have been made
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-custom.min.js')}}"></script>
+
+
+{% endblock javascripts %}

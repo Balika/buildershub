@@ -1,0 +1,41 @@
+<div id="placeBidDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="width:60%; ">        
+        <div class="modal-content" style="overflow-y: scroll">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 class="modal-title text-green" id="myModalLabel">Select the product you wish to place on <strong>Premium Slot</strong> </h4>
+            </div>   
+            {{ form_start(bidForm, {'method': 'post', 'action':path('place_bid',{'slug':supplier.slug, 'slot_id':premiumProductSlot.id}), 'attr': {'class': 'bidForm form-horizontal'} }) }}
+            <div class="modal-body" style="padding: 25px">  
+                <div class="col-md-6 form-group">
+                    <label>Enter Bid Amount (GH¢)</label>
+                    {{form_widget(bidForm.bidAmount,{'attr':{'class':'form-control', 'placeholder':'e.g. 100 '} })}}
+                </div><!-- /.form group -->
+                <div class="col-md-6 form-group">
+                    <label>Upload Product Banner <small>Image Size 300px x 210px</label>
+                    {{form_widget(bidForm.imageFile,{'attr':{'class':'form-control'} })}}
+                </div><!-- /.form group -->
+                <label>Select Product to Place on Premium Spot</label>
+                <br/>
+                <div class="row" style="height: 300px; overflow-y: scroll">
+                    {% for product in supplier.products %}
+                        <div class="col-md-4" style="padding-bottom: 10px">
+                            <input type="radio" class="flat-red" value="{{product.id}}" name="selectedProduct"/> {{product.name}}
+                            <span class="text-danger">(GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',') : product.productData.regularPrice|number_format(2, '.',',')}})</span>
+                         
+                        </div>
+                    {% endfor %}
+                </div>     
+            </div><!-- /.box-body -->
+            <div class="box-footer">
+                <a data-dismiss="modal" class="btn btn-default btn-sm">Cancel</a>
+                <button class="btn btn-success btn-sm pull-right" type="submit">Place Bid</button>
+            </div>
+            {{ form_row(bidForm._token) }} 
+            {{ form_end(bidForm, {'render_rest': false}) }}
+        </div> 
+    </div> 
+</div> 
+
+
+

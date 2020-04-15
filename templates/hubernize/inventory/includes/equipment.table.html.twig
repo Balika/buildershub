@@ -1,0 +1,60 @@
+<table id="equipment" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Reg. No./Asset Label</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Capacity</th>
+            <th>Status</th>
+            <th>Date Added</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for equipment in equipmentList %}
+            <tr>
+                <td>
+                    <a href="{{path('hubernize_save_equipment', {'action':'edit', 'slug':equipment.slug})}}">
+                        <img src="{{equipment.featureImage is not null ? asset(equipment.featureImage|imagine_filter('hub_thumbnail'))}}" width="80px" height="60px"/>
+                    </a>
+                </td>
+                <td><a href="{{path('hubernize_save_equipment', {'action':'edit', 'slug':equipment.slug})}}">{{equipment}}</a></td>
+                <td>{{equipment.category}}</td>
+                <td>{{equipment.registrationNumber is not null ? equipment.registrationNumber : equipment.assetLabel}}</td>
+                <td>{{equipment.brand}}</td>
+                <td>
+
+                </td>
+                <td>
+                    {{equipment.output ~ ' ' ~ equipment.outputUnit}}           
+                </td>
+                <td>
+                    {{equipment.status}} 
+                </td>
+                <td>
+                    {{equipment.createdAt|date('m/d/Y')}}  
+                </td>
+                <td class="equipment-table-actions">
+                    <a href="{{path('hubernize_rental_ads_placement', {'equip_slug':equipment.slug, 'action':'add'})}}" class="label label-primary btn-sm">Advertise for Rent</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Reg. No./Asset Label</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Capacity</th>
+            <th>Status</th>
+            <th>Date Added</th>
+            <th>Action</th>
+        </tr>
+    </tfoot>
+</table>

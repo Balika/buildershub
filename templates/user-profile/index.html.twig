@@ -1,0 +1,34 @@
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+{{ render_esi(controller('App\\Controller\\ProfileUtilityController:renderUserStatus', {'userId':requestedProfile.id}), {"default":'Loading Cart....'}) }}  
+</div>
+<div class="col-divider-margin-1"></div>
+<div class=" divider-line solid light"></div>  
+<div class="col-divider-margin-1"></div>  
+
+{% include 'user-profile/includes/builder.projects.html.twig' %}
+<div class="col-divider-margin-1"></div>
+<div class=" divider-line solid light"></div>  
+<div class="col-divider-margin-1"></div>  
+
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+    <h6 class="nopadding title"><strong>Building Materials, Equipments & Construction Supplies</strong></h6>                           
+     <br/> 
+    <div id="js-grid-slider-products" class="cbp">               
+        {{ render_esi(controller('App\\Controller\\ProfileUtilityController:renderProductAdsDashboard'), {"default":'Loading Cart....'}) }}                                           
+    </div>
+</div>
+
+<div class="col-divider-margin-1"></div>
+<div class=" divider-line solid light"></div>  
+<div class="col-divider-margin-1"></div>  
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+    <h6 class="nopadding title"><strong>Articles & conversations about infrastructure development</strong></h6>
+    {{ render_esi(controller('App\\Controller\\ProfileUtilityController:renderEngageDashboard'), {"default":'Loading Cart....'}) }}                                           
+</div>
+
+<div class="col-divider-margin-1"></div>
+<div class=" divider-line solid light"></div>  
+<div class="col-divider-margin-1"></div>  
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+    Some other content
+</div>

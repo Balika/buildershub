@@ -1,0 +1,26 @@
+<style>
+    #userFeedbackDlg {
+        top:5%;
+        right:20%;
+        left: 5%;
+        outline: none;
+    }
+    #userFeedbackDlg .modal-dialog  {width:75%;}
+    @media screen and (min-width: 768px) {
+        #userFeedbackDlg .modal-dialog  {width:700px;}
+    }
+</style>
+<div id="userFeedbackDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h3 class="modal-title" id="myModalLabel"> <span style="color: green"><strong>Let's know your views about BuildersHub</strong></span></h3>
+            </div>  
+            <span class="text-center"><i class="fa fa-spinner fa-spin fa-2x hide" id="feedback-spinner"></i></span>
+            <div id="feedback-response">
+                {{ render(controller('App\\Controller\\UserInteractionController::feedbackForm'), {"default":'Loading form....'}) }}  
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

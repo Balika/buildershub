@@ -1,0 +1,73 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{parent()}}
+    <link rel="stylesheet" href="{{asset('plugins/datepicker/datepicker3.css')}}" />
+    <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+{% endblock%}
+{% block breadcrumbs %}
+    <li>
+        <a href="{{path('list_staff', {'slug':supplier.slug, 'list_mode':'list'})}}"><i class="fa fa-list fa-fw"></i> Users</a>
+    </li>
+    <li class="active"><span>Campaigns & Promos</span></li>
+    {% endblock %}
+    {% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h4><span class="text-success"><i class="fa fa-bullhorn"> Campaigns & Promos</i></span>
+                <small style="display: block; font-size: 0.6em">Apps developed by <a>BuildersHub</a> to help you effectively manage your construction or consulting firm</small></h4>
+            <ul class="nav nav-tabs" role="tablist" >
+                <li role="presentation" class="active">
+                    <a href="#promos" data-toggle="tab"> <b>{{supplier}}</b> <span class="text-success">Products on Promo</span></a>
+                </li>
+                <li role="presentation">
+                    <a href="#campaigns" data-toggle="tab">  <b>{{supplier}}</b> <span class="text-success">Campaigns</span></a>
+                </li>
+            </ul>
+            <div class="row">
+                <div class="col-divider-margin-1"></div>
+                <div class=" divider-line solid light"></div>  
+                <div class="col-divider-margin-1"></div>  
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="promos">
+                            {% include 'store/admin/includes/promote.products.dialog.html.twig'%}
+                            {% include 'store/admin/includes/promoted.products.html.twig' %}
+                        </div>
+                        <div class="tab-pane fade in" id="campaigns">
+                            {% include 'store/admin/includes/campaign.form.dialog.html.twig' %}
+                            {% include 'store/admin/includes/campaign.list.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+    <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+
+    <script type="text/javascript">
+        jQuery(function ($) {
+            //datepicker plugin
+            //link
+            $('.date').datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                showOn: 'button',
+                buttonImageOnly: true,
+                changeMonth: true,
+                changeYear: true,
+                format: 'yyyy-mm-dd',
+                yearRange: "-0:+1"
+            });
+
+            $('#campaignsTbl').DataTable();
+        });
+
+    </script>
+{% endblock %}

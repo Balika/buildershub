@@ -1,0 +1,43 @@
+
+<div class="row">
+    {% block modalBody %}
+        <div class="col-xs-12">
+            {% if error is defined and error|length > 0 %}
+                <div class="alert alert-danger">
+                    <h4><i class="icon fa fa-ban"></i> Account registration failure</h4>                   
+                    <small>{{error.message}}</small>
+                </div>
+            {% endif %}
+            {% set timeOut = app.request.get('timeOut')%}
+            {% if timeOut|length>0 %}
+                <div class="alert alert-danger">
+                    <i class="fa fa-clock-o pull-right"></i> 
+                    <strong>{{ timeOut }}</strong>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-xs-7">
+            <div class="well">
+                {{form_start(form, {method:"POST", action: path('register_user', {'type':'STUDENT'}), 'attr':{id:'registerForm'} } )}}                           
+                {% include 'account/includes/common.form.fields.html.twig' %}
+                {{ form_row(form._token) }}
+                {{ form_end(form, {'render_rest': false})}}
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <p class="lead">As a <span class="text-success"><strong>STUDENT</strong></span> you can: </p>
+            <ul class="list-unstyled" style="line-height: 2">
+                <li><span class="fa fa-check text-success"></span> Gain internship opportunities to kick-start your career</li>
+                <li><span class="fa fa-check text-success"></span> Find research topics relevant to industry</li>
+                <li><span class="fa fa-check text-success"></span> Meet industry practitioners to learn from their experiences</li>
+                <li><span class="fa fa-check text-success"></span> Test your theoritical knowledge through our <a href="#"><span class="text-danger">Student Challenge Programe</span></a></li>
+                <li><span class="fa fa-check text-success"></span> Learn about certifications in your field</li>
+                <li><span class="fa fa-check text-success"></span> Find like minds to discuss ideas</li>
+                <li><span class="fa fa-check text-success"></span> Buy/Order building supplies <small>(from many suppliers)</small></li>
+                <li><a href="#"><u>Read more</u></a></li>
+            </ul>
+            <p><a href="#" class="button btn-social facebook span-left"> <span><i class="fa fa-facebook"></i></span> Facebook Account</a>
+          </p>
+        </div>
+    {% endblock %}
+</div>

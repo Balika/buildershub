@@ -1,0 +1,1179 @@
+
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="UTF-8">
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+
+        <link rel="stylesheet" href="/bundles/sonatacore/vendor/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/bundles/sonatacore/vendor/components-font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/bundles/sonatacore/vendor/ionicons/css/ionicons.min.css">
+        <link rel="stylesheet" href="/bundles/sonataadmin/vendor/admin-lte/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="/bundles/sonataadmin/vendor/admin-lte/dist/css/skins/skin-black.min.css">
+        <link rel="stylesheet" href="/bundles/sonataadmin/vendor/iCheck/skins/square/blue.css">
+        <link rel="stylesheet" href="/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+        <link rel="stylesheet" href="/bundles/sonataadmin/vendor/jqueryui/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="/bundles/sonatacore/vendor/select2/select2.css">
+        <link rel="stylesheet" href="/bundles/sonatacore/vendor/select2-bootstrap-css/select2-bootstrap.min.css">
+        <link rel="stylesheet" href="/bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css">
+        <link rel="stylesheet" href="/bundles/sonataadmin/css/styles.css">
+        <link rel="stylesheet" href="/bundles/sonataadmin/css/layout.css">
+        <link rel="stylesheet" href="/bundles/sonataadmin/css/tree.css">
+
+        <script>
+            window.SONATA_CONFIG = {
+                CONFIRM_EXIT: true,
+                USE_SELECT2: true,
+                USE_ICHECK: true,
+                USE_STICKYFORMS: true};
+            window.SONATA_TRANSLATIONS = {
+                CONFIRM_EXIT: 'You\x20have\x20unsaved\x20changes.'
+            };
+
+            // http://getbootstrap.com/getting-started/#support-ie10-width
+            if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+                var msViewportStyle = document.createElement('style');
+                msViewportStyle.appendChild(document.createTextNode('@-ms-viewport{width:auto!important}'));
+                document.querySelector('head').appendChild(msViewportStyle);
+            }
+        </script>
+
+        <script src="/bundles/sonatacore/vendor/jquery/dist/jquery.min.js"></script>
+        <script src="/bundles/sonataadmin/vendor/jquery.scrollTo/jquery.scrollTo.min.js"></script>
+        <script src="/bundles/sonatacore/vendor/moment/min/moment.min.js"></script>
+        <script src="/bundles/sonatacore/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/bundles/sonataadmin/vendor/jqueryui/ui/minified/jquery-ui.min.js"></script>
+        <script src="/bundles/sonataadmin/vendor/jqueryui/ui/minified/i18n/jquery-ui-i18n.min.js"></script>
+        <script src="/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="/bundles/sonataadmin/vendor/jquery-form/jquery.form.js"></script>
+        <script src="/bundles/sonataadmin/jquery/jquery.confirmExit.js"></script>
+        <script src="/bundles/sonataadmin/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+        <script src="/bundles/sonatacore/vendor/select2/select2.min.js"></script>
+        <script src="/bundles/sonataadmin/vendor/admin-lte/dist/js/app.min.js"></script>
+        <script src="/bundles/sonataadmin/vendor/iCheck/icheck.min.js"></script>
+        <script src="/bundles/sonataadmin/vendor/slimScroll/jquery.slimscroll.min.js"></script>
+        <script src="/bundles/sonataadmin/vendor/waypoints/lib/jquery.waypoints.min.js"></script>
+        <script src="/bundles/sonataadmin/vendor/waypoints/lib/shortcuts/sticky.min.js"></script>
+        <script src="/bundles/sonataadmin/vendor/readmore-js/readmore.min.js"></script>
+        <script src="/bundles/sonataadmin/vendor/masonry/dist/masonry.pkgd.min.js"></script>
+        <script src="/bundles/sonataadmin/Admin.js"></script>
+        <script src="/bundles/sonataadmin/treeview.js"></script>
+        <script src="/bundles/sonataadmin/sidebar.js"></script>
+
+
+
+        <title>
+            Admin
+
+            -
+            Post Category List
+        </title>
+    </head>
+    <body
+        class="sonata-bc skin-black fixed
+        ">
+
+        <div class="wrapper">
+
+            <header class="main-header">
+                <noscript>
+                <div class="noscript-warning">
+                    Javascript is disabled in your web browser. Some features will not work properly.
+                </div>
+                </noscript>
+                <a class="logo" href="/admin/dashboard"><img src="/bundles/sonataadmin/logo_title.png" alt="BuildersHub"><span>BuildersHub</span></a>                                                  
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                        <span class="sr-only">Toggle Navigation</span>
+                    </a>
+
+                    <div class="navbar-left">
+                        <div class="hidden-xs">
+                            <ol class="nav navbar-top-links breadcrumb">
+                                <li>
+                                    <a href="/admin/dashboard">
+                                        <i class="fa fa-home"></i>                                                                    
+                                    </a>
+                                </li>
+                                <li class="active"><span>Post Category List</span></li>
+                            </ol>
+                        </div>
+                    </div>
+
+                </nav>
+            </header>
+
+            <aside class="main-sidebar">
+                <section class="sidebar">
+                    <form action="/admin/search" method="GET" class="sidebar-form" role="search">
+                        <div class="input-group custom-search-form">
+                            <input type="text" name="q" value="" class="form-control" placeholder="Search">
+                            <span class="input-group-btn">
+                                <button class="btn btn-flat" type="submit">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+
+                    <ul class="sidebar-menu" data-widget="tree">
+
+                        <li class="first treeview">            
+                            <a href="#"><i class="fa fa-folder"></i><span>User Manager</span><span class="pull-right-container"><i class="fa pull-right fa-angle-left"></i></span></a>              
+                            <ul class="active treeview-menu menu_level_1">
+
+                                <li class="first last">            <a href="/admin/app/user/list"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Users</a>        
+                                </li>
+
+
+
+                            </ul>
+
+                        </li>
+
+
+
+                        <li class="active treeview">            <a href="#"><i class="fa fa-folder"></i><span>Blog Posts</span><span class="pull-right-container"><i class="fa pull-right fa-angle-left"></i></span></a>                <ul class="active treeview-menu menu_level_1">
+
+                                <li class="active first">            <a href="/admin/app/postcategory/list"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Post Categories</a>        
+                                </li>
+
+
+
+                                <li class="last">            <a href="/admin/app/blogpost/list"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Posts</a>        
+                                </li>
+
+
+
+                            </ul>
+
+                        </li>
+
+
+
+                        <li class="treeview">            <a href="#"><i class="fa fa-folder"></i><span>Backend Setup</span><span class="pull-right-container"><i class="fa pull-right fa-angle-left"></i></span></a>                <ul class="active treeview-menu menu_level_1">
+
+                                <li class="first">            <a href="/admin/app/town/list"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Towns</a>        
+                                </li>
+
+
+
+                                <li>            <a href="/admin/app/ratingmeasure/list"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Rating Measures</a>        
+                                </li>
+
+
+
+                                <li>            <a href="/admin/app/category/list"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Categories</a>        
+                                </li>
+
+
+
+                                <li>            <a href="/admin/app/specialty/list"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Builders Specialties</a>        
+                                </li>
+
+
+
+                                <li class="last">            <a href="/admin/app/region/list"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Regions</a>        
+                                </li>
+
+
+
+                            </ul>
+
+                        </li>
+
+
+
+                        <li class="last treeview">            <a href="#"><i class="fa fa-folder"></i><span>Store Setup</span><span class="pull-right-container"><i class="fa pull-right fa-angle-left"></i></span></a>                <ul class="active treeview-menu menu_level_1">
+
+                                <li class="first">            <a href="/admin/app/productcategory/list"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Product Categories</a>        
+                                </li>
+
+
+
+                                <li class="last">            <a href="/admin/app/hubbid/list"><i class="fa fa-angle-double-right" aria-hidden="true"></i>Hub Bid Slots</a>        
+                                </li>
+
+
+
+                            </ul>
+
+                        </li>
+
+
+
+                    </ul>
+
+                    <p class="text-center small" style="border-top: 1px solid #444444; padding-top: 10px">
+                    </p>
+                </section>
+            </aside>
+            <div class="content-wrapper">
+                <section class="content-header">
+                    <nav class="navbar navbar-default" role="navigation">
+                        <div class="container-fluid">
+                            <div class="navbar-collapse">
+                                <div class="nav navbar-right btn-group">
+                                    <a href="/admin/app/postcategory/list?_list_mode=list" class="btn btn-default navbar-btn btn-sm active"><i class="fa fa-list fa-fw"></i></a>
+                                    <a href="/admin/app/postcategory/list?_list_mode=mosaic" class="btn btn-default navbar-btn btn-sm"><i class="fa fa-th-large fa-fw"></i></a>
+                                </div>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a class="sonata-action-element" href="/admin/app/postcategory/create"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            Add new
+                                        </a>
+                                    </li>
+                                </ul>
+                                <ul class="nav navbar-nav navbar-right">
+
+                                    <li class="dropdown sonata-actions">
+                                        <a href="#" class="dropdown-toggle sonata-ba-action" data-toggle="dropdown">
+                                            <i class="fa fa-filter" aria-hidden="true"></i>
+                                            Filters
+                                            <span class="badge sonata-filter-count"></span>
+                                            <b class="caret"></b>
+                                        </a>
+
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li>
+                                                <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s5c3af6e257cb2-name" filter-container="filter-container-s5c3af6e257cb2">
+                                                    <i class="fa fa-square-o"></i>Name
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </section>
+
+                <section class="content">
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 sonata-filters-box" style="display: none" id="filter-container-s5c3af6e257cb2">
+                            <div class="box box-primary" >
+                                <div class="box-body">
+                                    <form class="sonata-filter-form form-horizontal " action="/admin/app/postcategory/list" method="GET" role="form">
+
+
+                                        <div class="row">
+                                            <div class="col-sm-9">
+                                                <div class="form-group " id="filter-s5c3af6e257cb2-name" sonata-filter="true" style="display: none">
+                                                    <label for="filter_name_value" class="col-sm-3 control-label">Name</label>
+
+                                                    <div class="col-sm-4 advanced-filter">
+                                                        <select id="filter_name_type" name="filter[name][type]" class=" form-control"><option value=""></option><option value="1">contains</option><option value="2">does not contain</option><option value="3">is equal to</option></select>
+
+                                                    </div>
+
+                                                    <div class="col-sm-4">
+                                                        <input type="text" id="filter_name_value" name="filter[name][value]" class=" form-control" />
+
+                                                    </div>
+
+                                                    <div class="col-sm-1">
+                                                        <label class="control-label">
+                                                            <a href="#" class="sonata-toggle-filter sonata-ba-action" filter-target="filter-s5c3af6e257cb2-name" filter-container="filter-container-s5c3af6e257cb2">
+                                                                <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                                            </a>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-3 text-center">
+                                                <input type="hidden" name="filter[_page]" id="filter__page" value="1">
+
+                                                <input type="hidden" id="filter__sort_by" name="filter[_sort_by]" class=" form-control" value="id" />
+                                                <input type="hidden" id="filter__sort_order" name="filter[_sort_order]" class=" form-control" value="ASC" />
+                                                <input type="hidden" id="filter__per_page" name="filter[_per_page]" class=" form-control" value="32" />
+
+
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="fa fa-filter" aria-hidden="true"></i> Filter
+                                                    </button>
+
+                                                    <a class="btn btn-default" href="/admin/app/postcategory/list?filters=reset">
+                                                        Reset
+                                                    </a>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <a href="#" data-toggle="advanced-filter">
+                                                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                                                        Advanced filters
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <form action="/admin/app/postcategory/batch?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32" method="POST" >
+                                <input type="hidden" name="_sonata_csrf_token" value="w45dkilG14fmsxRATK7ACkWwEv2L-klSiejm8OKLBjA">
+
+                                <div class="box box-primary" style="margin-bottom: 100px;">
+                                    <div class="box-body table-responsive no-padding">
+
+
+
+                                        <table class="table table-bordered table-striped sonata-ba-list">
+                                            <thead>
+                                                <tr class="sonata-ba-list-field-header">
+                                                    <th class="sonata-ba-list-field-header sonata-ba-list-field-header-batch">
+                                                        <input type="checkbox" id="list_batch_checkbox">
+                                                    </th>
+
+                                                    <th class="sonata-ba-list-field-header-text  sonata-ba-list-field-header-order-asc "><a href="/admin/app/postcategory/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=name&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32">                                                                                                        Name
+                                                        </a></th>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                    <th class="sonata-ba-list-field-header-text  sonata-ba-list-field-header-order-asc "><a href="/admin/app/postcategory/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=type&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32">                                                                                                        Type
+                                                        </a></th>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                    <th class="sonata-ba-list-field-header-text  sonata-ba-list-field-header-order-asc "><a href="/admin/app/postcategory/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=slug&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32">                                                                                                        Slug
+                                                        </a></th>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                    <th class="sonata-ba-list-field-header-text  sonata-ba-list-field-header-order-asc "><a href="/admin/app/postcategory/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=parent.name&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32">                                                                                                        Parent Name
+                                                        </a></th>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                    <th class="sonata-ba-list-field-header-integer  sonata-ba-list-field-header-order-asc "><a href="/admin/app/postcategory/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=rank&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32">                                                                                                        Rank
+                                                        </a></th>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                                                    <th class="sonata-ba-list-field-header-boolean  sonata-ba-list-field-header-order-asc "><a href="/admin/app/postcategory/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=deleted&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32">                                                                                                        Deleted
+                                                        </a></th>                                                                                                            </tr>
+                                            </thead>
+
+                                            <tbody>
+
+                                                <tr>
+
+
+                                                    <!-- START
+                                                        fieldName: batch
+                                                        template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectId="75">
+
+
+                                                        <input type="checkbox" name="idx[]" value="75">
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: batch -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="75">
+
+                                                        <a class="sonata-link-identifier" href="/admin/app/postcategory/75/edit">                E-Commerce            </a>
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: type
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="75">
+
+
+                                                        category            
+                                                    </td>
+
+                                                    <!-- END - fieldName: type -->
+
+                                                    <!-- START
+                                                        fieldName: slug
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="75">
+
+
+                                                        e-commerce            
+                                                    </td>
+
+                                                    <!-- END - fieldName: slug -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="75">
+
+
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: rank
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-integer" objectId="75">
+
+
+                                                        2            
+                                                    </td>
+
+                                                    <!-- END - fieldName: rank -->
+
+                                                    <!-- START
+                                                        fieldName: deleted
+                                                        template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-boolean" objectId="75">
+
+
+                                                        <span class="label label-danger">no</span>
+                                                    </td>
+
+                                                    <!-- END - fieldName: deleted -->
+                                                </tr>
+                                                <tr>
+
+
+                                                    <!-- START
+                                                        fieldName: batch
+                                                        template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectId="76">
+
+
+                                                        <input type="checkbox" name="idx[]" value="76">
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: batch -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="76">
+
+                                                        <a class="sonata-link-identifier" href="/admin/app/postcategory/76/edit">                Building Materials            </a>
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: type
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="76">
+
+
+                                                        tag            
+                                                    </td>
+
+                                                    <!-- END - fieldName: type -->
+
+                                                    <!-- START
+                                                        fieldName: slug
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="76">
+
+
+                                                        building-materials            
+                                                    </td>
+
+                                                    <!-- END - fieldName: slug -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="76">
+
+
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: rank
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-integer" objectId="76">
+
+
+                                                        2            
+                                                    </td>
+
+                                                    <!-- END - fieldName: rank -->
+
+                                                    <!-- START
+                                                        fieldName: deleted
+                                                        template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-boolean" objectId="76">
+
+
+                                                        <span class="label label-danger">no</span>
+                                                    </td>
+
+                                                    <!-- END - fieldName: deleted -->
+                                                </tr>
+                                                <tr>
+
+
+                                                    <!-- START
+                                                        fieldName: batch
+                                                        template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectId="77">
+
+
+                                                        <input type="checkbox" name="idx[]" value="77">
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: batch -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="77">
+
+                                                        <a class="sonata-link-identifier" href="/admin/app/postcategory/77/edit">                e-Commerce Trends            </a>
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: type
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="77">
+
+
+                                                        tag            
+                                                    </td>
+
+                                                    <!-- END - fieldName: type -->
+
+                                                    <!-- START
+                                                        fieldName: slug
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="77">
+
+
+                                                        e-commerce-trends            
+                                                    </td>
+
+                                                    <!-- END - fieldName: slug -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="77">
+
+
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: rank
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-integer" objectId="77">
+
+
+                                                        2            
+                                                    </td>
+
+                                                    <!-- END - fieldName: rank -->
+
+                                                    <!-- START
+                                                        fieldName: deleted
+                                                        template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-boolean" objectId="77">
+
+
+                                                        <span class="label label-danger">no</span>
+                                                    </td>
+
+                                                    <!-- END - fieldName: deleted -->
+                                                </tr>
+                                                <tr>
+
+
+                                                    <!-- START
+                                                        fieldName: batch
+                                                        template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectId="78">
+
+
+                                                        <input type="checkbox" name="idx[]" value="78">
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: batch -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="78">
+
+                                                        <a class="sonata-link-identifier" href="/admin/app/postcategory/78/edit">                News            </a>
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: type
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="78">
+
+
+                                                        category            
+                                                    </td>
+
+                                                    <!-- END - fieldName: type -->
+
+                                                    <!-- START
+                                                        fieldName: slug
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="78">
+
+
+                                                        news            
+                                                    </td>
+
+                                                    <!-- END - fieldName: slug -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="78">
+
+
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: rank
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-integer" objectId="78">
+
+
+                                                        1            
+                                                    </td>
+
+                                                    <!-- END - fieldName: rank -->
+
+                                                    <!-- START
+                                                        fieldName: deleted
+                                                        template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-boolean" objectId="78">
+
+
+                                                        <span class="label label-danger">no</span>
+                                                    </td>
+
+                                                    <!-- END - fieldName: deleted -->
+                                                </tr>
+                                                <tr>
+
+
+                                                    <!-- START
+                                                        fieldName: batch
+                                                        template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectId="79">
+
+
+                                                        <input type="checkbox" name="idx[]" value="79">
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: batch -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="79">
+
+                                                        <a class="sonata-link-identifier" href="/admin/app/postcategory/79/edit">                Blog            </a>
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: type
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="79">
+
+
+                                                        category            
+                                                    </td>
+
+                                                    <!-- END - fieldName: type -->
+
+                                                    <!-- START
+                                                        fieldName: slug
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="79">
+
+
+                                                        blog            
+                                                    </td>
+
+                                                    <!-- END - fieldName: slug -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="79">
+
+
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: rank
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-integer" objectId="79">
+
+
+                                                        1            
+                                                    </td>
+
+                                                    <!-- END - fieldName: rank -->
+
+                                                    <!-- START
+                                                        fieldName: deleted
+                                                        template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-boolean" objectId="79">
+
+
+                                                        <span class="label label-danger">no</span>
+                                                    </td>
+
+                                                    <!-- END - fieldName: deleted -->
+                                                </tr>
+                                                <tr>
+
+
+                                                    <!-- START
+                                                        fieldName: batch
+                                                        template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectId="80">
+
+
+                                                        <input type="checkbox" name="idx[]" value="80">
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: batch -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="80">
+
+                                                        <a class="sonata-link-identifier" href="/admin/app/postcategory/80/edit">                Article            </a>
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: type
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="80">
+
+
+                                                        category            
+                                                    </td>
+
+                                                    <!-- END - fieldName: type -->
+
+                                                    <!-- START
+                                                        fieldName: slug
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="80">
+
+
+                                                        article            
+                                                    </td>
+
+                                                    <!-- END - fieldName: slug -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="80">
+
+
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: rank
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-integer" objectId="80">
+
+
+                                                        1            
+                                                    </td>
+
+                                                    <!-- END - fieldName: rank -->
+
+                                                    <!-- START
+                                                        fieldName: deleted
+                                                        template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-boolean" objectId="80">
+
+
+                                                        <span class="label label-danger">no</span>
+                                                    </td>
+
+                                                    <!-- END - fieldName: deleted -->
+                                                </tr>
+                                                <tr>
+
+
+                                                    <!-- START
+                                                        fieldName: batch
+                                                        template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list__batch.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-batch" objectId="81">
+
+
+                                                        <input type="checkbox" name="idx[]" value="81">
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: batch -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="81">
+
+                                                        <a class="sonata-link-identifier" href="/admin/app/postcategory/81/edit">                Video            </a>
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: type
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="81">
+
+
+                                                        category            
+                                                    </td>
+
+                                                    <!-- END - fieldName: type -->
+
+                                                    <!-- START
+                                                        fieldName: slug
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="81">
+
+
+                                                        video            
+                                                    </td>
+
+                                                    <!-- END - fieldName: slug -->
+
+                                                    <!-- START
+                                                        fieldName: name
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-text" objectId="81">
+
+
+
+                                                    </td>
+
+                                                    <!-- END - fieldName: name -->
+
+                                                    <!-- START
+                                                        fieldName: rank
+                                                        template: @SonataAdmin/CRUD/list_string.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_string.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-integer" objectId="81">
+
+
+                                                        1            
+                                                    </td>
+
+                                                    <!-- END - fieldName: rank -->
+
+                                                    <!-- START
+                                                        fieldName: deleted
+                                                        template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                        compiled template: @SonataAdmin/CRUD/list_boolean.html.twig
+                                                    -->
+
+                                                    <td class="sonata-ba-list-field sonata-ba-list-field-boolean" objectId="81">
+
+
+                                                        <span class="label label-danger">no</span>
+                                                    </td>
+
+                                                    <!-- END - fieldName: deleted -->
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+
+
+                                    </div>
+                                    <div class="box-footer">
+                                        <div class="form-inline clearfix">
+                                            <div class="pull-left">
+                                                <script>
+            jQuery(document).ready(function ($) {
+// Toggle individual checkboxes when the batch checkbox is changed
+                $('#list_batch_checkbox').on('ifChanged change', function () {
+                    var checkboxes = $(this)
+                            .closest('table')
+                            .find('td.sonata-ba-list-field-batch input[type="checkbox"], div.sonata-ba-list-field-batch input[type="checkbox"]')
+                            ;
+                    if (window.SONATA_CONFIG.USE_ICHECK) {
+                        checkboxes.iCheck($(this).is(':checked') ? 'check' : 'uncheck');
+                    } else {
+                        checkboxes.prop('checked', this.checked);
+                    }
+                });
+
+// Add a CSS class to rows when they are selected
+                $('td.sonata-ba-list-field-batch input[type="checkbox"], div.sonata-ba-list-field-batch input[type="checkbox"]')
+                        .on('ifChanged change', function () {
+                            $(this)
+                                    .closest('tr, div.sonata-ba-list-field-batch')
+                                    .toggleClass('sonata-ba-list-row-selected', $(this).is(':checked'))
+                                    ;
+                        })
+                        .trigger('ifChanged')
+                        ;
+            });
+                                                </script>
+
+                                                <label class="checkbox" for="s5c3af6e257cb2_all_elements">
+                                                    <input type="checkbox" name="all_elements" id="s5c3af6e257cb2_all_elements">
+                                                    All elements
+                                                    (7)
+                                                </label>
+
+                                                <select name="action" style="width: auto; height: auto" class="form-control">
+                                                    <option value="delete">Delete</option>
+                                                </select>
+
+                                                <input type="submit" class="btn btn-small btn-primary" value="OK">
+                                            </div>
+
+
+
+                                            <div class="pull-right">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                        <i class="fa fa-share-square-o" aria-hidden="true"></i>
+                                                        Download
+                                                        <span class="caret"></span>
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a href="/admin/app/postcategory/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=json">
+                                                                <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
+                                                                JSON
+                                                            </a>
+                                                        <li>
+                                                        <li>
+                                                            <a href="/admin/app/postcategory/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=xml">
+                                                                <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
+                                                                XML
+                                                            </a>
+                                                        <li>
+                                                        <li>
+                                                            <a href="/admin/app/postcategory/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=csv">
+                                                                <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
+                                                                CSV
+                                                            </a>
+                                                        <li>
+                                                        <li>
+                                                            <a href="/admin/app/postcategory/export?filter%5B_sort_order%5D=ASC&amp;filter%5B_sort_by%5D=id&amp;filter%5B_page%5D=0&amp;filter%5B_per_page%5D=32&amp;format=xls">
+                                                                <i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i>
+                                                                XLS
+                                                            </a>
+                                                        <li>
+                                                    </ul>
+                                                </div>
+
+                                                &nbsp;-&nbsp;
+
+
+                                                1 / 1
+                                                &nbsp;-&nbsp;
+
+                                                7 results    &nbsp;-&nbsp;
+
+                                                <label class="control-label" for="s5c3af6e257cb2_per_page">Per page</label>
+                                                <select class="per-page small form-control" id="s5c3af6e257cb2_per_page" style="width: auto">
+                                                    <option  value="/admin/app/postcategory/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=16">16</option>
+                                                    <option selected="selected" value="/admin/app/postcategory/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=32">32</option>
+                                                    <option  value="/admin/app/postcategory/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=64">64</option>
+                                                    <option  value="/admin/app/postcategory/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=128">128</option>
+                                                    <option  value="/admin/app/postcategory/list?filter%5B_sort_order%5D=ASC&amp;filter%5B_page%5D=1&amp;filter%5B_per_page%5D=256">256</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </body>
+</html>
+

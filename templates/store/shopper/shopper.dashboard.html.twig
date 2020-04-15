@@ -1,0 +1,64 @@
+{% extends "store/shared/store.base.html.twig" %}
+{% block stylesheets %}
+    {{parent() }}
+    <link rel="stylesheet" href="{{asset('bundles/sonataadmin/vendor/admin-lte/dist/css/AdminLTE.min.css')}}">
+{% endblock %}
+{% block breadcrumbs %}
+{% endblock %}
+{% block pageMenu %}{% endblock %}
+{% block  content %}
+    <div class="container">
+        <div class="row">            
+            <div class="col-md-3 col-sm-4 site-main-sidebar">
+                <div id="box-vertical-megamenus" class="box-vertical-megamenus style2">
+                    <div class="title" style="background-color: #01bf9d;  font-weight: bolder; text-align: center">            
+                        <a href="#" target="blank" style="color: white; font-size: 1.2em;"><span  class="fa fa-dashboard"> Dashboard Items</span></a>
+                    </div>                    
+                    <div class="vertical-menu-content">
+                        <span class="btn-close hidden-md"><i class="fa fa-times" aria-hidden="true"></i></span>
+                        <ul class="vertical-menu-list">
+                            <li class="menu-item">
+                                <a href="{{path('shopper_dashboard', {'page':'summary'})}}" class="{{page == 'summary' ? 'text-green'}}">My Shopping Summary</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{{path('shopper_dashboard', {'page':'my-orders'})}}" class="{{page == 'my-orders' ? 'text-green'}}">My Orders</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{{path('shopper_dashboard', {'page':'my-requests'})}}" class="{{page == 'my-requests' ? 'text-green'}}">My Requests</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{{path('shopper_dashboard', {'page':'shipment'})}}" class="{{page == 'shipment' ? 'text-green'}}">Shipment</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 col-sm-8 padding-left-5 site-main-main">
+                <div class="box box-default box-solid">
+
+                    <div class="box-header">
+                        <h3 class="box-title"><i class="fa fa-support"> </i>   Welcome <span class="text-success"><strong>{{app.user is not null ? app.user.firstname : "BuildersHub Shopper"}}</strong></span> to your Hub's Shopping Dashboard</h3>                    
+                        <div class="box-tools pull-right">
+                            <!-- <a  data-toggle="modal" class="btn btn-success btn-sm" href="#validityDateDlg" style="color: white">
+                                 Set Price Validity Date <span class="fa fa-calendar"></span>
+                             </a>-->
+                        </div>                  
+                    </div><!-- /.box-header -->
+                    <div class="box-body">   
+                        {% if app.user is not null %}
+                            {{include(template)}}
+                        {% else %}
+                            <div class="alert alert-box alert-danger">
+                                Please you need to login to access your shopping dashboard items
+                            </div>
+                            <p align="right">
+                                <a class="btn btn-success btn-lg" href="{{path('security_login_form', {'redirect':'shopper_dashboard'})}}">Login to Your Account</a>
+                            </p>
+                        {% endif  %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

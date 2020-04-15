@@ -1,0 +1,49 @@
+<style>
+    #rentalMQRDlg {
+        top:5%;
+        right:20%;
+        left: 5%;
+        outline: none;
+    }
+    #rentalMQRDlg .modal-dialog  {width:80%;}
+    @media screen and (min-width: 768px) {
+        #rentalMQRDlg .modal-dialog  {width:700px;}
+    }
+</style>
+<div id="rentalMQRDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 class="modal-title" id="myModalLabel"> <span style="color: green"><strong>Equipment Hiring Request Form</strong></span>
+                    <small class="block"> Want Equipment or Hand Tools to Undertake your Project? Send Us a Request Now!</small>                
+                </h4>
+            </div>   
+            <div class="modal-body">
+                <div class="smart-wrap">
+                    <div class="smart-forms smart-container transparent wrap-full">
+                        {{ render_esi(controller('App\\Controller\\TransactionController::mqrForm'), {"default":'Loading form....'}) }} 
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!--<div id="mqr-modal" style="display:none">
+    <div>
+        <div class="smart-wrap">
+            <div class="smart-forms smart-container transparent wrap-full">
+                <div class="form-body" id="mqr-form">
+                    <div class="col-md-4">
+                        By sending a generic request you get multiple suppliers offering the best of deals
+                    </div>
+                    <div class="col-md-8">
+                    <h4 style="text-align: center">Multiple Quotation Request Form</h4>
+                    <span class="text-center"><i class="fa fa-spinner fa-spin fa-2x hide" id="feedback-spinner"></i></span>                      
+ 
+</div>
+</div><!-- /.modal-content 
+</div><!-- /.modal-dialog 
+</div>
+</div>
+</div>-->

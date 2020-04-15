@@ -1,0 +1,51 @@
+<table id="rentalPromosTable" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Ad</th>
+            <th>Rental Rate (GHc)</th>
+            <th>Promo Starts</th>
+            <th>Promo Ends</th>
+            <th>Promo Spending (GHc)</th> 
+            <th>Ad Status</th>
+        </tr>
+    </thead>
+    <tbody id="rentalPromosData">
+        {% for promo in promos %}
+            <tr>
+                <td>
+                    <a href="{{path('hubernize_view_ad', {'slug':promo.rentalAd.slug})}}">
+                        <img src="{{promo.rentalAd.featureImage is not null ? asset(promo.rentalAd.featureImage|imagine_filter('hub_thumbnail')) : 
+                            promo.rentalAd.equipment.featureImage is not null  ? asset(promo.rentalAd.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" width="80px" height="60px"/>
+                    </a>
+                </td>
+                <td><a href="{{path('hubernize_view_ad', {'slug':promo.rentalAd.slug})}}" title="Edit">{{promo.rentalAd.title}}</a></td>
+                <td>{{promo.rentalAd.rentalRate|number_format(2,'.',',')}}</td>
+                <td>{{promo.promoStartDate|date('d/m/Y')}}</td>                
+                <td>{{promo.promoEndDate|date('d/m/Y')}}</td>                
+                <td>
+                    {{promo.promoAmount|number_format(2, '.', ',')}}
+                </td>
+                <td>
+                    {% if promo.rentalAd.isPublished %}
+                        <span class="text-success">Running</span>
+                    {% else %}
+                        <span class="text-danger">Inactive</span>
+                    {% endif  %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Image</th>
+            <th>Ad</th>
+            <th>Rental Rate (GHc)</th>
+            <th>Promo Starts</th>
+            <th>Promo Ends</th>
+            <th>Promo Spending (GHc)</th> 
+            <th>Ad Status</th> 
+        </tr>
+    </tfoot>
+</table>
+

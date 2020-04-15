@@ -1,0 +1,124 @@
+{% extends "store/shared/store.base.html.twig" %}
+{% block breadcrumbs %}
+    <div class="container">
+        <ol class="breadcrumb-page">
+            <li><a href="{{path('posts_index')}}">Home </a></li>
+            <li class="active"><a href="#">{{post.title}}</a></li>
+        </ol>
+    </div>
+{% endblock %}
+{% block pageMenu %}{% endblock %}
+
+{% block  content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-4">
+                <div class="sidebar-left">                   
+                    <div class="block-recent-post-blog">
+                        <div class="block-title">Recent Post</div>
+                        <!--<ul>
+                            <li class="recent-post-item"><a href="">Gallery Post with Supported Animation</a></li>
+                            <li class="recent-post-item"><a href="">Announcement – Standard Post without Image</a></li>
+                            <li class="recent-post-item"><a href="">We’re the best Designers from UK</a></li>
+                            <li class="recent-post-item"><a href="">A Beautiful Day – Standard Post with Image</a></li>
+                        </ul>-->
+                    </div>
+                    <div class="block-categories-blog">
+                        <div class="block-title">Post categories</div>
+                        <!--<ul>
+                            <li class="categories-item"><a href="">All about Digital</a></li>
+                            <li class="categories-item"><a href="">Smartphone & Tablet</a></li>
+                            <li class="categories-item"><a href="">Laptop & Computer</a></li>
+                            <li class="categories-item"><a href="">Printer & ink</a></li>
+                            <li class="categories-item"><a href="">Cameras</a></li>
+                        </ul>-->
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-4 float-none">
+                <div class="main-content">
+                    <div class="post-detail">
+                        <div class="post-item">
+                            <div class="post-thumb">
+                                <a href="#"><img src="{{asset(post.featureImage|imagine_filter('hub_medium'))}}" alt="post-image"></a>
+                                <span class="date">{{post.createdAt|date('d')}}<span>{{post.createdAt|date('M')}}</span></span>
+                            </div>
+                            <div class="post-item-info">
+                                <h3 class="post-name"><a href="#">{{post.title}}</a></h3>
+                                <div class="post-metas">
+                                    <span class="author">Post by: <span>{{post.user.fullName}}</span></span>
+                                    <span class="time">{{post.createdAt|date('F')}} {{post.createdAt|date('d')}}, {{post.createdAt|date('Y')}}</span>
+                                    <span class="leave-coment">Leave a coment</span>
+                                </div>
+                                <div class="post-content">
+                                    <p class="post-item-firts">{{post.excerpt}}</p>
+
+                                    <div class="post-item-last">
+                                        {{post.content}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post-footer">
+                            <div class="tag">
+                                <span>Tags:</span>
+                                {% for tag in post.postTags %}
+                                    <a href="#">{{post.postTags|length > 1 ? tag.name~', ' : tag.name}}</a>
+                                {% endfor %}                             
+                            </div>
+                            <div class="post-authur">
+                                <div class="avata"><a href=""><img src="{{asset(post.user.person.profilePicture|imagine_filter('hub_thumbnail'))}}" alt="user-avarta"></a></div>
+                                <div class="des">
+                                    <strong>{{post.user.fullName}}</strong>
+                                    <p>{{post.user.userProfile.profile}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-comments">
+                        <div class="block-title">Leave a Reply</div>
+                        <p>Your email address will not be published. Required fields are marked *</p>
+                        <div class="block-content">
+                            <form>
+                                <div class="form-group col-md-6 padding-left">   
+                                    <label class="title">Name*</label> 
+                                    <input type="text" class="form-control" id="forName" >
+                                </div>
+                                <div class="form-group col-md-6 padding-right">
+                                    <label class="title">Email*</label>
+                                    <input type="email" class="form-control" id="forEmail" >
+                                </div>
+                                <div class="form-group">
+                                    <label class="title">Website</label>
+                                    <input type="text" class="form-control" id="forWebsite">
+                                </div>
+                                <div class="form-group">
+                                    <label class="title">Comment</label>
+                                    <textarea class="form-control" id="forContent" rows="9" ></textarea>
+                                </div>
+                                <button type="submit" class="btn-comment">Post Comment</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 float-right">
+                <div class="block-search-blog">
+                    <form class="searchform">
+                        <div class="control">
+                            <input type="text" placeholder="Enter Keywords..." name="text" class="input-subscribe">
+                            <button type="submit" class="btn-searchform"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </div>
+                    </form>
+                </div>
+                <div class="block-latest-roducts">
+                    <div class="block-title">Latest Products</div>
+                    {{ render_esi(controller('App\\Controller\\StoreUtilityController:sidebarMostPopularProducts'), {"default":'Loading Cart....'}) }}                                      
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

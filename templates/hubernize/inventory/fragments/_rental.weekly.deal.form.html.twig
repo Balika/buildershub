@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="{{asset('js/smart-forms/smart-forms.css')}}">
+<div class="smart-wrap">
+    <div class="smart-forms smart-container transparent wrap-0">
+        {{form_start(form, {method:'POST', action:path('hubernize_place_rental_weekly_deal', {'id':rentalAd.id}), 'attr':{id:'weeklyDealForm', autocomplete:'off'} })}}
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+            <h4 class="modal-title" id="myModalLabel"> <span style="color: green"><strong> You are adding {{rentalAd}} to weekly deal list</strong></span> </h4>
+        </div>             
+        <div class="modal-body">
+            <div class="row" id="dealType" style="padding: 0 0 20px 0">
+                <div class="col-md-6">
+                    <label> <input type="radio" name="dealType" value="discountRate"/> Use Discount Rate</label>
+                </div>
+                <div class="col-md-6">
+                    <label> <input type="radio" name="dealType" value="dealPrice"  checked="true"/> Use Reduced Price</label>
+                </div>
+            </div>
+            <div class="section" id="dealPrice">
+                <label>Enter Deal Price (GH¢) <small>(Amount <span class="text-danger"> should not be > {{rentalAd.rentalRate}}</span>)</small></label>
+                <label class="field prepend-icon">
+                    {{form_widget(form.dealPrice,{'attr':{'class':'form-control', 'placeholder':'e.g. 100 ' } })}}    
+                    <span class="field-icon"><i class="fa fa-pencil"></i></span> 
+                </label>
+            </div><!-- end section -->                     
+            <div class="section hide" id="discountRate">
+                <label class="label">Enter Discount Rate (%)</label>
+                <label class="field prepend-icon" >
+                   {{form_widget(form.discountRate,{'attr':{'class':'form-control', 'placeholder':'e.g. 50 '} })}} 
+                    <span class="field-icon"><i class="fa fa-percent"></i></span>  
+                </label>
+            </div><!-- end section -->
+           
+        </div>
+        <div class="form-footer">
+            <a href="#" class="button btn-default pull-left" data-dismiss="modal">Cancel</a>
+            <button type="submit" class="btn btn-success pull-right">Add Deal</button>
+        </div><!-- end .form-footer section -->
+        {{form_widget(form._token)}}
+        {{form_end(form, {'render_rest':false})}}
+    </div>
+</div>

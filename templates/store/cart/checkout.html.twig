@@ -1,0 +1,165 @@
+{% extends "store/shared/page.base.html.twig" %}
+{% block  stylesheets %}
+    {{parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link href="{{asset('js/smart-forms/smart-addons.css')}}" rel="stylesheet">   
+{% endblock %}
+{% block bodyClass %} page-product{% endblock %}
+{% block mainClass %}
+    site-main shopping-cart
+{% endblock %}
+{% block pageMenu %}
+{% endblock %}
+{% block breadcrumbs %}
+    <div class="container">
+        <ol class="breadcrumb-page">
+            <li><a href="#">Home </a></li>
+            <li class="active"><a href="#">Checkout</a></li>
+        </ol>
+    </div>
+{% endblock %}
+{% block headerCart %}
+    <a class="btn btn-action btn-success btn-lg" href="{{path('register_store')}}" target="_blank"><i class="fa fa-shopping-cart"></i> Sell on BuildersHub</a>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                {% if shoppingCart|length > 0 %}
+                    <div class="minicart-content-wrapper" style="{{shoppingCart|length >=5 ? 'max-height: 500px; overflow-y: scroll'}}">
+                        <div class="subtitle">
+                            You have <span>{{shoppingCart|length}}</span> item(s) in your cart
+                        </div>
+                        <div class="minicart-items-wrapper">
+                            <ol class="minicart-items">
+                                {% for orderItem in shoppingCart %}
+                                    <li class="product-inner">
+                                        <div class="product-thumb style1">
+                                            <div class="thumb-inner">
+                                                <a href="{{path('store_product_detail', {'slug':orderItem.product.slug})}}"><img src="{{asset(orderItem.product.featureImage|imagine_filter('hub_thumbnail_sm'))}}" alt="c1" style="margin: auto; border-radius: 3px;"></a>
+                                            </div>
+                                        </div>
+                                            <div class="product-innfo">
+                                            <div class="product-name"><a href="{{path('store_product_detail', {'slug':orderItem.product.slug})}}">{{orderItem.product}}</a></div>
+                                            <span class="price price-dark">
+                                                <ins>GH¢{{orderItem.product.productData.salePrice!=null ? orderItem.product.productData.salePrice|number_format(2, '.',',') : orderItem.product.productData.regularPrice|number_format(2, '.',',')}}</ins>                                                   
+                                                <del>{{orderItem.product.productData.salePrice!=null ? 'GH¢'~orderItem.product.productData.regularPrice|number_format(2, '.',',')}}</del>                                        
+                                            </span>
+                                            <div  style="padding-right:5px">
+                                                <strong>QTY: <span class="pull-right" style="color: #0084B4">{{orderItem.quantity}}</span></strong>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <br/>
+                                {% endfor %}                           
+                            </ol>
+                        </div>
+                        <div class="subtotal">
+                            <span class="label">Total :</span>
+                            <span class="price pull-right">GH¢{{order.total|number_format(2, '.',',')}}</span>
+                        </div>
+
+                    </div>
+                    <div class="actions">
+                        <a class="btn btn-viewcart pull-right" href="{{path('view_cart')}}">View cart</a>                           
+                    </div>
+                {% endif  %}
+            </div>
+            <div class="col-md-9">
+                {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <ul class="nav nav-tabs" role="tablist" >
+                        <li role="presentation" class="active">
+                            <a href="#login" data-toggle="tab"> <b></b> <span class="text-success">Login</span></a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#register" data-toggle="tab"> Create Free Account</a>
+                        </li>
+                    </ul>
+                    <div class="row">
+                        <div class="col-divider-margin-1"></div>
+                        <div class=" divider-line solid light"></div>  
+                        <div class="col-divider-margin-1"></div>  
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane fade in active" id="login">
+                            <div class="row">
+                                <div class="col-md-12" id="loginForm">
+                                    {{ include ('store/includes/login.form.html.twig', {'isRegisterToggle':false} ) }}
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="register">                  
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box box-default box-solid">                            
+                                        <div class="box-body">
+                                            <form action="#" class="checkout" method="post" name="checkout">
+                                                <h4 class="title-checkout">Billing Address</h4>
+                                                <div class="row">
+                                                  {{ include ('store/includes/new.user.form.html.twig', {'isRegisterToggle':false}) }}
+                
+                                                    <div class="form-group shipping col-md-6">
+                                                        <ul>
+                                                            <li><label class="inline" ><input type="checkbox"><span class="input"></span>Create an account?</label></li>
+                                                            <li><label class="inline" ><input type="checkbox"><span class="input"></span>Ship to a different address?</label></li>
+                                                        </ul>
+                                                        <h4 class="title-checkout">Shipping method</h4>
+                                                        <p>Flat Rate</p>
+                                                        <p>Fixed $50.00</p>
+                                                        <h4 class="discount">Discount Codes</h4>
+                                                        <label class="title">Enter Your Coupon code:</label>
+                                                        <input type="text" class="form-control">
+                                                        <button type="submit" class="btn-apply">Apply</button>
+                                                    </div>
+                                                    <div class="form-group payment col-md-6">
+                                                        <h4 class="title-checkout">Payment Method</h4>
+                                                        <p>Check / Money order</p>
+                                                        <p>Credit Cart (saved)</p>
+                                                        <ul>
+                                                            <li><label class="inline" ><input type="checkbox"><span class="input"></span>Direct Bank Transder</label></li>
+                                                            <li><label class="inline" ><input type="checkbox"><span class="input"></span>Cash on Delivery</label></li>
+                                                            <li><label class="inline" ><input type="checkbox"><span class="input"></span>Paypal</label></li>
+                                                        </ul>
+                                                        <p class="credit">You can pay with your credit<br> card if you don't have a paypal account</p>
+                                                        <span class="grand-total">Grand Total<span>$100.00</span></span>
+                                                        <button type="submit" class="btn-order">Place Order Now</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="order-summary">
+                        <h4 class="title-shopping-cart">Hi <span class="green">{{user.firstname}},</span> Here is Your Order Summary</h4>
+                        <div class="checkout-element-content">
+                            <span class="order-left">Subtotal:<span>GH¢{{order.subTotal|number_format(2, '.',',')}}</span></span>
+                            <span class="order-left">Tax:<span>GH¢{{order.tax|number_format(2, '.',',')}}</span></span>
+                            <span class="order-left">Shipping:<span>Free Shipping</span></span>
+                            <span class="order-left">Total:<span>GH¢{{order.total|number_format(2, '.',',')}}</span></span>
+                            <ul style="padding: 15px 0 15px 0">
+                                <li><label class="inline" ><input type="checkbox"><span class="input"></span>I have promo code</label></li>
+                            </ul>
+                            <div>
+                                <a href="{{path('place_order')}}" class="checkout-callback btn-checkout pull-right" id="confirm-checkout"
+                                   data-toggle="confirmation"
+                                   data-placement="left"
+                                   data-btn-ok-label="Place Order" data-btn-ok-class="btn btn-success btn-sm"
+                                   data-btn-ok-icon-class="material-icons" data-btn-ok-icon-content="check"
+                                   data-btn-cancel-label="Cancel" data-btn-cancel-class="btn btn-default btn-sm"                                               
+                                   data-btn-cancel-icon-class="material-icons" data-btn-cancel-icon-content="close"
+                                   data-title="Confrim My Order">                                                          
+                                    <span>Confirm Order</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

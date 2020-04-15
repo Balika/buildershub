@@ -1,0 +1,59 @@
+<div id="userDetailsDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h3 class="modal-title" id="myModalLabel"> <span style="color: green"><strong>Update Your Contact & Location Info</strong></span></h3>
+            </div>  
+
+            <div class="smart-wrap">
+                <div class="smart-forms smart-container transparent wrap-full">  
+                    <div class="row"  style="padding: 10px">
+                        <div class="col-md-12">
+                            {% set passwordError = app.request.get('error')%}
+                            {{form_start(userForm, { method: 'POST', action: path('account_settings', {'sub':'security'}), 'attr':{id: "smart-form"} })}}  
+                            <br/>
+                            <div class="section">
+                                <label class="field prepend-icon">
+                                    {{form_widget(userForm.email, {'attr': {class:"gui-input", placeholder:"Enter email address" } } )}}
+                                    <span class="field-icon"><i class="fa fa-envelope"></i></span>
+                                </label>
+                            </div><!-- end section -->
+                            <div class="section">
+                                <label class="field prepend-icon">
+                                    {{form_widget(userForm.person.contactNo, {'attr': {class:"gui-input", placeholder:"Enter phone number" } } )}}
+                                    <span class="field-icon"><i class="fa fa-phone"></i></span>
+                                </label>
+                            </div><!-- end section -->
+                            <div class="section">
+                                <label class="field prepend-icon">
+                                    {{form_widget(userForm.person.address, {'attr': {class:"gui-textarea", placeholder:"Enter address" } } )}}
+                                    <span class="field-icon"><i class="fa fa-envelope"></i></span>
+                                </label>
+                            </div><!-- end section -->     
+                            <div class="col-md-6">
+                                <div class="select-box-2 prepend-icon">
+                                    {{form_widget(userForm.userProfile.region, {'attr': {placeholder:"Select your region" } } )}} 
+                                    <span class="field-icon"><i class="fa fa-map-marker"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="select-box-2 prepend-icon">
+                                    {{form_widget(userForm.userProfile.town, {'attr': {placeholder:"Select your town" } } )}}   
+                                    <span class="field-icon"><i class="fa fa-map-o"></i></span>
+                                </div>
+                            </div>
+
+                            <div class="form-footer">
+                                <button type="button" class="button btn-default" data-dismiss="modal"> Cancel </button>
+                                <button type="submit" class="btn h5a-btn btn-info pull-right"><i class="fa fa-lock"></i> Update Details</button>
+                            </div>
+                            {{ form_row(userForm._token) }} 
+                            {{ form_end(userForm, {'render_rest': false}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

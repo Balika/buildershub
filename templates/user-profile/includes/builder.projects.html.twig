@@ -1,0 +1,58 @@
+{% if latestProject is defined and  latestProject is not null%}
+    <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+        <div class="imgbox-xtiny round overflow-hidden left"><a href="{{path('user_profile', {'usernameCanonical':requestedProfile.usernameCanonical})}}">
+                <img src="{{asset('uploads/profile/'~requestedProfile.person.profilePicture)}}" alt="{{requestedProfile.firstname}} Profile Picture" class="img-responsive"/></a></div>
+        <div class="text-box-right">
+            <h6 class="nopadding title"><strong>{{requestedProfile.fullName}} <small>latest project / work</small></strong> {% if isOwnProfile %}<a href='{{path('user_profile', {'usernameCanonical':user.usernameCanonical, 'page':'projects', 'sub':'add-project'})}}' class="text-success pull-right" target="_blank"> <strong>Add Project/Work &raquo;</strong></a>{% endif %}</h6>
+            <div class="blog-post-info"> <span>  <i class="fa fa-clock-o"></i> Posted on: {{latestProject.createdAt|date('d')}} {{latestProject.createdAt|date('M')}}</span> <span><i class="fa fa-comments-o"></i> 0 </span></div>
+        </div>
+        <br/>
+        <h6 class="nopadding title"><a href="#"><strong>{{latestProject.title|title}}</strong></a></h6>
+        <div id="js-grid-slider-projects" class="cbp">               
+            {{ render(controller('App\\Controller\\ProfileUtilityController:renderProjectPhotos', {'work':latestProject.id}), {"default":'Loading Cart....'}) }}                                           
+        </div>
+        <br>
+        <p  class="text-right {{isOwnProfile?'hide' }}">
+            <a href="{{path('user_profile',{'usernameCanonical' : requestedProfile.usernameCanonical, 'page':'works', 'uref':user.id})}}" class="text-danger">More Projects &raquo;</a>
+        </p>
+        <div class="box-tools engageLikeLinks" id="engagePanel{{latestProject.id}}" style="display: block" >
+            <span class="pull-left">                                
+                <a class="btn btn-tiny btn-default" > {{latestProject.likes|length|number_format('0', '.',',')}} <i class="fa fa-thumbs-up"></i></a>
+                <a class="btn btn-tiny btn-default">400 <i class="fa fa-share-alt"></i></a>
+            </span>
+            <span class="pull-right">   
+                {% if  is_liked(latestProject) %}
+                    <a id="{{latestProject.id}}" class="btn btn-tiny btn-primary xround-2" href="{{path('unlike_post', {'usernameCanonical':requestedProfile.usernameCanonical, 'entityId': latestProject.id, 'entityClass': constant('App\\Utils\\EntityConfig::WORK')})}}">Unlike <i class="fa fa-thumbs-o-down"></i></a>                            
+                {% else %}
+                    <a id="{{latestProject.id}}"  class="btn btn-tiny btn-primary xround-2" href="{{path('like_post', {'usernameCanonical':requestedProfile.usernameCanonical,'entityId': latestProject.id, 'entityClass': constant('App\\Utils\\EntityConfig::WORK')})}}">Like <i class="fa fa-thumbs-o-up"></i></a>                         
+                {% endif %}
+                <a class="btn btn-tiny btn-info xround-2">Share <i class="fa fa-share-alt"></i></a>
+            </span>
+        </div>
+        <div class="col-divider-margin-1"></div>
+        <div class=" divider-line solid light"></div>  
+        <div class="col-divider-margin-1"></div>  
+        {{ render_esi(controller('App\\Controller\\ProfileUtilityController:renderCommentsBlock', {'postId':latestProject.id, 'block':'projectCommentsBlock'}), {"default":'Loading Cart....'}) }}            
+        <div class="col-divider-margin-1"></div>
+        <div class=" divider-line solid light"></div>  
+        <div class="col-divider-margin-1"></div>  
+        <section class="sec-padding section-white">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5><i class="fa fa-comments"></i> Comments ({{latestProject.commentCount}}) <small><a class="text-green" href="#" id="showCommentsLink">Show <i class="fa fa-angle-right"></i></a></small> </h5>
+                    <ul class="list-2 bg-white" id="commentsPanel" style="display: none">
+                        {% for comment in latestProject.comments  %}
+                            <li>
+                                <div class="imgbox-tiny round overflow-hidden left"><img src="{{asset('uploads/profile/'~comment.user.person.profilePicture)}}" alt="" class="img-responsive"/></div>
+                                <div class="text-box-right">
+                                    <h6 class="nopadding title"><a href="#"><strong>{{comment.user.fullName}}</strong></a></h6>
+                                    <p class="padding-top-1"> {{comment.comment}}</p>
+                                </div>
+                            </li>
+                        {% endfor %}                      
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endif %} 

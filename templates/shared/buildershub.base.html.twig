@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-V6FW3JQS0C"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'G-V6FW3JQS0C');
+        </script>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible"  content="IE=edge">
+        <title>
+            {% block pageTitle %} 
+                BuildersHub | We bring together Artisans, Construction / Building Material Suppliers, Engineers, Architects, Planners
+                Quantity Surveyors, Contractors & Consultants, Project Managers, Property Owners and the general to exchange goods and services
+            {% endblock %}
+        </title>
+        <meta name="keywords" content="" />
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!-- Mobile view -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Favicon --> 
+        <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}">   
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{asset('js/bootstrap/bootstrap.min.css')}}">
+            <!-- Google fonts  -->
+            <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Yesteryear" rel="stylesheet"> 
+
+            <!-- Template's stylesheets -->
+
+            <!-- Template's stylesheets -->
+            <link rel="stylesheet" href="{{asset('js/megamenu/stylesheets/screen.css')}}">
+            <link rel="stylesheet" href="{{asset('css/default.css')}}" type="text/css">
+            <link rel="stylesheet" href="{{asset('js/loaders/stylesheets/screen.css')}}">
+            <link rel="stylesheet" href="{{asset('css/corporate.css')}}" type="text/css">
+            <link rel="stylesheet" href="{{asset('css/shortcodes.css')}}" type="text/css">
+            <link rel="stylesheet" href="{{asset('fonts/font-awesome/css/font-awesome.min.css')}}" type="text/css">
+            <link rel="stylesheet" type="text/css" href="{{asset('fonts/Simple-Line-Icons-Webfont/simple-line-icons.css')}}" media="screen" />
+            <link rel="stylesheet" href="{{asset('fonts/et-line-font/et-line-font.css')}}">
+
+            <link href="{{asset('js/owl-carousel/owl.carousel.css')}}" rel="stylesheet">
+            <link href="{{asset('js/owl-carousel/owl.theme.css')}}" rel="stylesheet">
+            <link rel="stylesheet" type="text/css" href="{{asset('js/cubeportfolio/cubeportfolio.min.css')}}">
+
+            <link rel="stylesheet" type="text/css" href="{{asset('js/imgheffects/set1.css')}}" />
+            <link rel="stylesheet" href="{{asset('js/datepicker/datepicker3.css')}}" />
+            <!-- Template's stylesheets END -->
+            <!--[if lt IE 9]>
+            <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <![endif]-->
+            <!-- Skin stylesheet -->
+        {% endblock %}
+        <style rel="stylesheet" type="text/css">
+            .response{position: relative;}
+            .overlay{position: absolute;left: 0; top: 0; right: 0; bottom: 0;z-index: 2;background-color: rgba(255,255,255,0.8);}
+            .overlay-content {
+                position: absolute;
+                transform: translateY(-50%);
+                -webkit-transform: translateY(-50%);
+                -ms-transform: translateY(-50%);
+                top: 15%;
+                left: 0;
+                right: 0;
+                text-align: center;
+                color: #555;
+            }
+
+        </style>
+        <!-- Style Customizer's stylesheets -->
+        <link rel="stylesheet" type="text/css" href="{{asset('js/style-customizer/css/spectrum.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{asset('js/style-customizer/css/style-customizer.css')}}">
+        <link rel="stylesheet/less" type="text/css" href="{{asset('less/skin.less')}}">
+        <link rel="stylesheet" href="{{asset('css/custom.css')}}" type="text/css">
+        <!-- Style Customizer's stylesheets END -->
+        <link rel="shortcut icon" href="{{ asset('favicon.ico')}}">
+    </head>
+    <body>
+        {% set previousPage = app.request.headers.get('referer') %}
+        <!--<div class="over-loader loader-live">
+            <div class="loader">
+                <div class="loader-item style5">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>
+                </div>
+            </div>
+        </div>-->
+        <div class="wrapper-boxed">
+            <div class="site-wrapper" id="site-wrapper">
+                <div class="col-md-12 nopadding">
+                    {% block mainNav %}
+                        {% include 'shared/home.main.nav.html.twig' %}
+                    {% endblock %}
+                </div>
+                <!--end menu-->
+                <div class="clearfix"></div>
+                {# include 'shared/feedback.dialog.html.twig' #}
+                {# include 'shared/feedback.html.twig' #}
+
+                {% block content %}
+                {% endblock %}
+                <div class="clearfix"></div>
+                {% block foorter %}
+                    <section class="section-fulldark sec-padding">
+                        <div class="container ">
+
+                            {% include 'shared/footer.html.twig' %}
+
+                        </div>
+                    </section>
+                {% endblock %}
+                <div class="clearfix"></div>
+                <!--end section-->
+                <section class="sec-moreless-padding section-dark">
+                    <div class="container">
+                        <div class="row">
+                            <div class="fo-copyright-holder text-white text-center">  <h6 class="text-white">  Copyright 2018 © BuildersHub from <a href='http://www.baselinetechlab.com' target="new">Baseline Technologies Laboratory Ltd</a> </h6></div>
+                        </div>
+                    </div>
+                </section>
+                <div class="clearfix"></div>
+                <!-- end section --> 
+                <a href="#" class="scrollup"><i class="fa fa-angle-up" aria-hidden="true"></i></a><!-- end scroll to top of the page--> 
+            </div>
+            <!--end site wrapper--> 
+        </div>
+        <!--end wrapper boxed--> 
+
+        {% block javascripts %}
+            <!-- Scripts --> 
+            <script src="{{asset('js/jquery/jquery.js')}}"></script> 
+            <script src="{{asset('js/bootstrap/bootstrap.min.js')}}"></script>
+            <script src="{{asset('js/style-customizer/js/spectrum.js')}}"></script> 
+            <script src="{{asset('js/less/less.min.js')}}" data-env="development"></script> 
+            <script src="{{asset('js/style-customizer/js/style-customizer.js')}}"></script> 
+            <!-- Scripts END --> 
+
+            <!-- Template scripts --> 
+            <script src="{{asset('js/megamenu/js/main.js')}}"></script> 
+            <script src="{{asset('js/owl-carousel/owl.carousel.js')}}"></script> 
+            <script src="{{asset('js/owl-carousel/custom.js')}}"></script> 
+            <script src="{{asset('js/ytplayer/jquery.mb.YTPlayer.js')}}"></script> 
+            <script src="{{asset('js/ytplayer/elementvideo-custom.js')}}"></script> 
+            <script src="{{asset('js/ytplayer/play-pause-btn.js')}}"></script> 
+            <script src="{{asset('js/cubeportfolio/jquery.cubeportfolio.min.js')}}"></script> 
+            <script src="{{asset('js/cubeportfolio/main-mosaic3.js')}}"></script> 
+            <script src="{{asset('js/parallax/parallax-background.min.js')}}"></script>
+            <script src="{{asset('js/datepicker/bootstrap-datepicker.js')}}"></script>
+            <script>
+            (function ($) {
+                $('.parallax').parallaxBackground();
+
+            })(jQuery);
+            </script>
+        {% endblock %}
+        {% block pageScripts %}
+            <!-- REVOLUTION JS FILES --> 
+            <script src="{{asset('js/revolution-slider/js/jquery.themepunch.tools.min.js')}}"></script> 
+            <script src="{{asset('js/revolution-slider/js/jquery.themepunch.revolution.min.js')}}"></script> 
+            <!-- SLIDER REVOLUTION 5.0 EXTENSIONS  
+            (Load Extensions only on Local File Systems ! 
+            The following part can be removed on Server for On Demand Loading) --> 
+            <script src="{{asset('js/revolution-slider/js/extensions/revolution.extension.actions.min.js')}}"></script> 
+            <script src="{{asset('js/revolution-slider/js/extensions/revolution.extension.carousel.min.js')}}"></script> 
+            <script src="{{asset('js/revolution-slider/js/extensions/revolution.extension.kenburn.min.js')}}"></script> 
+            <script src="{{asset('js/revolution-slider/js/extensions/revolution.extension.layeranimation.min.js')}}"></script> 
+            <script src="{{asset('js/revolution-slider/js/extensions/revolution.extension.migration.min.js')}}"></script> 
+            <script src="{{asset('js/revolution-slider/js/extensions/revolution.extension.navigation.min.js')}}"></script> 
+            <script src="{{asset('js/revolution-slider/js/extensions/revolution.extension.parallax.min.js')}}"></script> 
+            <script src="{{asset('js/revolution-slider/js/extensions/revolution.extension.slideanims.min.js')}}"></script> 
+            <script src="{{asset('js/revolution-slider/js/extensions/revolution.extension.video.min.js')}}"></script>
+        {% endblock %}
+        <script src="{{asset('plugins/hinclude/hinclude.js')}}"></script>
+        <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
+        <script>
+            var assetsBaseDir = "{{ asset('assets/') }}";
+            var ajaxLoader = "{{ asset('images/ajax-loader.gif') }}";
+        </script>
+        <script src="{{asset('js/buildershub.js')}}"></script>
+
+        {% block initScripts %}           
+            <!--<script>
+                $(window).load(function () {
+                    setTimeout(function () {
+                        $('.loader-live').fadeOut();
+                    }, 1000);
+                });
+            </script>-->
+            <script type="text/javascript">
+            jQuery(function ($) {
+                //datepicker plugin
+                //link
+                $('.date').datepicker({
+                    autoclose: true,
+                    todayHighlight: true,
+                    showOn: 'button',
+                    buttonImageOnly: true,
+                    changeMonth: true,
+                    changeYear: true,
+                    format: 'yyyy-mm-dd',
+                    yearRange: "-0:+1"
+                });
+            });
+            </script>
+        {% endblock %}
+        <script src="{{asset('js/functions/functions.js')}}"></script>
+       <!-- <script type="text/javascript" src="{{ asset('build/js/app.js') }}"></script>-->
+    </body>
+</html>
+

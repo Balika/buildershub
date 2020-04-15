@@ -1,0 +1,23 @@
+# KnpGaufretteBundle Configuration
+knp_gaufrette:
+    adapters:
+        adapter_aws_s3_images:
+            aws_s3:
+                service_id: "app.assets.s3" 
+                bucket_name: "%env(ASSETS_BUCKET)%"               
+                detect_content_type: true
+                options:
+                    directory: 'live/images'
+                    create: true 
+                    acl: "public-read"
+                    
+        adapter_aws_s3_documents:
+            aws_s3:
+                service_id: "app.assets.s3" 
+                bucket_name: "%env(ASSETS_BUCKET)%"
+                options:
+                    directory: 'live/documents'
+                    create: true
+   
+        
+    

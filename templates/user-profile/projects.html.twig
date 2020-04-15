@@ -1,0 +1,48 @@
+{% include 'user-profile/includes/project.photo.form.html.twig' %}
+<p align="right">
+    <a class="btn btn-tiny border border-cyan xround-1" href="{{path('user_profile', {'usernameCanonical':user.usernameCanonical, 'page':'projects', 'sub':'add-project'})}}"><span class="fa fa-plus"> Add Project</span></a>
+</p>
+
+
+<section class="sec-padding" id="asynPageContent">
+    {% if projects is defined %}
+
+        {% for project in projects %}
+            <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+                <div style="border: 1px solid #eeeded; border-radius: 4px; width: 100%; padding: 20px; min-height: 120px">
+                    <h5 >
+                        {{ project.title|title}} <a class="btn btn-tiny btn-success round-1 projectPhotoLink pull-right"  id="Add a photo to {{project.title}}" href="{{path('add_project_photo',{'id':project.id})}}"><span class="fa fa-plus"> Add Project Photo</span></a>
+                    </h5>
+                    <section class="sec-padding">
+                        <div class="row">
+                            <h6><small><strong>Project Photo Gallery</strong></small></h6>                                            
+                            {{ render_esi(controller('App\\Controller\\ProfileUtilityController:renderProjectPhotos', {'work':project.id, 'block':'myProjectPhotoGallery'}), {"default":'Loading Cart....'}) }}                                           
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="col-divider-margin-1"></div>
+            <div class=" divider-line solid light"></div>  
+            <div class="col-divider-margin-1"></div> 
+            <!--<div class="smartforms-modal-body" >
+                <div class="smart-wrap" >
+                    <div class="smart-forms smart-container transparent wrap-full">
+                        <div class="form-body no-padd"> 
+                            <div class="section">
+                                <label class="field prepend-icon">
+                                    <input class="gui-textarea" type="text"/>
+                                    <span class="field-icon"><i class="fa fa-comments"></i></span>
+                                    <span class="input-hint"> <strong>Hint:</strong> Add your comment to this project</span>  
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            {# render(controller('App\\Controller\\ProfileUtilityController:renderProjectPhotos', {'work':project.id}), {"default":'Loading Cart....'}) #}                               
+        {% endfor %}
+
+    {% endif %}
+</section>
+
+

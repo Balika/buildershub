@@ -1,0 +1,26 @@
+<div id="allServices" style="display:none">
+    <div>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>All Services Offered by <span class="text-danger">{{company}}</span> </h4>
+            </div>
+             <div class=" divider-line solid light"></div>  
+            <div class="col-md-9">
+            {% for service in company.serviceOfferings %}
+                <div class="col-md-6">
+                    <div class="col-md-8 col-sm-8 nopadding">
+                        <h6 class="font-weight-6 margin-bottom">{{service.title}}</h6>
+                        <p class="option block spacer-t10">
+                            {{service.summary|length > 80 ? service.summary|slice(0, 80)  ~'...' : service.summary}}
+                            {% if  service.summary|length> 80 %} <b class="tooltip"><em> This is a checkbox tooltip </em></b>  {% endif %}    
+                        </p>
+                    </div> 
+                </div>
+            {% endfor %}
+            </div>
+            <div class="col-md-3">
+                Ads Here
+            </div>
+        </div>
+    </div>
+</div>

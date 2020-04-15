@@ -1,0 +1,47 @@
+{% if region is not null or town is not null or category is not null %}
+    <div class="alert {{builders|length>0?'alert-info':'alert-danger'}}">
+        {{builders|length}} Result(s) Found <strong>{{category is not null ? 'for '~ category ~ ' ('~ category.practitioner ~'s)'}}</strong> {{town is not null ? ' in or around ' ~town ~', '~region ~' Region': region is not null ? ' in or around ' ~ region  ~' Region'}}
+    </div>
+{% else %}
+    <h6><strong>List of {{page=='artisans' ? "Artisans" : "Professionals"}}</strong></h6>
+{% endif %}
+{% for builder in builders %}
+     {{loop.first ? "<div class='row'>" }}
+    <div class="col-md-4 col-sm-7 col-xs-12">        
+        <div class="item" id="promotedBuilders" >                   
+            <div class="call-to-action bg-warning" style="text-align: center">
+                <div class="text-box">                        
+                    <a class="btn btn-border border-1x light" href="{{path('user_profile', {'usernameCanonical':builder.user.usernameCanonical})}}">
+                        <img src="{{builder.user.person.profilePicture is not null ? asset(s3_images_url~builder.user.person.profilePicture) : asset('images/default-user.png')}}" alt="" class="img-responsive round" > 
+                    </a> 
+                </div>   
+                <div class="text-box">
+                    <h5><a href="#">{{builder.user.fullName}} <span class="text-small2 text-primary font-weight-6 lspace-sm">{{builder.profession is not null ? '('~builder.profession.practitioner~')'}}</span> <!--<span class="label label-success text-small2"><i class="fa fa-check"></i> verified</span>--></a></h5>
+                    <p class="text-danger">
+                        <small>
+                        {% if builder.user.userProfile.town!=null %}
+                            <i class="fa fa-map-marker margin-r-5"></i> 
+                            <strong>
+                                {{builder.user.userProfile.subLocation is not null ? builder.user.userProfile.subLocation ~', '}} {{builder.user.userProfile.town}}{{builder.user.userProfile.region!=null ? ', '~builder.user.userProfile.region ~' Region' }}            
+                            </strong>
+                        {% endif %}   
+                        </small>
+                    </p>
+                    <div>
+                        <span class="label label-primary text-left"><a class="text-white" href="{{path('user_profile', {'usernameCanonical':builder.user.usernameCanonical})}}" target="_blank"><i class="fa fa-eye" style="color:white"></i> View Profile</a></span>
+                        <span class="label label-warning text-right"><a class="text-white" target="_blank" href="{{path('user_profile',{'usernameCanonical' : builder.user.usernameCanonical, 'page':'request'})}}"><i class="fa fa-envelope" style="color:white"></i> Contact</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>      
+    </div>
+                         {{loop.index is divisible by(3) and not  loop.last  ? "</div><div class='row'>" : loop.last ? "</div>" }}
+{% endfor %}
+<div class="row">
+    <div class="col-md-12">
+        {{ knp_pagination_render(builders) }}
+        {% if builders|length > 0%}
+            <span class="show-resuilt pull-right" style="padding-top: 15px">Showing <span>{{ builders.getPaginationData.firstItemNumber }} - {{ builders.getPaginationData.lastItemNumber }}</span> of <span>{{builders.totalItemCount}}</span> results</span>
+        {% endif %}
+    </div>
+</div>

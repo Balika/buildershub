@@ -1,0 +1,203 @@
+{% extends "store/shared/page.base.html.twig" %}
+{% block  bodyClass %}
+    page-product detail-product
+{% endblock %}
+{% block  mainClass %}
+    site-main
+{% endblock %}
+{% block  breadcrumbs %}
+    {% set previousPage = app.request.headers.get('referer') %} 
+    <div class="container">
+        <ol class="breadcrumb-page">
+            <li><a href="{{previousPage}}">&laquo; Back </a></li>
+            <li class="active"><a href="#">{{property.name}}</a></li>
+        </ol>
+    </div>
+{% endblock %}
+{% block pageMenu %}    
+    <a href="#">{{property}}</a>
+{% endblock %}
+{% block  content %}
+    <div class="container">
+        <div class="product-content-single">
+            <div class="row">
+                <div class="col-md-4 col-sm-12 padding-right">
+                    <div class="product-media">
+                        <div class="image-preview-container image-thick-box image_preview_container">
+                            <img id="img_zoom" data-zoom-image="{{asset(s3_images_url~property.featureImage)}}" src="{{asset(property.featureImage|imagine_filter('hub_thumbnail'))}}" alt="" style="border-radius:3px">
+                            <a href="#" class="btn-zoom open_qv"><i class="fa fa-search" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="product-preview image-small product_preview">
+                            <div id="thumbnails" class="thumbnails_carousel owl-carousel nav-style4" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="10" data-responsive='{"0":{"items":3},"480":{"items":5},"600":{"items":5},"1000":{"items":5}}'>
+                                <a href="#" data-image="{{asset(property.featureImage|imagine_filter('hub_thumbnail'))}}" data-zoom-image="{{asset(s3_images_url~property.featureImage)}}">
+                                    <img src="{{asset(property.featureImage|imagine_filter('hub_thumbnail'))}}" data-large-image="{{asset(s3_images_url~property.featureImage)}}" alt="i1">
+                                </a>
+                                {# for img in property.gallery %}
+                                    <a href="#" data-image="{{asset('uploads/products/'~img)}}" data-zoom-image="{{asset('uploads/products/'~img)}}">
+                                        <img src="{{asset('uploads/products/'~img)}}" data-large-image="{{asset('uploads/products/'~img)}}" alt="i1">
+                                    </a>
+                                {% endfor #}  
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-sm-6">
+                    <div class="product-info-main">
+                        <div class="product-name"><a href="">{{property}}</a></div>
+
+                        <div class="star-rating">
+                            <i class="fa fa-map-marker"></i> <span class="review">{{property.town is not null ?  property.town ~','}} {{property.region}}</span>
+                        </div>
+                        <div class="product-infomation">
+                            <p><label>No. of Bedrooms: </label>{{property.bedrooms}}</p>
+                            <p><label>No. of Bathrooms: </label>{{property.bathrooms}}</p>
+                            <p><label>Parking Slots: </label>{{property.parkingLots}}</p>
+                            <p><label>Units Avaiable: </label>{{property.availableUnits}}</p>
+                        </div>
+                        <div class="group-btn-share">
+                            <a href="#"><img src="{{asset('images/detail/btn1.png')}}" alt="btn1"></a>
+                            <a href="#"><img src="{{asset('images/detail/btn2.png')}}" alt="btn1"></a>
+                            <a href="#"><img src="{{asset('images/detail/btn3.png')}}" alt="btn1"></a>
+                            <a href="#"><img src="{{asset('images/detail/btn4.png')}}" alt="btn1"></a>
+                        </div>
+                        <div class="product-description">
+                            {{property.description}}   
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="product-info-price">
+                        <div class="product-info-stock-sku">
+                            <div class="stock available">
+                                <span class="label-stock">Availability: </span>In Stock
+                            </div>
+                        </div>
+                        <div class="transportation">
+                            <span>{{property.company}}</span>
+                        </div>
+                        <span class="price">
+                            <ins>GH¢{{property.salePrice!=null ? property.salePrice|number_format(2, '.',',') : property.regularPrice|number_format(2, '.',',')}}</ins>
+                            <!--<del>GH¢{#product.productData.regularPrice|number_format(2, '.',',')}#}</del>-->
+                        </span>
+                        <div class="quantity">
+                            <h6 class="quantity-title">Quantity:</h6>
+                            <div class="buttons-added">
+                                <input type="text" value="1" title="Qty" class="input-text qty text" size="1">
+                                <a href="#" class="sign plus"><i class="fa fa-plus"></i></a>
+                                <a href="#" class="sign minus"><i class="fa fa-minus"></i></a>
+                            </div>
+                        </div>
+                        <div class="single-add-to-cart">
+                            <a href="{{path('contact_supplier', {'slug':property.company.slug, 'product_slug':property.slug})}}" class="btn-add-to-cart"><i class="fa fa-envelope"></i> Contact Supplier</a>
+                            <a href="" class="compare"><i class="fa fa-retweet"></i>Compare</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="tab-details-product">
+            <ul class="box-tab nav-tab">
+                <li class="active"><a data-toggle="tab" href="#tab-1">Description</a></li>
+                <li><a data-toggle="tab" href="#tab-2">Addtional Infomation</a></li>
+                <li><a data-toggle="tab" href="#tab-3">Reviews</a></li>
+            </ul>
+            <div class="tab-container">
+                <div id="tab-1" class="tab-panel active">
+                    <div class="box-content">
+                    </div>
+                </div>
+                <div id="tab-2" class="tab-panel">
+                    <div class="box-content">
+                        <p>      </p>
+                    </div>
+                </div>
+                <div id="tab-3" class="tab-panel">
+                    <div class="box-content">
+                        <form method="post" action="#"  class="new-review-form">
+                            <a href="#" class="form-title">Write a review</a>
+                            <div class="form-content">
+                                <p class="form-row form-row-wide">
+                                    <label>Name</label>
+                                    <input type="text" value="" name="text" placeholder="Enter your name" class="input-text">
+                                </p>
+                                <p class="form-row form-row-wide">
+                                    <label>Email</label>
+                                    <input type="text" name="text" placeholder="admin@example.com" class="input-text">
+                                </p>
+                                <p class="form-row form-row-wide">
+                                    <label>Review Title<span class="required">*</span></label>
+                                    <input type="email" name="email" placeholder="Give your review a title" class="input-text">
+                                </p>
+                                <p class="form-row form-row-wide">
+                                    <label>Body of Review (1500)</label>
+                                    <textarea aria-invalid="false" class="textarea-control" rows="5" cols="40" name="message"></textarea>
+                                </p>
+                                <p class="form-row">
+                                    <input type="submit" value="Submit Review" name="Submit" class="button-submit">
+                                </p>
+                            </div>
+                        </form>
+                    </div>
+                </div>     
+            </div>  
+        </div> 
+    </div>
+    <div class="block-recent-view">
+        <div class="container" id="relatedProducts">
+            <div class="title-of-section">Other Properties by same realtor/agent</div>
+            <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="true" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":6}}'>
+                {% for property in relatedProperties %}
+                    <div class="product-item style1">
+                        <div class="product-inner equal-elem">
+                            <div class="product-thumb">
+                                <div class="thumb-inner">
+                                    <a href="{{path('property_details', {'slug':property.slug})}}"><img src="{{asset('uploads/products/'~property.featureImage)}}" alt="r1" style="height: 140px; margin: auto; border-radius: 3px;"></a>
+                                </div>
+                                <span class="{{property.listingType== "For Rent" ? 'onnew':'onsale'}}">{{property.listingType}}</span>
+                                <a href="{{path('property_details', {'slug':property.slug})}}" class="quick-view">Quick View</a>
+                            </div>
+                            <div class="product-innfo">
+                                <div class="product-name"><a href="{{path('property_details', {'slug':property.slug})}}">{{property.name}}</a></div>
+                                <span class="price">
+                                    <ins>{{property.currency}}{{property.salePrice is not null ? property.salePrice|number_format(2, '.',',') : property.regularPrice|number_format(2, '.',',')}}</ins>
+                                    <del></del>
+                                </span>
+                                <div class="star-rating">
+                                    <i class="fa fa-map-marker"></i> <span class="review">{{property.town is not null ?  property.town ~','}} {{property.region ~' Region'}}</span>                         
+                                </div>
+                                <div class="group-btn-hover">
+                                    <a href="" class="add-to-cart"><i class="fa fa-phone" aria-hidden="true"></i> Contact Realtor</a>                                                                       
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}               
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        /**
+         * 
+         * Loads most viewed products asynchronously after index page loads
+         */
+        $(document).ready(function () {
+            console.log('------------------Loading store home asyn content--------------------- ');
+            var url = Routing.generate('update_page_view', {entityType: 'App:Property', entityId: {{property.id}}, page: 'PropertyDetailsPage'
+            }
+            );
+            $.get(url, function (data) {
+
+            });
+        });
+
+
+    </script>
+{% endblock %}
+
+

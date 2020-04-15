@@ -1,0 +1,39 @@
+{% set s3_images_url = "https://s3-us-west-1.amazonaws.com/buildershub/images/" %}
+<section class="sec-padding section-white">
+    <div class="row no-gutter">  
+        {% for post in posts %}
+            {% if loop.index is divisible by(2) %}
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="post-style-3 margin-bottom">
+                        <div class="text-box white">
+                            <h5 class="less-mar-1"><a href="#" title="{{post.title}}">{{post.title|slice(0, 60)~'...'|title}}</a></h5>
+                            <div class="blog-post-info"> <span><i class="fa fa-user"></i> {{post.user.fullName}}</span> <span><i class="fa fa-comments-o"></i> {{post.commentCount}}</span></div>
+                            <br/>
+                            <p><a href='#'>{{post.excerpt|slice(0, 80)~'...'}}</a></p>
+                        </div>
+                        <div class="ce4-post-img">
+                            <div class="arrow-down"></div>
+                            <a href='#'><img src="{{asset(s3_images_url~post.featureImage)}}" alt="" class="img-responsive" style="border-radius: 3px"/> </a>
+                        </div>
+                    </div>
+                </div>
+                <!--end item-->
+            {% else %}
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="post-style-3 margin-bottom">
+                        <div class="ce4-post-img">
+                            <div class="arrow-up"></div>
+                            <a href='#'><img src="{{asset(s3_images_url~post.featureImage)}}" alt="" class="img-responsive" style="border-radius: 3px"/></a> </div>
+                        <div class="text-box one white">
+                            <h5 class="less-mar-1"><a href="#" title="{{post.title}}">{{post.title|slice(0, 60)~'...'|title}} </a></h5>
+                            <div class="blog-post-info"> <span><i class="fa fa-user"></i> By {{post.user.fullName}}</span> <span><i class="fa fa-comments-o"></i> {{post.commentCount}}</span></div>
+                            <br/>
+                            <p><a href='#'>{{post.excerpt|slice(0, 80)~'...'}}</a></p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        <!--end item-->
+    </div>
+</section>

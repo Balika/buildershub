@@ -1,0 +1,52 @@
+<div id="campaignDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="width:60%; ">        
+        <div class="modal-content" style="overflow-y: scroll">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h3 class="modal-title" id="myModalLabel"> <span style="color: green"><strong>Create a Campaign to Promote Your Brand or Products</strong></span></h3>
+            </div>                                           
+            <div class="modal-body" style="padding-bottom: 15px" id="response">
+                {{form_start(form,{'method': 'POST', 'attr': {id:'campaignForm' } })}}
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Name</label>
+                        {{form_widget(form.name, { 'attr': {class: 'form-control',  placeholder: ' ', } })}}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Campaign Type - <small class="small">The type campaign you intend to run</small></label>
+                        {{form_widget(form.type, { 'attr': {class: 'form-control',  placeholder: ' ', } })}}
+                        
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Campaign Start Date</label>
+                        {{ form_widget(form.startDate) }}                   
+                    </div> 
+                    <div class="col-md-6 form-group">
+                        <label>Campaign End Date</label>
+                        {{ form_widget(form.endDate) }}
+
+                    </div> 
+                    <div class="form-group col-md-6">
+                        <label>Campaign Banner</label>
+                        {{ form_widget(form.imageFile,{ 'attr': {class: 'form-control'} }) }}                    
+                    </div>  
+                    <div class="form-group col-md-6">
+                        <label>Discount Rate (%)</label>
+                        {{ form_widget(form.discountRate,{ 'attr': {class: 'form-control'} }) }}
+                    </div>   
+                    <div class="form-group col-md-12">
+                        <label>Description</label>
+                        {{ form_widget(form.description,{ 'attr': {class: 'form-control',  placeholder: ' ', rows:5} }) }}
+                    </div>   
+                </div>
+            </div><!-- /.box-body -->
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary pull-right">Add Campaign</button>
+            </div>
+            {{ form_row(form._token) }} 
+            {{ form_end(form, {'render_rest': false}) }}
+        </div> 
+    </div> 
+</div> 
+
+

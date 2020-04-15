@@ -1,0 +1,26 @@
+<div  role="alert">
+    <div class="smartforms-modal-container">
+        <div class="smartforms-modal-header">
+            <h3 style="color: white">BuildersHub Login</h3>
+            <a href="#" class="smartforms-modal-close"></a>            
+        </div><!-- .smartforms-modal-header -->
+        <div class="smartforms-modal-body">
+            <div class="smart-wrap">
+                <div class="smart-forms smart-container wrap-full">                   
+                    {{ include ('store/includes/login.form.html.twig', {'isRegisterToggle':true} ) }}
+                    <div class="social-auth-buttons">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <a class="btn-block btn-lg btn btn-twitter"><i class="fa fa-twitter"></i> <strong>Sign In with Twitter</strong></a>
+                            </div>
+                            <div class="col-md-6">
+                                <a class="btn-block btn-lg btn btn-facebook" href="#"><i class="fa fa-facebook"></i> <strong>Sign In with Facebook</strong></a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end .smart-forms section -->
+            </div><!-- end .smart-wrap section -->            
+        </div><!-- .smartforms-modal-body -->
+    </div><!-- .smartforms-modal-container -->
+</div><!-- .smartforms-modal 2 -->
+

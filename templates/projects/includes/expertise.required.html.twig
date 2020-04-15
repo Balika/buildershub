@@ -1,0 +1,52 @@
+<div class="frm-row">
+    <div class="section colm colm12">
+        <label class="field prepend-icon">
+            {{ form_widget(form.requestDetails,{ 'attr': {class: 'gui-textarea', placeholder:"Request Details"  } }) }}
+            <span class="field-icon"><i class="fa fa-comments"></i></span>
+            <span class="input-hint"> 
+                <strong>Request Details:</strong> Tell builders exactly what you want them to do for you: design, build/contruct, cost estimates, drawings, supervise etc.
+            </span>     
+        </label>
+    </div><!-- end section -->
+</div><!-- end frm-row section -->
+<div class="frm-row">
+    <div class="section colm colm12" id="artisanPanel">
+        <div class="spacer-b30">
+            <div class="tagline"><span>Choose category of artisans do you wish to add to your project</span></div><!-- .tagline -->
+        </div>
+        <div class="option-group field">
+            <div class="row">
+                {% for profession in artisanCategories %}
+                    <div class="col-md-4">
+                        <label class="option block">
+                            <input type="checkbox" name="artisanCategory" value="{{profession.id}}" class="{{profession.practitioner}}">
+                            <span class="checkbox"></span> <span title="{{profession.practitioner}}">{{profession.practitioner|length > 22 ? profession.practitioner|slice(0, 22)~"..." : profession.practitioner}}</span>
+                        </label>
+                    </div>
+                {% endfor %}
+                <input type="hidden" name="artisanCategories" id="artisanCategories" />
+            </div>
+        </div><!-- end .option-group section -->
+    </div><!-- end section -->       
+    <div class="section colm colm12" id="professionalPanel">
+        <br/><br/>
+        <div class="spacer-b15">
+            <div class="tagline"><span> Select professionals we may want on your project</span></div><!-- .tagline -->
+        </div>
+        <div class="option-group field">
+            <div class="row">
+                {% for profession in professionalCategories %}
+                    <div class="col-md-4">
+                        <label class="option block">                           
+                            <input type="checkbox" name="professionalCategory" value="{{profession.id}}" class="{{profession.practitioner}}">
+                            <span class="checkbox"></span> <span title="{{profession.practitioner}}">{{profession.practitioner|length > 22 ? profession.practitioner|slice(0, 22)~"..." : profession.practitioner}}</span>
+                        </label>
+                    </div>
+                {% endfor %}
+                <input type="hidden" name="professionalCategories" id="professionalCategories" />
+            </div>            
+        </div><!-- end .option-group section -->
+    </div><!-- end section -->
+</div><!-- end frm-row section -->
+
+

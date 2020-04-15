@@ -1,0 +1,63 @@
+{% extends 'hubernize/shared/hubernize.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <link rel="stylesheet" href="{{asset('js/smart-forms/smart-forms.css')}}">
+    <!-- Select2 -->
+{% endblock %}
+{% block breadcrumbs %}
+    <li><a href="{{selectedEquipment is not null ? path('hubernize_list_equipment') : path('hubernize_rental_ads')}}">{{selectedEquipment is not null ? "Equipment List" : 'Rental Adverts'}}</a></li>
+    <li class="active"><span>Rental Ad Placement</span></li>
+    {% endblock %}
+    {% block crumbLinks %}
+
+{% endblock %}
+{% block listMode %}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default box-solid">
+                <div class="box-header">
+                    <h3 class="box-title"><span style="color: green"><strong> {{selectedEquipment is not null ? "You are placing " ~ selectedEquipment ~ " for rental" : selectedAd is not null ? "You are about to modify information for " ~ selectedAd.title}}</strong></span></h3>                    
+                    <div class="box-tools pull-right">
+                        <!-- <a  data-toggle="modal" class="btn btn-success btn-sm" href="#validityDateDlg" style="color: white">
+                             Set Price Validity Date <span class="fa fa-calendar"></span>
+                         </a>-->
+                    </div>                  
+                </div><!-- /.box-header -->
+                <div class="box-body" id="adForm">
+                    {{ include('hubernize/inventory/includes/advertise.for.rent.dialog.html.twig') }}
+                    {% if company.equipment|length > 0 %}
+                        {{ include('hubernize/inventory/includes/rental.ad.form.html.twig') }}
+                    {% else %}
+                        <div style="padding: 20px">
+                            <div class="alert alert-info"><h4>No Equipment Available</h4>
+                                You need to add equipment to your inventory before placing rental ads
+                            </div>
+                        </div>
+                    {% endif  %}
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-custom.min.js')}}"></script>
+    <script>
+        $(function () {
+            $("#rental_ad_datePublished").datepicker({
+                defaultDate: "today",
+                changeMonth: false,
+                numberOfMonths: 1,
+                dateFormat: "yy-mm-dd",
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>'
+            });
+        {% if isSaved %}
+                $('adForm').prepend(blurredHTML);
+                $('#advertiseForRentDlg').modal('show');
+        {% endif %}
+            });
+    </script>
+{% endblock javascripts %}

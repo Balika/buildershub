@@ -1,0 +1,40 @@
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Available Product Tags</h3>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <table id="tags" class="table table-bordered table-striped">
+            <thead>
+                <tr>                   
+                    <th>Name</th>
+                    <th>Slug</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tag in tags %}
+                    <tr id="tag_list">                      
+                        <td id="{{tag.id}}">
+                            <a href="{{path('single_tag_action', {'slug':supplier.slug, 'tag_slug':tag.slug, 'action':'view'})}}" >{{tag}}</a>
+                            <p class="actions" style="display: none" id="action_{{tag.id}}">
+                                <a href="{{path('single_tag_action', {'slug':supplier.slug, 'tag_slug':tag.slug, 'action':'edit'})}}">Edit</a> | 
+                                <a href="#" class="text-danger confirmation-callback" id="{{tag.id}}">Delete</a> | 
+                                <a href="{{path('single_tag_action', {'slug':supplier.slug, 'tag_slug':tag.slug, 'action':'view'})}}">View</a>  
+                            </p>                            
+                        </td>                      
+                        <td>{{tag.slug}}</td>
+                        <td>{{tag.count}}</td>
+                        
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>                   
+                    <th>Name</th>                    
+                    <th>Slug</th>
+                    <th>Count</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->

@@ -1,0 +1,421 @@
+{% extends "store/shared/store.base.html.twig" %}
+{% block  stylesheets %}
+    {{parent()}}
+
+{% endblock %}
+{% block content %}
+    <div class="block-slide">
+        <div class="container" id="home-slider">
+            <div class="main-slide slide-opt-5">
+                <div class="owl-carousel nav-style5" data-nav="true" data-autoplay="true" data-dots="true" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"600":{"items":1},"1000":{"items":1}}'>
+                    <div class="item-slide item-slide-1" style="background-image: url({{asset('store/images/home5/slide1.jpg')}});">
+                        <div class="container">
+                            <div class="slide-desc slide-desc-1">
+                                <div class="p-primary">Builders Hub</div>
+                                <p>Buy & Sell Building and Construction Materials, Equipment, Tools and more</p>
+                                <a href="" class="btn-shop-now">List Your Store</a>                            
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="item-slide item-slide-2" style="background-image: url({{asset('store/images/home5/slide2.jpg')}});">
+                        <div class="container">
+                            <div class="slide-desc slide-desc-2">
+                                <div class="p-primary" style="color:white">Over 1,000 Suppliers!</div>
+                                <p class="p-second" style="color:white">Across the country</p>
+                                <a href="" class="btn-shop-now">Start Shopping</a>                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-slide item-slide-3" style="background-image: url({{asset('store/images/home5/slide3.jpg')}});">
+                        <div class="container">
+                            <div class="slide-desc slide-desc-3">
+                                <div class="p-primary">Get Best Prices</div>
+                                <p>Make  Single Quotation Request</p>
+                                <p class="p-second">To Multiple Suppliers</p>
+                                <a href="#mqrDlg" class="btn-shop-now" data-toggle="modal">REQUEST QUOTATION</a>                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-slide item-slide-3" style="background-image: url({{asset('store/images/home5/slide4.png')}});">
+                        <div class="container">
+                            <div class="slide-desc slide-desc-3" >
+                                <div class="p-primary" style="color: white">Furniture & Alphostery</div>
+                                <p style="color: white">Get the best furniture & interior decor deals</p>
+                                <p class="p-second" style="color: white">Reach our best suppliers </p>
+                                <a href="" class="btn-shop-now">View Listed Products</a>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="promotion-banner banner-slide-2 style-4 hidden-sm hidden-xs">
+                <a href="{{path('rental_index')}}" class="banner-img"><img src="{{asset('store/images/home1/rentals-ad.png')}}" alt="Equipment Rental" style="border-radius: 2px"></a>              
+            </div>
+            <div class="promotion-banner banner-slide-2 style-4 hidden-sm hidden-xs">
+                <a href="{{path('find_builders')}}" class="banner-img"><img src="{{asset('store/images/home1/expertise-ad.png')}}" alt="Construction Experts" style="border-radius: 2px"></a>                
+            </div>
+        </div> 
+    </div> 
+    <div class="site-main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 site-main-sidebar">                                      
+                    {{ render(controller('App\\Controller\\StoreUtilityController:categoriesSidebar', {'category':category} ), {"default":'Loading Cart....'}) }}                                      
+                    <div id="sidePremiumSlot">
+                    </div>
+                    <div class="block-latest-roducts">
+                        <div class="block-title">Popular Products</div>
+                        {{ render_esi(controller('App\\Controller\\StoreUtilityController:sidebarMostPopularProducts'), {"default":'Loading Cart....'}) }}                                                 
+                    </div>
+                    <div class="block-the-blog">
+                        <div class="title-of-section">From The Hub Blog</div>
+                        {{ render_esi(controller('App\\Controller\\BlogUtilityController:renderPosts'), {"default":'Loading Cart....'}) }}                                                             
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-8 padding-left-5 site-main-main">
+                    <div class="block-top-categori">
+                        {% include 'store/includes/index.supported.categories.html.twig' %}
+                    </div>
+                    <div class="block-up-to">
+                        <div class="up-to-content">Are you a supplier <span> of products in any of the above categories?</span></div>
+                        <a class="btn btn-action btn-success btn-lg pull-right" href="{{path('register_store')}}" target="_blank"><i class="fa fa-shopping-cart"></i> Create Online Store</a>              
+                    </div>
+                    <div class="block-daily-deals style2">
+                        <div class="title-of-section">Popular Suppliers</div>
+                        <!--<div class="product-count-down">
+                            <div class="kt-countdown" data-y="2018" data-m="7" data-d="24" data-h="10" data-i="0" data-s="0"></div>
+                        </div>-->
+                        <div class="block-daily-deals-content">
+                            <div class="owl-carousel nav-style2 equal-container" data-nav="true" data-autoplay="false" data-dots="true" data-loop="true" data-margin="1" data-responsive='{"0":{"items":1},"480":{"items":2},"992":{"items":2}}'>
+                                {% for supplier in topSuppliers %}
+                                    <div class="deal-of-day equal-elem">
+                                        <div class="product-thumb style1">
+                                            <div class="thumb-inner">
+                                                <a href="{{path('supplier_store_view', {'slug':supplier.slug})}}"><img src="{{asset('store/images/design/supplier-default-logo.jpg')}}" alt="d1"></a>
+                                            </div>
+                                        </div>
+                                        <div class="product-innfo">
+                                            <div class="product-name"><a href="">{{supplier}}</a></div>
+                                            <span class="price">
+                                                <ins><i class="fa fa-truck"></i></ins>
+                                                <del>Delivery Supported</del>                                              
+                                            </span>
+                                            <span class="star-rating">
+                                                <i class="fa fa-map-marker"></i> <span class="review">{{supplier.businessLocation is not null ?  supplier.businessLocation ~','}} {{supplier.region}}</span>                         
+                                            </span>
+
+                                            <a href="{{path('supplier_store_view', {'slug':supplier.slug})}}" class="btn-add-to-cart" title="Visit Supplier Store">Visit Store</a>                        
+                                        </div>
+                                    </div>
+                                {% endfor %}                           
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-feature-product">
+                        <div class="title-of-section">Featured Products</div>
+                        <div class="tab-product tab-product-fade-effect">
+                            <ul class="box-tabs nav-tab">
+                                <li class="active"><a data-animated="" data-toggle="tab" href="#all">All Products </a></li>
+                                <li><a data-animated="fadeInLeft" data-toggle="tab" href="#new">New Arrivals</a></li>
+                                <li><a data-animated="fadeInDownBig" data-toggle="tab" href="#featured">Featured Products</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-container">
+                                    <div id="all" class="tab-panel active">
+                                        <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="true" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"640":{"items":3},"768":{"items":2},"1000":{"items":4}}'>
+                                            {% for product in products %}
+                                                {{loop.first ? "<div class='owl-one-row'>" }}
+                                                <div class="product-item style1">
+                                                    <div class="product-inner equal-elem">
+                                                        <div class="product-thumb">
+                                                            <div class="thumb-inner">
+                                                                <a href="{{path('store_product_detail', {'slug':product.slug})}}"><img src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="f1"  style="height: 140px; margin: auto; border-radius: 3px;"></a>
+                                                            </div>
+                                                            <a href="{{path('store_product_detail', {'slug':product.slug})}}" class="quick-view">Quick View</a>
+                                                        </div>
+                                                        <div class="product-innfo">
+                                                            <div class="product-name"><a href="{{path('store_product_detail', {'slug':product.slug})}}">{{product.name}}</a></div>
+                                                            <span class="price price-dark">
+                                                                <ins>GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',')}}</ins>
+                                                            </span>
+                                                            <div class="star-rating">
+                                                                <i class="fa fa-map-marker"></i> <span class="review">{{product.supplier.businessLocation is not null ?  product.supplier.businessLocation ~','}} {{product.supplier.region}}</span>
+                                                            </div>
+                                                            <div class="star-rating">
+                                                                <i class="fa fa-industry"></i> <span class="review">{{product.supplier}}</span>
+                                                            </div>
+                                                            <div style="text-align:center">
+                                                                <a href="{{path('contact_supplier',{'slug':product.supplier.slug, 'product_slug':product.slug})}}" class="btn btn-warning btn-sm" target="_new"><i class="fa fa-envelope" ></i> Contact Supplier</a>
+                                                            </div>
+                                                            <div class="group-btn-hover style1">
+                                                                <div class="inner">
+                                                                    <!-- <a href="" class="compare" title="Add to comparison"><i class="fa fa-retweet"></i></a>-->
+                                                                    <a href="{{path('add_to_cart', {'slug':product.slug})}}" class="add-to-cart"><i class="fa" id="spinner"></i> <i class="fa fa-shopping-cart"></i> add to cart</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{loop.index is divisible by(2) and  not loop.last ? "</div><div class='owl-one-row'>" : loop.last ? "</div>" }}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div id="new" class="tab-panel">
+                                        <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="true" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"640":{"items":3},"768":{"items":2},"1000":{"items":4}}'>                                        
+                                            {% for product in newArrivals %}
+                                                {{loop.first ? "<div class='owl-one-row'>" }}
+                                                <div class="product-item style1">
+                                                    <div class="product-inner equal-elem">
+                                                        <div class="product-thumb">
+                                                            <div class="thumb-inner">
+                                                                <a href="{{path('store_product_detail', {'slug':product.slug})}}"><img src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="f1"  style="height: 140px; margin: auto; border-radius: 3px;"></a>
+                                                            </div>
+                                                            <a href="{{path('store_product_detail', {'slug':product.slug})}}" class="quick-view">Quick View</a>
+                                                        </div>
+                                                        <div class="product-innfo">
+                                                            <div class="product-name"><a href="{{path('store_product_detail', {'slug':product.slug})}}">{{product.name}}</a></div>
+                                                            <span class="price price-dark">
+                                                                <ins>GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',')}}</ins>
+                                                            </span>
+                                                            <div class="star-rating">
+                                                                <i class="fa fa-map-marker"></i> <span class="review">{{product.supplier.businessLocation is not null ?  product.supplier.businessLocation ~','}} {{product.supplier.region}}</span>
+                                                            </div>
+                                                            <div class="star-rating">
+                                                                <i class="fa fa-industry"></i> <span class="review">{{product.supplier}}</span>
+                                                            </div>
+                                                            <div style="text-align:center">
+                                                                <a href="{{path('contact_supplier',{'slug':product.supplier.slug, 'product_slug':product.slug})}}" class="btn btn-warning btn-sm" target="_new"><i class="fa fa-envelope" ></i> Contact Supplier</a>
+                                                            </div>
+                                                            <div class="group-btn-hover">
+                                                                <div class="inner">
+                                                                    <!-- <a href="" class="compare" title="Add to comparison"><i class="fa fa-retweet"></i></a>-->
+                                                                    <a href="{{path('add_to_cart', {'slug':product.slug})}}" class="add-to-cart"><i class="fa" id="spinner"></i> <i class="fa fa-shopping-cart"></i> add to cart</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{loop.index is divisible by(2) and not  loop.last  ? "</div><div class='owl-one-row'>" : loop.last ? "</div>" }}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div id="featured" class="tab-panel">
+                                        <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="true" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"640":{"items":3},"768":{"items":2},"1000":{"items":4}}'>                              
+                                            {% for product in featured %}
+                                                {{loop.first ? "<div class='owl-one-row'>" }}                                                
+                                                <div class="product-item style1">
+                                                    <div class="product-inner equal-elem">
+                                                        <div class="product-thumb">
+                                                            <div class="thumb-inner">
+                                                                <a href="{{path('store_product_detail', {'slug':product.slug})}}"><img src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="f1" style="height: 140px; margin: auto; border-radius: 3px;"></a>
+                                                            </div>
+                                                            <a href="{{path('store_product_detail', {'slug':product.slug})}}" class="quick-view">View Details</a>
+                                                        </div>
+                                                        <div class="product-innfo">
+                                                            <div class="product-name"><a href="{{path('store_product_detail', {'slug':product.slug})}}">{{product.name}}</a></div>
+                                                            <span class="price price-dark">
+                                                                <ins>GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',')}}</ins>
+                                                            </span>
+                                                            <div class="star-rating">
+                                                                <i class="fa fa-map-marker"></i> <span class="review">{{product.supplier.businessLocation is not null ?  product.supplier.businessLocation ~','}} {{product.supplier.region}}</span>
+                                                            </div>
+                                                            <div class="star-rating">
+                                                                <i class="fa fa-industry"></i> <span class="review">{{product.supplier}}</span>
+                                                            </div>
+                                                            <div style="text-align:center">
+                                                                <a href="{{path('contact_supplier',{'slug':product.supplier.slug, 'product_slug':product.slug})}}" class="btn btn-warning btn-sm" target="_new"><i class="fa fa-envelope" ></i> Contact Supplier</a>
+                                                            </div>
+                                                            <div class="group-btn-hover">
+                                                                <div class="inner">
+                                                                    <!-- <a href="" class="compare" title="Add to comparison"><i class="fa fa-retweet"></i></a>-->
+                                                                    <a href="{{path('add_to_cart', {'slug':product.slug})}}" class="add-to-cart"><i class="fa" id="spinner"></i> <i class="fa fa-shopping-cart"></i> add to cart</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {{loop.index is divisible by(2) and not  loop.last  ? "</div><div class='owl-one-row'>" : loop.last ? "</div>" }}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block-promotion-banner" id="pagePremiumSlot">
+                    </div>
+                    <div class="block-bestseller-product bestseller-opt-5">
+                        <div class="title-of-section style2">BestSeller Products</div>
+                        <div class="owl-carousel nav-style2 equal-container" data-nav="true" data-autoplay="true" data-dots="false" data-loop="true" data-margin="20" data-responsive='{"0":{"items":1},"480":{"items":2},"1000":{"items":2}}'>                           
+                            {% for promoted in promotedProducts %}
+                                {{loop.first ? "<div class='owl-one-row'>" }}
+                                <div class="product-item style2">
+                                    <div class="product-inner equal-elem">
+                                        <div class="product-thumb style1">
+                                            <div class="thumb-inner">
+                                                <a href="{{path('store_product_detail', {'slug':promoted.product.slug})}}"><img src="{{asset(promoted.product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="b1" style="width: 150px; height: 140px; border-radius: 3px;"></a>
+                                            </div>
+                                        </div>
+                                        <div class="product-innfo">
+                                            <div class="product-name"><a href="{{path('store_product_detail', {'slug':promoted.product.slug})}}">{{promoted.product.name}}</a></div>
+                                            <span class="price">
+                                                <ins>GH¢{{promoted.product.productData.salePrice!=null ? promoted.product.productData.salePrice|number_format(2, '.',',') : promoted.product.productData.regularPrice|number_format(2, '.',',')}}</ins>
+                                                <del>{{promoted.product.productData.salePrice!=null ? "GH¢" ~promoted.product.productData.regularPrice|number_format(2, '.',',')}} </del>
+                                                {% if promoted.product.isFeatured %}
+                                                    <span class="onnew">{{promoted.campaign.discountRate|number_format(1, '.',',')}}% off</span>
+                                                {% else %}
+                                                    <span class="onsale">{{promoted.campaign.discountRate|number_format(1, '.',',')}}% off</span>
+                                                {% endif  %}
+                                            </span>
+                                            <br/>
+                                            <div class="star-rating">
+                                                <i class="fa fa-map-marker"></i> <span class="review">{{promoted.supplier.businessLocation is not null ?  promoted.supplier.businessLocation ~','}} {{promoted.supplier.region}}</span>
+                                            </div>
+                                            <div class="star-rating">
+                                                <i class="fa fa-industry"></i> <span class="review">{{promoted.supplier}}</span>
+                                            </div>
+                                            <div class="pull-left">
+                                                <a href="{{path('contact_supplier',{'slug':promoted.product.supplier.slug, 'product_slug':promoted.product.slug})}}" class="btn btn-warning btn-sm" target="_new"><i class="fa fa-envelope" ></i> Contact Supplier</a>
+                                            </div>
+                                            <a href="{{path('add_to_cart', {'slug':promoted.product.slug})}}" class="btn-add-to-cart add-to-cart btn-sm pull-right" title="Add to Cart">
+                                                <i class="fa" id="spinner"></i> <i class="fa fa-shopping-cart"></i> 
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{loop.index is divisible by(2) and not  loop.last  ? "</div><div class='owl-one-row'>" : loop.last ? "</div>" }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="block-section-6">
+                        <div class="container">                    
+                            <div class="promotion-banner box-single style-2">
+                                <a href="{{path('rental_index')}}" class="banner-img" target="new"><img src="{{asset('store/images/design/rentals-home-banner.jpg')}}" alt="rentals-banner"></a>
+                                <a href="{{path('rental_index')}}" class="shop-now hidden-mobile"  target="new">Find Equipment</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <!-- <div class="block-daily-deals style1">
+            <div class="container">
+                <div class="title-of-section">Daily deals</div>
+                <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="false" data-dots="true" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"768":{"items":3},"992":{"items":2}}'>
+                    <div class="deal-of-day equal-elem">
+                        <div class="product-thumb style1">
+                            <div class="thumb-inner">
+                                <a href=""><img src="{{asset('store/images/design/supplier-default-logo.jpg')}}" alt="d1"></a>
+                            </div>
+                        </div>
+                        <div class="product-innfo">
+                            <div class="product-name"><a href="">Skullcandy VR BOX Grind Wireless (White) with 3D Series</a></div>
+                            <span class="price">
+                                <ins>$229.00</ins>
+                                <del>$259.00</del>
+                                <span class="onsale">-50%</span>
+                            </span>
+                            <span class="star-rating">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <span class="review">5 Review(s)</span>
+                            </span>
+                            <div class="product-count-down">
+                                <div class="kt-countdown" data-y="2017" data-m="6" data-d="1" data-h="10" data-i="0" data-s="0"></div>
+                            </div>
+                            <a href="" class="btn-add-to-cart">Add to cart</a>
+                        </div>
+                    </div>
+                    <div class="deal-of-day equal-elem">
+                        <div class="product-thumb style1">
+                            <div class="thumb-inner">
+                                <a href=""><img src="{{asset('store/images/design/supplier-default-logo.jpg')}}" alt="d2"></a>
+                            </div>
+                        </div>
+                        <div class="product-innfo">
+                            <div class="product-name"><a href="">Xbox One S Halo Collection Bundle (White)3D Series</a></div>
+                            <span class="price">
+                                <ins>$229.00</ins>
+                                <del>$259.00</del>
+                                <span class="onsale">-50%</span>
+                            </span>
+                            <span class="star-rating">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <span class="review">5 Review(s)</span>
+                            </span>
+                            <div class="product-count-down">
+                                <div class="kt-countdown" data-y="2017" data-m="6" data-d="1" data-h="10" data-i="0" data-s="0"></div>
+                            </div>
+                            <a href="" class="btn-add-to-cart">Add to cart</a>
+                        </div>
+                    </div>
+                    <div class="deal-of-day equal-elem">
+                        <div class="product-thumb style1">
+                            <div class="thumb-inner">
+                                <a href=""><img src="{{asset('store/images/design/supplier-default-logo.jpg')}}" alt="d2"></a>
+                            </div>
+                        </div>
+                        <div class="product-innfo">
+                            <div class="product-name"><a href="">Xbox One S Halo Collection Bundle (White)3D Series</a></div>
+                            <span class="price">
+                                <ins>$229.00</ins>
+                                <del>$259.00</del>
+                                <span class="onsale">-50%</span>
+                            </span>
+                            <span class="star-rating">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <span class="review">5 Review(s)</span>
+                            </span>
+                            <div class="product-count-down">
+                                <div class="kt-countdown" data-y="2017" data-m="6" data-d="1" data-h="10" data-i="0" data-s="0"></div>
+                            </div>
+                            <a href="" class="btn-add-to-cart">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        {{ render_esi(controller('App\\Controller\\StoreUtilityController:renderFeaturedCategory'), {"default":'Loading Cart....'}) }}                                                                   
+    </div>
+    {# include 'blog/includes/store.home.blog.roll.html.twig' #}
+    <div class="block-brand style2">
+        <div class="container">
+            <div class="section-brand">
+                <div class="owl-carousel nav-style3" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="20" data-responsive='{"0":{"items":2},"480":{"items":3},"600":{"items":4},"1000":{"items":5}}'>
+                    <!-- <a href="" class="item-brand"><img src="store/images/brand.jpg" alt="brand"></a>
+                     <a href="" class="item-brand"><img src="store/images/brand.jpg" alt="brand"></a>
+                     <a href="" class="item-brand"><img src="store/images/brand.jpg" alt="brand"></a>
+                     <a href="" class="item-brand"><img src="store/images/brand.jpg" alt="brand"></a>
+                     <a href="" class="item-brand"><img src="store/images/brand.jpg" alt="brand"></a>
+                     <a href="" class="item-brand"><img src="store/images/brand.jpg" alt="brand"></a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}  
+    <script>
+        $(document).ready(function () {
+        /**  var url = Routing.generate('render_index_premium_ads');
+         $.get(url, function (data) {
+         $('#home-slider').append(data.topPremiumSlot);
+         $('#sidePremiumSlot').html(data.sidePremiumSlot);
+         $('#pagePremiumSlot').html(data.pagePremiumSlot);
+         });
+         
+         });*/
+        $('#mqrDlg').modal('show');
+    </script>
+{% endblock %}

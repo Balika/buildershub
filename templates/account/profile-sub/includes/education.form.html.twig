@@ -1,0 +1,78 @@
+
+        <a href="Add Certificate " class="text-info pull-right" id="showFormLink">{% if educationEntries|length > 0 %}Add Certificate <i class='fa fa-angle-right'></i>{% else %}Hide Form <i class='fa fa-angle-down'></i>{% endif  %}</a>
+        <div class="col-divider-margin-1"></div>
+        <div class=" divider-line solid light"></div>  
+        <div class="col-divider-margin-1"></div>  
+        <div class="col-md-12" style="padding: 10px; border: dotted gray 1px; background-color: whitesmoke; display: {{educationEntries|length > 0? "none":"block"}}" id="formPanel">
+            <h5 class="text-success">Hi <strong>{{user.firstname}}</strong>, share your education background with your profile viewers</h5>
+            {{ form_start(form, {'method': 'post', action:path('save_personal_data', {'tab':'personal-details', 'sub':'education', 'entityId':entityId }), 'attr': {'class': 'educationContent', 'id':'educationForm'} }) }}
+            <div class="smartforms-modal-body">
+                <div class="smart-wrap">
+                    <div class="smart-forms smart-container transparent wrap-full">
+                        <div class="form-body no-padd">
+
+                            <div class="section col-md-12">
+                                <label  class="control-label">Name of Institution</label>
+                                <label class="field prepend-icon">
+                                    {{ form_widget(form.institution,{ 'attr': {class: 'gui-input',placeholder: 'e.g. Kwame Nkrumah University of Science & Technology (KNUST)' } }) }}
+                                    <span class="field-icon"><i class="fa fa-pencil"></i></span>
+                                </label>
+                                <!--<div id="institutionResults" style="border: white solid 1px; background-color: white; color: black; border-radius: 4px; z-index:1; position: absolute; max-height: 250px; overflow: auto; width: 100%" class="row"></div> -->   
+                            </div>
+                            <div class="section col-md-6">
+                                <label  class="control-label">From</label>
+                                <label class="field prepend-icon">
+                                    {{ form_widget(form.from,{ 'attr': {class: 'gui-input', placeholder: 'e.g. 2002' } }) }}
+                                    <span class="field-icon"><i class="fa fa-lock"></i></span>
+                                </label>
+                            </div>
+                            <div class="section col-md-6">
+                                <label  class="control-label">To</label>
+                                <label class="field prepend-icon">
+                                    {{ form_widget(form.to,{ 'attr': {class: 'gui-input', placeholder: 'e.g. 2006'  } }) }}
+                                    <span class="field-icon"><i class="fa fa-lock"></i></span>
+                                </label>
+                            </div>
+                            <div class="section col-md-6">
+                                <label  class="control-label">Programme of Study</label>
+                                <label class="field prepend-icon">
+                                    {{ form_widget(form.programmeOfStudy,{ 'attr': {class: 'gui-input', placeholder: 'e.g. Civil Engineering' } }) }}
+                                    <!--<div id="programmeResults" style="border: white solid 1px; background-color: white; color: black; border-radius: 4px; z-index:1; position: absolute; max-height: 250px; overflow: auto; width: 100%" class="row"></div> -->     
+                                </label>
+                            </div>
+                            <div class="section col-md-6">
+                                <label  class="control-label">Degree/Certificate Awarded</label>
+                                <label class="field prepend-icon">
+                                    {{ form_widget(form.certificateAwarded,{ 'attr': {class: 'gui-input', placeholder: 'e.g. Bachelor of Science' } }) }}
+                                    <span class="field-icon"><i class="fa fa-graduation-cap"></i></span>
+                                </label>
+                                <!--<div id="degreeResults" style="border: white solid 1px; background-color: white; color: black; border-radius: 4px; z-index:1; position: absolute; max-height: 250px; overflow: auto; width: 100%" class="row"></div> -->      
+                            </div>
+                            <div class="section col-md-12">
+                                <label  class="control-label">Year Awarded</label>
+                                <label class="field prepend-icon">
+                                    {{ form_widget(form.yearAwarded,{ 'attr': {class: 'gui-input', placeholder: 'e.g. 2006' } }) }}
+                                    <span class="field-icon"><i class="fa fa-graduation-cap"></i></span>
+                                </label>
+                            </div>
+                            <div class="section col-md-12">
+                                <label  class="control-label">Summarized Area of Study</label>
+                                <label class="field prepend-icon">
+                                    {{ form_widget(form.details,{ 'attr': {class: 'gui-textarea', placeholder: 'Type programme/course details' } }) }}
+                                    <span class="field-icon"><i class="fa fa-pencil"></i></span>
+                                    <span class="input-hint"> <strong>Hint:</strong> Tell us more about the specific areas of your study</span>   
+
+                                </label>
+                            </div>
+
+                            {{ form_row(form._token) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-footer col-md-12">
+                <button class="btn btn-sm btn-success pull-right" type="submit" >Save Education</button>
+            </div>
+            {{ form_end(form, {'render_rest': false})}}
+        </div>
+    

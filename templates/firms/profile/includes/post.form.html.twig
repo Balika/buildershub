@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="smartforms-modal-body">
+        <div class="smart-wrap">
+            <div class="smart-forms smart-container transparent wrap-full">
+                <div class="form-body no-padd">                      
+                    {{ form_start(statusForm, {'method': 'post', 'action': path('submit_post', {'slug':firm.slug}), 'attr': {'class': 'postForm form-horizontal', 'id':'postForm'}  }) }}                   
+                    <div class="row">            
+                        <div class="col-md-4">
+                            <h4>Upload Post Image</h4>
+                            <label class="myLabel" title="Add image to your post">
+                                {{form_widget(statusForm.imageFile)}}
+                                <span><i class="fa fa-camera"></i></span>
+                            </label>
+                        </div>
+                        <div class="col-md-8">
+                            <h3 class="text-success">Create New Post <small> as {{firm}} </small></h3>
+                            <div class="section col-md-12">
+                                <label>Post Title</label>
+                                <label class="field prepend-icon">
+                                    {{form_widget(statusForm.title, {'attr': {class:"gui-input", placeholder:"Type your post title..." } } )}}                             
+                                    <span class="field-icon"><i class="fa fa-user"></i></span>  
+                                </label>
+                            </div><!-- end section -->
+                            <div class="section col-md-12">
+                                <label>Post Details</label>
+                                <label class="field prepend-icon">
+                                    {{form_widget(statusForm.content, {'attr': {class:"gui-textarea", placeholder:"Type your post..." } } )}}
+                                    <span class="field-icon"><i class="fa fa-pencil"></i></span>
+                                    <span class="input-hint"> <strong>Hint:</strong> Say what's on your mind regarding infrastruture development in Ghana</span>   
+                                </label>
+                            </div><!-- end section -->                            
+                            <div class="section col-md-4">                               
+                                <label class="option block">
+                                    {{form_widget(statusForm.isCommentable)}}
+                                    <span class="checkbox"></span> <span>Allow Comments</span>                               
+                                </label>
+                            </div>
+                            <!-- end .form-body section -->
+                            <div class="form-footer text-right">
+                                <button type="reset" class="button"> Cancel </button>
+                                <button type="submit" data-btntext-sending="Sending..." class="button btn-primary">Submit Post</button>                        
+                            </div><!-- end .form-footer section -->
+                            </form>                                                                                   
+                        </div><!-- end .form-body section -->
+                    </div>
+                    {{ form_row(statusForm._token) }}
+                    {{ form_end(statusForm, {'render_rest': false})}} 
+                </div><!-- end .smart-forms section -->
+            </div><!-- end .smart-wrap section -->            
+        </div>
+    </div>
+</div>

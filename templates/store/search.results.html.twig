@@ -1,0 +1,97 @@
+{% extends "store/shared/store.base.html.twig" %}
+{% block breadcrumbs %}
+    {% set previousPage = app.request.headers.get('referer') %} 
+    <div class="container">
+        <ol class="breadcrumb-page">
+            <li><a href="{{previousPage}}">&laquo; Back </a></li>
+            <li class="active"><a href="#">Results for "<i>{{searchTerm}}</i>"</a></li>
+        </ol>
+    </div>
+{% endblock %}
+{% block pageMenu %}{% endblock %}
+{% block  content %}
+    <div class="container">
+        <div class="row">       
+            <div class="col-md-9 col-sm-8 float-none float-right padding-left-5">
+                {% include 'store/includes/page.filter.heading.html.twig' %}
+                <div class="main-content">               
+                    <div class="promotion-banner style-3">
+                        <a href="" class="banner-img"><img src="{{asset('store/images/product/banner-product.jpg')}}" alt="banner-product"></a>
+                    </div>
+                    <div class="toolbar-products">
+                        {% include 'store/includes/location.filter.form.html.twig' %}
+                    </div>
+                    {% if  products|length > 0 %}
+                        <br/>
+                        <div class="alert alert-info">
+                            <strong>{{products|length}}</strong> Results matching your search term <strong>"{{searchTerm}}"</strong> found   
+                        </div>
+                        <div class="products products-list products-grid equal-container">
+                            {% for product in products %}
+                                <div class="product-item style1 width-33 padding-0 col-md-3 col-sm-6 col-xs-6 equal-elem">
+                                    <div class="product-inner">
+                                        <div class="product-thumb">
+                                            <div class="thumb-inner">
+                                                <a href="{{path('store_product_detail', {'slug':product.slug})}}"><img src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="f1" style="height: 140px; margin: auto; border-radius: 3px;"></a>
+                                            </div>
+                                            {% set reductionRate = (1 - product.productData.salePrice / product.productData.regularPrice) * 100 %}
+                                            {% if reductionRate >= 5 %}
+                                                <span class="{{reductionRate >=20 ? 'onsale' :'onnew' }}">-{{reductionRate|number_format(0, '.',',')}}% off</span>
+                                            {% endif %}
+                                            <a href="{{path('store_product_detail', {'slug':product.slug})}}" class="quick-view">View Details</a>
+                                        </div>
+                                        <div class="product-innfo">
+                                            <div class="product-name"><a href="{{path('store_product_detail', {'slug':product.slug})}}">{{product.name}}</a></div>
+                                            <span class="price">
+                                                <ins>GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',')}}</ins>
+                                                <del>GH¢{{product.productData.regularPrice|number_format(2, '.',',')}}</del>
+                                            </span>
+                                            <div class="star-rating">
+                                                <i class="fa fa-map-marker"></i> <span class="review">{{product.supplier.businessLocation is not null ?  product.supplier.businessLocation ~','}} {{product.supplier.region}}</span>
+                                            </div>
+                                            <!--<div class="info-product">
+                                                <p>Weigh:  8.25 kg</p>
+                                                <p>Size:  One Size Fits All </p>
+                                                <p>Guarantee:  2 Year</p>
+                                            </div>-->
+                                            <div>
+                                                <a href="{{path('contact_supplier', {'slug':product.supplier.slug, 'product_slug':product.slug})}}" class="btn-add-to-cart"><i class="fa fa-envelope"></i> <i class="fa fa-phone"></i> Supplier</a>
+                                                <a href="" class="compare"><i class="fa fa-retweet"></i> Compare</a>
+                                                <!--<a href="" class="wishlist"><i class="fa fa-heart-o" aria-hidden="true"></i>Wishlist</a>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="pagination">
+                            {{ knp_pagination_render(products) }}
+                            <span class="show-resuilt">Showing <span>{{ products.getPaginationData.firstItemNumber }} - {{ products.getPaginationData.lastItemNumber }}</span> of <span>{{products.totalItemCount}}</span> results</span>
+                        </div>
+                    {% else %} 
+                        <br/>
+                        <div class="alert alert-danger" role="alert">
+                            <h4 style="text-align: center">There are no products listed for <strong>"{{searchTerm}}"</strong> <strong> {{category is not null ? "under " ~ category}} </strong>  in or around  <span class="text-primary"> {{town is not null or region is not null ? ' <i class=" fa fa-map-marker"></i>'}} {{town is not null ? town~','}} {{region is not null ? region ~ ' region'}}</span></h4>
+                        </div>
+                        <p>
+                            If you operate a construction & building materials shop you can reach thousands of construction sectors professionals, artisans 
+                            property owners among others. Go on <a href="#" style="color:blue">List your Store</a> on <a href="#" style="color:blue">BuildersHub</a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4 site-main-sidebar">
+                <div class="col-sidebar">
+                    {{ render(controller('App\\Controller\\StoreUtilityController:categoriesSidebar', {'category':category, 'region':region, 'town':town, 'block':'regionsSidebarBlock'} ), {"default":'Loading Cart....'}) }}                                                                                                   
+                    <div class="block-banner-sidebar">
+                        <a href=""><img src="{{asset('store/images/banner3.jpg')}}" alt="banner-sidebar"></a>
+                    </div>
+                    <div class="block-latest-roducts">
+                        <div class="block-title">Popular Products</div>
+                        {{ render_esi(controller('App\\Controller\\StoreUtilityController:sidebarMostPopularProducts'), {"default":'Loading Cart....'}) }}                                                 
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+{% endblock %}

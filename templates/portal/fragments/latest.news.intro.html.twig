@@ -1,0 +1,86 @@
+{% for  post in posts %}
+    {% if loop.first %}
+        <div class="col-md-6 nopadding animate" data-anim-type="fadeInUp" data-anim-delay="700">
+            <div class="grid">                     
+                <figure class="effect-marley"> <img src="{{asset(post.featureImage|imagine_filter('hub_medium'))}}" alt="" class="img-responsive" />
+                    <figcaption>
+                        <h3 class=" text-primary font-weight-5"><a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}">{{post.title}}</a> </h3>
+                        <p class="sfont gray"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;{{post.createdAt|date('F')}} {{post.createdAt|date('d')}}, {{post.createdAt|date('Y')}} &nbsp; &nbsp; <i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp; 
+                            {% for tag in post.postTags %}
+                                <a href="#">{{post.postTags|length > 1 ? tag.name~', ' : tag.name}}</a>
+                            {% endfor %}    <br />
+                            <i>By</i> {{post.user.fullName}}</p>
+                    </figcaption>
+                </figure>                    
+            </div>
+        </div>
+        <!-- end col -->
+    {% elseif loop.index == 2 %}
+        <div class="col-md-3 nopadding animate" data-anim-type="fadeInUp" data-anim-delay="900">
+            <div class="grid"> 
+                <figure class="effect-marley"> <img src="{{asset(s3_images_url~post.featureImage)}}" alt="" class="img-responsive" />
+                    <figcaption>
+                        <h3 class=" text-primary font-weight-5"><a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}">{{post.title}}</a> </h3>
+
+                        <p class="sfont gray"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; {{post.createdAt|date('F')}} {{post.createdAt|date('d')}}, {{post.createdAt|date('Y')}} &nbsp; &nbsp; <i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp;
+                            {% for tag in post.postTags %}
+                                <a href="#">{{post.postTags|length > 1 ? tag.name~', ' : tag.name}}</a>
+                            {% endfor %}    <br />
+                            <i>By</i> {{post.user.fullName}}</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+        <!-- end col -->
+    {% elseif loop.index == 3 %}
+        <div class="col-md-3 nopadding animate" data-anim-type="fadeInUp" data-anim-delay="1000">
+            <div class="grid"> <a href="#">
+                    <figure class="effect-marley"> <img src="{{asset(post.featureImage|imagine_filter('hub_medium'))}}" alt="" class="img-responsive" />
+                        <figcaption>
+                            <h3 class=" text-primary font-weight-5">{{post.title}}</h3>
+                            <p class="sfont gray"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; {{post.createdAt|date('F')}} {{post.createdAt|date('d')}}, {{post.createdAt|date('Y')}} &nbsp; &nbsp; <i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp; 
+                                {% for tag in post.postTags %}
+                                    <a href="#">{{post.postTags|length > 1 ? tag.name~', ' : tag.name}}</a>
+                                {% endfor %}    <br />
+                                <i>By</i> {{post.user.fullName}}</p>
+                        </figcaption>
+                    </figure>
+                </a> </div>
+        </div>
+        <!-- end col -->
+    {% elseif loop.index == 4 %}
+        <div class="col-md-3 nopadding animate" data-anim-type="fadeInUp" data-anim-delay="500">
+            <div class="grid"> <a href="#">
+                    <figure class="effect-marley"> <img src="{{asset(post.featureImage|imagine_filter('hub_medium'))}}" alt="" class="img-responsive" />
+                        <figcaption>
+                            <h3 class=" text-primary font-weight-5">{{post.title}}</h3>
+                            <p class="sfont gray"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; {{post.createdAt|date('F')}} {{post.createdAt|date('d')}}, {{post.createdAt|date('Y')}}&nbsp; &nbsp; <i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp;
+                                {% for tag in post.postTags %}
+                                    <a href="#">{{post.postTags|length > 1 ? tag.name~', ' : tag.name}}</a>
+                                {% endfor %}    <br />
+
+                                <i>By</i> {{post.user.fullName}}</p>
+                        </figcaption>
+                    </figure>
+                </a> </div>
+        </div>
+    {% elseif loop.index == 5 %}
+        <!-- end col -->
+        <div class="col-md-3 nopadding animate" data-anim-type="fadeInUp" data-anim-delay="600">
+            <div class="grid"> <a href="#">
+                    <figure class="effect-marley"> <img src="{{asset(post.featureImage|imagine_filter('hub_medium'))}}" alt="" class="img-responsive" />
+                        <figcaption>
+                            <h3 class=" text-primary font-weight-5">{{post.title}}</h3>
+                            <p class="sfont gray"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp; {{post.createdAt|date('F')}} {{post.createdAt|date('d')}}, {{post.createdAt|date('Y')}} &nbsp; &nbsp; <i class="fa fa-bookmark-o" aria-hidden="true"></i>&nbsp;
+                                {% for tag in post.postTags %}
+                                    <a href="#">{{post.postTags|length > 1 ? tag.name~', ' : tag.name}}</a>
+                                {% endfor %}    <br />
+                                <i>By</i> {{post.user.fullName}}
+                            </p>
+                        </figcaption>
+                    </figure>
+                </a> </div>
+        </div>
+    {% endif  %}
+    <!-- end col --> 
+{% endfor %}

@@ -1,0 +1,20 @@
+<h4 class="title-product">Filter by Location</h4>
+<div class="toolbar-option">
+    {{form_start(form, {method:'POST'})}}
+    <div class="toolbar-sort">
+        {{form_widget(form.region, {'attr':{class:'chosen-select sorter-options form-control'} } )}}
+    </div>
+    <div class="toolbar-sort" id="towns">               
+        {{form_widget(form.businessLocation, {'attr':{class:'chosen-select limiter-options form-control'} } )}}
+    </div> 
+    <div class="toolbar-select">
+        {{form_widget(form.category, {'attr':{class:'chosen-select sorter-options form-control'} } )}}
+    </div>
+    <div class="toolbar-per">
+        <button class="btn btn-sm btn-primary"><i class="fa fa-filter"></i>
+            <span>Apply</span>
+        </button>
+    </div>
+    {{ form_row(form._token) }} 
+    {{ form_end(form, {'render_rest': false}) }}
+</div>  

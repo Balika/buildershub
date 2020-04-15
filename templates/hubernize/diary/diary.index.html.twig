@@ -1,0 +1,26 @@
+{% extends 'hubernize/shared/hubernize.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"  href="{{asset('js/smart-forms/smart-addons.css')}}">
+{% endblock %}
+{% block contentHeader %}
+    Dashboard
+    <small>{{company}}  > Site Diary </small>
+{% endblock %}
+{% block content %}
+    {{company}}
+    {{domain}}
+    <div class="row">
+        <div class="col-md-8">
+        </div>
+        <div class="col-md-4" id="entityForm">
+
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+
+{% endblock javascripts %}

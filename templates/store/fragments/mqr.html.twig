@@ -1,0 +1,49 @@
+{{form_start(mqrForm, {'method':'POST', action:path('store_submit_mqr'), 'attr':{class: "mqr-form", style:hideForm?'display:none'} } )}}
+<div class="frm-row">
+    <div class="section col-md-12">
+        <!--<label  class="field-label">From: (<small>Enter your phone or email</small>)</label>-->
+        <label class="field prepend-icon">  
+            {{form_widget(mqrForm.contact, {'attr':{class: "gui-input", placeholder:"Email or phone", value: (user is not null ? user.username ) } })}}
+            <span class="field-icon"><i class="fa fa-phone"></i></span>
+            <b class="tooltip tip-left"><em> You email or phone number</em></b> 
+        </label>
+    </div><!-- /.field-row -->
+    <div class="section col-md-12">
+        <label  class="field-label">Tell {{supplier is defined and supplier is not null ? supplier : "us"}} what you are looking for</label>
+        <label class="field prepend-icon">   
+            {{form_widget(mqrForm.request, {'attr':{class: "gui-textarea", placeholder:"Type request here, product specifcations, color, size, capacity etc"} })}}
+            <span class="field-icon"><i class="fa fa-file-o"></i></span>
+            <span class="input-hint"> <strong>Hint:</strong>  <span class="text-danger"><i> Enter product details (e.g. color, dimensions, brand etc) to get accurate response from supplier</i></span>  
+        </label>
+    </div><!-- /.field-row -->
+    <div class="section col-md-6">
+        <!--<label  class="field-label">Enter Quantity</label>-->
+        <label class="field prepend-icon">                                                                 
+            {{form_widget(mqrForm.quantity, {'attr':{class: "gui-input", placeholder:"Quantity"} } )}}
+            <span class="field-icon"><i class="fa fa-arrow-up"></i></span>
+            <b class="tooltip tip-left"><em> Quantity of item you wish to order</em></b>   
+        </label>
+    </div>
+    <div class="section col-md-6"> 
+        <!--<label  class="field-label">Select Unit</label>-->
+        <label class="field select">
+            {{form_widget(mqrForm.unit, {'attr': {placeholder:"Select Units", id:"sl", style:"height:40px" } } )}}                                                                         
+            <i class="arrow double"></i>
+            <b class="tooltip tip-left"><em> Unit of measurement by which this item is sold</em></b>                    
+        </label>  
+    </div><!-- end section -->  
+    <div class="section col-md-12">
+        <div class="col-md-12">
+            <input type="radio" name="rquestType" value="Price List Request" class="flat-red"> Price List Request
+            <input type="radio" name="rquestType" value="Quotation Request" class="flat-red" checked="true"/>  Quotation Request
+            <input type="radio" name="rquestType" value="Product Details Request" class="flat-red"/> Product Details Request
+        </div>
+    </div>
+    <div class="form-footer" >
+        {# set previousPage = app.request.headers.get('referer') #} 
+        <a  class="btn btn-default small" data-dismiss="modal"> &laquo; Cancel</a>
+        <button type="submit" class="btn btn-primary small pull-right">Submit Request  <i class="fa fa-send"></i></button>
+    </div><!-- /.buttons-holder -->
+</div>
+{{ form_row(mqrForm._token) }} 
+{{ form_end(mqrForm, {'render_rest': false}) }}

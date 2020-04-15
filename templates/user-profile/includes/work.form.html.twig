@@ -1,0 +1,10 @@
+<div class="smartforms-modal-body" >
+    <div class="smart-wrap" >
+        <div class="smart-forms smart-container transparent wrap-full">
+            <div class="form-body no-padd"> 
+                {{ form_start(form, {'method': 'post', 'action':path('save_work'), 'attr': {'class': 'workForm form-horizontal', 'role':'form'} }) }}                
+                {% include 'shared/profile/work.form.html.twig' %}
+            </div>
+        </div>
+    </div>
+</div>

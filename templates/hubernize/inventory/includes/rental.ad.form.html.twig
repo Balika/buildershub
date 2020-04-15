@@ -1,0 +1,127 @@
+<div class="smart-wrap">
+    <div class="smart-forms smart-container transparent wrap-0">
+        {% if selectedEquipment is not null %}
+            {{form_start(form, {method:'POST', action:path('hubernize_rental_ads_placement', {'equip_slug':selectedEquipment.slug, 'action':'add'}), 'attr':{id:'rental-ad-form'} })}}
+        {% elseif selectedAd is not null  %}
+            {{form_start(form, {method:'POST', action:path('hubernize_rental_ads_placement', {'ad_slug':selectedAd.slug, 'action':'update'}),'attr':{id:'rental-ad-form'} })}}        
+        {% else %}
+            {{form_start(form, {method:'POST', action:path('hubernize_rental_ads_placement', {'action':'add'}), 'attr':{id:'rental-ad-form'} })}}
+        {% endif %}
+        <div class="form-body">
+            <div class="frm-row">
+                {% if selectedEquipment is null and selectedAd is null%}
+                    <div class="colm colm12">
+                        <div class="section">
+                            <label>Select Equipment to Rent Out</label>
+                           <label class="field select">                  
+                               {{form_widget(form.equipment, {'attr':{class:'gui-input'} })}}
+                                <i class="arrow double"></i>     
+                            </label>
+                        </div><!-- end section -->                                         
+                    </div>
+                {% endif %}
+                <div class="colm colm12">
+                    <div class="section">
+                        <label>Advert Title</label>
+                        <label class="field prepend-icon">
+                            {{form_widget(form.title, {'attr':{class:'gui-input', placeholder:'Type advert title', value:selectedEquipment is not null ? selectedEquipment.name ~ ' for rent'} })}}
+                            <span class="field-icon"><i class="fa fa-pencil"></i></span> 
+                        </label>
+                    </div><!-- end section -->                                         
+                </div>
+                <div class="colm colm12">
+                    <div class="section">
+                        <label>More Details on Equipment</label>
+                        <label class="field prepend-icon">
+                            {{form_widget(form.description, {'attr':{class:'gui-textarea', 'placeholder':'Type equipment description'} } )}}                                
+                            <span class="field-icon"><i class="fa fa-file"></i></span>
+                            <span class="input-hint"> 
+                                <strong>Hint:</strong> Give more details about this equipment
+                            </span>   
+                        </label>
+                    </div><!-- end section -->                     
+                </div>
+            </div>
+            <div class="spacer-b20">
+                <div class="tagline"><span>Extra Details</span></div>           
+            </div>
+            <div class="frm-row">
+                <div class="colm colm6">
+                    <div class="section">
+                        <label>Rental Rate <small>(Amountin GHc)</small></label>
+                        <label class="field prepend-icon">
+                            {{form_widget(form.rentalRate, {'attr':{class:'gui-input', placeholder:'Rental rate'} })}}
+                            <span class="field-icon"><i class="fa fa-pencil"></i></span> 
+                        </label>
+                    </div><!-- end section -->                     
+                    <div class="section">
+                        <label>Billing Cycle</label>
+                        <label class="field select">
+                            {{form_widget(form.billingCycle, {'attr':{class:'gui-input'} })}}
+                            <i class="arrow double"></i>                                               
+                        </label>
+                    </div><!-- end section -->
+                    <div class="section">
+                        <label>Number of units available</label>
+                        <label class="field prepend-icon">
+                            {{form_widget(form.unitsAvailable, {'attr':{class:'gui-input', 'placeholder':'Units/Number available'} } )}}
+                            <span class="field-icon"><i class="fa fa-info"></i></span>  
+                        </label>
+                    </div><!-- end section -->  
+                    <div class="section">
+                        <label>Advert Display Image</label>
+                        <label class="field prepend-icon file">
+                            <span class="button"> Choose File </span>
+                            {{form_widget(form.imageFile, {'attr':{class:'gui-file',  onChange:"document.getElementById('uploader1').value = this.value;"} })}}                           
+                            <input type="text" class="gui-input" id="uploader1" placeholder="select equipment image" readonly>
+                            <span class="field-icon"><i class="fa fa-upload"></i></span>
+                        </label>
+                    </div><!-- end  section --> 
+                    <div class="section">
+                        <label class="switch block">
+                            {{form_widget(form.isPublished, {'attr':{class:'gui-file'} })}}
+                            <span class="switch-label" data-on="YES" data-off="NO"></span>
+                            <span> Advertise Now? </span>
+                        </label>                   
+                    </div><!-- end section --> 
+                </div><!-- end .colm6 section -->
+                <div class="colm colm6">
+                    <div class="section">
+                        <label>Region <small>where equipment is located</small></label>
+                        <label class="field select">
+                            {{form_widget(form.region, {'attr':{class:'gui-input'} })}}
+                            <i class="arrow double"></i>                                               
+                        </label>
+                    </div><!-- end section -->
+                    <div class="section">
+                        <label>Town</label>
+                        <label class="field select" id="towns">
+                            {{form_widget(form.town, {'attr':{class:'gui-input'} })}}
+                            <i class="arrow double"></i>                                               
+                        </label>
+                    </div><!-- end section -->
+                    <div class="section">
+                        <label>Specific Location</label>
+                        <label class="field prepend-icon">
+                            {{form_widget(form.subLocation, {'attr':{class:'gui-input', 'placeholder':'Specific Location'} })}}                                
+                            <span class="field-icon"><i class="fa fa-map-marker"></i></span>  
+                        </label>
+                    </div><!-- end section -->      
+                    <div class="section">
+                        <label>Make Visible on</label>
+                        <label class="field prepend-icon">
+                            {{form_widget(form.datePublished)}}                                
+                            <span class="field-icon"><i class="fa fa-calendar"></i></span>  
+                        </label>
+                    </div><!-- end section -->                           
+                </div><!-- end .colm6 section -->  
+            </div><!-- end .frm-row section --> 
+        </div>
+        <div class="form-footer">
+            <a href="#" class="button btn-default pull-left" data-dismiss="modal">Cancel</a>
+            <button type="submit" class="button btn-primary pull-right">Save Advert</button>
+        </div><!-- end .form-footer section -->
+        {{form_widget(form._token)}}
+        {{form_end(form, {'render_rest':false})}}
+    </div>
+</div>

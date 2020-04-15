@@ -1,0 +1,11 @@
+{% for  post in posts|slice(0, 3) %}
+    <div class="fo-posts">
+        <div class="imgbox-medium left"><a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}"><img src="{{asset(post.featureImage|imagine_filter('hub_thumbnail'))}}" alt="" class="img-responsive"/></a></div>
+        <div class="text-box-right">
+            <h6 class="nopadding font-weight-6 text-white"><a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}" title="{{post.title}}" target="new">{{post.title|slice(0, 35)}}...</a></h6>               
+            <div class="post-info"> <span>By {{post.user.firstname}}</span><span> {{post.createdAt|date('M')}} {{post.createdAt|date('d')}}</span> </div>
+        </div>
+    </div>
+    <div class=" divider-line light solid light opacity-1 "></div>
+    <div class="clearfix"></div>
+{% endfor %}

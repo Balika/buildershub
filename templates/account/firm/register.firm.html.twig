@@ -1,0 +1,77 @@
+{% extends "store/shared/store.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link href="{{asset('js/smart-forms/smart-addons.css')}}" rel="stylesheet">
+    <link href="{{asset('css/froala_style.min.css')}}" rel="stylesheet">
+{% endblock %}
+{% block breadcrumbs %}
+
+{% endblock %}
+{% block header %}
+
+{% endblock %}
+{% block  content %}
+    {% set previousPage = app.request.headers.get('referer') %} 
+    <div class="site-main-content">
+        <div class="container">
+            <div class="row">    
+                <div class="col-md-12">
+                    <p class="logo" align="center">
+                        <a href="{{path('home')}}"><img src="{{asset('logo.jpg')}}" alt="logo"></a>
+                    </p><!-- logo -->
+                    {% if app.user !=null and app.user.company !=null %}
+                        <div class="alert alert-danger" style="min-height:  70px">
+
+                            You  already have a store <strong>({{app.user.company}})</strong> on BuildersHub . For now you are allowed to host only a single store.
+                            {% if user.company is not null and user.company.companyType == 'supplier' %}
+                                <a href="{{path('store_admin_dashboard', {'slug':user.company.slug})}}" class="switcher-flag icon" target="_new">Manage {{user.company.name}}</a>                            
+                            {% endif  %}
+                            {% for company in user.userCompanies %}
+                                {% if company.companyType == 'supplier' %}
+                                    <a href="{{path('store_admin_dashboard', {'slug':company.slug})}}" class="switcher-flag icon" target="_new">Manage {{company.name}}</a>                            
+                                {% endif  %}
+                            {% endfor %}
+                        </div>
+                    {% else %}  
+                        <div class="smart-wrap">
+                            <div class="smart-forms smart-container wrap-full" style="border: 1px solid green; background-color: whitesmoke; border-radius: 4px">
+                                <div class="form-header header-primary">
+                                    <a href="{{previousPage}}" class="text-danger">&laquo; Back</a>
+                                    <h4>Build an Online Profile for Your Construction or Consulting Firm</h4>
+                                    <p style="padding-top: 5px; color:white">
+                                        <small> The general public, property owners, skilled professionals are turning to BuildersHub to seek expertise or find new opportunities to work </small>
+                                        <br/>
+                                        <br/>
+                                        Listing your firm on BuildersHub is  <strong>FREE</strong>, however if you choose to use any of our online tools to manage your firm and projects portfolio, we charge a fee on a 
+                                        <strong>PAY-AS-YOU-GO</strong> basis.
+                                    </p>
+                                </div><!-- end .form-header section -->
+                                {{ form_start(form, {'method': 'post', 'action': path('register_store', {'type':'firm'}), 'attr': {'class': 'firmForm form-horizontal'} }) }}
+                                {% include 'store/includes/supplier.registration.form.html.twig' with {'label':type} %}
+                                {{ form_row(form._token) }} 
+                                {{ form_end(form, {'render_rest': false}) }} 
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}  
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.form.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/smart-form.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-custom.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-combo.min.js')}}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            // $("#quotation_request_unit").combobox();
+        });
+    </script>
+
+{% endblock %}

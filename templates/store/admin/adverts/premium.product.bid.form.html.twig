@@ -1,0 +1,56 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link href="{{asset('js/smart-forms/smart-addons.css')}}" rel="stylesheet">   
+{% endblock %}
+{% block breadcrumbs %}                                
+    <li><a href="{{path('open_bids', {'slug':supplier.slug})}}">&laquo; Back to Bids</a></li>
+    <li class="active">Premium Slot Bid Placement</li>
+    {% endblock  %}
+{% block content %}          
+    <div class='row'>       
+        <div class="col-md-12">           
+            <div class="row" style="padding: 25px; background-color: whitesmoke; border-radius: 4px">
+                <div class="box-body" >  
+                    {% if selectedBid != null %}
+                        {{ form_start(bidForm, {'method': 'post', 'action':path('place_bid',{'slug':supplier.slug, 'slot_id':premiumProductSlot.id, 'bid_id':selectedBid.id}), 'attr': {'class': 'bidForm form-horizontal'} }) }}
+                    {% else %}
+                        {{ form_start(bidForm, {'method': 'post', 'action':path('place_bid',{'slug':supplier.slug, 'slot_id':premiumProductSlot.id}), 'attr': {'class': 'bidForm form-horizontal'} }) }}
+                    {% endif %}                   
+                    <div class="col-md-6 form-group">
+                        <label>Enter Bid Amount (GH¢)</label>
+                        {{form_widget(bidForm.bidAmount,{'attr':{'class':'form-control', 'placeholder':'e.g. 100 '} })}}
+                    </div><!-- /.form group -->
+                    <div class="col-md-6 form-group">
+                        <label>Upload Product Banner <small>Image Size 300px x 210px</small></label>
+                        {{form_widget(bidForm.imageFile,{'attr':{'class':'form-control', 'placeholder':'e.g. 100 '} })}}
+                    </div><!-- /.form group -->
+                    <label>Select Product to Place on Premium Spot</label>
+                    <br/>
+                    <div class="row" style="height: 300px; overflow-y: scroll">
+                        {% for product in supplier.products %}
+                            <div class="col-md-4" style="padding-bottom: 10px">
+                                <input type="radio" class="flat-red" value="{{product.id}}" name="selectedProduct" {{selectedBid!=null and product.id == selectedBid.product.id ? 'checked'}}/> {{product.name}}
+                                (GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',') : product.productData.regularPrice|number_format(2, '.',',')}})
+                            </div>
+                        {% endfor %}
+                    </div>                        
+                </div><!-- /.box-body -->
+                <div class="box-footer">
+                    <a href="{{path('open_bids', {'slug':supplier.slug})}}" class="btn btn-default btn-sm">Cancel</a>
+                    <button class="btn btn-success btn-sm pull-right" type="submit">Place Bid</button>
+                </div>
+                {{ form_row(bidForm._token) }} 
+                {{ form_end(bidForm, {'render_rest': false}) }}
+            </div>            
+        </div>
+    </div>    
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}  
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.form.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/smart-form.js')}}"></script>
+{% endblock %}

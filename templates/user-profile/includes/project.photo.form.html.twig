@@ -1,0 +1,38 @@
+<div id="projectPhotoDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h3 class="modal-title" id="myModalLabel"> <span style="color: green"><strong id="projectTitle">Add a photo to your project</strong></span></h3>
+            </div>  
+            <div class="smartforms-modal-body" >
+                <div class="smart-wrap">
+                    <div class="smart-forms smart-container transparent wrap-full">
+                        {{ form_start(photoForm, {'method': 'post',  'attr': {'class': 'projectPhotoForm form-horizontal', 'id':'projectPhotoForm'} }) }}
+                        <div class="section">
+                            <label class="file prepend-icon">
+                                {{ form_widget(photoForm.imageFile,{ 'attr': {class: 'gui-input', placeholder:'Select project photo'} }) }}                           
+                                <span class="field-icon"><i class="fa fa-image"></i></span>
+                            </label>        
+                        </div>
+                        <div class="section">
+                            <label class="field prepend-icon">
+                                {{ form_widget(photoForm.caption,{ 'attr': {class: 'gui-textarea', placeholder:'Type your photo caption'} }) }}                           
+                                <span class="field-icon"><i class="fa fa-pencil"></i></span>
+                                <span class="input-hint"> <strong>Hint:</strong> Add some descriptive text to your photo</span>        
+                            </label>        
+                        </div>
+                        <div class="form-footer text-right">
+                            <button type="submit" class="btn btn-success">Upload Photo</button>
+                        </div>
+                        {{ form_row(photoForm._token) }} 
+                        {{ form_end(photoForm, {'render_rest': false}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+

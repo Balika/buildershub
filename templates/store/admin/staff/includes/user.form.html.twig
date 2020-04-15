@@ -1,0 +1,42 @@
+<div class="smart-wrap">
+    <div class="smart-forms smart-container transparent wrap-2">
+        {{ form_start(form, {'method': 'post', 'action': path('add_staff',{'slug':supplier.slug }), 'attr': {'class': 'form-horizontal'} }) }}
+        <div class="form-body">
+            <h4><b><i class="fa fa-user"></i> User Registration</b></h4>
+            <p align="center" class="text-gray"><small>Please enter details of the perosn who wish to grant access to your store backend</small></p>
+            <div class="section col-md-6">
+                <label>Firstname</label>
+                <label class="field prepend-icon">                               
+                    {{ form_widget(form.firstname,{ 'attr': {class: 'gui-input', placeholder: 'Enter Firstname'} }) }}   
+                    <span class="field-icon"><i class="fa fa-user"></i></span>  
+                </label>
+            </div><!-- end section -->                    
+            <div class="section col-md-6">
+                <label>Lastname</label>
+                <label class="field prepend-icon">
+                    {{ form_widget(form.lastname,{ 'attr': {class: 'gui-input', placeholder: 'Enter Lastname'} }) }}
+                    <span class="field-icon"><i class="fa fa-user"></i></span>  
+                </label>
+            </div><!-- end section -->  
+            <div class="section col-md-12">
+                <label>Email Address</label>
+                <label class="field prepend-icon">                          
+                    {{ form_widget(form.email,{ 'attr': {class: 'gui-input', placeholder: 'Enter Email or Phone number'} }) }}
+                    <span class="field-icon"><i class="fa fa-envelope"></i></span>  
+                </label>
+            </div><!-- end section -->  
+            <div class="section col-md-12">
+                <label>Phone Number</label>
+                <label class="field prepend-icon">                          
+                    {{ form_widget(form.contactNo,{ 'attr': {class: 'gui-input', placeholder: 'Enter Phone number'} }) }}
+                    <span class="field-icon"><i class="fa fa-phone"></i></span>  
+                </label>
+            </div><!-- end section --> 
+        </div><!-- end .smart-forms section -->
+        <div class="form-footer">
+            <button type="submit" class="btn btn-success pull-right" style="font-family: 'Segoe UI Black', Helvetica; color: white">Add User</button>
+        </div>
+        {{ form_row(form._token) }} 
+        {{ form_end(form, {'render_rest': false}) }}
+    </div><!-- end .smart-wrap section -->            
+</div><!-- .smartforms-modal-body -->

@@ -1,0 +1,15 @@
+{% if selectedNotification is defined and selectedNotification is not null %}
+    <h4><strong>{{selectedNotification.subject}} {{selectedNotification.entity is not constant('App\\Utils\\EntityConfig::ORDER') ? 'Made' }}</strong> <small>{{selectedNotification.createdAt|when}}</small></h4>
+    <hr/>
+    {% if selectedNotification.entity is constant('App\\Utils\\EntityConfig::ORDER') %}
+        <div>Order for <span class="text-danger">{{entity.quantity}}</span> Items Placed by <span class="text-success">{{entity.customer.email}}</span></div>
+        <div>
+            <a href="{{path('store_orders', {'slug':supplier.slug})}}" class="btn btn-success btn-sm pull-right">View Order Details</a>
+        </div>
+    {% else %}
+    <div>Quotation Requested for <span class="text-danger">{{entity.quantity}}</span> {{entity.product is not null ? product : 'Items'}}  by <span class="text-success">{{entity.user is not null ? entity.user.email : entity.contact}}</span></div>
+        <div>
+            <a href="{{path('store_orders', {'slug':supplier.slug})}}" class="btn btn-success btn-sm pull-right">View Request Details</a>
+        </div>
+    {% endif %}
+{% endif %}

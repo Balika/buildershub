@@ -1,0 +1,133 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}     
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="{{asset('plugins/iCheck/all.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/datepicker/datepicker3.css')}}" />
+{% endblock %}
+{% block contentHeader %}
+    <a href="{{path('properties', {'slug':supplier.slug})}}">&Ll; ALL PROPERTIES</a> <span class="text-danger"> &Rarr; {{property is defined and property.id > 0 ? property.name : 'NEW PROPERTY'}} &Larr;</span>
+    {% if property is defined and property.id > 0 %}
+        <small>Make changes to {{property.name}} </small> OR 
+        <a href="{{path('add_property', {'slug':supplier.slug})}}">Add New Property</a>
+    {% else %}
+        Enter the new PROPERTY information below
+    {% endif %}
+{% endblock %}
+{% block content %}    
+    {% if property !=null and  property.id > 0 %}
+        {{form_start(form,{'method': 'POST', action:path('edit_property', {'slug':supplier.slug, 'property_slug':property.slug}), 'attr': {id:'propertyForm' } })}}
+    {% else %}
+        {{form_start(form,{'method': 'POST', action:path('add_property',{'slug':supplier.slug}), 'attr': {id:'propertyForm' } })}}
+    {% endif %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box-body">
+                {%if isSaved %}
+                    <h4 class="text-green">Item has been updated successfully</h4>
+                {% endif %}
+
+                {% include 'store/admin/property/includes/property.general.info.html.twig' %}
+            </div><!-- /.box-body -->                       
+        </div>
+        <div class="col-md-4">
+            <!-- Box Comment -->
+            <div class="box box-widget">
+                <div class='box-header with-border'>
+                </div><!-- /.box-header -->
+                <div class='box-body'>
+                    {% include 'store/admin/property/includes/property.form.actions.html.twig' %}
+                    {% include 'store/admin/property/includes/property.attributes.html.twig' %}
+                </div><!-- /.box-body -->
+                <div class='box-footer'>
+                </div><!-- /.box-footer -->
+            </div><!-- /.box -->
+        </div>
+    </div> 
+    {{ form_row(form._token) }} 
+    {{ form_end(form, {'render_rest': false}) }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- jQuery REVOLUTION Slider  -->   
+    <script type="text/javascript" src="{{asset('plugins/iCheck/icheck.min.js')}}"></script>
+    <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+    <script>
+        //iCheck for checkbox and radio inputs
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            radioClass: 'iradio_minimal-blue'
+        });
+
+    </script>
+    <script>
+        jQuery(function ($) {
+            //datepicker plugin
+            //link
+            $('.date').datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                showOn: 'button',
+                buttonImageOnly: true,
+                changeMonth: true,
+                changeYear: true,
+                format: 'yy-mm-dd',
+                yearRange: "-0:+1"
+            });
+        });
+        var $category = $('#product_category');
+        // When category gets selected ...
+        $category.change(function () {
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected category value.
+            var data = {};
+            data[$category.attr('name')] = $category.val();
+            // Submit data via AJAX to the form's action path.
+            $.ajax({
+                url: $form.attr('action'),
+                type: $form.attr('method'),
+                data: data,
+                success: function (html) {
+                    // Replace current town field ...
+                    $('#productCategories').replaceWith(
+                            // ... with the returned one from the AJAX response.
+                            $(html).find('#productCategories')
+                            );
+                    $('#vehicle-brand').replaceWith(
+                            // ... show vehicle brand for spare part
+                            $(html).find('#vehicle-brand')
+                            );
+                    // Position field now displays the appropriate positions.
+
+                }
+            });
+        });
+        $(function () {
+            $(".featuredStatus").delegate('a', 'click', function (e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                $.get(url, function (html) {
+                    location.reload();
+                });
+            });
+            var selectedProducts = [];
+            $('#relatedProducts input').on('ifChanged', function (event) {//Check and uncheck all products as related products              
+                var selectedIds;
+                if (event.target.checked) {
+                    var item = $(this).attr('value');
+                    selectedProducts.push(item);
+                } else {
+                    var item = $(this).attr('value');
+                    var index = selectedProducts.indexOf(item);
+                    selectedProducts.splice(index, 1);
+                }
+                selectedIds = selectedProducts.toString();
+                $('input[name="relatedProducts"]').val(selectedIds);
+
+            });
+        });
+    </script>
+
+{% endblock javascripts %}

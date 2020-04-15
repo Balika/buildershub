@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-md-9">
+        {% include "account/profile-sub/includes/experience.form.html.twig" %}
+        <div class="row">
+            <div class="col-md-12 text-center" style="padding-top: 20px">
+                <h4 class="text-success">Your Work Experience</h4>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12" id="personalDataPanel">
+                <ul>
+                    {% for experience in experienceEntries %}
+                        <li>
+                            <div class="post-content">
+                                <div class="post-info">
+                                    <h6 class="title less-mar-2 text-info"><a href="#"><strong>{{experience.jobTitle}}</strong></a> <a class="text-danger pull-right" title="Edit {{experience.jobTitle}}" href="{{path('save_personal_data', {'tab':'personal-details', 'sub':'experience','entityId':experience.id})}}" id="editPersonalData"><i class="fa fa-pencil"></i></a></h6>
+                                    <div class="blog-post-info"><span><i class="fa fa-clock-o"></i> {{experience.startDate|date('M') ~" " ~experience.startDate|date('Y')}} -  {{experience.endDate is not null ? experience.endDate|date('M') ~" " ~experience.endDate|date('Y') :"Present"}}</span> <span><i class="fa fa-map-marker"></i> <a href="#">{{experience.placeOfWork}}</a></span><span><i class="fa fa-thumbs-up"></i> 256 Likes</span> </div>
+                                    <br/>
+                                    <p>{{experience.jobDescription}}</p>                                    
+                                </div>
+                            </div>
+                        </li>
+                        <div class="col-divider-margin-1"></div>
+                        <div class=" divider-line dotted light"></div>  
+                        <div class="col-divider-margin-1"></div>  
+                    {% endfor %}
+
+                </ul>
+            </div>
+            <!--end item--> 
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="col-md-3">
+        Ads
+    </div>
+</div>
+

@@ -1,0 +1,100 @@
+<div class="container">
+    <!-- hotline -->
+    <ul class="nav-top-left krystal-nav" >
+        <li><a href="{{path('home')}}" target="_blank">Hub Portal</a></li>
+
+        <li class="menu-item-has-children ">
+            <a href="#" class="dropdown-toggle">
+                <span>Shop By</span><i class="fa fa-angle-down" aria-hidden="true"></i> 
+            </a>
+            <ul class="submenu parent-megamenu">
+                <li class="switcher-option">
+                    <a href="{{path('supplier_list')}}" class="switcher-flag icon">Suppliers</a>
+                </li>
+                <li class="switcher-option">
+                    <a href="{{path('shop_by_location')}}" class="switcher-flag icon">Location</a>
+                </li>
+                <li class="switcher-option">
+                    <a href="{{path('category_list')}}" class="switcher-flag icon">Product Categories</a>
+                </li>
+
+            </ul>
+        </li>
+        <li class="menu-item-has-children ">
+            <a href="#" class="dropdown-toggle">
+                <span>Privacy & Security</span><i class="fa fa-angle-down" aria-hidden="true"></i> 
+            </a>
+            <ul class="submenu parent-megamenu">
+                <li class="switcher-option">
+                    <a href="{{path('hub_page', {'page':'privacy-policy'})}}" class="switcher-flag icon">Privacy Policy</a>
+                </li>
+                <li class="switcher-option">
+                    <a href="{{path('hub_page', {'page':'shop-safe'})}}" class="switcher-flag icon">Shop Safe</a>
+                </li>
+                <li class="switcher-option">
+                    <a href="{{path('hub_page', {'page':'security-tips'})}}" class="switcher-flag icon">Security Tips</a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="{{path('hub_page', {'page':'contact'})}}">Contact Us</a></li>
+        <li><a href="{{path('posts_index')}}" target="_blank">Blog</a></li>
+        <li><a href="#" style="padding-left:25px"><b><i class="fa fa-phone"></i> +233 246 738 954</b></a></li>
+    </ul><!-- hotline -->
+
+    <!-- heder links -->
+    <ul class="nav-top-right krystal-nav">
+       <!--  <li ><a href="{{path('estates_index')}}" target="_blank">Estates & Property</a></li>
+       <li class="menu-item-has-children"><a href="" class=" <!--dropdown-toggle"><img src="{{asset('store/images/home1/l1.jpg')}}" alt="flag">English<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+            <ul class="submenu parent-megamenu">
+                <li class="switcher-option">
+                    <a href="#" class="flag"><img src="{{asset('store/images/home1/l1.jpg')}}" alt="flag">English</a>
+                </li>                    
+            </ul>
+        </li>-->
+        <li class="menu-item-has-children">
+            <a href="#" class="dropdown-toggle">
+                <span>Ghana Cedi (GH¢)</span><i class="fa fa-angle-down" aria-hidden="true"></i> 
+            </a>
+            <ul class="submenu parent-megamenu">
+                <li class="switcher-option">
+                    <a href="#" class="switcher-flag icon">Ghana Cedi (GH¢)</a>
+                </li>                    
+                <li class="switcher-option">
+                    <a href="#" class="switcher-flag icon">Dollar (USD)</a>
+                </li>
+            </ul>
+        </li>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            {% set user = app.user %}
+            <li class="menu-item-has-children">
+                <a href="#" class="dropdown-toggle">
+                    <span><i class="fa fa-user" aria-hidden="true"></i> {{user.fullName}}</span><i class="fa fa-angle-down" aria-hidden="true"></i> 
+                </a>
+                <ul class="submenu parent-megamenu">
+                    <li class="switcher-option">
+                        <a href="{{path('shopper_dashboard')}}" class="switcher-flag icon">My Shopping Dashboard</a>                       
+                    </li>
+                    <li class="switcher-option">
+                        {% if user.company is not null and user.company.companyType == 'supplier' %}
+                            <a href="{{path('store_admin_dashboard', {'slug':user.company.slug})}}" class="switcher-flag icon" target="_new">Manage {{user.company.name}}</a>                            
+                        {% endif  %}
+                        {% for company in user.userCompanies %}
+                            {% if company.companyType == 'supplier' %}
+                                <a href="{{path('store_admin_dashboard', {'slug':company.slug})}}" class="switcher-flag icon" target="_new">Manage {{company.name}}</a>                            
+                            {% endif  %}
+                        {% endfor %}
+                    </li> 
+                    <li class="switcher-option">
+                        <a href="{{path('account_settings')}}" class="switcher-flag icon" target="_new">Manage Account</a>
+                    </li>
+                    <li class="switcher-option">
+                        <a href="{{path('security_logout')}}" class="switcher-flag icon">Logout</a>
+                    </li>
+                </ul>
+            </li>
+        {% else %}
+            <li><a href="{{path('register_store')}}" target="_blank"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Sell on BuildersHub</a></li>
+            <li><a href="{{path('security_login_form')}}"><i class="fa fa-lock" aria-hidden="true"></i> Login</a></li>
+            {% endif %}
+    </ul><!-- heder links -->
+</div>

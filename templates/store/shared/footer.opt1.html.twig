@@ -1,0 +1,100 @@
+<footer class="site-footer footer-opt-2 ">
+    <div class="footer-top full-width">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="newsletter-title">
+                        <h3 class="h3-newsletter">Sign up to Newsletter</h3>
+                        <span class="span-newsletter">Stay abreast with trends in the built environment</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="newsletter-form">
+                        <form id="newsletter-validate-detail" class="form subscribe">
+                            <div class="control">
+                                <input type="email" placeholder="Enter your email address" id="newsletter" name="email" class="input-subscribe">
+                                <button type="submit" title="Subscribe" class="btn subscribe">
+                                    <span>Sign Up</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-column">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="links">
+                        <h3 class="title-of-section">My account</h3>
+                        <ul>
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED')%}
+                                <li><a href="#">Welcome {{app.user.firstname}}</a></li>
+                                {% else %}
+                                <li><a href="#">Sign In</a></li>
+                                {% endif %}
+                            <li><a href="">View Cart</a></li>
+                            <li><a href="">Product Comparison</a></li>
+                            <li><a href="">Track My Order</a></li>
+                            <li><a href="{{path('hub_page', {'page':'help'})}}">Help</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <h3 class="title-of-section">Contact information</h3>
+                    <div class="contacts">
+                        <h3 class="contacts-title">Address</h3>
+                        <span class="contacts-info">P.O. Box A1 124, Spintex Road, Accra</span>
+                        <h3 class="contacts-title">Phone</h3>
+                        <span class="contacts-info">(+233) 246 7389 54</span>
+                        <h3 class="contacts-title">Email</h3>
+                        <span class="contacts-info">info@buildershub.net</span>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="links">
+                        <h3 class="title-of-section">Help Center</h3>
+                        <ul>
+                            <li><a href="{{path('hub_page', {'page':'delivery-info'})}}">Delivery information</a></li>
+                            <li><a href="{{path('hub_page', {'page':'privacy-policy'})}}">Privacy Policy</a></li>
+                            <li><a href="{{path('hub_page', {'page':'terms'})}}">Terms & Conditions</a></li>
+                            <li><a href="{{path('hub_page', {'page':'contact'})}}">Contact us</a></li>
+                            <li><a href="{{path('hub_page', {'page':'sitemap'})}}">Sitemap</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 equal-elem">
+                    <div class="links links-ins">
+                        <h3 class="title-of-section">Hub Blog</h3>
+                        {{ render_esi(controller('App\\Controller\\BlogUtilityController:renderPosts', {'template':'posts.footer'}), {"default":'LoadpostsFootering Cart....', "ignore_errors":true}) }}     
+                        <br/>
+                        <a href="{{path('posts_index')}}" class="view-more">View More<!-- <i class="fa fa-arrow-circle-right" aria-hidden="true"></i> --></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="links">
+                <h3 class="quick-link">Quick Links</h3>
+                {{ render_esi(controller('App\\Controller\\StoreUtilityController:footerQuickLinks'), {"default":'Loading Cart....'}) }}                                                      
+            </div>
+        </div>
+    </div>
+    <div class="copyright full-width">
+        <div class="container">
+            <div class="copyright-right">                
+                BTL © Copyright 2018<span> <a href="#">BuildersHub.</a> </span> All Rights Reserved.
+            </div>
+            <div class="pay-men">
+                <a href=""><img src="{{asset('store/images/pay1.jpg')}}" alt="pay1"></a>
+                <a href=""><img src="{{asset('store/images/pay2.jpg')}}" alt="pay2"></a>
+                <a href=""><img src="{{asset('store/images/pay3.jpg')}}" alt="pay3"></a>
+                <a href=""><img src="{{asset('store/images/pay4.jpg')}}" alt="pay4"></a>
+            </div>
+        </div>
+    </div>
+</footer><!-- end FOOTER -->

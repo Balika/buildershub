@@ -1,0 +1,42 @@
+{% extends 'hubernize/shared/hubernize.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+<link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+    <!-- Select2 -->
+{% endblock %}
+{% block breadcrumbs %}
+    <li class="active"><span>Running Promos</span></li>
+    {% endblock %}
+    {% block crumbLinks %}
+
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default box-solid">
+                <div class="box-header">
+                    <h3 class="box-title">List of <span class="text-success">{{company}}</span> Rental Ads on Promotion</h3>                    
+                    <div class="box-tools pull-right">
+                        <!-- <a  data-toggle="modal" class="btn btn-success btn-sm" href="#validityDateDlg" style="color: white">
+                             Set Price Validity Date <span class="fa fa-calendar"></span>
+                         </a>-->
+                    </div>                  
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    {{ include("hubernize/inventory/includes/ad.promos.table.html.twig") }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+    <script>
+        $(function () {
+            $('#rentalPromosTable').DataTable();
+        });
+    </script>
+
+{% endblock javascripts %}

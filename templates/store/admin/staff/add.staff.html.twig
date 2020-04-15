@@ -1,0 +1,118 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <!-- DataTables -->
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+
+{% endblock %}
+{% block breadcrumbs %}
+    <li>
+        <a href="{{path('list_staff', {'slug':supplier.slug, 'list_mode':'list'})}}"><i class="fa fa-list fa-fw"></i> Users</a>
+    </li>
+    <li class="active"><span>Add User to Store</span></li>
+    {% endblock %}
+    {% block crumbLinks %}
+
+{% endblock %}
+{% block listMode %}
+{% endblock %}
+{% block content %}
+    <div class="row">               
+        <div class="col-md-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header" id="boxHeader">
+                    <h3 class="box-title">
+                        Search Existing Users
+                    </h3>
+                    <a class="btn btn-default pull-right" href="#" id="showAddUserLink"><i class="fa fa-user"></i> Create New User</a>
+                    <a class="btn btn-default pull-right hide" href="#" id="hideAddUserLink"><i class="fa fa-minus"></i> Hide User Form</a>
+                </div><!-- /.box-header -->
+                <div class="box-body" id="searchPanel">
+                    <div class="smart-wrap">
+                        <div class="smart-forms smart-container transparent wrap-0">                           
+                            {{ form_start(searchForm, {'method': 'post', 'action': path('add_staff',{'slug':supplier.slug }), 'attr': {'id': 'searchForm'} }) }}
+                            <div class="form-body">
+                                <div class="section">                                       
+                                    <div class="smart-widget sm-right smr-120">                                            
+                                        <label class="field prepend-icon">
+                                            {{ form_widget(searchForm.searchTerm,{ 'attr': {class: 'gui-input', placeholder: 'Type name, phone number or email to search users', value:searchTerm is defined ? searchTerm} }) }}
+                                            <span class="field-icon"><i class="fa fa-search"></i></span> 
+                                        </label>
+                                        <button type="submit" class="button">Search</button>
+                                    </div><!-- end .smart-widget section --> 
+                                </div><!-- end section -->
+                            </div><!-- end .form-body section -->
+                            {{ form_row(searchForm._token) }} 
+                            {{ form_end(searchForm, {'render_rest': false}) }}
+                        </div><!-- end .smart-forms section -->
+                    </div><!-- end .smart-wrap section -->
+                    <div id="resultsPanel">
+                        <div class="row">
+                            <div class="col-md-1"></div>
+
+                            {% if  users is defined  %}
+                                {% if users |length > 0 %}
+                                    <div class="col-md-10">
+                                        <ul class="products-list product-list-in-box">
+                                            {% for usr in users   %}
+                                                <li class="item">
+                                                    <div class="product-img">
+                                                        <img src="{{usr.person is not null and usr.person.profilePicture is not null ? asset(usr.person.profilePicture|imagine_filter('hub_thumbnail')) :  asset('cipron/dist/img/user1-128x128.jpg')}}" alt="Product Image">
+                                                    </div>
+                                                    <div class="product-info">
+                                                        {% if usr not in supplier.staff %}
+                                                            <a href="javascript::;" class="product-title">{{usr.fullName ~ ' ('~ usr.email ~ ')'}}  </a><span class="label label-primary pull-right"><a href="{{path('assign_user_to_store',{'slug':supplier.slug, 'user_id':usr.id})}}" style="color:white">Add as Staff</a></span>
+                                                        {% else %}
+                                                            <div class="pull-right">
+                                                                <span class="product-title label label-success">{{usr.fullName~ ' ('~ usr.email ~ ')'}} is already  a staff</span>
+                                                            </div>
+                                                        {% endif %}
+                                                        <span class="product-description">
+                                                            {{usr.userProfile.profile}}
+                                                            <br/>
+                                                            <strong>
+                                                                {{usr.userProfile.subLocation is not null ? usr.userProfile.subLocation ~', '}} {{usr.userProfile.town}}{{usr.userProfile.region!=null ? ', '~usr.userProfile.region ~' Region' }}            
+                                                            </strong>
+                                                        </span>
+                                                    </div>
+                                                </li><!-- /.item -->
+                                            {% endfor  %}                         
+                                        </ul>
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-danger">
+                                        No users matching <strong><i>{{searchTerm}}</i></strong> found in our database
+                                    </div>
+                                {% endif  %}
+                            {% endif  %}
+                        </div>
+                    </div>
+                </div>
+                <div id="userForm" class="hide">
+                    {% include 'store/admin/staff/includes/user.form.html.twig'%}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-custom.min.js')}}"></script> 
+    <script>
+        $(function () {
+            $('#boxHeader').on('click', 'a', function () {
+                var linkId = $(this).attr('id');
+                $(this).addClass('hide');
+                if (linkId === 'showAddUserLink') {
+                    $('#userForm').removeClass('hide');
+                    $('#searchPanel').addClass('hide');
+                    $('#hideAddUserLink').removeClass('hide');
+                } else if (linkId === 'hideAddUserLink') {
+                    $('#showAddUserLink').removeClass('hide');
+                    $('#userForm').addClass('hide');
+                    $('#searchPanel').removeClass('hide');
+                }
+            });
+        });
+    </script>
+{% endblock %}

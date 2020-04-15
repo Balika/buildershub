@@ -1,0 +1,147 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+{% endblock %}
+{% block contentHeader %}
+    Store Options
+    <small>Set your store preferences here</small>
+    <a href="{{path('add_product', {'slug':supplier.slug})}}"></a>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h4><span class="text-success"><i class="fa fa-wrench">Store Settings</i></span>
+                <small style="display: block; font-size: 0.6em">Apps developed by <a>BuildersHub</a> to help you effectively manage your construction or consulting firm</small></h4>
+            <ul class="nav nav-tabs" role="tablist" >
+                <li role="presentation" class="active">
+                    <a href="#options" data-toggle="tab"> <b>{{supplier}}</b> <span class="text-success">Store Options</span></a>
+                </li>
+                <li role="presentation">
+                    <a href="#other" data-toggle="tab"> Available Apps</a>
+                </li>
+            </ul>
+            <div class="row">
+                <div class="col-divider-margin-1"></div>
+                <div class=" divider-line solid light"></div>  
+                <div class="col-divider-margin-1"></div>  
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="options">
+                    <div class="row">
+                        <div class="col-md-12" id="entityForm">
+                            {{form_start(form,{'method': 'POST', 'attr': {id:'optionsForm' } })}}
+                            <div class="box box-default box-solid">                            
+                                <div class="box-body">
+                                    <div id="feedbackDiv">
+                                        {% if feedback|length > 0 %}
+                                            <div class="alert alert-success" id="feedback">                                                    
+                                                <strong>
+                                                    <i class="ace-icon fa fa-info"></i>
+                                                    Update Successful
+                                                </strong>
+                                                {{feedback}}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>
+                                                    {{ form_widget(form.allowPriceRequest, {'attr':{class:'flat-red'} }) }}                          
+                                                    Allow Price Request
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>
+                                                    {{ form_widget(form.allowQuotationRequest, {'attr':{class:'flat-red'} }) }}                          
+                                                    Allow Quotation Request
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>
+                                                    {{ form_widget(form.showFeaturedProducts, {'attr':{class:'flat-red'} }) }}                          
+                                                    Show Featured Products
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>
+                                                    {{ form_widget(form.displayBanner, {'attr':{class:'flat-red'} }) }}                          
+                                                    Display Banner
+                                                </label>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>
+                                                    Upload Banner file 
+                                                    {{ form_widget(form.bannerFile, {'attr':{class:'form-control'} }) }}                          
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>
+                                                    Upload Digital Signature 
+                                                    {{ form_widget(form.signatureFile, {'attr':{class:'form-control'} }) }}                          
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label>
+                                                    {{ form_widget(form.showPrices, {'attr':{class:'flat-red'} }) }}                          
+                                                    Show Prices
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>
+                                                    {{ form_widget(form.manageStock, {'attr':{class:'flat-red'} }) }}                          
+                                                    Manage Stock 
+                                                </label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>
+                                                    {{ form_widget(form.showStockLevel, {'attr':{class:'flat-red'} }) }}                          
+                                                    Show Stock Levels
+                                                </label>
+                                            </div>
+                                            <fieldset>
+                                                <legend>
+                                                    What do you trade in? <small class="text-muted small"> Hold down <strong><i>CTRL</i></strong> key to select multiple options</small>
+                                                </legend>
+                                                <div class="form-group">
+                                                    <label>
+                                                        {{ form_widget(form.merchandise, {'attr':{class:'form-control'} }) }}                                                                 
+                                                    </label>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-primary pull-right">Save Options</button>
+                                </div>
+                            </div>
+                            {{ form_row(form._token) }} 
+                            {{ form_end(form, {'render_rest': false}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="other">                  
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box box-default box-solid">                            
+                                <div class="box-body">
+                                     Other Available Modules 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock javascripts %}

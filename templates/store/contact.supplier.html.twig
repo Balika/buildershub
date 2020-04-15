@@ -1,0 +1,194 @@
+{% extends "store/shared/store.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <link rel="stylesheet" href="{{asset('css/froala_style.min.css')}}">
+{% endblock %}
+{% block header %}
+{% endblock %}
+{% block  breadcrumbs %}
+    {% set previousPage = app.request.headers.get('referer') %} 
+    <div class="container">
+        <ol class="breadcrumb-page">
+            <li><a href="{{previousPage}}">&laquo; Back </a></li>
+            <li class="active"><a href="#">{{supplier is not null ? supplier.name : "Quotation Request to Muiltiple  Suppliers"}}</a></li>
+        </ol>
+    </div>
+{% endblock %}
+{% block mqrBlock %}
+{% endblock %}  
+{% block content %}
+    <div class="site-main-content">
+        <div class="container">
+            <div class="row">    
+                <div class="col-md-3 nav-left">
+                    <!-- logo -->
+                    <strong class="logo">
+                        <a href="{{path('store_index')}}"><img src="{{asset('logo.jpg')}}" alt="logo"></a>
+                    </strong><!-- logo -->
+                    <div style="margin-top: 20px">
+                        {% if product is defined and product is not null %}
+                            <h3><a href="{{path('store_product_detail',{'slug':product.slug})}}">{{product}}</a></h3>
+                            <div class="product-media">
+                                <div class="image-preview-container image-thick-box image_preview_container">
+                                    <img id="img_zoom" data-zoom-image="{{asset(s3_images_url~product.featureImage)}}" src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="" style="border-radius:3px">
+                                    <a href="#" class="btn-zoom open_qv"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                </div>
+                                <div class="product-preview image-small product_preview">
+                                    <div id="thumbnails" class="thumbnails_carousel owl-carousel nav-style4" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="10" data-responsive='{"0":{"items":3},"480":{"items":5},"600":{"items":5},"1000":{"items":5}}'>
+                                        <a href="#" data-image="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" data-zoom-image="{{asset(s3_images_url~product.featureImage)}}">
+                                            <img src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" data-large-image="{{asset(s3_images_url~product.featureImage)}}" alt="i1">
+                                        </a>
+                                        {% for img in product.gallery %}
+                                            <a href="#" data-image="{{asset(img|imagine_filter('hub_thumbnail'))}}" data-zoom-image="{{asset(s3_images_url~img)}}">
+                                                <img src="{{asset(img|imagine_filter('hub_thumbnail'))}}" data-large-image="{{asset(s3_images_url~img)}}" alt="i1">
+                                            </a>
+                                        {% endfor %}  
+                                    </div>
+                                </div>
+                            </div>
+                            <p>{{product.description}}</p>
+                        {% endif %}
+                    </div>        
+                </div>
+                <div class="col-md-9 nav-mind">                   
+                    {% if userForm is defined %}
+                        <div id='userForm' style="padding: 2px;">                           
+                            <div id='signupPanel' class="{{accountExist ? 'hide'}}">
+                                <div class="smartforms-modal-container">
+                                    <div class="smartforms-modal-header">
+                                        <h3 style="color: white">User Registration Form</h3>
+                                        <a href="#" class="smartforms-modal-close"></a>            
+                                    </div><!-- .smartforms-modal-header -->
+                                    <div class="smartforms-modal-body">
+                                        <div class="smart-wrap">
+                                            <div class="smart-forms smart-container transparent wrap-full">              
+                                                <div class="col-md-12" style="padding: 10px 20px 10px 20px">
+                                                    <div class="alert alert-info">
+                                                        You are almost there, let the supplier contact you. Enter your details so you can keep track of your request and have a smooth shopping experience.
+                                                    </div>
+                                                </div>              
+                                                {% if supplier is not null and user is not null %}
+                                                    {{ form_start(userForm, {'method': 'post', 'action': path('contact_supplier',{'slug':supplier.slug, 'product_slug':product.slug, 'request_id':quotationRequest.id }), 'attr': {'class': 'form-horizontal'} }) }}
+                                                {% else %}
+                                                    {{form_start(userForm, {'method':'POST', action:path('buyer_signup', {'id':quotationRequest.id, 'entityClass':'App:QuotationRequest'}), 'attr':{class: "signup-form", id:"smart-form"} } )}}
+                                                {% endif %}
+                                                {{ include ('store/includes/new.user.form.html.twig', {'isRegisterToggle':true}) }}              
+                                            </div><!-- end .smart-wrap section -->            
+                                        </div><!-- .smartforms-modal-body -->
+                                    </div><!-- .smartforms-modal-container -->
+                                </div><!-- .smartforms-modal 2 -->                                
+                            </div>
+                            <div id='loginPanel' class="{{accountExist ? '':'hide'}}">
+                                <div class="col-md-12" style="border-radius: 4px; padding-bottom: 15px">
+                                    {% include 'store/includes/user.login.html.twig' %}
+                                </div><!-- /.col -->
+                            </div>
+                        </div>
+                    {% else %}
+                        {% if message != '' %}
+                            <div class="alert alert-success">
+                                {{message}}
+                            </div>
+                            <p>
+                                <a href="{{path('store_index')}}" class="btn btn-primary btn-lg pull-right"><i class="fa fa-shopping-cart"></i> Continue Shopping </a>
+                            </p>
+                        {% else %}
+                            <div class="smart-wrap">
+                                <div class="smart-forms smart-container transparent wrap-full" style="border: 1px solid green; background-color: whitesmoke; border-radius: 4px">
+                                    <div class="form-header header-primary">
+                                        <h4></i> <i class="fa fa-envelope"></i> Contact <strong>{{supplier.name}}</strong> <small class="block" style="color: whitesmoke; font-size: 0.5em ">{{supplier.businessSummary}}</small></h4>
+                                        <br/>
+                                        <p style="color: whitesmoke; font-weight: bolder">
+                                            <i class="fa fa-map-marker"></i> <span class="review">{{supplier.businessLocation is not null ?  supplier.businessLocation ~','}} {{supplier.region}}</span>
+                                        </p>
+                                    </div><!-- end .form-header section -->
+                                    {{form_start(form, {'method':'POST', 'attr':{id:"smart-form"} } )}}
+                                    <div class="form-body">                                                    
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="section col-md-6">
+                                                    <label  class="field-label">From: (<small>Enter your phone or email</small>)</label>
+                                                    <label class="field prepend-icon">  
+                                                        {{form_widget(form.contact, {'attr':{class: "gui-input", placeholder:"Email or phone ", value:(app.user is not null and app.user.contactNo is not null ? app.user.contactNo : app.user is not null ? app.user.email)} })}}
+                                                        <span class="field-icon"><i class="fa fa-phone"></i></span>
+                                                    </label>
+                                                </div><!-- /.field-row -->
+                                                <div class="section col-md-6">
+                                                    <label  class="field-label">Your message will be sent to</label>
+                                                    <label class="field prepend-icon">                             
+                                                        <input class="gui-input" value="{{supplier.owner is not null ? supplier.owner.fullName : supplier.contactPerson.fullName}} of {{supplier}}" readonly="true"/>
+                                                        <span class="field-icon"><i class="fa fa-user"></i></span>
+                                                    </label>
+                                                </div><!-- /.field-row -->
+                                            </div>
+                                        </div>
+                                        <div class="row" >
+                                            <div class="col-md-12" style="margin-top: 10px">
+                                                <div class="section col-md-6">
+                                                    <label  class="field-label">Enter Quantity</label>
+                                                    <label class="field prepend-icon">                                                                 
+                                                        {{form_widget(form.quantity, {'attr':{class: "gui-input", placeholder:"Quantity"} } )}}
+                                                        <span class="field-icon"><i class="fa fa-hand-o-up"></i></span>
+                                                    </label>
+                                                </div>
+                                                <div class="section col-md-6"> 
+                                                    <label  class="field-label">Select Unit</label>
+                                                    <label class="field select">
+                                                        {{form_widget(form.unit, {'attr': {placeholder:"Select Units", id:"sl", style:"height:40px" } } )}}                                                                         
+                                                        <i class="arrow double"></i>
+                                                        <b class="tooltip tip-left"><em> Unit of measurement by which this item is sold</em></b>                    
+                                                    </label>  
+                                                </div><!-- end section -->                                               
+                                                <div class="section col-md-12">
+                                                    <label  class="field-label">Type your request</label>
+                                                    <label class="field prepend-icon">   
+                                                        {{form_widget(form.request, {'attr':{class: "gui-textarea", placeholder:"Type request here, product specifcations, color, size, capacity etc"} })}}
+                                                        <span class="field-icon"><i class="fa fa-file-o"></i></span>
+                                                        <span class="input-hint"> <strong>Hint:</strong>  <span class="text-danger"><i> Enter product details (e.g. color, dimensions, brand etc) to get accurate response from supplier</i></span>  
+                                                    </label>
+                                                </div><!-- /.field-row -->
+                                                <div class="form-footer" >
+                                                    {% set previousPage = app.request.headers.get('referer') %} 
+                                                    <a  class="btn btn-default small" href="{{previousPage}}"> &laquo; Cancel</a>
+                                                    <button type="submit" class="btn btn-primary small pull-right">Send Your Request <i class="fa fa-send"></i></button>
+                                                </div><!-- /.buttons-holder -->
+                                            </div>
+                                        </div>
+                                        {{ form_row(form._token) }} 
+                                    </div>
+                                    {{ form_end(form, {'render_rest': false}) }}
+                                </div>
+                            </div>
+                        {% endif  %}
+                    {% endif  %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}  
+    <script type="text/javascript">
+        $(function () {
+            // $("#quotation_request_unit").combobox();
+        });
+        /**
+         * 
+         * Loads most viewed products asynchronously after index page loads
+         */
+        var userFormHolder = '#userForm';
+        $(userFormHolder).on('click', '#loginLink', function (e) {
+            e.preventDefault();
+            console.log('------------------Showing login Form--------------------- ');
+            $('#loginPanel').removeClass('hide');
+            $('#signupPanel').addClass('hide');
+        });
+        $(userFormHolder).on('click', '#signupLink', function (e) {
+            e.preventDefault();
+            console.log('------------------Showing Signup Form--------------------- ');
+            $('#loginPanel').addClass('hide');
+            $('#signupPanel').removeClass('hide');
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-md-9">
+        {% include "account/profile-sub/includes/education.form.html.twig" %}
+        <div class="row">
+            <div class="col-md-12 text-center" style="padding-top: 20px">
+                <h4 class="text-success">Certificates & Diplomas you have earned</h4>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12" id="personalDataPanel">
+                <section>
+                    <div class="row nopadding">
+                        {% for education in educationEntries %}
+                            <div class="col-md-6  col-sm-6 nopadding">
+                                <div class="text-box  {{loop.first ? "section-dark" : loop.index is divisible by(2) ? "section-primary" : loop.index?"section-secondary" : "section-fulldark"}} padding-percent-2 text-left">
+                                    <h3 class="nopadding font-weight-7 line-height-7 roboto"><small class="{{loop.index is divisible by(2) ? "text-white" : "text-primary"}}">{{education.programmeOfStudy}}</small> <a class="text-danger pull-right" title="Edit {{education.programmeOfStudy}}" href="{{path('save_personal_data', {'tab':'personal-details', 'sub':'education','entityId':education.id})}}" id="editPersonalData"><small><i class="fa fa-pencil"></i></small></a></h3>
+                                    <h3 class="text-white uppercase font-weight-7 roboto" title="{{education.certificateAwarded}}">{{education.certificateAwarded|length>23 ? education.certificateAwarded|slice(0, 23)~'...' : education.certificateAwarded}}</h3>
+                                    <p class="margin-top-1 margin-bottom-4 text-gray">{{education.institution}}</p>
+                                    <br/>
+                                    <a href="#" class="but-stbutton-3 font-weight-7">{{education.from ~" - " ~ education.to}}</a> 
+                                </div>
+                            </div>
+                            <!-- end item -->
+                        {% endfor %}
+                    </div>
+                </section>
+                <!-- end section -->
+                <div class="clearfix"></div>                
+            </div>
+            <!--end item--> 
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="col-md-3">
+        Ads
+    </div>
+</div>

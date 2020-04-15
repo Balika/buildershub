@@ -1,0 +1,304 @@
+{% extends "rentals/shared/rental.base.html.twig" %}
+{% block  bodyClass %}
+    page-product detail-product
+{% endblock %}
+{% block  mainClass %}
+    site-main
+{% endblock %}
+{% block  breadcrumbs %}
+    {% set previousPage = app.request.headers.get('referer') %} 
+    <div class="container">
+        <ol class="breadcrumb-page">
+            <li><a href="{{previousPage}}">&laquo; Back </a></li>
+            <li class="active"><a href="#">{{rentalAd.title}}</a></li>
+        </ol>
+    </div>
+{% endblock %}
+{% block pageMenu %}    
+    <a href="#">{{rentalAd}}</a>
+{% endblock %}
+{% block  content %}
+    {% if not isRequestedPlaced %}
+        <div class="container">
+            <div class="product-content-single">
+                <div class="row">
+                    {{ form_start(form, {method:"POST", action:path('place_rental_request', {'slug':rentalAd.slug})} )}}
+                    <div class="col-md-4 col-sm-6 padding-right">
+                        <div class="product-media">
+                            <div class="image-preview-container image-thick-box image_preview_container">
+                                <img id="img_zoom" data-zoom-image="{{asset(s3_images_url~rentalAd.equipment.featureImage)}}" src="{{asset(rentalAd.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" alt="" style="border-radius:3px">
+                                <a href="#" class="btn-zoom open_qv"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="product-preview image-small product_preview">
+                                <div id="thumbnails" class="thumbnails_carousel owl-carousel nav-style4" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="10" data-responsive='{"0":{"items":3},"480":{"items":5},"600":{"items":5},"1000":{"items":5}}'>
+                                    <a href="#" data-image="{{asset(rentalAd.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" data-zoom-image="{{asset(s3_images_url~rentalAd.equipment.featureImage)}}">
+                                        <img src="{{asset(rentalAd.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" data-large-image="{{asset(s3_images_url~rentalAd.equipment.featureImage)}}" alt="i1">
+                                    </a>
+                                    {% for img in rentalAd.equipment.gallery %}
+                                        <a href="#" data-image="{{asset(img|imagine_filter('hub_thumbnail'))}}" data-zoom-image="{{asset(s3_images_url~img)}}">
+                                            <img src="{{asset(img|imagine_filter('hub_thumbnail'))}}" data-large-image="{{asset(s3_images_url~img)}}" alt="i1">
+                                        </a>
+                                    {% endfor %}  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8" style="border: green solid medium; border-radius: 3px; background-color: whitesmoke;">
+                        <div class="smart-wrap">
+                            <div class="smart-forms smart-container transparent wrap-full">
+                                <div class="form-body">
+                                    <div class="col-md-7 col-sm-6">
+                                        <div class="product-info-main">
+                                            <div class="product-name"><a href="#">{{rentalAd}}</a>
+                                            </div>
+                                            <div class="star-rating">
+                                                <i class="fa fa-map-marker"></i> <span class="review">{{rentalAd.company.businessLocation is not null ?  rentalAd.company.businessLocation ~','}} {{rentalAd.company.region}}</span>
+                                            </div>
+                                            <div class="star-rating">
+                                                <i class="fa fa-industry"></i> <span class="review">{{rentalAd.company}}</span>
+                                            </div>
+                                            <div class="product-infomation" >
+                                                {{rentalAd.description}}   
+                                            </div>
+                                        </div>
+                                        <div class="frm-row">
+                                            <div class="colm colm12">
+                                                <div class="section">
+                                                    <label><strong>Phone</strong></label>
+                                                    <label class="field prepend-icon">
+                                                        {{form_widget(form.phone, {'attr':{class:'gui-input', 'placeholder':'Type your request', value:user is not null ? user.contactNo} } )}}                                
+                                                        <span class="field-icon"><i class="fa fa-phone"></i></span>
+                                                    </label>
+                                                </div><!-- end section -->                     
+                                            </div>
+                                            <div class="colm colm12">
+                                                <div class="section">
+                                                    <label><strong>Rental Request</strong></label>
+                                                    <label class="field prepend-icon">
+                                                        {{form_widget(form.message, {'attr':{class:'gui-textarea', 'placeholder':'Type your request'} } )}}                                
+                                                        <span class="field-icon"><i class="fa fa-file"></i></span>
+                                                        <span class="input-hint"> 
+                                                            <strong>Hint:</strong> Give more details about your request
+                                                        </span>   
+                                                    </label>
+                                                </div><!-- end section -->                     
+                                            </div>                                        
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-sm-6">
+                                        <div class="product-info-price">
+                                            <div class="product-info-stock-sku">
+                                                <div class="stock available">
+                                                    <span class="label-stock">Billing Cycle: </span>{{rentalAd.billingCycle}}
+                                                </div>
+                                            </div>
+                                            <div class="transportation">
+                                                <span>Rental Rate</span>
+                                            </div>
+                                            <span class="price">
+                                                <ins>GH¢{{rentalAd.rentalRate|number_format(2, '.',',')}}  <small>{{rentalAd.billingCycle}}</small></ins> 
+                                                <!--<del>GH¢{#product.productData.regularPrice|number_format(2, '.',',')#}</del>-->
+                                            </span>
+                                            <div class="quantity">
+                                                <h6 class="quantity-title">Quantity:</h6>
+                                                <div class="buttons-added">
+                                                    {{form_widget(form.numberRequested, {'attr':{class:'input-text qty text', size:1, title:'Quantity Requested', value:1} })}}                               
+                                                    <a href="#" class="sign plus"><i class="fa fa-plus"></i></a>
+                                                    <a href="#" class="sign minus"><i class="fa fa-minus"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="frm-row">
+                                                <div class="colm colm12">
+                                                    <div class="section">
+                                                        <label>Email Address</label>
+                                                        <label class="field prepend-icon">
+                                                            {{form_widget(form.email, {'attr':{class:'gui-input', 'placeholder':'Enter your email', value:user is not null ? user.email} } )}}                                
+                                                            <span class="field-icon"><i class="fa fa-at"></i></span>
+                                                        </label>
+                                                    </div><!-- end section -->                     
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button  class="add-to-cart btn btn-info btn-lg pull-right" type="submit"><i class="fa fa-shopping-cart"></i> Place Request</button>  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{form_widget(form._token)}}
+                    {{form_end(form, {'render_rest':false})}}
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="tab-details-product">
+                <ul class="box-tab nav-tab">
+                    <li class="active"><a data-toggle="tab" href="#tab-1">Description</a></li>
+                    <li><a data-toggle="tab" href="#tab-2">Addtional Infomation</a></li>
+                    <li><a data-toggle="tab" href="#tab-3">Reviews</a></li>
+                </ul>
+                <div class="tab-container">
+                    <div id="tab-1" class="tab-panel active">
+                        <div class="box-content">
+                        </div>
+                    </div>
+                    <div id="tab-2" class="tab-panel">
+                        <div class="box-content">
+                            <p>        </p>
+                            <span>Weights & Dimensions</span>
+                            <div class="parameter">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-3" class="tab-panel">
+                        <div class="box-content">
+                            <form method="post" action="#"  class="new-review-form">
+                                <a href="#" class="form-title">Write a review</a>
+                                <div class="form-content">
+                                    <p class="form-row form-row-wide">
+                                        <label>Name</label>
+                                        <input type="text" value="" name="text" placeholder="Enter your name" class="input-text">
+                                    </p>
+                                    <p class="form-row form-row-wide">
+                                        <label>Email</label>
+                                        <input type="text" name="text" placeholder="admin@example.com" class="input-text">
+                                    </p>
+                                    <p class="form-row form-row-wide">
+                                        <label>Review Title<span class="required">*</span></label>
+                                        <input type="email" name="email" placeholder="Give your review a title" class="input-text">
+                                    </p>
+                                    <p class="form-row form-row-wide">
+                                        <label>Body of Review (1500)</label>
+                                        <textarea aria-invalid="false" class="textarea-control" rows="5" cols="40" name="message"></textarea>
+                                    </p>
+                                    <p class="form-row">
+                                        <input type="submit" value="Submit Review" name="Submit" class="button-submit">
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>     
+                </div>  
+            </div> 
+        </div>
+    {% else %}
+        <div class="container">
+            <div class="row">                 
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED')%}
+                     <div class="col-md-1">
+                </div>
+                    <div class="col-md-9">
+                        <div class="alert alert-success">
+                            <strong>You have successfully placed a rental request for <span class="text-orange">{{rentalAd}}</span>.</strong>
+                            <p>You will be contacted shortly for delivery arrangement of the requested equipment or tools </p>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-md-1" style="padding:20px">
+                        
+                    </div>
+                    <div class="col-md-11 nav-mind" style="padding:5px">  
+                        <div class="alert alert-success">
+                            <strong>You have successfully placed a rental request for <span class="text-orange">{{rentalAd}}</span>.</strong>
+                            <p>Please add your details so you can be contacted for delivery arrangement of the requested equipment or tools </p>
+                        </div>
+                        {% if userForm is defined %}
+                            <div id='userForm' style="padding: 2px;">                           
+                                <div id='signupPanel' class="{{accountExist ? 'hide'}}">
+                                    <div class="smartforms-modal-container">
+                                        <div class="smartforms-modal-header">
+                                            <h3 style="color: white">User Registration Form</h3>
+                                            <a href="#" class="smartforms-modal-close"></a>            
+                                        </div><!-- .smartforms-modal-header -->
+                                        <div class="smartforms-modal-body">
+                                            <div class="smart-wrap">
+                                                <div class="smart-forms smart-container transparent wrap-full">                                                                              
+                                                    {{form_start(userForm, {'method':'POST', action:path('buyer_signup', {'id':rentalRequest.id, 'entityClass':'App:RentalRequest'}), 'attr':{class: "signup-form"} } )}}                                                               
+                                                    {{ include ('store/includes/new.user.form.html.twig', {'isRegisterToggle':true}) }}     
+                                                </div><!-- end .smart-wrap section -->            
+                                            </div><!-- .smartforms-modal-body -->
+                                        </div><!-- .smartforms-modal-container -->
+                                    </div><!-- .smartforms-modal 2 --> 
+                                </div>
+                                <div id='loginPanel' class="{{accountExist ? '':'hide'}}">
+                                    <div class="col-md-12" style="border-radius: 4px; padding-bottom: 15px">
+                                        {% include 'store/includes/user.login.html.twig' %}
+                                    </div><!-- /.col -->
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    <div class="block-recent-view">
+        <div class="container" id="relatedProducts">
+            <div class="title-of-section">You may be also interested</div>
+            <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="true" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":6}}'>
+                {% if relatedAds is defined %}
+                    {% for relatedAd in relatedAds %}
+                        <div class="product-item style1">
+                            <div class="product-inner equal-elem">
+                                <div class="product-thumb">
+                                    <div class="thumb-inner">
+                                        <a href="{{path('place_rental_request', {'slug':relatedAd.slug})}}"><img src="{{asset(relatedAd.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" alt="r1" style="height: 140px; margin: auto; border-radius: 3px;"></a>
+                                    </div>
+                                    <span class="{{relatedAd.isPromoted?'onnew':relatedAd.isOnDeal?'onsale'}}">{{relatedAd.isPromoted?'new':relatedAd.isOnDeal?'-50%'}}</span>
+                                    <a href="{{path('place_rental_request', {'slug':relatedAd.slug})}}" class="quick-view">Quick View</a>
+                                </div>
+                                <div class="product-innfo">
+                                    <div class="product-name"><a href="{{path('place_rental_request', {'slug':relatedAd.slug})}}">{{relatedAd.title}}</a></div>
+                                    <span class="price">
+                                        <ins>GH¢{{relatedAd.rentalRate|number_format(2, '.',',')}}</ins>
+                                        <del>$259.00</del>
+                                    </span>
+                                    <div class="star-rating">
+                                        <i class="fa fa-map-marker"></i> <span class="review">{{relatedAd.company.businessLocation is not null ?  relatedAd.company.businessLocation ~','}} {{relatedAd.company.region}}</span>
+                                    </div><div class="star-rating">
+                                        <i class="fa fa-industry"></i> <span class="review">{{relatedAd.company}}</span>
+                                    </div>
+                                    <div class="group-btn-hover">
+                                        <a href="{{path('place_rental_request', {'slug':relatedAd.slug})}}"><i class="fa fa-phone" aria-hidden="true"></i> HIRE EQUIPMENT</a>                                                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}  
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        /**
+         * Loads most viewed products asynchronously after index page loads
+         */
+        $(document).ready(function () {
+            console.log('------------------Loading store home asyn content--------------------- ');
+            var url = Routing.generate('update_page_view', {entityType: 'App:RentalAd', entityId:                                 {{rentalAd.id}} , page: 'RentalPlacementPage'});
+            $.get(url, function (data) {
+
+            });
+            var userFormHolder = '#userForm';
+            $(userFormHolder).on('click', '#loginLink', function (e) {
+                e.preventDefault();
+                console.log('------------------Showing login Form--------------------- ');
+                $('#loginPanel').removeClass('hide');
+                $('#signupPanel').addClass('hide');
+            });
+            $(userFormHolder).on('click', '#signupLink', function (e) {
+                e.preventDefault();
+                console.log('------------------Showing Signup Form--------------------- ');
+                $('#loginPanel').addClass('hide');
+                $('#signupPanel').removeClass('hide');
+            });
+        });
+    </script>
+{% endblock %}
+

@@ -1,0 +1,8 @@
+{% set runtimeConfig = {"hub_thumbnail": {"size": [205, 260] }} %}
+{% set s3_images_url = "https://s3-us-west-1.amazonaws.com/buildershub/images/" %}
+{%  for category in topLevelCategories %}
+    <div class="block-top-categori-item">
+        <a href="{{path('category_view',{'slug':category.slug})}}" title="{{category}}"><img src="{{asset(s3_images_url~category.featureImage)}}" alt="{{category}}"></a>
+        <div class="block-top-categori-title"><a href="{{path('category_view',{'slug':category.slug})}}" title="{{category}}">{{category|length > 20 ? category|slice(0, 20) ~ '...' : category}}</a></div>
+    </div>
+{% endfor %}  

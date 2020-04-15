@@ -1,0 +1,159 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"  href="{{asset('js/smart-forms/smart-addons.css')}}">
+
+{% endblock %}
+{% block  content %}
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row">                
+                <div class="col-md-12 text-left">
+                    <ol class="breadcrumbs-2">
+                        <li><a href="{{path('account_settings', {'tab':'firm-details'})}}"><i class="fa fa-briefcase" aria-hidden="true"></i> My Firms</a></li>
+                        <li class="current"><a href="{{path('view_company',{'slug':company.slug})}}"><i class="fa fa-pencil" aria-hidden="true"></i> {{company}}</a></li>
+                    </ol>
+                </div>
+            </div>
+            <div class="col-divider-margin-1"></div>
+            <div class=" divider-line solid light"></div>  
+            <div class="col-divider-margin-1"></div>  
+            <div class="row"> 
+                <div class="col-md-9" id="companyFormPanel"> 
+                    <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+
+                        <h3 class="text-center">
+                            You are editing <span class="text-success">{{company}}</span>
+                        </h3>
+                        <div class="col-divider-margin-1"></div>
+                        <div class=" divider-line solid light"></div>  
+                        <div class="col-divider-margin-1"></div> 
+                        {% include 'account/firm/includes/company.form.html.twig' %}
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    Ads here
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block pageScripts %}
+    {{parent()}}
+     <script type="text/javascript" src="{{asset('js/smart-forms/jquery.steps.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-custom.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-touch-punch.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.formShowHide.min.js')}}"></script>   
+    <script type="text/javascript">
+        $(function () {
+            $("#smart-form").steps({
+                bodyTag: "fieldset",
+                headerTag: "h2",
+                bodyTag: "fieldset",
+                transitionEffect: "slideLeft",
+                titleTemplate: "<span class='number'>#index#</span> #title#",
+                labels: {
+                    finish: "Submit Firm",
+                    next: "Continue",
+                    previous: "Go Back",
+                    loading: "Loading..."
+                },
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    if (currentIndex > newIndex) {
+                        return true;
+                    }
+                    var form = $(this);
+                    if (currentIndex === 2) {
+                        previewProjectEntries();
+                    }
+                    return form.valid();
+                },
+                onStepChanged: function (event, currentIndex, priorIndex) {
+                },
+                onFinishing: function (event, currentIndex) {
+                    var form = $(this);
+                    form.validate().settings.ignore = ":disabled";
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex) {
+                    var form = $(this);
+                    form.submit();
+                }
+            }).validate({
+                errorClass: "state-error",
+                validClass: "state-success",
+                errorElement: "em",
+                onkeyup: false,
+                onclick: false,
+                rules: {
+                    firstname: {
+                        required: true
+                    },
+                    project_user_email: {
+                        required: true,
+                        email: true
+                    },
+                    project_contactNo: {
+                        required: true,
+                        number: true
+                    },
+                    lastname: {
+                        required: true
+                    },
+                    project_title: {
+                        required: true
+                    },
+                    contact_person: {
+                        required: true
+                    },
+                    generalTerms: {
+                        required: true
+                    }
+                },
+                messages: {
+                    firstname: {
+                        required: "Please enter firstname"
+                    },
+                    lastname: {
+                        required: "Please enter lastname"
+                    },
+                    project_user_email: {
+                        required: 'Please enter email',
+                        email: 'Enter a valid email address'
+                    },
+                    project_contactNo: {
+                        required: 'Please enter telephone',
+                        number: 'Please enter numbers only'
+                    },
+                    project_title: {
+                        required: "Please enter the project title"
+                    },
+                    contact_person: {
+                        required: 'Please enter contact person'
+                    },
+                    generalTerms: {
+                        required: 'Please agree to our terms'
+                    }
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).closest('.field').addClass(errorClass).removeClass(validClass);
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).closest('.field').removeClass(errorClass).addClass(validClass);
+                },
+                errorPlacement: function (error, element) {
+                    if (element.is(":radio") || element.is(":checkbox")) {
+                        element.closest('.option-group').after(error);
+                    } else {
+                        error.insertAfter(element.parent());
+                    }
+                }
+
+            });
+            $('.smartfm-ctrl').formShowHide();
+        });
+    </script>
+{% endblock %}

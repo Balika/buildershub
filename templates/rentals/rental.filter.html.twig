@@ -1,0 +1,96 @@
+{% extends "rentals/shared/rental.base.html.twig" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="block-latest-roducts" >
+                    <div class="block-title">Popular Rental Ads</div>
+                    {{ render_esi(controller('App\\Controller\\RentalController:renderPoularRentals'), {"default":'Loading Cart....'}) }}                                                             
+                </div>
+            </div>
+            <div class="col-md-9">
+                {% if activeAd is not null %}
+                    <div class="product-content-single" style="background-color: #E8E8E8; border-radius: 3px; padding: 15px">
+                        <div class="row">
+                            <div class="col-md-7 padding-right">
+                                <h4 class="text-success"><strong>{{activeAd}}</strong></h4>
+                                <div class="product-media">
+                                    <div class="image-preview-container image-thick-box image_preview_container">
+                                        <img id="img_zoom" data-zoom-image="{{asset(activeAd.equipment.featureImage|imagine_filter('hub_large'))}}" src="{{asset(activeAd.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" alt="" style="border-radius:3px">
+                                        <a href="#" class="btn-zoom open_qv"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                    </div>
+                                    <div class="product-preview image-small product_preview">
+                                        <div id="thumbnails" class="thumbnails_carousel owl-carousel nav-style4" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="10" data-responsive='{"0":{"items":3},"480":{"items":5},"600":{"items":5},"1000":{"items":5}}'>
+                                            <a href="#" data-image="{{asset(activeAd.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" data-zoom-image="{{asset(activeAd.equipment.featureImage|imagine_filter('hub_large'))}}">
+                                                <img src="{{asset(activeAd.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" data-large-image="{{asset(activeAd.equipment.featureImage|imagine_filter('hub_large'))}}" alt="i1">
+                                            </a>
+                                            {% for img in activeAd.equipment.gallery %}
+                                                <a href="#" data-image="{{asset(img|imagine_filter('hub_thumbnail'))}}" data-zoom-image="{{asset(img|imagine_filter('hub_large'))}}">
+                                                    <img src="{{asset(img|imagine_filter('hub_thumbnail'))}}" data-large-image="{{asset(img|imagine_filter('hub_large'))}}" alt="i1">
+                                                </a>
+                                            {% endfor %}  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 rental-details-panel" id="rental-details-panel">
+                                <h5 class="text-danger center">More Details on this Equipment</h5>
+                                <p>{{activeAd.description}}</p>
+                                <p style="padding: 10px 0 5px 0">
+                                    <strong>Rental Rate:</strong> <ins>GH¢{{activeAd.rentalRate|number_format(2,'.', ',')}}</ins> <small><span class="text-danger">{{activeAd.billingCycle}}</span></small>                                                
+                                </p>
+                                <div style="margin-top: 40%">
+                                    <a href="{{path('place_rental_request', {'slug':activeAd.slug})}}" class="btn btn-primary btn-medium pull-right">Hire Me</a> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                <hr/>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="block-bestseller-and-deals">
+                            <div class="block-bestseller-product style2" id="filtered-results">
+                                <div class="title-of-section">Equipment Ads Matching Your Search</div>
+                                <div class="bestseller-and-deals-content border-background equal-container">
+                                    {% for ad in filteredAds %}
+                                        <div class="product-item style1 col-md-5 col-sm-7 col-xs-5 padding-0">
+                                            <div class="product-inner equal-elem">
+                                                <div class="product-thumb">
+                                                    <div class="thumb-inner">
+                                                        <a href="{{path('rental_filter', {'slug':ad.slug})}}">
+                                                            <img src="{{ad.featureImage is not null ? asset(ad.featureImage|imagine_filter('hub_thumbnail')) : 
+                            ad.equipment.featureImage is not null  ? asset(ad.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" style="height: 140px; margin: auto; border-radius: 3px;"/>
+                                                        </a>
+                                                    </div>
+                                                    <a href="{{path('rental_filter', {'slug':ad.slug})}}" class="quick-view">Quick View</a>
+                                                </div>
+                                                <div class="product-innfo">
+                                                    <div class="product-name"><a href="{{path('rental_filter', {'slug':ad.slug})}}">{{ad.title}}</a></div>
+                                                    <span class="price price-dark">
+                                                        Rate: <ins>GH¢{{ad.rentalRate|number_format(2,'.', ',')}}</ins> <small><span class="text-danger">{{ad.billingCycle}}</span></small>
+                                                    </span>
+                                                    <span class="star-rating">
+                                                        <i class="fa fa-map-marker" aria-hidden="true"></i> {{ad.company.region}}                                                                                                  
+                                                    </span>
+                                                    <span class="star-rating">
+                                                        <i class="fa fa-industry" aria-hidden="true"></i> {{ad.company}}                                                                                                
+                                                    </span>
+                                                    <div class="group-btn-hover">
+                                                        <div class="inner">                                                        
+                                                            <a href="{{path('place_rental_request', {'slug':ad.slug})}}" class="add-to-cart">Hire This Equipment</a>                                                      
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>          
+            </div>
+        </div>
+    </div>
+{% endblock %}

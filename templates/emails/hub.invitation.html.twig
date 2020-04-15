@@ -1,0 +1,11 @@
+{% extends "emails/emails.base.html.twig" %}
+{% block headline %}
+   Hi {{invitation.email}} account holder, {{invitation.invitedBy.fullName}} has invited you to join
+    <a href="{{url('home')}}" target="_blank">BuildersHub</a>, a platform that brings together construction sector 
+    players to exchange expertise, goods and services.    
+{% endblock %}
+{% block callToAction  %}
+    <a href="{{url('invitation_response',{'id':invitation.id, 'token':token})}}" target="_blank"> 
+        Join the Builders
+    </a>
+{% endblock %}

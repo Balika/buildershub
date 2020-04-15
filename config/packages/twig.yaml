@@ -1,0 +1,7 @@
+twig:
+    paths: ['%kernel.project_dir%/templates']
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    globals:
+        s3_images_url: https://s3-us-west-1.amazonaws.com/buildershub/live/images/
+        s3_documents_url: https://s3-us-west-1.amazonaws.com/buildershub/live/documents/

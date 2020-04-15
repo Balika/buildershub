@@ -1,0 +1,33 @@
+  {{form_start(feedbackForm, {'method':'POST', 'action':path('feedback')})}}
+    <div class="modal-body" style="padding-bottom: 15px" >
+        {% if isSaved %}
+            <div class="alert alert-success">
+                Your feedback has been received. Thank you for taking time to drop us a message.
+            </div>
+        {% else %}
+            <div class="alert alert-info">
+                We are working hard to make BuildersHub a great platform to serve you better.
+                Let us know what you think.
+            </div>
+            <div class="form-group">
+                {{form_widget(feedbackForm.email,{'attr':{'class':'form-control', 'placeholder':'Your e-mail'} })}}
+            </div>
+            <div class="form-group">
+                {{form_widget(feedbackForm.email_address)}}
+            </div>
+            <div class="form-group">
+                {{form_widget(feedbackForm.message,{'attr':{'class':'form-control', 'placeholder':'Please write your feedback here...', 'rows':5} })}}           
+            </div>
+        {% endif  %}
+    </div>
+    <div class="modal-footer">    
+        {% if isSaved %}
+            <button type="button" class="btn btn-default btn-sm pull-right" data-dismiss="modal">OK</button> 
+        {% else %}
+            <button type="button" class="btn btn-danger btn-sm pull-left" data-dismiss="modal">Cancel</button>   
+            <button class="btn btn-primary pull-right" type="submit"  style="display: {{isSaved?'none'}}">Send Feedback</button>
+        {% endif  %}
+    </div>
+    {{ form_row(feedbackForm._token) }} 
+    {{ form_end(feedbackForm, {'render_rest': false}) }}
+

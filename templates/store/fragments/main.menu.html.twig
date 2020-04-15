@@ -1,0 +1,170 @@
+<ul class="header-nav krystal-nav">
+    <li class="btn-close hidden-md"><i class="fa fa-times" aria-hidden="true"></i></li>
+    <li class="menu-item-has-children arrow item-megamenu">
+        <a href="#">Interior/Exterior Decor</a>
+        <span class="toggle-submenu hidden-md"></span>
+        <div class="submenu parent-megamenu megamenu">
+            <div class="row">
+                <div class="submenu-banner submenu-banner-menu-3">
+                    <div class="col-md-4">
+                        <div class="dropdown-menu-info">
+                            <h6 class="dropdown-menu-title">Product Categories</h6>
+                            <div class="dropdown-menu-content">
+                                <ul class="menu">
+                                    {% for subCat in intextSubCategories %}
+                                        <li class="menu-item"><a href="{{path('category_view',{'slug':subCat.slug})}}">{{subCat}}</a></li>
+                                        {% endfor %} 
+                                        {% if intextSubCategories|length > 7 %}
+                                        <li class="menu-item"><a href="#" style="color: green;"><strong>View All &raquo;</strong></a></li>
+                                        {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dropdown-menu-info">
+                            <h6 class="dropdown-menu-title">Top Suppliers</h6>
+                            <div class="dropdown-menu-content">
+                                <ul class="menu">
+                                    {% for topSupplier in intextTopSuppliers %}
+                                        <li class="menu-item"><a href="{{path('supplier_store_view', {'slug':topSupplier.supplier.slug})}}">{{topSupplier.supplier}}</a></li>
+                                        {% endfor %} 
+                                </ul>
+                            </div>
+                        </div>
+                    </div>                                            
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="menu-item-has-children arrow item-megamenu">
+        <a href="#">Doors & Furniture</a>
+        <span class="toggle-submenu hidden-md"></span>                              
+        <ul class="submenu parent-megamenu">
+            <li class="menu-item">
+                <a href="{{path('generic_page_view', {'page':'most-popular-products','categoryString':constant('App\\Utils\\StorePages::DOORS_AND_FURNITURE')})}}">Most Popular</a>
+            </li>
+            <li class="menu-item">
+                <a href="{{path('generic_page_view', {'page':'list-all-products','categoryString':constant('App\\Utils\\StorePages::DOORS_AND_FURNITURE')})}}">List all Products</a>
+            </li>
+            <li class="menu-item">
+                <a href="{{path('generic_page_view', {'page':'top-suppliers','categoryString':constant('App\\Utils\\StorePages::DOORS_AND_FURNITURE')})}}">Top Suppliers</a>
+            </li>
+            <li class="menu-item">
+                <a href="{{path('generic_page_view', {'page':'auction-hub','categoryString':constant('App\\Utils\\StorePages::DOORS_AND_FURNITURE')})}}">Auction Hub</a>
+            </li>
+            <li class="menu-item">
+                <a href="{{path('generic_page_view', {'page':'special-request','categoryString':constant('App\\Utils\\StorePages::DOORS_AND_FURNITURE')})}}">Special Request</a>
+            </li>
+        </ul>
+    </li>
+    <li class="menu-item-has-children arrow item-megamenu">
+        <a href="#">Materials & Supplies</a>
+        <span class="toggle-submenu hidden-md"></span>
+        <div class="submenu parent-megamenu megamenu">
+            <div class="row">
+                <div class="submenu-banner submenu-banner-menu-1">
+                    <div class="col-md-4">
+                        <div class="dropdown-menu-info">
+                            <h6 class="dropdown-menu-title">Popular Categories</h6>
+                            <div class="dropdown-menu-content">
+                                <ul class="menu">
+                                    {% for subCat in materialsSubCategories %}
+                                        <li class="menu-item"><a href="{{path('category_view',{'slug':subCat.slug})}}" title="{{subCat}}">{{subCat}}</a></li>
+                                        {% endfor %} 
+                                        {% if materialsSubCategories|length > 8 %}
+                                        <li class="menu-item"><a href="#" style="color: green;"><strong>View All &raquo;</strong></a></li>
+                                        {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dropdown-menu-info">
+                            <h6 class="dropdown-menu-title">Top Suppliers</h6>
+                            <div class="dropdown-menu-content">
+                                <ul class="menu">
+                                    {% for topSupplier in materialsTopSuppliers %}
+                                        <li class="menu-item"><a href="{{path('supplier_store_view', {'slug':topSupplier.supplier.slug})}}">{{topSupplier.supplier}}</a></li>
+                                        {% endfor %} 
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="menu-item-has-children arrow item-megamenu">
+        <a href="#">Equipment & Tools</a>
+        <span class="toggle-submenu hidden-md"></span>
+        <div class="submenu parent-megamenu megamenu">
+            <div class="row">
+                <div class="submenu-banner submenu-banner-menu-2">
+                    <div class="col-md-3">
+                        <div class="dropdown-menu-info">
+                            <h6 class="dropdown-menu-title">Equipment Categories</h6>
+                            <div class="dropdown-menu-content">
+                                <ul class="menu">
+                                    {% for subCat in equipmentSubCategories %}
+                                        <li class="menu-item"><a href="{{path('category_view',{'slug':subCat.slug})}}" title="{{subCat}}">{{subCat|length > 35 ? subCat|slice(0, 35) ~' ....' : subCat}}</a></li>
+                                        {% endfor %}
+                                    <li class="menu-item"><a href="#" style="color: green;"><strong>View All &raquo;</strong></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dropdown-menu-info">
+                            <h6 class="dropdown-menu-title">Hand Tools & Accessories</h6>
+                            <div class="dropdown-menu-content">
+                                <ul class="menu">
+                                    {% for subCat in handToolsSubCategories %}
+                                        <li class="menu-item"><a href="{{path('category_view',{'slug':subCat.slug})}}" title="{{subCat}}">{{subCat}}</a></li>
+                                        {% endfor %}  
+                                        {% if handToolsSubCategories|length > 8 %}
+                                        <li class="menu-item"><a href="#" style="color: green;"><strong>View All &raquo;</strong></a></li>
+                                        {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dropdown-menu-info">
+                            <h6 class="dropdown-menu-title">Top Suppliers</h6>
+                            <div class="dropdown-menu-content">
+                                <ul class="menu">
+                                    {% for topSupplier in equipmentTopSuppliers %}
+                                        <li class="menu-item"><a href="{{path('supplier_store_view', {'slug':topSupplier.supplier.slug})}}" title="{{topSupplier.supplier}}">{{topSupplier.supplier}}</a></li>
+                                        {% endfor %}    
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </li>                            
+    <li class="menu-item-has-children arrow">
+        <a href="#">Lighting & Security</a>
+        <span class="toggle-submenu hidden-md"></span>
+        <ul class="submenu parent-megamenu">
+            {% for subCat in lightingSubCategories %}
+                <li class="menu-item"><a href="{{path('category_view',{'slug':subCat.slug})}}">{{subCat}}</a></li>
+                {% endfor %}  
+                {% if lightingSubCategories|length > 8 %}
+                <li class="menu-item"><a href="#" style="color: green;"><strong>View All &raquo;</strong></a></li>
+                {% endif %}
+        </ul>
+    </li>
+    <li class="menu-item-has-children arrow">
+        <a href="#">Spare Parts</a>
+        <span class="toggle-submenu hidden-md"></span>
+        <ul class="submenu parent-megamenu">
+            {% for city in sparePartsCities %}
+                <li class="menu-item"><a href="{{path('shop_by_location',{'slug':city.region.slug, 'town':city.slug, 'category':constant("App\\Utils\\Constants::SPARE_PARTS_SLUG")})}}">{{city.name ~' - '~ city.region.shortName}}</a></li>
+                {% endfor %}                 
+        </ul>
+    </li>
+</ul>

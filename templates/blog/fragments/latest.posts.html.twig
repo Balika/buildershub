@@ -1,0 +1,19 @@
+<div class="owl-carousel nav-style2" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":2},"768":{"items":1}}'>
+    {% for post in latestPosts %}
+        <div class="blog-item">
+            <div class="post-thumb">
+                <a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}"><img src="{{asset(post.featureImage|imagine_filter('hub_thumbnail'))}}" alt="post"></a>
+            </div>
+            <div class="post-item-info">
+                <div class="fashion-date">                
+                    {% for category in post.postCategories %}<a href='#'>{{post.postCategories|length > 1 ? category.name~', ': category.name}}</a>{% endfor %}  - {{post.createdAt|date('d')}} {{post.createdAt|date('F')}} {{post.createdAt|date('Y')}}
+                </div>
+                <h3 class="post-name"><a href="{{path('single_post', {'slug':post.slug, 'type':'blog'})}}" title="{{post.title}}">{{post.title|slice(0, 80) ~"..."}}</a></h3>
+                <div class="post-metas">
+                    <span class="author">Post by: <span>{{post.user.fullName}}</span></span>
+                    <span class="comment"><i class="fa fa-comment" aria-hidden="true"></i>{{post.commentCount}} Comments</span>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

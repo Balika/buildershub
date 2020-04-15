@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-9">
+        <a href="Add Award " class="text-info pull-right" id="showFormLink">{% if awardEntries|length > 0 %}Add Award <i class='fa fa-angle-right'></i>{% else %}Hide Form <i class='fa fa-angle-down'></i>{% endif  %}</a>          
+        <div class="col-divider-margin-1"></div>
+        <div class=" divider-line solid light"></div>  
+        <div class="col-divider-margin-1"></div>  
+        <div class="col-md-12" style="padding: 10px; border: dotted gray 1px; background-color: whitesmoke; display: {{awardEntries|length > 0? "none":"block"}}" id="formPanel">
+            <h5 class="text-success">Hi <strong>{{user.firstname}}</strong>, share awards and honours you have received with your profile viewers</h5>
+            {{ form_start(form, {'method': 'post', action:path('save_personal_data', {'tab':'personal-details', 'sub':'awards', 'entityId':entityId }), 'attr': {'class': 'educationContent', 'id':'educationForm'} }) }}
+            {% include "account/profile-sub/includes/award.form.html.twig" %}          
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center" style="padding-top: 20px">
+                <h4 class="text-success">Awards & Accolades Received</h4>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-md-12" id="personalDataPanel">
+                {% for award in awardEntries %}
+                    <div class="col-md-12 col-sm-12">
+                        <div class="iconbox-large left outline-gray-2"><img src="{{asset("uploads/logos/"~award.featureImage)}}"/><!--<span class="icon-pencil" data-icon="&#xe076;"></span>--></div>
+                        <div class="text-box-right">
+                            <h5>{{award.name}}<a class="text-danger pull-right" title="Edit {{award.name}}" href="{{path('save_personal_data', {'tab':'personal-details', 'sub':'awards','entityId':award.id})}}" id="editPersonalData"><small><i class="fa fa-pencil"></i></small></a></h5>
+                            <p><a href="#">{{award.awardingOrganisation}}</a></p>
+
+                            <a href="#" class="read-more">@ {{award.placeOfAward}} <i class="fa fa-angle-double-right"></i></a> </div>
+                    </div>
+                    <div class="col-divider-margin-1"></div>
+                    <div class=" divider-line dotted light"></div>  
+                    <div class="col-divider-margin-1"></div>  
+                {% endfor %}
+            </div>
+            <!--end item--> 
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="col-md-3">
+        Ads
+    </div>
+</div>
+

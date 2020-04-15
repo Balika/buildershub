@@ -1,0 +1,118 @@
+<div class="row">
+    <div class="col-md-11 bhoechie-tab-container">
+        <div class="col-md-3 bhoechie-tab-menu">
+            <div class="list-group">
+                <a href="#" class="list-group-item active text-center">
+                    <h4 class="glyphicon glyphicon-wrench"></h4><br/>General
+                </a>
+                <a href="#" class="list-group-item text-center">
+                    <h4 class="glyphicon glyphicon-tags"></h4><br/>Inventory
+                </a>
+                <a href="#" class="list-group-item text-center">
+                    <h4 class="glyphicon glyphicon-link"></h4><br/>Related Products
+                </a>
+                <a href="#" class="list-group-item text-center">
+                    <h4 class="glyphicon glyphicon-cog"></h4><br/>Advanced Sales Options
+                </a>
+                <a href="#" class="list-group-item text-center">
+                    <h4 class="glyphicon glyphicon-credit-card"></h4><br/>Other Attributes
+                </a>
+            </div>
+        </div>
+        <div class="col-md-8 bhoechie-tab">
+            <!-- flight section -->
+            <div class="bhoechie-tab-content active">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border" style="color: #00A8FF">Pricing Info</legend>
+                    <div class="form-group">
+                        <label>Regular Price (GHc)</label>
+                        {{form_widget(form.productData.regularPrice, { 'attr': {class: 'form-control',  placeholder: ' ' } })}}
+                    </div>
+                    <div class="form-group">
+                        <label>Sale Price (GHc)</label>
+                        {{form_widget(form.productData.salePrice, { 'attr': {class: 'form-control',  placeholder: ' ' } })}}
+
+                    </div>
+                    <div class="form-group">
+                        <label>Sale Volume ( <i class="text-muted">default is 1</i>)</label>
+                        {{form_widget(form.productData.saleVolume, { 'attr': {class: 'form-control',  placeholder: ' ' } })}}
+                    </div>
+                    <div class="form-group">
+                        <label>Unit (<i class="text-muted">e.g. Kg</i>)</label>
+                        {{form_widget(form.productData.unit, { 'attr': {class: 'form-control',  placeholder: ' ' } })}}
+                    </div>
+                    <div class="form-group">
+                        <label>Price Valid Until</label>
+                        {{form_widget(form.validityDate)}}                    
+                    </div>
+                </fieldset>
+            </div>
+            <!-- train section -->
+            <div class="bhoechie-tab-content">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border" style="color: #00A8FF">Inventory Details</legend>
+                    <div class="form-group">
+                        <label>SKU</label>
+                        {{form_widget(form.productData.SKU, { 'attr': {class: 'form-control',  placeholder: ' ' } })}}
+                    </div>
+                    <div class="form-group">
+                        <label>Is Managed Stock? </label>
+                        {{form_widget(form.productData.isStockManaged, { 'attr': {class: 'minimal' } })}}                    
+                    </div>
+                    <div class="form-group">
+                        <label>Stock Quantity</label>
+                        {{form_widget(form.productData.stockQuantity, { 'attr': {class: 'form-control',  placeholder: ' ' } })}}
+                    </div>
+                    <div class="form-group">
+                        <label>Back Orders</label>
+                        {{form_widget(form.productData.backOrders, { 'attr': {class: 'form-control',  placeholder: ' ' } })}}
+                    </div>
+                    <div class="form-group">
+                        <label>Stock Status</label>
+                        {{form_widget(form.productData.stockStatus, { 'attr': {class: 'form-control',  placeholder: ' ' } })}}
+                    </div>
+                    <div class="form-group">
+                        <label>Is Sold Individually? </label>
+                        {{form_widget(form.productData.isSoldIndividually, { 'attr': {class: 'minimal' } })}}                    
+                    </div>
+                </fieldset>
+            </div>
+            <!-- hotel search -->
+            <div class="bhoechie-tab-content">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border" style="color: #00A8FF">Related Products</legend>
+                    <div class="row" id="relatedProducts">
+                        {% for prod in supplier.products if prod != product %}
+                            <div class="form-group col-md-4" style="padding-bottom: 10px;" >
+                                <input type="checkbox" class="flat-red" value="{{prod.id}}" {{prod.id in product.relatedProducts ? 'checked'}}/> {{prod.name}}
+                            </div>
+                        {% endfor %}
+                        <input type="hidden" name="relatedProducts" />
+                    </div>
+                </fieldset>
+            </div>
+            <div class="bhoechie-tab-content">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border" style="color: #00A8FF">{{product.name}} Advanced Product Options</legend>
+                    {% if product !=null and  product.id>0 %}
+                        {% include 'store/admin/includes/advanced.sale.options.html.twig' %}
+                        <p align="right"><a  data-toggle="modal" href="#saleOptionsDlg">Add Options</a></p>
+                    {% else %}
+                        <div class="alert alert-sea">
+                            <p>
+                                 Advanced product option can only be added for existing product
+                            </p>
+                        </div>
+                    {% endif %}  
+                </fieldset>
+            </div>
+            <div class="bhoechie-tab-content">
+                <fieldset class="scheduler-border">
+                    <legend class="scheduler-border" style="color: #00A8FF">Other Attributes</legend>
+
+
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>

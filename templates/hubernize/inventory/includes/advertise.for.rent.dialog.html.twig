@@ -1,0 +1,25 @@
+<style>
+    #advertiseForRentDlg{
+        top: 5%;
+    }
+    #advertiseForRentDlg .modal-dialog  {width:30%; border-radius: 3px;}
+</style>
+<div id="advertiseForRentDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog">        
+        <div class="modal-content" id="loaded-ad-form">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h3 class="modal-title" id="myModalLabel"> <span style="color: green"><strong> Operation Successfully Done</strong></span> </h3>
+            </div>             
+            <div class="modal-body">
+                Your rental ad placement was successfully saved. Choose what next to do!
+            </div>
+            <div class="modal-footer">
+                <a href="{{path('hubernize_list_equipment')}}" class="btn btn-primary btn-medium pull-left">View Equipment List</a>
+                <a href="{{path('hubernize_rental_ads')}}" class="btn btn-primary btn-medium pull-right">View Rental Ads</a>
+            </div>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+

@@ -1,0 +1,23 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}    
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('cipron/plugins/datatables/dataTables.bootstrap.css')}}">
+
+{% endblock %}
+{% block contentHeader %}
+    <a href="{{path('portal_store_tags_action', {'slug':company.slug})}}">&Ll; ALL TAGS</a>  <span class="text-danger"></span> 
+    <small>{{tag}}</small>    
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-1"></div>       
+        <div class="col-md-10">
+            {% include 'Secure/portal/store/includes/tags.table.html.twig' %}
+        </div>
+        <div class="col-md-1"></div>        
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }} 
+{% endblock javascripts %}

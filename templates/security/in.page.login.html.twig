@@ -1,0 +1,43 @@
+<div id="login-dialog" class="smartforms-modal" role="alert">
+    <div class="smartforms-modal-container">
+        <div class="smartforms-modal-header">
+            <h3 style="color: white">Login</h3>
+            <a href="#" class="smartforms-modal-close">&times;</a>            
+        </div><!-- .smartforms-modal-header -->
+        <div class="smartforms-modal-body">
+            <div class="smart-wrap">
+                <div class="smart-forms smart-container wrap-full">
+                    <div class="form-body">
+                        <form id="inpageLoginForm" action="{{path('security_login_check', {'inpageLogin':true, 'requestedUrl':'add_project'})}}" method="Post">
+                            <div class="form-body">                               
+                                <div class="section">
+                                    <label class="field prepend-icon">
+                                        <input type="text" class="gui-input" id="username" name="_username" placeholder="Enter username (email or phone" required>
+
+                                        <span class="field-icon"><i class="fa fa-user"></i></span>  
+                                    </label>
+                                </div><!-- end section -->                    
+                                <div class="section">
+                                    <label class="field prepend-icon">
+                                        <input type="password" id="password" name="_password" class="gui-input" placeholder="Enter password" />
+                                        <span class="field-icon"><i class="fa fa-lock"></i></span>  
+                                    </label>
+                                </div><!-- end section -->                                
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                                <p align="right">
+                                    <button  class="btn btn-action btn-lg btn-success pull-right" type="submit"><i class="fa fa-lock"></i> Login</button>
+                                    
+                                </p>
+                            </div><!-- end .form-body section -->
+                        </form> 
+                    </div><!-- end .form-body section -->
+                    <div class="form-footer">  
+                        <button type="button" class="btn btn-action btn-medium btn-default" id="cancelSmartModal">Cancel  </button>                      
+                        <a href="{{path('forgotten_password')}}" class="btn btn-default pull-right">Forgotten Password</a>
+                    </div><!-- end .form-footer section -->
+                </div><!-- end .smart-forms section -->
+            </div><!-- end .smart-wrap section -->            
+        </div><!-- .smartforms-modal-body -->
+    </div><!-- .smartforms-modal-container -->
+</div><!-- .smartforms-modal 1 -->
+

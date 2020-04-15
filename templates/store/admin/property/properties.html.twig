@@ -1,0 +1,119 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('plugins/datepicker/datepicker3.css')}}" />
+{% endblock %}
+{% block breadcrumbs %}    
+    <li class="active"><span>Listed Properties</span></li>
+    {% endblock %}
+    {% block crumbLinks %}
+    <li>
+        <a class="sonata-action-element" href="{{path('add_property', {'slug':supplier.slug})}}"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Add new
+        </a>
+    </li>
+{% endblock %}
+{% block listMode %}
+    <a href="{{path('properties', {'slug':supplier.slug, 'list_mode':'list'})}}" class="btn btn-default navbar-btn btn-sm {{listMode=='list' or listMode is null  ? 'active'}}"><i class="fa fa-list fa-fw"></i></a>
+    <a href="{{path('properties', {'slug':supplier.slug, 'list_mode':'mosaic'})}}" class="btn btn-default navbar-btn btn-sm {{listMode=='mosaic'?'active'}}"><i class="fa fa-th-large fa-fw"></i></a>
+    {% endblock %}
+    {% block content %}
+    <div class="row">               
+        <div class="col-md-12">           
+            {% if listMode == 'mosaic' %}
+                {% for property in properties %}
+                    <div class="col-xs-6 col-sm-3 mosaic-box sonata-ba-list-field-batch sonata-ba-list-field"
+                         objectId="2">
+                        <a class="mosaic-inner-link"
+                           href="{{path('edit_property',{'slug':supplier.slug, 'property_slug':property.slug})}}">
+                            <div class="mosaic-box-outter">
+                                <div class="mosaic-inner-box">
+                                    <div class="mosaic-inner-box-default">
+                                        <img src="{{property.featureImage is not null ? asset(property.featureImage|imagine_filter('hub_thumbnail'))}}"/>
+                                        <span class="mosaic-box-label label label-primary pull-right">{{property.listingType}}</span>
+                                    </div>
+                                    <div class="mosaic-inner-box-hover">
+                                        <span class="mosaic-box-label label label-primary pull-right">{{property.listingType}}</span>
+                                    </div>
+                                </div>
+                                <div class="mosaic-inner-text">
+                                    {{property}} <span class="text-danger">({{property.currency}}{{ property.salePrice is not null ? property.salePrice|number_format(2,'.',',') : property.regularPrice|number_format(2,'.',',')}})</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+                <div class="row">               
+                    <div class="col-md-12">
+                        <div class="pagination pagination-sm no-margin pull-right">                        
+                            {{ knp_pagination_render(properties) }}
+                            <span class="show-resuilt">Showing <span>{{ properties.getPaginationData.firstItemNumber }} - {{ properties.getPaginationData.lastItemNumber }}</span> of <span>{{properties.totalItemCount}}</span> results</span>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                {% include 'store/admin/property/includes/properties.table.html.twig' %}
+            {% endif  %}
+        </div>              
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <!-- DataTables -->
+    <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+    <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+    <script>
+        jQuery(function ($) {
+            //datepicker plugin
+            //link
+            $('.date').datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                showOn: 'button',
+                buttonImageOnly: true,
+                changeMonth: true,
+                changeYear: true,
+                format: 'yyyy-mm-dd',
+                yearRange: "-0:+1"
+            });
+        });
+        $(function () {
+            $('#properties').DataTable();
+            /** $('#categories').DataTable({
+             "paging": true,
+             "lengthChange": false,
+             "searching": false,
+             "ordering": true,
+             "info": true,
+             "autoWidth": false
+             });*/
+        });
+        $(function () {
+            $(".featuredStatus, .newArrivals").delegate('a', 'click', function (e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                $('#backendLoader').removeClass('hide');
+                $.get(url, function (html) {
+                    location.reload();
+                });
+            });
+            $('form#relatedProducts input').on('ifChanged', function (event) {//Check and uncheck all products as related products
+                var selectedProducts = [];
+                var selectedIds = '';
+                if (event.target.checked) {
+                    var item = $(this).attr('value');
+                    selectedProducts.push(item);
+                } else {
+                    var item = $(this).attr('value');
+                    var index = selectedProducts.indexOf(item);
+                    selectedProducts.splice(index, 1);
+                }
+                selectedIds = selectedProducts.toString();
+                alert('Related Products Selections: ' + selectedIds);
+            });
+        });
+    </script>
+{% endblock javascripts %}

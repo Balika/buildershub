@@ -1,0 +1,126 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"  href="{{asset('js/smart-forms/smart-addons.css')}}">
+    <link rel="stylesheet" href="{{asset('js/popup/novicell.css')}}">
+    <link rel="stylesheet" href="{{asset('js/popup/popup.css')}}">
+{% endblock %}
+{% block  content %}
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row"> 
+                <div class="col-md-12 text-left">
+                    <ol class="breadcrumbs-2">
+                        <li><a href="{{path('account_settings', {'tab':'firm-details'})}}"><i class="fa fa-briefcase" aria-hidden="true"></i> My Firms</a></li>
+                        <li class="current"><a href="#" ><i class="fa fa-eye" aria-hidden="true"></i>{{company}}</a>  
+                            <a  href="{{path('edit_company',{'slug':company.slug})}}" title="Edit company info"><span><i class="fa fa-pencil text-danger"></i></span></a>
+                        </li>
+                        <li class="pull-right"><a class="btn btn-tiny border border-green xround-1" href="{{path('firm_profile',{'slug':company.slug})}}"><span>View Public Profile</span></a></li>
+                    </ol>
+                </div>
+            </div>
+            <div class="col-divider-margin-1"></div>
+            <div class=" divider-line solid light"></div>  
+            <div class="col-divider-margin-1"></div>  
+            <div class="row"> 
+                <div class="col-md-3">                   
+                    <div class="icons-list-1 icon-small border-bottom" >
+                        <div class="icon {{tab=='company-info'?'icon-border-orange':'icon-border-green'}} icon-circle"><i class="fa fa-info" aria-hidden="true"></i></div>
+                        <div class="text"><a href='{{path('view_company',{'slug':company.slug, 'tab':'company-info'})}}' style="color: {{tab=='company-info'?'orange'}}">Company Info</a></div>                
+                    </div>
+                    <!--<div class="icons-list-1 icon-small {{tab=='projects-portfolio'?'':'border-bottom'}}">
+                        <div class="icon {{tab=='projects-portfolio'?'icon-border-orange':'icon-border-green'}} icon-circle"><i class="fa fa-briefcase" aria-hidden="true"></i></div>
+                        <div class="text uppercase"><a href='{{path('view_company',{'slug':company.slug, 'tab':'projects-portfolio'})}}' style="color: {{tab=='projects-portfolio'?'orange'}}">Projects Portfolio </a></div>
+                    </div>
+                    <ul class="icons-list-1 border-bottom {{tab=='projects-portfolio'?'show':'hide'}}">
+                        <li style="margin-left: 35px">
+                            <a href="{{path('view_company',{'slug':company.slug, 'tab':'projects-portfolio', 'sub':'add-project'})}}">
+                                <div class="icon" style="color: {{sub=='add-project'?'#1fcf6d':''}}"><i class="fa fa-angle-right"></i> Add Project</div>                                
+                            </a>
+                        </li>                       
+                    </ul>-->
+                    <!--end item-->
+                    <div class="icons-list-1 icon-small border-bottom">
+                        <div class="icon {{tab=='apps'?'icon-border-orange':'icon-border-green'}} icon-circle"><i class="fa fa-th" aria-hidden="true"></i></div>
+                        <div class="text"><a href='{{path('view_company',{'slug':company.slug, 'tab':'apps'})}}' style="color: {{tab=='apps'?'orange'}}">Apps</a></div>
+                    </div>
+                    <div class="icons-list-1 icon-small border-bottom">
+                        <div class="icon {{tab=='awards-received'?'icon-border-orange':'icon-border-green'}} icon-circle"><i class="fa fa-trophy" aria-hidden="true"></i></div>
+                        <div class="text"><a href='{{path('view_company',{'slug':company.slug, 'tab':'awards-received'})}}' style="color: {{tab=='awards-received'?'orange'}}">Awards & Accolates</a></div>
+                    </div>
+                    <div class="icons-list-1 icon-small border-bottom">
+                        <div class="icon {{tab=='associations'?'icon-border-orange':'icon-border-green'}} icon-circle"><i class="fa fa-link" aria-hidden="true"></i></div>
+                        <div class="text"><a href='{{path('view_company',{'slug':company.slug, 'tab':'associations'})}}' style="color: {{tab=='associations'?'orange'}}">Associations </a></div>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    {% include template %}
+                </div>
+                <div class="col-md-2">
+
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block pageScripts %}
+    {{parent()}}
+    <script src="{{asset('js/accordion/js/smk-accordion.js')}}"></script> 
+    <script src="{{asset('js/accordion/js/custom.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.form.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/smart-form.js')}}"></script>
+    <script src="{{asset('js/popup/novicell.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/cubeportfolio/firm-account-cubefolio.js')}}"></script>
+    <script type="text/javascript">
+        // Waiting for the DOM to load
+        document.addEventListener("DOMContentLoaded", function () {
+            // Select your overlay trigger
+            var trigger = document.querySelector('#add-service-trigger');
+            trigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                novicell.overlay.create({
+                    'selector': trigger.getAttribute('data-element'),
+                    'class': 'selector-overlay',
+                    "onCreate": function () {
+                        console.log('created');
+                    },
+                    "onLoaded": function () {
+                        console.log('loaded');
+                    },
+                    "onDestroy": function () {
+                        console.log('Destroyed');
+                    }
+                });
+            });
+            $(siteWrapper).on('click', '#add-new-service-link', function (e) {
+                e.preventDefault();
+                $(this).addClass('hide');
+                alert('add-new-service-link Clicked')
+                $('#serviceFormPanel').removeClass('hide');
+            });
+        });
+        $("#association_dateJoined").datepicker({
+            changeMonth: false,
+            numberOfMonths: 1,
+            dateFormat: "yy-mm-dd",
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            onClose: function (selectedDate) {
+
+            }
+        });
+        $("#award_awardDate").datepicker({
+            changeMonth: false,
+            numberOfMonths: 1,
+            dateFormat: "yy-mm-dd",
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            onClose: function (selectedDate) {
+
+            }
+        });
+    </script>
+{% endblock %}

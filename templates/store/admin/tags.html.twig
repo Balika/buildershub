@@ -1,0 +1,84 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+{% endblock %}
+{% block contentHeader %}
+    Tags
+    <small>Product tags</small>
+    <a href="{{path('add_product', {'slug':supplier.slug})}}"></a>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary box-solid">
+                <div class="box-header">
+                    <h3 class="box-title">
+                        Tags (key words) associated with your store items
+                    </h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">                     
+                    <div class="col-md-8">
+                        {% include 'store/admin/includes/tags.table.html.twig' %}
+                    </div>
+                    <div class="col-md-4" style="background: whitesmoke; padding: 15px; border-radius: 3px">
+                        <p>
+                            Product tags for your store can be managed here. These tags can be associated with particular products.
+                        </p>
+                        <p style="color: green; display:  {{success ? 'block' : 'none'}}">
+                            <strong></strong>Your New Tag Has Been Successfully Added
+                        </p>
+                        <h5><strong>Add New Product Tag</strong></h5>
+                        {% include 'store/admin/includes/tag.form.html.twig' %}
+                    </div>     
+                </div>
+            </div>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->  
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <!-- DataTables -->
+    <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+    <script>
+        $(function () {
+            $('#tags').DataTable();
+            /** $('#categories').DataTable({
+             "paging": true,
+             "lengthChange": false,
+             "searching": false,
+             "ordering": true,
+             "info": true,
+             "autoWidth": false
+             });*/
+        });
+        $(document).ready(function () {
+            var id = "";
+            $('#tag_list td').hover(
+                    function (e) {
+                        id = $(this).attr('id');
+                        $('#action_' + id).show();
+                    },
+                    function () {
+                        $('#action_' + id).slideUp(250); //.fadeOut(205)
+                    }
+            );
+        });
+        $(function () {
+            $('body').confirmation({
+                selector: '[data-toggle="confirmation"]'
+            });
+            $('.confirmation-callback').confirmation({
+                onConfirm: function (event, elem) {
+                    var ID = $(elem).attr('id');
+                    alert('confirm: ' + ID);
+                },
+                onCancel: function () {
+                    // alert('cancel');
+                }
+            });
+        });
+    </script>
+{% endblock javascripts %}

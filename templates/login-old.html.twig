@@ -1,0 +1,78 @@
+{% extends "shared/page.base.html.twig" %}
+
+{% block  content %}
+    <section class="sec-padding" style="background: url('{{asset("images/sliders/slide-2.png")}}')">
+        <div class="container">
+            <div class="row">
+                <div class="clearfix"></div>
+                <br/><br/>
+                <div class="modal-dialog" >
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            {% block modalHeader %}
+                                <div class="col-md-12 text-center"> <h3 class="less-mar-1 font-weight-5 raleway">BuildersHub Login</h3></div> 
+                            {% endblock %}
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                {% block modalBody %}
+                                    <div class="col-xs-12">
+                                        {% if error is defined and error|length > 0 %}
+                                            <div class="alert alert-danger">
+                                                <h4><i class="icon fa fa-ban"></i> Login Failure</h4>                   
+                                                <small>{{error.message}}</small>
+                                            </div>
+                                        {% endif %}
+                                        {% set timeOut = app.request.get('timeOut') %}
+                                        {% if timeOut|length>0 %}
+                                            <div class="alert alert-danger">
+                                                <i class="fa fa-clock-o pull-right"></i> 
+                                                <strong>{{ timeOut }}</strong>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="well">
+                                            <form id="loginForm" action="{{path('security_login_check')}}" method="Post">
+                                                <div class="form-group">
+                                                    <label for="username" class="control-label">Username</label>
+                                                    <input type="text" class="form-control" id="username" name="_username" placeholder="Enter your email" required value="{{last_username}}">
+
+                                                    <span class="help-block"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="password" class="control-label">Password</label>
+                                                    <input type="password" id="password" name="_password" class="form-control" placeholder="Enter your password" />
+
+                                                    <span class="help-block"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-success pull-right"><i class="fa fa-lock"></i> Login</button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <a href="#" class="btn btn-info btn-block"> Use My <strong>Facebook Account</strong></a>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="remember" id="remember"> Remember login
+                                                    </label>
+                                                    <p class="help-block">(if this is a private computer)</p>
+                                                </div>
+                                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+                                                <a href="{{path('forgotten_password')}}" class="btn btn-default">Forgotten Password</a>
+                                                <span class="pull-right">                                                   
+                                                    <a href="{{path('signup')}}" class="btn btn-default">Create Account</a>
+                                                </span>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                {% endblock %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

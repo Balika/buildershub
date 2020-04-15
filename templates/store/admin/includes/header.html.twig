@@ -1,0 +1,131 @@
+<div class="navbar navbar-default navbar-static-top" >
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+    </a>
+    <div class="container">
+        <div class="navbar-header">
+            <a href="{{path('home')}}" class="navbar-brand" title="BuildersHub - Buy and Sell Contruction Equipment, Material & Accessories" style="font-family: 'Segoe UI Black', Helvetica; font-size: 2.0em" >
+                <b>{{ supplier is defined ? supplier  : company is defined ? company }}</b>
+            </a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse pull-left">
+            <ul class="nav navbar-nav">  
+                <li>
+                   
+                </li>              
+            </ul> 
+        </div>
+        <!-- Navbar Right Menu -->
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+                <li><a href="{{path('store_index')}}" title="Buy Contruction Equipment, Material & Accessories"><span class="fa fa-shopping-cart"></span> Store</a></li>                               
+                    {% if app.user !=null %}
+                    <li class="dropdown messages-menu">
+                        <!-- Menu toggle button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">4</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 4 messages</li>
+                            <li>
+                                <!-- inner menu: contains the messages -->
+                                <ul class="menu">
+                                    <li><!-- start message -->
+                                        <a href="#">
+                                            <div class="pull-left">
+                                                <!-- User Image -->
+                                                <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                            </div>
+                                            <!-- Message title and timestamp -->
+                                            <h4>
+                                                Support Team
+                                                <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                                            </h4>
+                                            <!-- The message -->
+                                            <p>Why not buy a new awesome theme?</p>
+                                        </a>
+                                    </li><!-- end message -->
+                                </ul><!-- /.menu -->
+                            </li>
+                            <li class="footer"><a href="#">See All Messages</a></li>
+                        </ul>
+                    </li><!-- /.messages-menu -->
+
+                    <!-- Notifications Menu -->
+                    <li class="dropdown notifications-menu">
+                        <!-- Menu toggle button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="label label-warning">10</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="header">You have 10 notifications</li>
+                            <li>
+                                <!-- Inner Menu: contains the notifications -->
+                                <ul class="menu">
+                                    <li><!-- start notification -->
+                                        <a href="#">
+                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        </a>
+                                    </li><!-- end notification -->
+                                </ul>
+                            </li>
+                            <li class="footer"><a href="#">View all</a></li>
+                        </ul>
+                    </li>
+                   
+                    <li class='user-block'>
+                        <a href='{{path('user_profile',{'usernameCanonical':app.user.usernameCanonical})}}'> 
+                            {{app.user.fullName}}
+
+                        </a>
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <!-- Menu Toggle Button -->
+                        <!-- The user image in the navbar-->
+                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">                            
+                            <span class="hidden-xs"><img src="{{app.user.person is not null and app.user.person.profilePicture is not null ? asset(app.user.person.profilePicture|imagine_filter('hub_thumbnail')) :  asset('cipron/dist/img/user1-128x128.jpg')}}" class="user-image" alt="User Image"><span class="caret"></span> </span>
+                        </a>
+                        <ul class="dropdown-menu">                                                
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="{{path('account_settings', {'usernameCanonical':app.user.usernameCanonical, 'menu':'dashboard'} )}}" class="btn btn-default btn-flat">Account Settings</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="{{path('security_logout')}}" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                {% else %}
+                    {% set route = app.request.attributes.get('_route') %}
+                    <li class="dropdown messages-menu">
+                        <!-- Menu toggle button -->                        
+                        {% if route != 'security_login_form' %}
+                            <a href="{{path('security_login_form')}}">                        
+                                <i class="fa fa-lock"></i> Login                         
+                            </a>                   
+                        {% endif %}                        
+                    </li><!-- /.me-->
+                    <li class="dropdown messages-menu">
+                        <!-- Menu toggle button -->                        
+                        {% if route != 'signup' %}
+                            <a href="{{path('signup')}}">                        
+                                <i class="fa fa-user"></i> Register                         
+                            </a>                   
+                        {% endif %}                        
+                    </li><!-- /.me-->
+                {% endif %}              
+            </ul>
+        </div><!-- /.navbar-custom-menu -->
+    </div>
+
+</div>

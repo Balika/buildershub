@@ -1,0 +1,21 @@
+<div id="owl-demo8" class="owl-carousel owl-theme">
+    {% for supplier in topSuppliers %}
+        <div id="owl-demo8" class="owl-carousel owl-theme">
+            <div class="item">
+                <div class="feature-boxed-9 hover-shadow-1 {{loop.index==2?'active'}} margin-bottom-2">                 
+                    <h1 class="text-primary font-weight-1"><a href="{{path('supplier_store_view', {'slug':supplier.slug})}}" target="_blank" style="font-size: 0.6em" title="{{supplier}}">{{supplier|length>20?supplier|slice(0, 20)~'...':supplier}}</a> <br/>
+                        <em class="text-primary"><i class="fa fa-map-marker"></i> <a href='#'>{{supplier.businessLocation is not null ? supplier.businessLocation~', '}}</a> <a href='#'>{{supplier.region}}</a></em></h1>
+                    <div class="line"></div>
+                    <ul>
+                        {% for category in supplier.productCategories|slice(0, 6) %}
+                            <li><a href="{{path('category_view',{'slug':category.slug})}}" target="_blank" title="{{category}}"><i class="fa  fa-check"></i> {{category|length>25?category|slice(0, 25)~'...':category}} </a></li>
+                            {% endfor %}                  
+                    </ul>
+                    <div class="clearfix margin-bottom-4"></div>
+                    <a href="{{path('supplier_store_view', {'slug':supplier.slug})}}" class="but-stbutton-14 uppercase font-weight-7" target="_blank"><i class="fa fa-shopping-cart" style="color:white"></i> Visit Store</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+

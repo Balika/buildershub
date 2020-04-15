@@ -1,0 +1,203 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"  href="{{asset('js/smart-forms/smart-addons.css')}}">
+
+{% endblock %}
+{% block mainNav %}
+{% endblock %}
+{% block  content %}
+     {% set previousPage = app.request.headers.get('referer') %} 
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row">                
+                <div class="col-md-12 text-left">
+                    <ol class="breadcrumbs-2">
+                        <li> <a class="btn btn-tiny btn-primary round"  href="{{previousPage}}"><span class="fa fa-chevron-left"> Back</span></a></li>
+                        <li><a href="{{path('account_settings', {'tab':'firm-details'})}}"><i class="fa fa-briefcase" aria-hidden="true"></i> My Firms</a></li>
+                        <li class="current"><a href="{{path('add_company', {'tab':'firm-details'})}}"><i class="fa fa-plus" aria-hidden="true"></i> New Company/Firm</a></li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row"> 
+                <div class="col-md-9">
+                    <div class="text-box padding-2 border" id="companyTypesHolder">
+                        <div class="alert-box success">
+                            <span class="alert-closebtn" onClick="this.parentElement.style.display = 'none';">&times;</span>
+                            <strong><i class="fa fa-info" aria-hidden="true"></i> &nbsp;  Take a Minute!</strong> &nbsp; Select the type of company or firm you wish to add to your account
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control control--radio"><strong>Supplier</strong>
+                                <input type="radio" name="radio" value="{{constant('App\\Utils\\CompanyTypes::SUPPLIER')}}" {{constant('App\\Utils\\CompanyTypes::SUPPLIER')==type ? 'checked'}} />
+                                <div class="control__indicator cyan"></div>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control control--radio"><strong>Consulting Firm</strong>
+                                <input type="radio" name="radio" value="{{constant('App\\Utils\\CompanyTypes::CONSULTING')}}" {{constant('App\\Utils\\CompanyTypes::CONSULTING')==type ? 'checked'}}/>
+                                <div class="control__indicator cyan"></div>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control control--radio"><strong>Construction Firm</strong>
+                                <input type="radio" name="radio" value="{{constant('App\\Utils\\CompanyTypes::CONSTRUCTION')}}" {{constant('App\\Utils\\CompanyTypes::CONSTRUCTION')==type ? 'checked'}}/>
+                                <div class="control__indicator cyan"></div>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control control--radio"><strong>Both Construction & Consulting</strong>
+                                <input type="radio" name="radio" value="{{constant('App\\Utils\\CompanyTypes::CONSTRUCTION_AND_CONSULTING')}}" {{constant('App\\Utils\\CompanyTypes::CONSTRUCTION_AND_CONSULTING')==type ? 'checked'}}/>
+                                <div class="control__indicator cyan"></div>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control control--radio"><strong>Artisanal Firm</strong>
+                                <input type="radio" name="radio" value="{{constant('App\\Utils\\CompanyTypes::ARTISANAL')}}" {{constant('App\\Utils\\CompanyTypes::ARTISANAL')==type ? 'checked'}}/>
+                                <div class="control__indicator cyan"></div>
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="control control--radio"><strong>Advertising Firm</strong>
+                                <input type="radio" name="radio" value="{{constant('App\\Utils\\CompanyTypes::ADVERTISING')}}" />
+                                <div class="control__indicator cyan"></div>
+                            </label>
+                        </div>                        
+                    </div>
+                    <div class="row">                       
+                        <div id="serverResponse" class="col-md-12">
+                            {% if type is defined and type is not null %}
+                                <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+                                    <h4 class="text-center">Selected Company Type: <span class="text-success">{{type}}</span></h4>               
+                                    <div class=" divider-line solid light"></div>                                      
+                                    {% include 'account/firm/includes/company.form.html.twig' %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    Ads here
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block pageScripts %}
+    {{parent()}}
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.steps.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-custom.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-touch-punch.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.formShowHide.min.js')}}"></script>   
+    <script type="text/javascript">
+        $(function () {
+            $("#smart-form").steps({
+                bodyTag: "fieldset",
+                headerTag: "h2",
+                bodyTag: "fieldset",
+                transitionEffect: "slideLeft",
+                titleTemplate: "<span class='number'>#index#</span> #title#",
+                labels: {
+                    finish: "Submit Firm",
+                    next: "Continue",
+                    previous: "Go Back",
+                    loading: "Loading..."
+                },
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    if (currentIndex > newIndex) {
+                        return true;
+                    }
+                    var form = $(this);
+                    if (currentIndex === 2) {
+                        previewProjectEntries();
+                    }
+                    return form.valid();
+                },
+                onStepChanged: function (event, currentIndex, priorIndex) {
+                },
+                onFinishing: function (event, currentIndex) {
+                    var form = $(this);
+                    form.validate().settings.ignore = ":disabled";
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex) {
+                    var form = $(this);
+                    form.submit();
+                }
+            }).validate({
+                errorClass: "state-error",
+                validClass: "state-success",
+                errorElement: "em",
+                onkeyup: false,
+                onclick: false,
+                rules: {
+                    firstname: {
+                        required: true
+                    },
+                    project_user_email: {
+                        required: true,
+                        email: true
+                    },
+                    project_contactNo: {
+                        required: true,
+                        number: true
+                    },
+                    lastname: {
+                        required: true
+                    },
+                    project_title: {
+                        required: true
+                    },
+                    contact_person: {
+                        required: true
+                    },
+                    generalTerms: {
+                        required: true
+                    }
+                },
+                messages: {
+                    firstname: {
+                        required: "Please enter firstname"
+                    },
+                    lastname: {
+                        required: "Please enter lastname"
+                    },
+                    project_user_email: {
+                        required: 'Please enter email',
+                        email: 'Enter a valid email address'
+                    },
+                    project_contactNo: {
+                        required: 'Please enter telephone',
+                        number: 'Please enter numbers only'
+                    },
+                    project_title: {
+                        required: "Please enter the project title"
+                    },
+                    contact_person: {
+                        required: 'Please enter contact person'
+                    },
+                    generalTerms: {
+                        required: 'Please agree to our terms'
+                    }
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).closest('.field').addClass(errorClass).removeClass(validClass);
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).closest('.field').removeClass(errorClass).addClass(validClass);
+                },
+                errorPlacement: function (error, element) {
+                    if (element.is(":radio") || element.is(":checkbox")) {
+                        element.closest('.option-group').after(error);
+                    } else {
+                        error.insertAfter(element.parent());
+                    }
+                }
+
+            });
+            $('.smartfm-ctrl').formShowHide();
+        });
+    </script>
+{% endblock %}

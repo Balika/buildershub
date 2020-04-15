@@ -1,0 +1,64 @@
+{% extends "store/shared/store.base.html.twig" %}
+{% block breadcrumbs %}
+{% endblock %}
+{% block mainNav %}
+{% endblock %}
+{% block pageMenu %}{% endblock %}
+{% block mqrBlock %}{% endblock %}
+{% block  content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 float-none">
+                <div class="main-content">
+                    <div class="block-the-blog">
+                        <div class="title-of-section"><span class="onnew">Construction Sector News</span></div>
+                    </div>
+                    <div class="post-grid post-items">
+                        {% for post in posts %}
+                            {{loop.first ? "<div class='row'>" }}
+                            <div class="post-grid-item col-md-4">
+                                <div class="post-item">
+                                    <div class="post-thumb">
+                                        <!--imagine_filter('hub_thumbnail')-->
+                                        <a href="{{path('single_post', {'slug':post.slug, 'type':'news'})}}"><img src="{{asset(post.featureImage|imagine_filter('hub_thumbnail'))}}" alt="post-image"></a>
+                                        <span class="date">{{post.createdAt|date('d')}}<span>{{post.createdAt|date('M')}}</span></span>
+                                    </div>
+                                    <div class="post-item-info">
+                                        <h3 class="post-name"><a href="{{path('single_post', {'slug':post.slug, 'type':'news'})}}" title="{{post.title}}">{{post.title|slice(0, 80)|title~'...'}}</a></h3>
+                                        <div class="post-metas">
+                                            <span class="author">By: <span><a href="{{path('user_profile',{'usernameCanonical':post.user.usernameCanonical})}}" target="new">{{post.user.fullName}}</a></span></span>
+                                            <!-- <span class="news">
+                                            {% for category in post.postCategories %}
+                                                <a href="#">{{post.postCategories|length > 1 ? category.name~', ' : category.name}}</a>
+                                            {% endfor %}
+                                        </span>-->
+                                            <span class="comment"><a title="Comments"><i class="fa fa-comment" aria-hidden="true"></i> {{post.commentCount}}</a></span>
+                                        </div>                             
+                                    </div>
+                                </div>
+                            </div>
+                            {{loop.index is divisible by(3) and not  loop.last  ? "</div><div class='row'>" : loop.last ? "</div>" }}
+                        {% endfor %}                        
+                    </div>
+                    <div class="post-grid pagination">
+                        {{ knp_pagination_render(posts) }}                        
+                    </div>
+                    <div class="latest-blog-posts">                     
+                        {{ render_esi(controller('App\\Controller\\BlogUtilityController:renderPosts'), {"default":'Loading Cart....'}) }}                                                             
+                    </div>
+                    <div class="block-the-blog">
+                        <div class="container">
+                            <div class="title-of-section"><span class="onnew">Articles</span></div>
+                            {{ render_esi(controller('App\\Controller\\BlogUtilityController:renderPosts', {'template':'latest.articles'}), {"default":'Loading Cart....'}) }}                                                             
+                        </div>
+                    </div>
+                    <div class="block-the-blog">
+                        <div class="title-of-section"><span class="onnew">Videos</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </div>
+{% endblock %}

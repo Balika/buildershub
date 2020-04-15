@@ -1,0 +1,24 @@
+{% extends 'store/admin/store.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+    
+    <!-- Select2 -->
+{% endblock %}
+{% block contentHeader %}
+    Dashboard
+    <small>{{supplier}}</small>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+        </div>
+         <div class="col-md-4" id="entityForm">
+             {# include "Secure/portal/company/includes/preference.form.html.twig" #}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    
+   
+{% endblock javascripts %}

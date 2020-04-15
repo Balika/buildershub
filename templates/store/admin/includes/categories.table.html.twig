@@ -1,0 +1,40 @@
+
+        <table id="categories" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Slug</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in supplier.productCategories %}
+                    <tr id="category_list">
+                        <td><img src="{{category.featureImage is not null ? asset(category.featureImage|imagine_filter('hub_thumbnail'))}}" width="80px" height="60px"/></td>
+                        <td id="{{category.id}}">
+                            <a href="{{path('single_product_category', {'slug':supplier.slug, 'category_slug':category.slug, 'action':'view'})}}" >{{category}}</a>
+                            <p class="actions" style="display: none" id="action_{{category.id}}">
+                                <a href="{{path('single_product_category', {'slug':supplier.slug, 'category_slug':category.slug, 'action':'edit'})}}">Edit</a> | 
+                                <a href="#" class="text-danger confirmation-callback" id="{{category.id}}">Delete</a> | 
+                                <a href="{{path('single_product_category', {'slug':supplier.slug, 'category_slug':category.slug, 'action':'view'})}}">View</a>  
+                            </p>                            
+                        </td>
+                        <td>{{category.description}}</td>
+                        <td>{{category.slug}}</td>
+                        <td>{{category.count}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Slug</th>
+                    <th>Count</th>
+                </tr>
+            </tfoot>
+        </table>
+    

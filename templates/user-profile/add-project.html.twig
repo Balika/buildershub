@@ -1,0 +1,15 @@
+<div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">
+    <p>
+        <a href="{{path('user_profile',{'usernameCanonical' : requestedProfile.usernameCanonical, 'page':'projects', 'uref':user.id})}}" class="btn btn-tiny border border-blue">  <i class="fa fa-caret-left"></i> Back to My Projects</a>                           
+    </p>
+    {% if isSaved or  app.request.get('isSaved') %}
+        <div class="alert alert-success">
+            Thanks  <span class="text-blue">{{requestedProfile.firstname}}</span>.  You have successfully added a project to your portfolio!
+        </div>
+    {% else %}
+        <div class="alert alert-info">       
+            <strong><span class="text-green">{{requestedProfile.firstname}}</span>, share your work experience so that potential clients can see your quality products</strong> 
+        </div>
+    {% endif %}
+    {% include "user-profile/includes/work.form.html.twig" %}
+</div>

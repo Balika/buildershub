@@ -1,0 +1,93 @@
+{% extends 'hubernize/shared/hubernize.admin.base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% set previousPage = app.request.headers.get('referer') %} 
+    <li><a href="{{previousPage}}"><span>Back to List</span></a></li>
+    <li class="active"><span>{{ad}}</span></li>
+        {% endblock %}
+        {% block crumbLinks %}
+    <li><a class="sonata-action-element" href="{{path('hubernize_rental_ads_placement', {'action':'add'})}}"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+            Add New Ad
+        </a>
+    </li>
+{% endblock %}
+{% block listMode %}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default box-solid">
+                <div class="box-header">
+                    <h3 class="box-title">You are viewing <span class="text-success">{{ad}}</span></h3>                    
+                    <div class="box-tools pull-right">
+                        <!-- <a  data-toggle="modal" class="btn btn-success btn-sm" href="#validityDateDlg" style="color: white">
+                             Set Price Validity Date <span class="fa fa-calendar"></span>
+                         </a>-->
+                    </div>                  
+                </div><!-- /.box-header -->
+                <div class="box-body" style="padding: 5px 20px 5px 20px">                 
+                    <div class="row">
+                        <div class="col-md-3" style="padding: 8px">
+                            <img src="{{ad.featureImage is not null ? asset(ad.featureImage|imagine_filter('hub_thumbnail')) : 
+                            ad.equipment.featureImage is not null  ? asset(ad.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" width="100%"/>
+                            <br/>
+
+                            <div class="box box-default box-solid">
+                                <div class="box-header">
+                                    <h4 class="box-title"><span class="text-success">Promo Statistics</span></h4>                    
+                                    <div class="box-tools pull-right">
+                                        <!-- <a  data-toggle="modal" class="btn btn-success btn-sm" href="#validityDateDlg" style="color: white">
+                                             Set Price Validity Date <span class="fa fa-calendar"></span>
+                                         </a>-->
+                                    </div>                  
+                                </div><!-- /.box-header -->
+                                <div class="box-body" style="padding: 5px 20px 5px 20px">    
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-9" >
+                            <div class="row hbox" >
+                                <div class="col-md-4"><strong>Rental Rate: <span class="text-warning">GHc{{ad.rentalRate|number_format(2, '.',',')}}</span></strong></div>
+                                <div class="col-md-3"><strong>Billing Cycle: <span class="text-warning">{{ad.billingCycle}}</span></strong></div>
+                                <div class="col-md-2"><strong>Views: <span class="text-warning">2,555</span></strong></div>
+                                <div class="col-md-3"><strong>Units Available: <span class="text-warning">20</span></strong></div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="box box-success">
+                                    <div class="box-header">
+                                        <h3 class="box-title">Incoming <span class="text-success">Rental Request</span></h3>                    
+                                        <div class="box-tools pull-right">
+                                            <!-- <a  data-toggle="modal" class="btn btn-success btn-sm" href="#validityDateDlg" style="color: white">
+                                                 Set Price Validity Date <span class="fa fa-calendar"></span>
+                                             </a>-->
+                                        </div>                  
+                                    </div><!-- /.box-header -->
+                                    <div class="box-body">    
+                                        {% include "hubernize/inventory/includes/rental.requests.table.html.twig" %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
+    <script>
+        $(function () {
+            $('#rentalRequestTable').DataTable();
+        });
+    </script>
+
+{% endblock javascripts %}

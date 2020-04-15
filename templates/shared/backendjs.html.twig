@@ -1,0 +1,66 @@
+<!-- jQuery 2.1.4 -->
+<script src="{{asset('js/jquery/jquery.js')}}"></script> 
+<script src="{{asset('js/bootstrap/bootstrap.min.js')}}"></script>
+
+<script src="{{asset('util/bootstrap-confirmation.js')}}"></script>
+
+<!-- SlimScroll -->
+<script src="{{asset('bundles/sonataadmin/vendor/slimScroll/jquery.slimscroll.min.js')}}"></script>
+
+<!-- iCheck 1.0.1 -->
+<script src="{{asset('plugins/iCheck/icheck.min.js')}}"></script>
+<script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{asset('bundles/sonataadmin/vendor/admin-lte/dist/js/app.min.js')}}"></script>
+
+<!-- FOSJsRouting-->
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}" ></script>
+<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'} )}}"  ></script>
+<script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
+<script type="text/javascript" src="{{asset('store/js/jquery.plugin.js')}}"></script> 
+<script type="text/javascript" src="{{asset('store/js/jquery.countdown.js')}}"></script>  
+<script>
+    //Initialize Select2 Elements
+    $("select[data-select='true']").select2();
+</script>
+<script>
+    var ajaxLoader = "{{asset('images/ajax-loader.gif') }}";
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
+    });
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+        checkboxClass: 'icheckbox_minimal-red',
+        radioClass: 'iradio_minimal-red'
+    });
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+        checkboxClass: 'icheckbox_flat-green',
+        radioClass: 'iradio_flat-green'
+    });
+    $(function () {
+        //----- OPEN
+        $('[data-popup-open]').on('click', function (e) {
+            var targeted_popup_class = jQuery(this).attr('data-popup-open');
+            $('[data-popup="' + targeted_popup_class + '"]').fadeIn(350);
+            e.preventDefault();
+        });
+
+        //----- CLOSE
+        $('[data-popup-close]').on('click', function (e) {
+            var targeted_popup_class = jQuery(this).attr('data-popup-close');
+            $('[data-popup="' + targeted_popup_class + '"]').fadeOut(350);
+            e.preventDefault();
+        });
+    });
+</script>
+<script>
+    var assetsBaseDir = "{{ asset('assets/') }}";
+    var ajaxLoader = "{{ asset('images/ajax-loader.gif') }}";
+    var loaderHTML = "<div class='overlay'><div class='overlay-content'><img src='" + ajaxLoader + "' alt='Loading...'/></div></div>";
+    var blurredHTML = "<div class='overlay'><div class='overlay-content'></div></div>";
+    var loaderHolder = ".overlay";
+</script>
+

@@ -1,0 +1,44 @@
+<div class="block-slide">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9 padding-left-5 main-slide slide-opt-2">               
+                <h4><small><a href='{{path('supplier_store_view',{'slug':supplier.slug})}}'>&laquo;Back</a></small> Quotation Request</h4>
+                {{form_start(quotationForm,{'method': 'POST', 'action': path('quotation_request',{'slug': supplier.slug }), 'attr': {id:'quotationForm'} })}}
+                <div class="modal-body" style="border: 1px solid green; background-color: whitesmoke; border-radius: 4px" id="response">
+                    <h5 class="text-success" id='message'>
+                        Add items for which you need price quotation from <span class="text-danger">{{supplier}}</span>
+                    </h5>        
+                    <hr/>
+                    <div class="row" style="text-align: center">
+                        <div class="form-group col-md-6">
+                            <strong>Product</strong>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <strong>Quantity</strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="orderItems" class="orderItems form-group col-md-12"  data-prototype="{% filter escape %}  {{ include('store/supplier/includes/quotation.embedded.form.html.twig', { 'oi': quotationForm.orderItems.vars.prototype }) }}  {% endfilter %}" >                                              
+                            {% for oi in quotationForm.orderItems %} 
+                                <div id="items">
+                                    <div class="form-group col-md-6">
+                                        {{ form_widget(oi.product, { 'attr': {class: 'form-control'} } ) }}
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        {{ form_widget(oi.quantity, { 'attr': {class: 'form-control', placeholder: 'Enter quantity'} } ) }}
+                                    </div>                      
+                                </div>
+                            {% endfor %} 
+                        </div>                                      
+                        {{ form_row(quotationForm._token) }} 
+                    </div>
+                </div>
+                <div class="modal-footer">                                         
+                    <button type='submit' class="btn btn-success btn-sm pull-right" id='confirmEngaged'>Request Quotation</button>
+                </div>
+                {{ form_end(quotationForm, {'render_rest': false}) }} 
+            </div>
+        </div>
+    </div>
+</div>

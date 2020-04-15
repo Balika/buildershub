@@ -1,0 +1,50 @@
+{% for post in firm.posts %} 
+    <div class="col-md-12">
+        <div class="imgbox-xtiny round overflow-hidden left">
+            <a href="{{path('firm_profile', {'slug':post.company.slug})}}">
+                <img src="{{post.user.person.profilePicture is not null ? asset(post.user.person.profilePicture|imagine_filter('hub_thumbnail')): asset('images/default-avatar.png')}}" alt="{{post.user.firstname}} Profile Picture" class="img-responsive"/>
+            </a>
+        </div>
+        <div class="text-box-right">
+            <h6 class="nopadding title"><a href="{{path('firm_profile',{'slug':post.company.slug})}}" class="text-success font-weight-8"><strong>{{post.company}}</strong></a>  {% if post.target is not null %} &raquo; 
+                <a href="{{path('firm_profile',{'slug':post.company.slug})}}" class="text-info font-weight-8"><strong>{{post.target.fullName}}</strong></a>
+            {% else  %} <small> posted {{post.createdAt|when}} {% endif  %}</small>
+                </h6>
+                <div class="blog-post-info"> <span><i class="fa fa-clock-o"></i> {{post.createdAt|date('d')}} {{post.createdAt|date('M')}}</span> <span><i class="fa fa-comments-o"></i> {{post.commentCount}}</span></div>
+                <div class="col-divider-margin-1"></div>
+                <div class=" divider-line solid light"></div>  
+                <div class="col-divider-margin-1"></div>
+                <h5 class="less-mar-1"><a href="#" title="{{post.title}}">{{post.title}} </a>                
+                </h5>
+                <div class="ce4-post-img">
+                    <div class="arrow-down"></div>
+                    <a href='#'><img src="{{post.featureImage is not null ? asset(s3_images_url~post.featureImage)}}" alt="" class="img-responsive" style="border-radius: 3px; max-height: 300px"/> </a>
+                </div>
+                <small style="display: block">{{post.content}}</small>
+                <div class="box-tools engageLikeLinks" id="engagePanel{{post.id}}" style="display: block" >
+                    <span class="pull-left">                                
+                        <a class="btn btn-tiny btn-default" > {{post.likes|length|number_format('0', '.',',')}} <i class="fa fa-thumbs-up"></i></a>
+                        <a class="btn btn-tiny btn-default">400 <i class="fa fa-share-alt"></i></a>
+                    </span>
+                    <span class="pull-right"> 
+                        {% if app.user %}
+                            {% if  is_liked(post) %}
+                                <a id="{{post.id}}"  class="btn btn-tiny btn-primary xround-2" href="{{path('like_post', {'usernameCanonical':firm.slug,'entityId': post.id, 'entityClass': constant('App\\Utils\\EntityConfig::POST')})}}">Like <i class="fa fa-thumbs-o-up"></i></a>                         
+                            {% else %}
+                                <a id="{{post.id}}" class="btn btn-tiny btn-primary xround-2" href="{{path('unlike_post', {'usernameCanonical':firm.slug, 'entityId': post.id, 'entityClass': constant('App\\Utils\\EntityConfig::POST')})}}">Unlike <i class="fa fa-thumbs-o-down"></i></a>                            
+                            {% endif %}
+                        {% else %}
+                            <a class="btn btn-tiny btn-info xround-2">Share <i class="fa fa-share-alt"></i></a>
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="col-divider-margin-1"></div>
+                <div class=" divider-line solid light"></div>  
+                <div class="col-divider-margin-1"></div>               
+                {{ render_esi(controller('App\\Controller\\ProfileUtilityController:renderCommentsBlock', {'postId':post.id}), {"default":'Loading Cart....'}) }}  
+            </div>
+        </div>
+        <div class="col-divider-margin-1"></div>
+        <div class=" divider-line solid light"></div>  
+        <div class="col-divider-margin-1"></div>
+        {% endfor %}

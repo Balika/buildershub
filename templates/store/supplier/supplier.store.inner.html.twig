@@ -1,0 +1,173 @@
+<!--<div class="container">
+    <div class="row">            
+        <div class="col-sm-12">
+            <div class="block-promotion-banner">                    
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="promotion-banner item-1 style-6">
+                            <a href="" class="banner-img"><img src="{{asset('store/images/home2/banner1.jpg')}}" alt="banner1"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="promotion-banner item-2 style-6">
+                            <a href="" class="banner-img"><img src="{{asset('store/images/home2/banner2.jpg')}}" alt="banner2"></a>
+                            <a href="" class="shop-now style2 hidden-mobile">Shop now<i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                        </div>
+                    </div>                    
+                </div>                   
+            </div>           
+        </div>
+    </div>
+</div>-->
+<div class="block-feature-product">
+    <div class="container">
+        <div class="title-of-section">Our Products</div>
+        <div class="tab-product tab-product-fade-effect">
+            <ul class="box-tabs nav-tab style3">
+                <li class="active"><a data-animated="" data-toggle="tab" href="#all">All Products </a></li>
+                <li><a data-animated="fadeInLeft" data-toggle="tab" href="#discounted">Discounted</a></li>
+                <li><a data-animated="fadeInDownBig" data-toggle="tab" href="#new">New Arrivals</a></li>
+                <li><a data-animated="zoomInUp" data-toggle="tab" href="#featured">Featured</a></li>
+                <li><a data-animated="zoomInUp" data-toggle="tab" href="#auctions">Auctions</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-container">
+                    <div id="all" class="tab-panel active">
+                        <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":5}}'>
+                            {% for product in supplier.products %}
+                                {{loop.first ? "<div class='owl-one-row'>" }}
+                                <div class="product-item style1">
+                                    <div class="product-inner equal-elem">
+                                        <div class="product-thumb">
+                                            <div class="thumb-inner">
+                                                <a href="{{path('store_product_detail', {'slug':product.slug})}}"><img src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="f1"  style="height: 140px; margin: auto; border-radius: 3px;"></a>
+                                            </div>
+                                            <a href="{{path('store_product_detail', {'slug':product.slug})}}" class="quick-view">Quick View</a>
+                                        </div>
+                                        <div class="product-innfo">
+                                            <div class="product-name"><a href="{{path('store_product_detail', {'slug':product.slug})}}">{{product.name}}</a></div>
+                                            <span class="price price-dark">
+                                                <ins>GH¢{{product.productData.salePrice!=null ? product.productData.salePrice|number_format(2, '.',',')}}</ins>
+                                            </span>
+
+                                            <div class="star-rating">
+                                                <i class="fa fa-map-marker"></i> <span class="review">{{product.supplier.businessLocation is not null ?  product.supplier.businessLocation ~','}} {{product.supplier.region}}</span>
+                                            </div>
+                                            <div class="group-btn-hover">
+                                                <div class="inner">
+                                                    <!-- <a href="" class="compare" title="Add to comparison"><i class="fa fa-retweet"></i></a>-->
+                                                    <a href="{{path('contact_supplier', {'slug':product.supplier.slug, 'product_slug':product.slug})}}" class="add-to-cart"><i class="fa fa-envelope"></i> Contact Supplier</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{loop.index is divisible by(2) and  not loop.last ? "</div><div class='owl-one-row'>" : loop.last ? "</div>" }}
+                            {% endfor %}
+                        </div>                    
+                    </div>    
+                    <div id="discounted" class="tab-panel">
+                        <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":5}}'>
+                            {% for product in supplier.products %}
+                            {% endfor %}
+                        </div>                    
+                    </div>  
+                    <div id="new" class="tab-panel">
+                        <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":5}}'>
+                            {% for product in supplier.products %}
+                            {% endfor %}
+                        </div>                    
+                    </div>  
+                    <div id="featured" class="tab-panel">
+                        <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":5}}'>
+                            {% for product in supplier.products %}
+                            {% endfor %}
+                        </div>                    
+                    </div>  
+                    <div id="auctions" class="tab-panel">
+                        <div class="owl-carousel nav-style2 border-background equal-container" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="0" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":3},"1000":{"items":5}}'>
+                            {% for product in supplier.products %}
+                            {% endfor %}
+                        </div>                    
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="block-bestseller-and-deals full-width">
+    <div class="container">
+        <div class="block-bestseller-product style2">
+            <div class="title-of-section">Best Selling Products</div>
+            <div class="bestseller-and-deals-content border-background equal-container">
+                {% for promo in promotedProducts %}
+                    <div class="product-item style1 col-md-4 col-sm-6 col-xs-6 padding-0">
+                        <div class="product-inner equal-elem">
+                            <div class="product-thumb">
+                                <div class="thumb-inner">
+                                    <a href="{{path('store_product_detail', {'slug':promo.product.slug})}}"><img src="{{asset(promo.product.featureImage|imagine_filter('hub_thumbnail'))}}" alt="f1" style="height: 140px; margin: auto; border-radius: 3px;"></a>
+                                </div>
+                                <a href="{{path('store_product_detail', {'slug':promo.product.slug})}}" class="quick-view">Quick View</a>
+                            </div>
+                            <div class="product-innfo">
+                                <div class="product-name"><a href="{{path('store_product_detail', {'slug':promo.product.slug})}}">{{promo.product.name}}</a></div>
+                                <span class="price price-dark">
+                                    <ins>GH¢{{promo.product.productData.salePrice!=null ? promo.product.productData.salePrice|number_format(2, '.',',') : promo.product.productData.regularPrice|number_format(2, '.',',')}}</ins>                                                   
+                                    <del>{{promo.product.productData.salePrice!=null ? 'GH¢'~promo.product.productData.regularPrice|number_format(2, '.',',')}}</del>
+                                </span>
+                                <div class="star-rating">
+                                    <i class="fa fa-map-marker"></i> <span class="review">{{promo.product.supplier.businessLocation is not null ?  promo.product.supplier.businessLocation ~','}} {{promo.product.supplier.region}}</span>
+                                </div>
+                                <div class="group-btn-hover">
+                                    <div class="inner">
+                                        <a href="{{path('contact_supplier', {'slug':promo.product.supplier.slug, 'product_slug':promo.product.slug})}}" class="btn-add-to-cart"><i class="fa fa-envelope"></i> Contact </a>                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="block-daily-deals style3">
+            <div class="title-of-section">Deals Of the week</div>
+            {{ render(controller('App\\Controller\\StoreUtilityController:weeklyDeals', {'supplierId':supplier.id} ), {"default":'Loading Cart....'}) }}                                                                                                       
+        </div>
+    </div>
+</div>
+<div class="block-promotion-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-xs-6">
+                <div class="promotion-banner style-7">
+                    <a href="" class="banner-img"><img src="{{asset('store/images/home2/banner4.jpg')}}" alt="banner4"></a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-6">
+                <div class="promotion-banner style-7">
+                    <a href="" class="banner-img"><img src="{{asset('store/images/home2/banner5.jpg')}}" alt="banner5"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="block-recent-view">
+    <div class="container" id="recentlyViewed">
+        <div class="title-of-section">Recently Viewed Products</div>   
+        {{ render_esi(controller('App\\Controller\\StoreUtilityController:recentlyViewedProducts', {'supplierId':supplier.id} ), {"default":'Loading Cart....'}) }}                                                                                           
+    </div>
+</div>
+<div class="block-section-brand">
+    <div class="container">
+        <div class="section-brand style1">
+            <div class="owl-carousel nav-style3" data-nav="true" data-autoplay="false" data-dots="false" data-loop="true" data-margin="2" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":4},"1000":{"items":6}}'>
+                <a href="" class="item-brand"><img src="{{asset('store/images/home1/brand1.jpg')}}" alt="brand1"></a>
+                <a href="" class="item-brand"><img src="{{asset('store/images/home1/brand1.jpg')}}" alt="brand1"></a>
+                <a href="" class="item-brand"><img src="{{asset('store/images/home1/brand1.jpg')}}" alt="brand1"></a>
+                <a href="" class="item-brand"><img src="{{asset('store/images/home1/brand1.jpg')}}" alt="brand1"></a>
+                <a href="" class="item-brand"><img src="{{asset('store/images/home1/brand1.jpg')}}" alt="brand1"></a>
+                <a href="" class="item-brand"><img src="{{asset('store/images/home1/brand1.jpg')}}" alt="brand1"></a>
+            </div>
+        </div>
+    </div>
+</div>

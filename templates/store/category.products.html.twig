@@ -1,0 +1,26 @@
+{% extends "store/shared/page.base.html.twig" %}
+{% block breadcrumbs %}
+    {% set previousPage = app.request.headers.get('referer') %} 
+    <div class="container">
+        <ol class="breadcrumb-page">
+            <li><a href="{{previousPage}}">&laquo; Back </a></li>
+            <li class="active"><a href="#">{{category}}</a></li>
+        </ol>
+    </div>
+{% endblock %}
+{% block pageMenu %}{% endblock %}
+{% block  content %}
+    {% include 'store/includes/category.products.inner.html.twig' %}
+    <div class="block-recent-view">
+        <div class="container">
+            <div class="title-of-section">You may be also interested</div>
+            {{ render_esi(controller('App\\Controller\\StoreUtilityController:recommendedProducts', {'categoryId':category.id} ), {"default":'Loading Cart....'}) }}                                             
+        </div>
+    </div>
+    <div class="block-sale-product full-width block-background">
+        <div class="container">
+            <div class="title-of-section">Special Features</div>
+            {{ render_esi(controller('App\\Controller\\StoreUtilityController:renderSpecialFeature'), {"default":'Loading Cart....'}) }}       
+        </div>
+    </div>
+{% endblock %}

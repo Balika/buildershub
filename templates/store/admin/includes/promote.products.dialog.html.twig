@@ -1,0 +1,40 @@
+<div id="promotedProductListDlg" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="modal-dialog" style="width:60%; ">        
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h3 class="modal-title" id="myModalLabel"> <span style="color: green"><strong>Select Products to Promote</strong></span></h3>
+            </div>                                           
+            <div class="modal-body" style="padding-bottom: 15px" id="response">
+                <form id="promotedProductListForm" method="POST" action="{{path('portal_store_promote_products_action', {'slug':supplier.slug})}}">
+                    <div class='row'>
+                        <div class='col-md-11 form-group'>
+                            <select class="form-control" name="campaign" required="true">
+                                <option value="">Select Campaign</option>
+                                {% for campaign in supplier.campaigns %}
+                                    <option value="{{campaign.id}}">{{campaign.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <input type="checkbox" class="flat-red" value="" id="selectAllProducts"/> <strong>Select all Products</strong>
+                    <hr/>
+                    <div class='row' id="productList">
+                        {% for product in supplier.products %}
+                            <div class="col-md-3" style="padding-bottom: 10px">
+                                <input type="checkbox" class="flat-red" value="{{product.id}}" {{product in supplier.promotedProducts ? 'checked'}}/> {{product.name}} (GH)
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" id='selectedProducts' name="selectedProducts"/>
+                    <div class="modal-footer">                
+                        <button type="button" class="btn btn-danger btn-sm pull-left" data-dismiss="modal">Cancel</button>   
+                        <button type="submit" class="btn btn-success btn-sm pull-right hide" id="promote-products-btn">Promote Products</button>
+                    </div>
+                </form>
+            </div> 
+        </div> 
+    </div> 
+</div> 
+
+

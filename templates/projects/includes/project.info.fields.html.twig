@@ -1,0 +1,94 @@
+
+<div class="frm-row">
+    <div class="section colm colm6">
+        <label class="field select">
+            {{ form_widget(form.projectType,{ 'attr': {class: 'gui-input', placeholder:"Project type" } }) }}
+            <i class="arrow double"></i>                             
+        </label>
+    </div><!-- end section -->
+    <div class="section colm colm6">
+        <label class="field prepend-icon">
+            {{ form_widget(form.title,{ 'attr': {class: 'gui-input', placeholder:"Project title"  } }) }}
+            <span class="field-icon"><i class="fa fa-pencil"></i></span>  
+        </label>
+    </div><!-- end section -->               
+</div><!-- end frm-row section -->
+<div class="frm-row">
+    <div class="section colm colm6">
+        <label class="field prepend-icon">
+            {{ form_widget(form.expectedStartDate, {'attr':{class:'gui-input', placeholder:"Project start date"} })  }}
+            <span class="field-icon"><i class="fa fa-calendar"></i></span>  
+        </label>
+    </div><!-- end section -->
+    <div class="section colm colm6">
+        <label class="field prepend-icon">
+            {{ form_widget(form.expectedEndDate, {'attr':{class:'gui-input', placeholder:"Project end date"} }) }}  
+            <span class="field-icon"><i class="fa fa-calendar-o"></i></span>  
+        </label>
+    </div><!-- end section -->               
+</div><!-- end frm-row section -->
+
+<div class="frm-row">
+    <div class="section colm colm4">
+        <label class="field select">
+            {{ form_widget(form.region,{ 'attr': {class: 'gui-input', placeholder:"Project type" } }) }}
+            <i class="arrow double"></i>                             
+        </label>
+    </div><!-- end section -->
+    <div class="section colm colm4">
+        <label class="field select">
+            {{ form_widget(form.town,{ 'attr': {class: 'gui-input', placeholder:"Project type" } }) }}
+            <i class="arrow double"></i>                             
+        </label>       
+    </div><!-- end section --> 
+    <div class="section colm colm4">
+        <label class="field prepend-icon">
+            {{ form_widget(form.subLocation, {'attr':{class:'gui-input', placeholder:"Project specific location"} }) }}  
+            <span class="field-icon"><i class="fa fa-map-marker"></i></span>  
+        </label>
+    </div><!-- end section -->
+</div><!-- end frm-row section -->
+<div class="section spacer-b40">
+    <div class="spacer-b15">
+        <label for="amount">Project Budget:</label>
+         {{ form_widget(form.budget, {'attr':{class:'slider-input'} }) }}       
+    </div><!-- end .spacer -->                   
+    <div class="slider-wrapper">
+        <div id="budget_slider"></div>
+    </div><!-- end .slider-wrapper -->
+</div><!-- end section --> 
+<div class="frm-row">
+    <div class="section colm colm6">
+        <label class="field prepend-icon file">
+            <span class="button"> Choose File </span>
+            <input type="file" class="gui-file" name="file1" id="file1" 
+                   onChange="document.getElementById('project_imageFile').value = this.value;">
+            {{ form_widget(form.imageFile,{ 'attr': {class: 'gui-input', placeholder:"upload project image", readonly:true} }) }}
+            <span class="field-icon"><i class="fa fa-upload"></i></span>
+        </label>
+    </div><!-- end  section -->                     
+    <div class="section colm colm6">
+        <label class="field prepend-icon file">
+            <span class="button"> Choose File </span>
+            <input type="file" class="gui-file" name="file1" id="file2" 
+                   onChange="document.getElementById('project_galleryFiles').value = this.value;">
+            {{ form_widget(form.galleryFiles,{ 'attr': {class: 'gui-input', placeholder:"upload more files", readonly:true} }) }}
+            <span class="field-icon"><i class="fa fa-upload"></i></span>
+        </label>
+    </div><!-- end section -->               
+</div><!-- end frm-row section -->
+<div class="frm-row">
+    <div class="section colm colm12">
+        <label class="field prepend-icon">
+            {{ form_widget(form.summary,{ 'attr': {class: 'gui-textarea', placeholder:"Project Details"  } }) }}
+            <span class="field-icon"><i class="fa fa-comments"></i></span>
+            <span class="input-hint"> 
+                <strong>Project Details:</strong> add more project specific details
+            </span>     
+        </label>
+    </div><!-- end section -->
+</div><!-- end frm-row section -->
+
+
+
+

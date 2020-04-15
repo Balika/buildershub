@@ -1,0 +1,63 @@
+<!-- jQuery -->    
+<script type="text/javascript" src="{{asset('store/js/jquery-2.1.4.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('store/js/bootstrap.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('store/js/jquery-ui.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('store/js/owl.carousel.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('store/js/wow.min.js')}}"></script> 
+<script type="text/javascript" src="{{asset('store/js/jquery.actual.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('store/js/chosen.jquery.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('store/js/jquery.bxslider.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('store/js/jquery.sticky.js')}}"></script>
+<script type="text/javascript" src="{{asset('store/js/jquery.elevateZoom.min.js')}}"></script>
+<script src="{{asset('store/js/fancybox/source/jquery.fancybox.pack.js')}}"></script>
+<script src="{{asset('store/js/fancybox/source/helpers/jquery.fancybox-media.js')}}"></script>
+<script src="{{asset('store/js/fancybox/source/helpers/jquery.fancybox-thumbs.js')}}"></script>
+<script type="text/javascript" src="{{asset('store/js/function.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('store/js/Modernizr.js')}}"></script>
+<script type="text/javascript" src="{{asset('store/js/jquery.plugin.js')}}"></script>
+<script type="text/javascript" src="{{asset('store/js/jquery.countdown.js')}}"></script>  
+<script type="text/javascript" src="{{asset('plugins/select2/select2.full.min.js')}}"></script>
+<script src="{{asset('plugins/iCheck/icheck.min.js')}}"></script>
+<script src="{{asset('plugins/hinclude/hinclude.js')}}"></script>
+<!--############################HubScripts####################################-->
+<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+<script src="{{asset('js/feedback.js')}}"></script>
+<script src="{{asset('js/bootstrap-confirmation.js')}}"></script>
+
+<script type="text/javascript" src="{{asset('js/smart-forms/jquery.form.min.js')}}"></script> 
+<script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script> 
+<script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script> 
+<script type="text/javascript" src="{{asset('js/smart-forms/smart-form.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-custom.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-combo.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/smart-forms/smartforms-modal.min.js')}}"></script>
+
+<script>
+    //Initialize Select2 Elements
+    $("select[data-select='true']").select2();   
+</script>
+<script>    
+    //Global variables accessible in all scripts files 
+    var ajaxLoader = "{{asset('images/ajax-loader.gif')}}";
+    var loaderHTML = "<div class='overlay'><div class='overlay-content'><img src='" + ajaxLoader + "' alt='Loading...'/></div></div>";
+    var loaderHolder = ".overlay";
+    var asynContentHolder = "#asynPageContent";
+    var siteWrapper = "#site-main";
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
+    });
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+        checkboxClass: 'icheckbox_minimal-red',
+        radioClass: 'iradio_minimal-red'
+    });
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+        checkboxClass: 'icheckbox_flat-green',
+        radioClass: 'iradio_flat-green'
+    });
+</script>
+

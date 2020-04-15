@@ -1,0 +1,30 @@
+<li style="width: 33%"> <a href="{{path('find_builders',{'b-page':'artisans'})}}" title="home samples">Artisans & Draftmen</a> <span class="arrow"></span>
+    <ul>
+        {% for category in artisanCategories|slice(0, 7) %}
+            <li> <a href="{{path('find_builders',{'b-page':'artisans','category':category.slug})}}" title="{{category.practitioner}}"><i class="fa fa-angle-right"></i>&nbsp; {{category.practitioner|length > 20 ? category.practitioner|slice(0,20)~'...': category.practitioner~'s'}}</a> </li>
+            {% endfor %}
+        <li>
+            <p align="right">
+                <a rel="nofollow" href="{{path('find_builders',{'b-page':'artisans'})}}" class="animated-button thar-one font-weight-7 lspace-6"> Find Artisans</a>
+            </p>
+        </li>
+    </ul>
+</li>
+<li style="width: 33%"> <a href="{{path('find_builders',{'b-page':'professionals'})}}">Other Professionals</a> <span class="arrow"></span>
+    <ul>
+        {% for category in professionalCategories|slice(0, 7) %}
+            <li> <a href="{{path('find_builders',{'b-page':'professionals','category':category.slug})}}" title="{{category.practitioner}}"><i class="fa fa-angle-right"></i>&nbsp; {{category.practitioner|length > 20 ? category.practitioner|slice(0,20)~'...' : category.practitioner~'s'}}</a> </li>
+            {% endfor %}
+    </ul>
+    <p align="right">
+        <a rel="nofollow" href="{{path('find_builders',{'b-page':'professionals'})}}" class="animated-button thar-one font-weight-7 lspace-6"> Find Consultants</a>
+    </p>
+</li>
+<li style="width: 33%"> <a href="#">Construction Sector Firms</a> <span class="arrow"></span>
+    <ul>
+        <li> <a href="#"><i class="fa fa-angle-right"></i> Suppliers of Materials</a> </li>
+        <li> <a href="#"><i class="fa fa-angle-right"></i> Consulting Firms</a> </li>
+        <li> <a href="#"><i class="fa fa-angle-right"></i> Construction Firms</a> </li> 
+        <li> <a href="#"><i class="fa fa-angle-right"></i> Property / Estate Owners </a> </li> 
+    </ul>
+</li>

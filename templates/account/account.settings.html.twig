@@ -1,0 +1,350 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent()}}
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"  href="{{asset('js/smart-forms/smart-addons.css')}}">
+    <link rel="stylesheet" href="{{asset('js/popup/novicell.css')}}">
+    <link rel="stylesheet" href="{{asset('js/popup/popup.css')}}">
+    <style>
+        .personal-details-links > ul > li{
+            margin-left: 10px;        
+            padding: 2px;
+            border-bottom: dotted 1px gray;
+        }
+    </style>
+{% endblock %}
+{% block  content %}
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row">                
+                <div class="col-md-12 text-left">
+                    <ol class="breadcrumbs-2">
+                        <li><a href="{{path('home')}}"><i class="fa fa-home" aria-hidden="true"></i> Home</a><span><i class="fa fa-angle-right" aria-hidden="true"></i></span></li>
+                        <li class="current"><a href="#"><i class="fa fa-wrench" aria-hidden="true"></i> Account Settings</a></li>
+                        <li class="pull-right"><a target="_new" class="btn btn-tiny border border-green xround-1" href="{{path('user_profile', {'usernameCanonical':user.usernameCanonical})}}"><span class="fa fa-eye"> View Your Public Profile</span></a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="sec-padding">
+        <div class="container">
+            <div class="col-divider-margin-1"></div>
+            <div class=" divider-line solid light"></div>  
+            <div class="col-divider-margin-1"></div>  
+            <div class="row">
+                <div class="col-md-3 col-sm-9 col-xs-12 personal-details-links">
+                    <div class="icons-list-1 icon-small border-bottom">
+                        <div class="icon icon-green icon-circle"><i class="fa fa-user" aria-hidden="true"></i></div>
+                        <div class="text uppercase"><a href='{{path('account_settings', {'tab':'personal-details', 'sub':'dashboard'})}}' style="color: {{tab=='personal-details'?'orange'}}">Personal Details</a></div>
+                    </div>
+                    <ul class="border-bottom {{tab=='personal-details'?'show':'hide'}}">
+                        <li>
+                            <a href="{{path('account_settings', {'tab':'personal-details', 'sub':'dashboard'})}}">
+                                <div class="icon" style="color: {{sub=='dashboard'?'#1fcf6d':''}}"><i class="fa fa-dashboard"></i> Dashboard</div>                                
+                            </a>
+                        </li> 
+                        <br/>
+                        <li>
+                            <a href="{{path('account_settings', {'tab':'personal-details', 'sub':'security'})}}">
+                                <div class="icon" style="color: {{sub=='security'?'#1fcf6d':''}}"><i class="fa fa-lock"></i> Location & Security Settings</div>                                
+                            </a>
+                        </li> 
+                        <br/>
+                        {% if user.person.personType == 'builder'  %}
+                            {% include 'account/profile-sub/includes/builder.sidelinks.html.twig' %}
+                        {% endif %}
+                    </ul>
+                    <!--end item-->
+                    <div class="icons-list-1 icon-small border-bottom">
+                        <div class="icon icon-blue icon-circle"><i class="fa fa-briefcase" aria-hidden="true"></i></div>
+                        <div class="text uppercase"><a href='{{path('account_settings', {'tab':'firm-details', 'sub':'manage-firms'})}}' style="color: {{tab=='firm-details'?'orange'}}">Companies/Firms </a></div>
+                    </div>
+                    <ul class="border-bottom {{tab=='firm-details' ? 'show':'hide'}}">
+                        <li>
+                            <a href="{{path('account_settings', {'tab':'firm-details', 'sub':'manage-firms'})}}">
+                                <div class="icon" style="color: {{sub=='manage-firms'?'#1fcf6d':''}}"><i class="fa fa-book"></i> Manage Firms</div>                                
+                            </a>
+                        </li> 
+                        <br/>
+                        <li>
+                            <a href="{{path('account_settings', {'tab':'firm-details', 'sub':'add-new'})}}">
+                                <div class="icon" style="color: {{sub=='add-new'?'#1fcf6d':''}}"><i class="fa fa-plus"></i> Add New Firm</div>                                
+                            </a>
+                        </li> 
+                        <br/>
+                    </ul>
+                </div>               
+                <div class="col-md-9 col-sm-3 col-xs-12 slide-controls-primary">
+                    <div class="col-md-12 col-xs-12">   
+                        <div class="ce4-feature-box-3 margin-bottom box-shadow-1 hover-shadow-1">                    
+                            {% include template %}
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <!--end item-->
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+{% block pageScripts %}
+    {{parent()}}
+    <script src="{{asset('js/accordion/js/smk-accordion.js')}}"></script> 
+    <script src="{{asset('js/accordion/js/custom.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.steps.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.form.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script> 
+    <!--<script type="text/javascript" src="{{asset('js/smart-forms/smart-form.js')}}"></script>-->
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-custom.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery-ui-touch-punch.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.formShowHide.min.js')}}"></script>   
+    <script src="{{asset('js/preload-list.js')}}"></script> 
+    <script>
+        $("#association_dateJoined").datepicker({
+            defaultDate: "+1w",
+            changeMonth: false,
+            numberOfMonths: 1,
+            dateFormat: "yy-mm-dd",
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>'
+
+        });
+        $("#award_awardDate").datepicker({
+            defaultDate: "+1w",
+            changeMonth: false,
+            numberOfMonths: 1,
+            dateFormat: "yy-mm-dd",
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>'
+
+        });
+        $("#experience_startDate").datepicker({
+            defaultDate: "+1w",
+            changeMonth: false,
+            numberOfMonths: 1,
+            dateFormat: "yy-mm-dd",
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            onClose: function (selectedDate) {
+                $("#experience_endDate").datepicker("option", "minDate", selectedDate);
+            }
+        });
+        $("#experience_endDate").datepicker({
+            defaultDate: "+1w",
+            changeMonth: false,
+            numberOfMonths: 1,
+            dateFormat: "yy-mm-dd",
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            onClose: function (selectedDate) {
+                $("#experience_startDate").datepicker("option", "maxDate", selectedDate);
+            }
+
+        });
+        $('#profilePassion').on('click', 'a#editPassion, a#hidePassionForm', function (e) {
+            e.preventDefault();
+            var itemClicked = $(this).attr('id');
+            switch (itemClicked) {
+                case 'editPassion':
+                    $('#profileFormPanel').removeClass('hide');
+                    $('#profileDisplayPanel').addClass('hide');
+                    $('#editPassion').addClass('hide');
+                    $('#hidePassionForm').removeClass('hide');
+                    break;
+                case 'hidePassionForm':
+                    $('#profileFormPanel').addClass('hide');
+                    $('#profileDisplayPanel').removeClass('hide');
+                    $('#hidePassionForm').addClass('hide');
+                    $('#editPassion').removeClass('hide');
+                    break;
+                default:
+                    break;
+            }
+        });
+    </script>
+    <script src="{{asset('js/popup/novicell.js')}}"></script>
+    <script type="text/javascript">
+        // Waiting for the DOM to load
+        document.addEventListener("DOMContentLoaded", function () {
+            // Select your overlay trigger
+            var trigger = document.querySelector('#js-overlay-trigger');
+            trigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                novicell.overlay.create({
+                    'selector': trigger.getAttribute('data-element'),
+                    'class': 'selector-overlay',
+                    "onCreate": function () {
+                        console.log('created');
+                    },
+                    "onLoaded": function () {
+                        console.log('loaded');
+                    },
+                    "onDestroy": function () {
+                        console.log('Destroyed');
+                    }
+                });
+            });
+            var userTrigger = document.querySelector('#user-details-trigger');
+            userTrigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                novicell.overlay.create({
+                    'selector': userTrigger.getAttribute('data-element'),
+                    'class': 'selector-overlay',
+                    "onCreate": function () {
+                        console.log('created');
+                    },
+                    "onLoaded": function () {
+                        console.log('loaded');
+                    },
+                    "onDestroy": function () {
+                        console.log('Destroyed');
+                    }
+                });
+            });
+            // Video overlay
+            var videoOverlayTriggers = document.querySelectorAll('.js-video-overlay-trigger');
+            for (var i = 0; i < videoOverlayTriggers.length; i++) {
+                videoOverlayTriggers[i].addEventListener('click', function (e) {
+                    e.preventDefault();
+                    var currentTrigger = e.target;
+                    novicell.overlay.create({
+                        'videoId': currentTrigger.getAttribute('data-video-id'),
+                        'type': currentTrigger.getAttribute('data-type'),
+                        'class': 'video-overlay'
+                    });
+                });
+            }
+            var specialtyTrigger = document.querySelector('#specialty-trigger');
+            specialtyTrigger.addEventListener('click', function (e) {
+                e.preventDefault();
+                novicell.overlay.create({
+                    'selector': trigger.getAttribute('data-element'),
+                    'class': 'selector-overlay',
+                    "onCreate": function () {
+                        console.log('created');
+                    },
+                    "onLoaded": function () {
+                        console.log('loaded');
+                    },
+                    "onDestroy": function () {
+                        console.log('Destroyed');
+                    }
+                });
+            });
+        });
+        //+++++++++++++++++++++++++++++  Add New Firm ++++++++++++++++++++++++++++++++++       
+        $(function () {
+            $("#smart-form").steps({
+                bodyTag: "fieldset",
+                headerTag: "h2",
+                transitionEffect: "slideLeft",
+                titleTemplate: "<span class='number'>#index#</span> #title#",
+                labels: {
+                    finish: "Submit Firm",
+                    next: "Continue",
+                    previous: "Go Back",
+                    loading: "Loading..."
+                },
+                onStepChanging: function (event, currentIndex, newIndex) {
+                    if (currentIndex > newIndex) {
+                        return true;
+                    }
+                    var form = $(this);
+                    if (currentIndex === 2) {
+                        previewProjectEntries();
+                    }
+                    return form.valid();
+                },
+                onStepChanged: function (event, currentIndex, priorIndex) {
+                },
+                onFinishing: function (event, currentIndex) {
+                    var form = $(this);
+                    form.validate().settings.ignore = ":disabled";
+                    return form.valid();
+                },
+                onFinished: function (event, currentIndex) {
+                    var form = $(this);
+                    form.submit();
+                }
+            }).validate({
+                errorClass: "state-error",
+                validClass: "state-success",
+                errorElement: "em",
+                onkeyup: false,
+                onclick: false,
+                rules: {
+                    firstname: {
+                        required: true
+                    },
+                    project_user_email: {
+                        required: true,
+                        email: true
+                    },
+                    project_contactNo: {
+                        required: true,
+                        number: true
+                    },
+                    lastname: {
+                        required: true
+                    },
+                    project_title: {
+                        required: true
+                    },
+                    contact_person: {
+                        required: true
+                    },
+                    generalTerms: {
+                        required: true
+                    }
+                },
+                messages: {
+                    firstname: {
+                        required: "Please enter firstname"
+                    },
+                    lastname: {
+                        required: "Please enter lastname"
+                    },
+                    project_user_email: {
+                        required: 'Please enter email',
+                        email: 'Enter a valid email address'
+                    },
+                    project_contactNo: {
+                        required: 'Please enter telephone',
+                        number: 'Please enter numbers only'
+                    },
+                    project_title: {
+                        required: "Please enter the project title"
+                    },
+                    contact_person: {
+                        required: 'Please enter contact person'
+                    },
+                    generalTerms: {
+                        required: 'Please agree to our terms'
+                    }
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).closest('.field').addClass(errorClass).removeClass(validClass);
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).closest('.field').removeClass(errorClass).addClass(validClass);
+                },
+                errorPlacement: function (error, element) {
+                    if (element.is(":radio") || element.is(":checkbox")) {
+                        element.closest('.option-group').after(error);
+                    } else {
+                        error.insertAfter(element.parent());
+                    }
+                }
+
+            });
+            $('.smartfm-ctrl').formShowHide();
+            $('div#companyTypesHolder').on('submit', 'form.newFirmForm', function (e) {
+                $("##companyTypesHolder").prepend(loaderHTML);
+            });
+        });
+
+    </script>
+{% endblock %}

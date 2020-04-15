@@ -1,0 +1,51 @@
+<table id="rentedOut" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Rental Rate (GHc)</th>
+            <th>Billing Cycle</th>
+            <th>Units Available</th>
+            <th>Date Posted</th>           
+            <th>Is on Promo</th>         
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rented in rentedList %}
+            <tr>
+                <td>
+                    <a href="{{path('hubernize_rental_ads_placement', {'action':'update', 'ad_slug':ad.slug})}}">
+                        <img src="{{ad.featureImage is not null ? asset(ad.featureImage|imagine_filter('hub_thumbnail')) : 
+                            ad.equipment.featureImage is not null  ? asset(ad.equipment.featureImage|imagine_filter('hub_thumbnail'))}}" width="80px" height="60px"/>
+                    </a>
+                </td>
+                <td>{{ad.title}}</td>
+                <td>{{ad.rentalRate}}</td>
+                <td>{{ad.billingCycle}}</td>
+                 <td>{{ad.unitsAvailable}}</td>
+                <td>{{ad.datePublished|date('d/m/Y')}}</td>
+                <td>
+                    {% if ad.isPromoted %} 
+                        <span  class="text-success"><strong>YES</strong></span>
+                    {% else %}
+                        <a href="#">Promot Ad</a>
+                    {% endif  %} 
+                </td>
+                <td><a href="{{path('hubernize_rental_ads_placement', {'action':'update', 'ad_slug':ad.slug})}}" class="text-danger"><i class="fa fa-pencil"></i> Edit Ad</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Image</th>
+            <th>Title</th>
+            <th>Rental Rate (GHc)</th>
+            <th>Billing Cycle</th>
+            <th>Units Available</th>
+            <th>Date Posted</th>           
+            <th>Is on Promo</th>         
+            <th>Action</th>
+        </tr>
+    </tfoot>
+</table>

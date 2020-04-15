@@ -1,0 +1,139 @@
+<div class="smart-wrap">
+    <div class="smart-forms smart-container transparent wrap-0">
+        {{form_start(form, {method:'POST', 'attr':{id:'equipment-form'} })}}
+        <div class="form-body">
+            <!--<div class="spacer-b30">
+                <div class="tagline"><span>Form UI Elements </span></div><!-- .tagline             
+            </div>-->
+            <div class="frm-row">
+                <div class="colm colm6">
+                    <div class="section">
+                        <label class="field prepend-icon">
+                            {{form_widget(form.name, {'attr':{class:'gui-input', placeholder:'Type equipment name'} })}}
+                            <span class="field-icon"><i class="fa fa-pencil"></i></span> 
+                        </label>
+                    </div><!-- end section -->                     
+                    <div class="section">
+                        <label class="field prepend-icon">
+                            {{form_widget(form.slug, {'attr':{class:'gui-input', 'placeholder':'Slug: nice name to be used in url', readonly:true} } )}}
+                            <span class="field-icon"><i class="fa fa-user"></i></span>  
+                        </label>
+                    </div><!-- end section -->
+                    <div class="section">
+                        <label class="field select">
+                            {{form_widget(form.category, {'attr':{class:'gui-input'} })}}
+                            <i class="arrow double"></i>                                               
+                        </label>
+                    </div><!-- end section -->
+                    <div class="section">
+                        <label class="field prepend-icon">
+                            {{form_widget(form.assetLabel, {'attr':{class:'gui-input', 'placeholder':'Asset Label'} } )}}
+
+                            <span class="field-icon"><i class="fa fa-search"></i></span>  
+                        </label>
+                    </div><!-- end section -->  
+                    <div class="section">
+                        <label class="field prepend-icon">
+                            {{form_widget(form.registrationNumber, {'attr':{class:'gui-input', 'placeholder':'Registration Number'} } )}}                                
+                            <span class="field-icon"><i class="fa fa-globe"></i></span>  
+                        </label>
+                    </div><!-- end section -->   
+                    <div class="section">
+                        <label class="field prepend-icon">
+                            {{form_widget(form.chasisNumber, {'attr':{class:'gui-input', 'placeholder':'Chasis Number'} })}}                                
+                            <span class="field-icon"><i class="fa fa-globe"></i></span>  
+                        </label>
+                    </div><!-- end section -->                           
+                </div><!-- end .colm6 section -->
+                <div class="colm colm6">
+                    <div class="section">
+                        <label class="field prepend-icon">
+                            {{form_widget(form.brand, {'attr':{class:'gui-input', 'placeholder':'Equipment Brand'} })}}                                
+                            <span class="field-icon"><i class="fa fa-globe"></i></span>  
+                        </label>
+                    </div><!-- end section -->                           
+                    <div class="section">
+                        <label class="field prepend-icon">
+                            {{form_widget(form.color, {'attr':{class:'gui-input', 'placeholder':'Color'} })}}                                
+                            <span class="field-icon"><i class="fa fa-envelope"></i></span>  
+                        </label>
+                    </div><!-- end section -->
+                    <div class="section">
+                        <label class="field select">
+                            {{form_widget(form.status, {'attr':{class:'gui-input'} })}}
+                            <i class="arrow double"></i>                                               
+                        </label>
+                    </div><!-- end section -->
+                    <div class="section">
+                        <label class="field prepend-icon">
+                            {{form_widget(form.output, {'attr':{class:'gui-input', 'placeholder':'Equipment Capacity/Output'} } )}}                                
+                            <span class="field-icon"><i class="fa fa-envelope"></i></span>  
+                        </label>
+                    </div><!-- end section -->
+                    <div class="section">
+                        <label class="field prepend-icon">
+                            {{form_widget(form.outputUnit, {'attr':{class:'gui-input', 'placeholder':'Capacity unit of measure'} })}}                                
+                            <span class="field-icon"><i class="fa fa-phone-square"></i></span>  
+                        </label>
+                    </div><!-- end section -->
+                    <div class="section">
+                        <label class="field prepend-icon">
+                            {{form_widget(form.noOfAxles, {'attr':{class:'gui-input', 'placeholder':'Number of Axles'} } )}}                                
+                            <span class="field-icon"><i class="fa fa-lock"></i></span>  
+                        </label>
+                    </div><!-- end section -->                            
+                </div><!-- end .colm6 section -->  
+            </div><!-- end .frm-row section --> 
+            <div class="frm-row">
+                <div class="colm colm12">
+                    <div class="section">
+                        <label class="field prepend-icon">
+                            {{form_widget(form.description, {'attr':{class:'gui-textarea', 'placeholder':'Type equipment description'} } )}}                                
+                            <span class="field-icon"><i class="fa fa-file"></i></span>
+                            <span class="input-hint"> 
+                                <strong>Hint:</strong> Give more details about this equipment
+                            </span>   
+                        </label>
+                    </div><!-- end section -->                     
+                </div>
+            </div>
+            <div class="frm-row">
+                <div class="colm colm6">
+                    <div class="section">
+                        <label class="field prepend-icon file">
+                            <span class="button"> Choose File </span>
+                            {{form_widget(form.imageFile, {'attr':{class:'gui-file',  onChange:"document.getElementById('uploader1').value = this.value;"} })}}                           
+                            <input type="text" class="gui-input" id="uploader1" placeholder="select equipment image" readonly>
+                            <span class="field-icon"><i class="fa fa-upload"></i></span>
+                        </label>
+                    </div><!-- end  section -->                          
+                    <div class="section">
+                        <label class="field prepend-icon file">
+                            <span class="button"> Choose Files </span>
+                            {{form_widget(form.galleryFiles, {'attr':{class:'gui-file', onChange:"document.getElementById('uploader2').value = this.value;"} })}}
+                            <input type="text" class="gui-input" id="uploader2" placeholder="select more images" readonly>
+                            <span class="field-icon"><i class="fa fa-upload"></i></span> 
+                        </label>
+                    </div><!-- end section --> 
+                </div>
+                <div class="colm colm6">
+                    <div class="section">
+                        <label class="switch block">
+                            {{form_widget(form.isActive, {'attr':{class:'gui-file'} })}}
+                            <span class="switch-label" data-on="YES" data-off="NO"></span>
+                            <span> Is Visible </span>
+                        </label>                   
+                    </div><!-- end section -->    
+
+                </div>
+            </div>
+
+        </div>
+        <div class="form-footer">
+            <a href="{{path('hubernize_list_equipment')}}" class="button btn-default pull-left">Cancel</a>
+            <button type="submit" class="button btn-primary pull-right">Save Equipment</button>
+        </div><!-- end .form-footer section -->
+        {{form_widget(form._token)}}
+        {{form_end(form, {'render_rest':false})}}
+    </div>
+</div>

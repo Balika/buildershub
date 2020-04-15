@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-md-3">
+        <div class="img-box">
+            <div class="text-box">                        
+                <a class="btn btn-border border-1x light" href="{{path('user_profile', {'usernameCanonical':user.usernameCanonical})}}">
+                    <img src="{{asset(s3_images_url~user.person.profilePicture)}}" alt="" class="img-responsive"> 
+                </a> 
+            </div>                   
+        </div>
+        <div class="divider-line dotted text-gray-2"></div>  
+        <p class="text-gray-2">
+            You can change this picture on your <a href="{{path('user_profile', {'usernameCanonical':user.usernameCanonical})}}">Profile Page</a>                     
+        </p>
+        <div class="divider-line dotted text-gray-2"></div>  
+        <small class="text-gray-2">
+            Let people know the quality work you do: add <strong>experiences, qualifications, certifications, projects, clients  </strong> 
+            and more
+        </small>
+        <a target="_new" class="btn btn-small btn-success btn-anim-3 xround-6" title="What visitors see when they search your name" href="{{path('user_profile', {'usernameCanonical':user.usernameCanonical})}}">
+            <span>Public Profile - 90% </span> 
+            <i class="fa fa-eye"> Click to View</i>
+        </a>
+    </div>
+    <div class="col-md-6" id="userDetailsPanel">           
+        {% include "account/includes/user.details.form.dialog.html.twig" %}
+        <div class="call-to-action">
+            <h4 class="text-gray-2">
+                Contact & Location                 
+                <a   href="#userDetailsDlg" data-toggle="modal"  title="Edit Personal Info" class="pull-right" href="#">
+                    <div class="outline-orange"><span class="icon-pencil text-danger" data-icon=""></span></div>
+                </a>                       
+            </h4>
+            <div class="divider-line dotted text-gray-2"></div> 
+            Email: {{user.email}}
+            <br/>
+            Phone: {{user.person.contactNo}}
+            <div class="divider divider-left">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+            </div> 
+            <p>Address: {{user.person.address}}</p>
+            <div class="divider divider-left">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+            </div> 
+            <p>Region: {{user.userProfile.region}}</p>
+            <p>Town: {{user.userProfile.town}}</p>
+            <p>Sublocation: {{user.userProfile.subLocation}}</p>
+        </div>
+    </div>
+    <div class="col-md-3" style="background-color: whitesmoke; border-radius: 4px">              
+        <div class="text-box padding-2 text-center">
+            <span class="icon-lock icon-plain-small text-primary margin-bottom-1"></span>
+            <h5 class="font-weight-6 margin-bottom-1">Login Credentials</h5>                    
+        </div> 
+        <br/>
+        <p>{{user.email}}</p>
+        <p>Password: ************</p>
+        <div class="divider divider-left">
+            <i class="fa fa-info" aria-hidden="true"></i>
+        </div> 
+        <p class="text-gray-2"><strong>Use a combination of different characters to avoid people from easily guessing your password</strong></p>
+        <div class="demo-content">
+            <button id="js-overlay-trigger" class="btn btn-medium border border-green xround-2" data-element="#js-overlay-content" type="button"><span>Change Password</span></button>                
+        </div>
+        <div class="overlay-content smartforms-modal-body" id="js-overlay-content" style="display: none;">
+            <h3 class="font-weight-5 text-center">Password Reset Form</h3>                    
+            <div class="smart-wrap">
+                <div class="smart-forms smart-container transparent wrap-full" id="password-reset">                           
+                    {% include 'account/includes/password.reset.form.html.twig' %}                           
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-divider-margin-1"></div>
+<div class="divider-line dotted text-gray-2"></div> 
+<div class="col-divider-margin-1"></div>
+

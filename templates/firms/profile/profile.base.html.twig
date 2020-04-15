@@ -1,0 +1,218 @@
+{% extends "shared/page.base.html.twig" %}
+{% block stylesheets %}
+    {{ parent() }} 
+    <link href="{{asset('js/accordion/css/smk-accordion.css')}}" rel="stylesheet">
+    <link href="{{asset('js/smart-forms/smart-forms.css')}}" rel="stylesheet">
+    <link href="{{asset('js/smart-forms/smart-addons.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/shop.css')}}">
+    <link rel="stylesheet" href="{{asset('js/popup/novicell.css')}}">
+    <link rel="stylesheet" href="{{asset('js/popup/popup.css')}}">
+    <style>
+        #mapHolder a#logo{          
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            padding: 8px;
+            position: absolute;
+            top: 200px;           
+            left: 3%;           
+
+        }
+        #mapHolder p#companyName{          
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;            
+            position: absolute;
+            top: 20px;           
+            left: 35%;           
+            padding: 10px;
+            text-align:center; 
+            font-size:3em;
+            color: brown;
+        }
+        a.active{
+            color:orange;
+        }
+        .cbp-singlePagePost{
+
+        }
+        .nav-tabs { border-bottom: 1px solid #DDD; }
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover { border-width: 0; }
+        .nav-tabs > li > a { border: none; color: #666; }
+        .nav-tabs > li.active > a, .nav-tabs > li > a:hover { border: none; color: #4A4 !important; background: transparent; }
+        .nav-tabs > li > a::after { content: ""; background: #4A4; height: 2px; position: absolute; width: 100%; left: 0px; bottom: -1px; transition: all 250ms ease 0s; transform: scale(0); }
+        .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after { transform: scale(1); }
+        .tab-nav > li > a::after { background: #21527d none repeat scroll 0% 0%; color: #fff; }
+        .tab-pane { padding: 15px 0; }
+        .tab-content{padding:20px}
+        .widget-user .card {background: #FFF none repeat scroll 0% 0%; box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3); margin-bottom: 30px; }
+    </style>
+{% endblock%}
+{% block  content %}
+    <section class="page-title-5" style="background: url('{{firm.coverPicture is not null ? asset(s3_images_url~firm.coverPicture) : asset("images/bg-img-13.jpg")}}') no-repeat center top" >
+        <div class="container" id="coverPicturePanel">
+            <div class="row">
+                <div class="col-md-12" id="mapHolder">                    
+                    <div id="map_extended" class="map">
+                        <p>{{firm}} Google Map.</p>
+                    </div> 
+                    <a href="#" id="logo"> 
+                        <img src="{{firm.logo is not null ? asset(s3_images_url~firm.logo) : asset('images/default-user.png')}}" alt="" class="imgbox-xlarge round img-boder">
+                    </a>
+                    <p id="companyName"><strong>{{firm}}</strong></p>
+                </div>
+                <!--end map-->
+            </div>
+        </div>
+    </section>
+    <section class="sec-padding">
+        <div class="container">
+            <div class="row no-gutter nopadding">
+                <div class="col-md-2" id='profileLeftSidebar'>
+                    <div class="padding-top-1 text-left" id="engage-stats" style="padding:8px">
+                        <div class="icons-list-1 icon-tiny border-bottom">
+                            <div class="icon icon-green icon-circle"><i class="fa fa-dashboard" aria-hidden="true"></i></div>
+                            <div class="text"><a href="{{path('firm_profile',{'slug':firm.slug, 'page':'index'})}}" class="{{page=='index'?'active'}}"><strong>At a Glance</strong></a> </div>
+                        </div>
+
+                        <div class="icons-list-1 icon-tiny border-bottom">
+                            <div class="icon icon-blue icon-circle"><i class="fa fa-briefcase" aria-hidden="true"></i></div>
+                            <div class="text"><a href="{{path('firm_profile',{'slug':firm.slug, 'page':'works'})}}" class="{{page=='works'?'active'}}"><strong>Projects Portfolio</strong></a> </div>
+                        </div>   
+                        <div class="icons-list-1 icon-tiny border-bottom">
+                            <div class="icon icon-dark icon-circle"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+                            <div class="text"><a href="{{path('firm_profile',{'slug':firm.slug, 'page':'posts'})}}" class="{{page=='posts'?'active'}}"><strong>Posts</strong></a> </div>
+                        </div>                         
+                        <div class="icons-list-1 icon-tiny border-bottom">
+                            <div class="icon icon-red icon-circle"><i class="fa fa-users" aria-hidden="true"></i></div>
+                            <div class="text"><a href="{{path('firm_profile',{'slug':firm.slug, 'page':'our-clients'})}}" class="{{page=='our-clients'?'active'}}"><strong>Our Clients</strong></a> <span class="label label-primary pull-right">1,222</span></div>
+                        </div>   
+                        <div class="icons-list-1 icon-tiny border-bottom">
+                            <div class="icon icon-orange icon-circle"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                            <div class="text"><a href="{{path('firm_profile',{'slug':firm.slug, 'page':'history'})}}" class="{{page=='history'?'active'}}"><strong>Our History</strong></a>
+
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="text-center"><strong>Engage Us</strong></h6>
+                    <div class="col-divider-margin-1"></div>
+                    <div class=" divider-line solid light"></div>  
+                    <div class="col-divider-margin-1"></div> 
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation">
+                            <i class="fa fa-map-marker"></i> {{firm.businessLocation}}, {{firm.region}}
+                        </li>
+                        <div class="col-divider-margin-1"></div>
+                        <div class=" divider-line solid light"></div>  
+                        <div class="col-divider-margin-1"></div>
+                        <li role="presentation">
+                            <i class="fa fa-phone"></i> {{firm.mobile1}}, {{firm.telephone1}}
+                        </li>
+                        <div class="col-divider-margin-1"></div>
+                        <div class=" divider-line solid light"></div>  
+                        <div class="col-divider-margin-1"></div>
+                        <li role="presentation">
+                            <i class="fa fa-envelope"></i> {{firm.email}}
+                        </li>
+                        <div class="col-divider-margin-1"></div>
+                        <div class=" divider-line solid light"></div>  
+                        <div class="col-divider-margin-1"></div>
+                        <li role="presentation">
+                            <i class="fa fa-globe"></i> {{firm.url}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-10">
+                    <div class="col-md-9" id="pageContent">
+                        <div id="contactFirm" style="display:none">
+                            <div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>Address Info</h4>
+                                        <h6>BuildersHub by <a href="#">Baseline Technologies  Lab. Ltd</a></h6>
+                                        <p>P.O. Box A1 124, Spintex Road, Accra, Ghana
+                                            <br/>
+                                            Main Line: (+233) 246 7389 54
+                                            <br/>
+                                            Line 2: (+233) 208 6216 11
+                                        </p>
+                                        <br/>
+                                        <p>E-mail: info@buldershub.com</p>
+                                        <p>Website: www.buldershub.com</p>
+                                    </div>
+                                    <div class="col-md-8">
+                                        {% include 'firms/profile/includes/contact.firm.html.twig' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% include template %}
+                    </div>
+                    <div class="col-md-3"  id='profileRightSidebar'>
+                        <div id="grid-container">
+                            <div class="cbp-item">                                
+                                <a  class="btn btn-tiny border border-orange xround-1 cbp-singlePage uppercase" href="#contactFirm" ><span class="fa fa-file-text-o"> Request Our Service</span></a>                                
+                            </div>
+                        </div>
+                        <div class="col-divider-margin-1"></div>
+                        <div class=" divider-line solid light"></div>  
+                        <div class="col-divider-margin-1"></div>
+                        <div id="sponsoredContentHolder" class="cart-parent">
+                            <div class="cart-box">
+                                <div class="content">                                    
+                                    <ul>
+                                        <li> <a href='#'><img src="{{asset('images/cart-img1.jpg')}}" alt=""> Jean & Teashirt </a><span>$30</span> <a href="#" title="" class="close-btn">x</a> </li>
+                                        <li> <a href='#'><img src="{{asset('images/cart-img2.jpg')}}" alt=""> Jean & Teashirt</a> <span>$30</span> <a href="#" title="" class="close-btn">x</a> </li>
+                                    </ul>                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div id="userTypeContent">
+                        </div>
+                    </div> 
+                </div> 
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block pageScripts %}
+    {{parent()}}
+    <script src="{{asset('js/cubeportfolio/main.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.form.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/jquery.validate.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/additional-methods.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/smart-forms/smart-form.js')}}"></script>
+    <script src="{{asset('js/accordion/js/smk-accordion.js')}}"></script> 
+    <script src="{{asset('js/accordion/js/custom.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/cubeportfolio/slider-projects.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/cubeportfolio/masonry-projects.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/smart-forms/smartforms-modal.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('plugins/jquery.sticky-kit.min.js')}}"></script>
+    <script src="{{asset('js/popup/novicell.js')}}"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script> 
+    <script type="text/javascript" src="{{asset('js/gmaps/jquery.gmap.min.js')}}"></script> 
+    <script type="text/javascript" src="{{asset('js/gmaps/examples.js')}}"></script>
+    <script>
+        $("#profileLeftSidebar, #profileRightSidebar").stick_in_parent();
+        $("#work_startDate").datepicker({
+            defaultDate: "+1w",
+            changeMonth: false,
+            numberOfMonths: 1,
+            dateFormat: "yy-mm-dd",
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            onClose: function (selectedDate) {
+                $("#app_work_completionDate").datepicker("option", "minDate", selectedDate);
+            }
+        });
+        $("#work_completionDate").datepicker({   
+            defaultDate: "+1w",
+            changeMonth: false,
+            numberOfMonths: 1,
+            dateFormat: "yy-mm-dd",
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            onClose: function (selectedDate) {
+                $("#app_work_startDate").datepicker("option", "maxDate", selectedDate);
+            }
+        });
+    </script>
+{% endblock %}

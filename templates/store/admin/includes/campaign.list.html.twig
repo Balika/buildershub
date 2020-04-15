@@ -1,0 +1,59 @@
+<div class="box box-white box-solid">
+    <div class="box-header">
+        <h3 class="box-title">Current Campaigns</h3>
+        <div class="box-tools pull-right">
+            <a  class="btn btn-sm btn-primary"  data-toggle="modal" href="#campaignDlg">Create New Campaign</a>
+
+            <!-- <ul>
+                 <li class="dropdown">
+                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                         Actions <span class="caret"></span>
+                     </a>
+                     <ul class="dropdown-menu">                                    
+                         <li role="presentation"><a  data-toggle="modal" href="#campaignDlg">Create New Campaign</a></li>
+                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Mark as Delivered</a></li>                                   
+                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Mark Cancelled</a></li>
+                     </ul>
+                 </li>
+             </ul>-->
+        </div>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <table id="campaignsTbl" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Campaign Banner</th>
+                    <th>Name</th>
+                    <th>Discount Rate (%)</th>
+                    <th>Start Date</th> 
+                    <th>End Date</th>
+                </tr>
+            </thead>
+            <tbody id="campaign-list">
+                {% for campaign in supplier.campaigns %}
+                    <tr>
+                        <td>
+                            <a href="#">
+                                <img src="{{campaign.banner is not null ? asset(campaign.banner|imagine_filter('hub_thumbnail'))}}" width="80px" height="60px"/>
+                            </a>
+                        </td>
+                        <td><a href="#">{{campaign.name}}</a></td>
+                        <td>{{campaign.discountRate|number_format(1, '.', ',')}}</td>
+                        <td>{{campaign.startDate|date('d/m/Y')}}</td>    
+                        <td>{{campaign.endDate|date('d/m/Y')}}</td>                                  
+                    </tr>
+                {% endfor %}                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Campaign Banner</th>
+                    <th>Name</th>
+                    <th>Discount Rate (%)</th>
+                    <th>Start Date</th> 
+                    <th>End Date</th>                
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+

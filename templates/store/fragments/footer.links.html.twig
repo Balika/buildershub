@@ -1,0 +1,23 @@
+{% set noSubCat = [] %}
+{%  for cat in topLevelCategories %}
+    <ul>
+        {% if cat.subCategories|length > 1 %}
+            <li><a href="{{path('category_view',{'slug':cat.slug})}}" class="links-primary" title="{{cat}}">{{cat ~': '}}</a></li>
+                {% for subCat in cat.subCategories|slice(0,20) %}
+                <li><a href="{{path('category_view',{'slug':subCat.slug})}}" title="{{subCat}}">{{subCat|length>18 and cat.subCategories|length > 7 ? subCat|slice(0, 18)~'...' : subCat }}</a></li>
+                {% endfor %} 
+            {% else %}
+                {% set noSubCat = noSubCat|merge([cat]) %}
+            {% endif %}
+    </ul>
+{% endfor %}
+{% if noSubCat|length > 0 %}
+    <ul>
+        <li><a href="#" class="links-primary">Other Categories: </a>
+        </li>
+        {%  for cat in noSubCat %}
+            <li><a href="{{path('category_view',{'slug':cat.slug})}}" title="{{cat}}">{{cat}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

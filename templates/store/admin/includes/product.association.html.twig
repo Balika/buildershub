@@ -1,0 +1,95 @@
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h4 class="box-title">Product Categories</h4>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div><!-- /.box-tools -->
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs pull-right">
+                <li><a href="#most_used" data-toggle="tab">Most Used</a></li> 
+                <li class="active"><a href="#productCategories" data-toggle="tab">All Categories</a></li>                                                      
+                <!--<li class="pull-left header"><i class="fa fa-th"></i>
+                    <input type="checkbox" id="allCategories" class="minimal"/>
+                </li>-->
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="productCategories" style="max-height: 400px; overflow-y: scroll">
+                    {% for category in productCategories %}
+                        <p>
+                            <input class="minimal"  type="checkbox" value="{{category.id}}" id="productCategory" {{category.id in product.categories ? 'checked'}}> &nbsp; <strong>{{category}}</strong>                                                                 
+                        </p>
+                        {% for subCat in category.subCategories %}
+                            <p style="margin-left: 15px">
+                                <input type="checkbox" class="minimal" value="{{subCat.id}}" id="productCategory" {{subCat.id in product.categories ? 'checked'}}> &nbsp; <strong>{{subCat}}</strong>
+                            </p>
+                            {% for childCat in subCat.subCategories %}
+                                <p style="margin-left: 30px">
+                                    <input  type="checkbox" class="minimal" value="{{childCat.id}}" id="productCategory" {{childCat.id in product.categories ? 'checked'}}> &nbsp; {{childCat}}
+                                </p>
+                            {% endfor %} 
+                        {% endfor %} 
+                    {% endfor %}
+                    <script>
+                        //iCheck for checkbox and radio inputs
+                        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                            checkboxClass: 'icheckbox_minimal-blue',
+                            radioClass: 'iradio_minimal-blue'
+                        });
+                    </script>
+                    <input type="hidden" name="selectedCategories"/>
+                </div><!-- /.tab-pane -->
+                <div class="tab-pane" id="most_used">
+
+                </div><!-- /.tab-pane -->
+
+            </div><!-- /.tab-content -->
+        </div><!-- nav-tabs-custom -->
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h4 class="box-title">Product Tags</h4>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div><!-- /.box-tools -->
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        <div class="input-group input-group-sm">
+            <div class="input-group input-group-sm">
+                <input type="text" name="tags" placeholder="Enter tag separated by comma " class="form-control" size="80%">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default btn-flat"><span class="fa fa-plus"></span> Add</button>
+                </span>
+            </div>
+        </div>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h4 class="box-title">Product Image</h4>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div><!-- /.box-tools -->
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        {{form_widget(form.imageFile, { 'attr': {class: 'form-control'  } })}}
+        <p>
+            {% if product.id >= 0 and product.featureImage != null %}
+                <img src="{{asset(product.featureImage|imagine_filter('hub_thumbnail'))}}" class="img-responsive" style="border-radius: 5px" >
+            {% endif %}
+        </p>
+    </div><!-- /.box-body -->
+</div><!-- /.box -->
+<div class="box box-default box-solid">
+    <div class="box-header with-border">
+        <h4 class="box-title">Photo Gallery</h4>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+        </div><!-- /.box-tools -->
+    </div><!-- /.box-header -->
+    <div class="box-body">
+        {{form_widget(form.galleryFiles, { 'attr': {class: 'form-control'   } })}}
+    </div><!-- /.box-body -->
+</div><!-- /.box -->

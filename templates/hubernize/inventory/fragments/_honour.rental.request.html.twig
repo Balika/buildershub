@@ -1,0 +1,164 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h4 class="modal-title" id="myModalLabel"> <span style="color: green"><strong>Processing Request from {{request.user is not null ? request.user.email ~' ('~request.phone ~') ': ' ('~request.phone ~')'}}</strong></span> </h4>
+</div>             
+<div class="modal-body">
+    <div class="smart-wrap">
+        <div class="smart-forms smart-container transparent wrap-0">
+            {{form_start(form, {method:'POST', 'attr':{id:'rented-out-form'} })}}
+            <div class="form-body">
+                <!--<div class="spacer-b30">
+                    <div class="tagline"><span>Form UI Elements </span></div><!-- .tagline             
+                </div>-->
+                <div class="frm-row">
+                    <div class="colm colm6">
+                        <div class="section">
+                            <label>Rental Rate</label>
+                            <label class="field prepend-icon">
+                                {{form_widget(form.rentalRate, {'attr':{class:'gui-input', placeholder:'Type the rental amount'} })}}
+                                <span class="field-icon"><i class="fa fa-money"></i></span> 
+                            </label>
+                        </div><!-- end section -->                     
+                        <div class="section">
+                            <label>Rent Start Date</label>
+                            <label class="field prepend-icon">
+                                {{form_widget(form.startDate, {'attr':{class:'gui-input'} } )}}
+                                <span class="field-icon"><i class="fa fa-calendar"></i></span>  
+                            </label>
+                        </div><!-- end section -->
+                        <div class="section">
+                            <label>Rental Duration</label>
+                            <label class="field prepend-icon">
+                                {{form_widget(form.rentalDuration, {'attr':{class:'gui-input', readonly:true} } )}}
+                                <span class="field-icon"><i class="fa fa-clock-o"></i></span>  
+                            </label>
+                        </div><!-- end section -->                     
+                        <div class="section">
+                            <label>Amount Paid</label>
+                            <label class="field prepend-icon">
+                                {{form_widget(form.amountPaid, {'attr':{class:'gui-input', 'placeholder':'Enter amount paid'} } )}}
+                                <span class="field-icon"><i class="fa fa-money"></i></span>  
+                            </label>
+                        </div><!-- end section -->  
+                        <div class="section">
+                            <label>Date Paid</label>
+                            <label class="field prepend-icon">
+                                {{form_widget(form.datePaid, {'attr':{class:'gui-input'} } )}}
+                                <span class="field-icon"><i class="fa fa-calendar"></i></span>  
+                            </label>
+                        </div><!-- end section -->
+                        <div class="section">
+                            <label class="switch block">
+                                {{form_widget(form.isFullyPaid, {'attr':{class:'gui-input'} })}}
+                                <span class="switch-label" data-on="YES" data-off="NO"></span>
+                                <span> Is Fully Paid </span>
+                            </label>                   
+                        </div><!-- end section -->                                        
+                    </div><!-- end .colm6 section -->
+                    <div class="colm colm6">
+                        <div class="section">
+                            <label>Quantity Requested</label>
+                            <label class="field prepend-icon">
+                                {{form_widget(form.quantity, {'attr':{class:'gui-input', 'placeholder':'Enter quantity requested'} })}}                                
+                                <span class="field-icon"><i class="fa fa-neuter"></i></span>  
+                            </label>
+                        </div><!-- end section -->                           
+                        <div class="section">
+                            <label>Rental End Date</label>
+                            <label class="field prepend-icon">
+                                {{form_widget(form.endDate, {'attr':{class:'gui-input'} })}}                                
+                                <span class="field-icon"><i class="fa fa-calendar"></i></span>  
+                            </label>
+                        </div><!-- end section -->
+                        <div class="section">
+                            <label>Total Amount</label>
+                            <label class="field prepend-icon">
+                                {{form_widget(form.totalAmount, {'attr':{class:'gui-input', readonly:true} })}}                                
+                                <span class="field-icon"><i class="fa fa-money"></i></span>  
+                            </label>
+                        </div><!-- end section -->
+                        <div class="section">
+                            <label>Payment Status</label>
+                            <label class="field select">
+                                {{form_widget(form.paymentStatus, {'attr':{class:'gui-input'} })}}
+                                <i class="arrow double"></i>                                               
+                            </label>
+                        </div><!-- end section -->
+                        <div class="section">
+                            <label>Full Payment Due Date</label>
+                            <label class="field prepend-icon">
+                                {{form_widget(form.paymentDueDate, {'attr':{class:'gui-input'} } )}}
+                                <span class="field-icon"><i class="fa fa-calendar"></i></span>  
+                            </label>
+                        </div><!-- end section -->                                                   
+                    </div><!-- end .colm6 section -->  
+                </div><!-- end .frm-row section --> 
+                <div class="frm-row">
+                    <div class="colm colm12">
+                        <div class="section">
+                            <label>Remarks</label>
+                            <label class="field prepend-icon">
+                                {{form_widget(form.remarks, {'attr':{class:'gui-textarea', 'placeholder':'Type equipment description'} } )}}                                
+                                <span class="field-icon"><i class="fa fa-file"></i></span>
+                                <span class="input-hint"> 
+                                    <strong>Hint:</strong> Give more details about this equipment rental
+                                </span>   
+                            </label>
+                        </div><!-- end section -->                     
+                    </div>
+                </div>
+                <div class="frm-row">
+                    <div class="colm colm6">
+                        <div class="section">
+                             <label>Upload Any Agreement Docs</label>
+                            <label class="field prepend-icon file">
+                                <span class="button"> Choose File </span>
+                                {{form_widget(form.attachmentFile, {'attr':{class:'gui-file',  onChange:"document.getElementById('uploader1').value = this.value;"} })}}                           
+                                <input type="text" class="gui-input" id="uploader1" placeholder="select contract/agreement docs" readonly>
+                                <span class="field-icon"><i class="fa fa-upload"></i></span>
+                            </label>
+                        </div><!-- end  section -->                          
+                    </div>
+                    <div class="colm colm6">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#" class="btn btn-default btn-medium pull-left" data-dismiss="modal">Close</a>
+    <button type="submit"  class="btn btn-success btn-medium pull-right">Confirm Rent Out</button>
+</div>
+{{form_widget(form._token)}}
+{{form_end(form, {'render_rest':false})}}
+
+<script>
+    (function () {
+        /* Project datepicker range
+         ----------------------------------------------- */
+        $("#rentedOut_StartDate").datepicker({
+            defaultDate: "today",
+            changeMonth: false,
+            numberOfMonths: 1,
+            dateFormat: "yy-mm-dd",
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            onClose: function (selectedDate) {
+                $("#rentedOut_EndDate").datepicker("option", "minDate", selectedDate);
+            }
+        });
+        $("#rentedOut_EndDate").datepicker({
+            defaultDate: "+1w",
+            changeMonth: false,
+            numberOfMonths: 1,
+            dateFormat: "yy-mm-dd",
+            prevText: '<i class="fa fa-chevron-left"></i>',
+            nextText: '<i class="fa fa-chevron-right"></i>',
+            onClose: function (selectedDate) {
+                $("#rentedOut_StartDate").datepicker("option", "maxDate", selectedDate);
+            }
+        });
+    });
+</script>

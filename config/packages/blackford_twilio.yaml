@@ -1,0 +1,12 @@
+blackford_twilio:
+    # (Required) Username to authenticate with, typically your Account SID from www.twilio.com/user/account
+    username: '%env(TWILIO_USERNAME)%'
+    
+    # (Required) Password to authenticate with, typically your Auth Token from www.twilio.com/user/account
+    password: '%env(TWILIO_TOKEN)%'
+    
+    # (Optional) Account Sid to authenticate with, defaults to <username> (typically not required)
+    # accountSid: 
+    
+    # (Optional) Region to send requests to, defaults to no region selection (typically not required)
+    # region: 
